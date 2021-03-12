@@ -1,0 +1,117 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+
+\title{Proof that Eigenvalues are LaGrange Multipliers}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Overview of matrix derivatives}
+
+\begin{equation}
+\frac{\partial x^T A x}{\partial x} = x^T(A^T + A)
+\end{equation}
+
+\begin{equation}
+\frac{\partial x^T a}{\partial x} = a^T
+\end{equation}
+
+\section{Overview of LaGrange Multipliers}
+For our purposes we only need the simplified version of LaGrange Multipliers
+\begin{gather*}
+\shortintertext{If}
+\max F(\vec{x})\\
+\shortintertext{subject to}
+g(\vec{x}) = \vec{c}\\
+\shortintertext{Then}
+\mathcal{L}(\vec{x}, \vec{\lambda}) = F(\vec{x}) - \overrightarrow{\lambda}^T \bigl(g(\vec{x}) - \vec{c}\bigr) \\[1ex]
+\begin{alignedat}{2}
+\quad&& \frac{\partial \mathcal{L}}{\partial \vec{\lambda}} &= 0\\
+\quad&& \frac{\partial \mathcal{L}}{\partial \vec{x}} &= 0\\
+\end{alignedat}
+\end{gather*}
+
+\section{Proof}
+
+Consider the problem of finding a vector on the unit sphere that maximizes the quadratic form of a \textbf{symmetric} square matrix $A$. Written as an optimization problem we get:
+
+\begin{align}
+\text{max }_{x} & x^{T} A x \\
+& x^{T} x = 1  \nonumber
+\end{align}
+
+Since the unit sphere is a compact and bounded space in $R^n$ we know that a maximum (and a minimum) exist.  We can use LaGrange multipliers to uniquely solve this problem. Using the method we get the function:
+$$
+g(x, \lambda) = x^{T} A x - \lambda \cdot (x^{T} x - 1)
+$$
+Taking derivatives:
+$$
+\frac{\partial g(x, \lambda) }{\partial x} = 2x^T A - 2\lambda \cdot x^T  
+$$
+$$
+\frac{\partial g(x, \lambda) }{\partial \lambda} = - (x^{T} x - 1) 
+$$
+Therefore the optimal values of $x$ and $\lambda$ will satisfy:
+\begin{equation}
+A^{T} x_{opt}= A x_{opt} = \lambda_{opt} \cdot x_{opt} 
+\end{equation}
+
+\begin{equation}
+x_{opt}^{T} x_{opt} = 1
+\end{equation}
+
+Denote $x_1 = x_{opt}$ and $\lambda_1 = \lambda_{opt}$. We can choose to name these as our first eigenvector and first eigenvalue respectively. \\
+
+Let's attempt to find a perpendicular vector to the one we found that maximizes quadratic form of $A$ in a different direction. 
+
+\begin{align}
+\text{max }_{x}  & x^{T} A x \\ 
+& x^{T} x = 1 \nonumber \\ 
+& x^{T} x_1 = 0  \nonumber 
+\end{align}
+Solving we get:
+$$
+g(x, \lambda, \mu) = x^{T} A x - \lambda \cdot (x^{T} x - 1) - \mu \cdot x^{T} x_1
+$$
+Taking derivatives:
+$$
+\frac{\partial g(x, \lambda, \mu) }{\partial x} = 2 x^{T}A - 2 \lambda \cdot x^{T}  - \mu \cdot x_{1}^{T} = 0
+$$
+Taking transposes and using $A^{T} = A$:
+$$
+2 Ax - 2 \lambda \cdot x  - \mu \cdot x_{1} = 0
+$$
+Taking the dot product with respect to $x_{1}^{T}$ we get:
+$$
+(2Ax)x_{1}^{T} - (2 \lambda  x) x_{1}^{T}  - (\mu  x_1)x_{1}^{T} = 0
+$$
+Using
+$$
+(2Ax) x_{1}^{T} = 2 A^{T} (x x_{1}^{T}) = 0
+$$
+$$
+x_1 x_{1}^{T} = 1
+$$
+We get
+$$
+(2Ax)x_{1}^{T} - (2 \lambda  x) x_{1}^{T}  - (\mu  x_1)x_{1}^{T} = 0 + 0 - \mu = 0 
+$$
+
+Therefore the optimal values of $x$ and $\lambda$ will satisfy:
+\begin{equation}
+A x_{opt} = \lambda_{opt} \cdot x_{opt} 
+\end{equation}
+
+Denote $x_2 = x_{opt}$ and $\lambda_2 = \lambda_{opt}$. We can choose to name these as our second eigenvector and second eigenvalue respectively. \\
+
+The same argument extends for consecutive eigenvalues and eigenvectors. \\
+Interpreting this proof leads to the concept of Principle Component Analysis. 
+
+\end{document}

@@ -1,0 +1,142 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{cleveref}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\numberwithin{equation}{subsection}
+\usepackage[english]{babel}
+ 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[CE]{\Author}
+\fancyhead[CO]{\Title}
+\renewcommand\headrulewidth{0pt}
+\pagestyle{fancy}
+
+\author{Emil Kerimov}
+%\title{Basic Trig Functions}
+
+\makeatletter
+\let\Title\@author
+
+
+
+\begin{document}
+
+\section{Properties of Fourier Series}\label{fourier}
+A function $f(x)$ can be written as the series shown in~\cref{fourier_series}, known as a Fourier Series. The following provides derivation of the properties of Fourier Series.
+
+\begin{equation}\label{fourier_series}
+f(x) = a_0 + \sum\limits_{n=1}^{\infty} a_n cos(n x) + b_n sin(n x)
+\end{equation}
+
+
+\subsubsection{Side Note: Trigonometric Identities of addition}\label{trig_identities_addittion}
+Recall equations~\cref{cos_a_plus_b,cos_a_minus_b,sin_a_plus_b,sin_a_minus_b}
+
+\begin{equation}\label{cos_a_plus_b}
+cos(a+b) = cos(a) cos(b) - sin(a) sin(b)
+\end{equation}
+\begin{equation}\label{cos_a_minus_b}
+cos(a-b) = cos(a) cos(b) + sin(a) sin(b)
+\end{equation}
+\begin{equation}\label{sin_a_plus_b}
+sin(a+b) = sin(a) cos(b) + sin(b) cos(a)
+\end{equation}
+\begin{equation}\label{sin_a_minus_b}
+sin(a-b) = sin(a) cos(b) - sin(b) cos(b)
+\end{equation}
+
+From equations~\cref{cos_a_plus_b,cos_a_minus_b,sin_a_plus_b,sin_a_minus_b} we obtain ~\cref{cos_a_times_cos_b,sin_a_times_cos_b,sin_a_times_sin_b}
+
+\begin{equation}\label{cos_a_times_cos_b}
+cos(a) cos(b) = \frac{1}{2} (cos(a+b) + cos(a-b))
+\end{equation}
+\begin{equation}\label{sin_a_times_cos_b}
+sin(a) cos(b)  = \frac{1}{2}(sin(a+b) + sin(a-b))
+\end{equation}
+\begin{equation}\label{sin_a_times_sin_b}
+sin(a) sin(b)  = \frac{1}{2}(cos(a-b) - cos(a+b))
+\end{equation}
+
+\subsubsection{Integrals}
+Since $sin(n x)$ is an odd function, its integral  over a symmetric region is zero.
+\begin{equation}\label{int_sin_nx}
+\int \limits_{-\pi}^{\pi} sin(n x) dx = 0
+\end{equation}
+
+Since $n$ is an integer, and assuming $n>0$, we obtain the following.
+\begin{equation}\label{int_cos_nx}
+\int \limits_{-\pi}^{\pi} cos(n x) dx = \frac{2 sin(\pi n)}{n}=0
+\end{equation}
+
+Since $sin(m x) cos(n x)$ is an odd function, its integral  over a symmetric region is zero.
+\begin{equation}\label{int_sin_mx_cos_nx}
+\int \limits_{-\pi}^{\pi} sin(m x) cos(n x) dx = 0
+\end{equation}
+
+Use~\cref{cos_a_times_cos_b} to write the following.
+\begin{multline}\label{int_cos_mx_cos_nx}
+\int \limits_{-\pi}^{\pi} cos(m x) cos(n x) dx = 
+\frac{1}{2} \int \limits_{-\pi}^{\pi} cos((n+m) x) dx + \frac{1}{2} \int \limits_{-\pi}^{\pi}
+cos((n-m) x) dx \\
+=\begin{cases} 0, & m \neq n \\ \pi, &m=n \end{cases}
+\end{multline}
+
+Using~\cref{sin_a_times_sin_b} we obtain the following.
+\begin{multline}\label{int_sin_mx_sin_nx}
+\int \limits_{-\pi}^{\pi} sin(m x) sin(n x) dx
+=\frac{1}{2} \int \limits_{-\pi}^{\pi} cos((n-m) x) dx - \frac{1}{2} \int \limits_{-\pi}^{\pi}
+cos((n+m) x) dx \\
+=\begin{cases} 0, & m \neq n \\ \pi, &m=n \end{cases}
+\end{multline}
+
+
+\subsubsection{$a_0$ coefficient}\label{a0_coefficient}
+Integrate both sides of~\cref{fourier_series} to obtain:
+$$\int \limits_{-\pi}^{\pi} f(x) dx = \int \limits_{-\pi}^{\pi} a_0 dx + \sum \limits_{n=1}^{\infty} (a_n \int \limits_{-\pi}^{\pi} cos(n x) dx + b_n \int \limits_{-\pi}^{\pi} sin(n x) dx)$$
+Using \cref{int_sin_nx,int_cos_nx} the sum terms become zero.
+$$=\int \limits_{-\pi}^{\pi} a_0 +0+0=a_0 x|_{-\pi}^{\pi}=a_0 \pi + a_0 \pi = 2\pi a_0$$
+And thus we obtain
+\begin{equation}\label{a0}
+a_0 = \frac{\int \limits_{-\pi}^{\pi} f(x) dx}{2\pi}
+\end{equation}
+
+\subsubsection{$a_n$ coefficients}\label{an_coefficient}
+Multiply both sides of~\cref{fourier_series} by $cos(m x)$ to obtain:
+$$f(x) cos(m x)= a_0 cos(m x) + \sum\limits_{n=1}^{\infty} a_n cos(n x) cos(m x) + b_n sin(n x) cos(m x)$$
+Integrate both sides.
+$$\int \limits_{-\pi}^{\pi}f(x) cos(m x) dx= a_0 \int \limits_{-\pi}^{\pi} cos(m x) dx 
++ \sum\limits_{n=1}^{\infty} (
+a_n \int \limits_{-\pi}^{\pi}cos(n x) cos(m x) dx
++ b_n \int \limits_{-\pi}^{\pi} sin(n x) cos(m x) dx
+)$$
+$\rightarrow \int \limits_{-\pi}^{\pi} cos(m x) dx=0$ (from~\cref{int_cos_nx})\\
+$\rightarrow \sum\limits_{n=1}^{\infty} (
+a_n \int \limits_{-\pi}^{\pi}cos(n x) cos(m x) dx = \int \limits_{-\pi}^{\pi} a_m cos(m x) cos (m x) + \sum \limits_{n=1, n\neq m}^{\infty} \int \limits_{-\pi}^{\pi} cos(n x) cos(m x)$, which (from~\cref{int_cos_mx_cos_nx}) is equal to $a_m \pi + \sum \limits_{n=1, n\neq m}^{\infty} 0 = a_m \pi$.\\
+$\rightarrow \int \limits_{-\pi}^{\pi} sin(n x) cos(m x) dx = 0$ (from~\cref{int_sin_mx_sin_nx}).
+Thus we obtain:
+$$\int \limits_{-\pi}^{\pi}f(x) cos(m x) dx = 0+a_m \pi + 0$$
+And thus:
+$$a_m = \frac{\int \limits_{-\pi}^{\pi} f(x) cos(m x) dx}{\pi}$$
+Which, by changing the index from $m$ to $n$ gives:
+\begin{equation}\label{an}
+a_n = \frac{\int \limits_{-\pi}^{\pi} f(x) cos(n x) dx}{\pi}
+\end{equation}
+
+\subsubsection{$b_n$ coefficients}\label{bn_coefficient}
+Using similar arguments to~\cref{an_coefficient} we obtain:
+\begin{equation}\label{bn}
+b_n = \frac{\int \limits_{-\pi}^{\pi} f(x) sin(n x) dx}{\pi}
+\end{equation}
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+
+\title{Deriving the Quadratic equation}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{The Quadratic Equation}
+
+Given a quadratic polynomial $ax^2 + bx + c = 0$
+The two solutions of $x$ that satisfy this equation are given by the quadratic equation
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\end{equation}
+
+\section{Algebraic Proof}
+The most straight-forward proof is given by a technique referred to as 'Completing the Square'.
+
+\begin{gather*}
+ax^2 + bx + c = 0\\
+\shortintertext{Dividing both sides by $a$}
+x^2 + \frac{b}{a}x + \frac{c}{a} = 0\\
+\shortintertext{Adding and subtracting $\frac{b^2}{(2a)^2}$}
+x^2 + \frac{b}{a}x + \frac{b^2}{(2a)^2} +  \frac{c}{a} - \frac{b^2}{(2a)^2} = 0\\
+\shortintertext{Recognizing the 'square'}
+(x+ \frac{b}{2a})^2 +  \frac{c}{a} - \frac{b^2}{(2a)^2} = 0\\
+\shortintertext{Rearranging and solving}
+\begin{alignedat}{2}
+(x + \frac{b}{2a})^2 &= \frac{b^2}{4a^2}-  \frac{c}{a}  = \frac{b^2-4ac}{4a^2}\\
+x + \frac{b}{2a} &=\pm \sqrt{ \frac{b^2 - 4ac}{4a^2}}\\
+x  &= - \frac{b}{2a} \pm \sqrt{ \frac{b^2 - 4ac}{4a^2}}\\
+x  &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\\
+\end{alignedat}
+\end{gather*}
+
+
+\end{document}

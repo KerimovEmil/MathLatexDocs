@@ -1,0 +1,82 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+
+\title{Technique Recursive sum of powers}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Technique Recursive sum of powers}
+\label{Recursive sum of powers}
+
+To solve for $\sum\limits_{i=1}^{n} i^{p}$ consider $\sum\limits_{i=1}^{n} {(1+i)^{p+1} - i^{p+1}} = (1+n)^{p+1} - 1$
+
+\subsection{Sum of Squares}
+
+Let p=2
+
+$$\sum\limits_{i=1}^{n} (1+i)^3 - i^3 = \sum\limits_{i=1}^{n} 1+3i+3i^2 +i^3 - i^3 = \sum\limits_{i=1}^{n} 1+3i+3i^2$$
+
+and 
+
+$$\sum\limits_{i=1}^{n} (1+i)^3 - i^3 = (n+1)^3 - 1$$
+
+Hence
+
+$$\sum\limits_{i=1}^{n} 1+ 3\sum\limits_{i=1}^{n}i+3\sum\limits_{i=1}^{n}i^2 =(n+1)^3 - 1$$
+
+$$n+3\frac{n(n-1)}{2}+3\sum\limits_{i=1}^{n}i^2 =(n+1)^3 - 1$$
+
+
+$$3\sum\limits_{i=1}^{n}i^2 = n^3 + 3n^2 + 3n + 1 - n - 3\frac{n(n-1)}{2}$$
+
+
+$$3\sum\limits_{i=1}^{n}i^2 = n(n+1)(n+\frac{1}{2})$$
+
+
+$$
+\boxed{
+\sum\limits_{i=1}^{n}i^2 = \frac{n}{3} \cdot (n+1) \cdot (n+\frac{1}{2})
+}
+$$
+
+\subsection{Sum of Cubes}
+
+Let p=3
+
+$$\sum\limits_{i=1}^{n} (1+i)^4 - i^4 = \sum\limits_{i=1}^{n} 1+4i+6i^2 + 4i^3 +i^4 - i^4 = \sum\limits_{i=1}^{n} 1+4i+6i^2 + 4i^3$$
+
+and 
+
+$$\sum\limits_{i=1}^{n} (1+i)^4 - i^4 = (n+1)^4 - 1$$
+
+Hence
+
+$$\sum\limits_{i=1}^{n} 1+ 4\sum\limits_{i=1}^{n}i + 6\sum\limits_{i=1}^{n}i^2
++ 4\sum\limits_{i=1}^{n}i^3 =(n+1)^4 - 1$$
+
+$$n+4\frac{n(n-1)}{2}+6 \frac{n}{3} \cdot (n+1) \cdot (n+\frac{1}{2}) + 4\sum\limits_{i=1}^{n}i^3 =(n+1)^4 - 1$$
+
+
+$$4\sum\limits_{i=1}^{n}i^3 = n^4 + 4n^3 + 6n^2 + 4n - n - 2n(n-1) - n\cdot (n+1) \cdot (2n+1)$$
+
+Simplifying
+
+$$4\sum\limits_{i=1}^{n}i^3 = n^4 + 2n^3 + n^2 $$
+
+$$4\sum\limits_{i=1}^{n}i^3 = n^2 (n^2 + 2n + 1) = n^2(n+1)^2$$
+
+$$
+\boxed{
+\sum\limits_{i=1}^{n}i^3 = \Big( \frac{n(n+1)}{2} \Big)^2
+}
+$$
+
+\end{document}

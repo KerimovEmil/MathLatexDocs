@@ -1,0 +1,77 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{cleveref}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\numberwithin{equation}{subsection}
+\usepackage[english]{babel}
+ 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\title{Gaussian Integral}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Gaussian Integral} 
+
+\begin{theorem}
+$$
+\int_{-\infty}^{\infty}{e^{-ax^2}}dx = \sqrt{\frac{\pi}{a}}
+$$
+Proof
+
+\begin{gather*}
+\shortintertext{Defining $I$}
+I = \int_{-\infty}^{\infty}{e^{-ax^2}}dx\\
+\shortintertext{Squaring $I$}
+I^2 = \int_{-\infty}^{\infty}{e^{-ax^2}}dx \cdot \int_{-\infty}^{\infty}{e^{-ay^2}}dy\\
+\shortintertext{Combining the integrals}
+I^2 = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}{e^{-ax^2 - ay^2}}dx dy\\
+\shortintertext{Converting to Polar coordinates}
+I^2 = \int_{0}^{2 \pi} \int_{0}^{\infty}{e^{-ar^2}}rdr d\theta\\
+\shortintertext{Solving}
+\begin{alignedat}{2}
+I^2 &= \int_{0}^{2 \pi} \tfrac{-1}{2a} e^{-ar^2} \Big|_0^{\infty} d\theta \\
+I^2 &= \int_{0}^{2 \pi} \tfrac{1}{2a} d\theta \\
+I^2 &= 2 \pi \tfrac{1}{2a} \\
+I^2 &= \frac{\pi}{a} \\
+I &= \sqrt{\frac{\pi}{a}} \\
+\int_{-\infty}^{\infty}{e^{-ax^2}}dx &= \sqrt{\frac{\pi}{a}} \\
+\end{alignedat}
+\end{gather*}
+\end{theorem}
+
+Since $e^{-ax^2}$ is an even function we also get the integral
+\begin{equation}
+\int_{0}^{\infty}{e^{-ax^2}}dx = \frac{\sqrt{\frac{\pi}{a}}}{2} = \sqrt{\frac{\pi}{4a}} 
+\end{equation}
+
+\section{Gaussian Type Integrals} 
+Using $
+\int_{-\infty}^{\infty}{e^{-ax^2}}dx = \sqrt{\frac{\pi}{a}}
+$ we can take derivatives with respect to (w.r.t.) $a$
+ 
+\begin{gather*}
+\frac{\partial}{\partial a} \int_{-\infty}^{\infty}{e^{-ax^2}}dx = \frac{\partial}{\partial a} \sqrt{\frac{\pi}{a}}  \\
+\int_{-\infty}^{\infty}{-x^2 e^{-ax^2}}dx = \sqrt{\pi} \frac{-1}{2} a^{-3/2} \\
+\boxed{
+\int_{-\infty}^{\infty}{x^2 e^{-ax^2}}dx = \frac{1}{2a}  \sqrt{\frac{\pi}{a}}
+}\\
+\end{gather*}
+This process can be repeated to obtain the general identity
+
+\begin{equation}
+\boxed{
+\int_{-\infty}^{\infty}{x^{2n} e^{-ax^2}}dx = \frac{\pi}{|\Gamma(\tfrac{1}{2} - n)|a^n \sqrt{a}}}
+\end{equation}
+
+\end{document}

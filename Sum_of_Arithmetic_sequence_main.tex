@@ -1,0 +1,62 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+
+\title{Sequences}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+
+\section{Arithmetic Sequence}
+
+\begin{definition}\label{Arithmetic def}
+Given a starting value of $a_0$ and a constant difference value of $d$ the arithmetic sequence is defined as follows.
+$$\boxed{
+a_n = a_0 + n \cdot d
+}
+$$
+\end{definition}
+
+\subsection{Sum of Arithmetic sequence}\label{Sum of Arithmetic sequence}
+
+
+\begin{theorem}
+\begin{equation} \label{Sum of Arithmetic sequence}
+\sum\limits_{k=0}^{n} a_k = \frac{(n+1)}{2} ( 2 a_0 +n \cdot d )
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Define $S_n$ such that:}
+S_{n} = \sum_{k=0}^{n} a_k 
+\\
+\intertext{Note that}
+2 S_{n} = \sum_{k=0}^{n} a_k + \sum_{k=0}^{n} a_{n-k} = \sum_{k=0}^{n} \Big( a_k + a_{n-k} \Big)
+\\
+\intertext{Using the definition we see $a_k + a_{n-k} = \big( a_0 + k \cdot d \big) + \big( a_0 + (n-k) \cdot d \big) =  2 a_0 +n \cdot d $ which does not depend on $k$}
+\\
+2 S_{n} = \sum_{k=0}^{n} \Big( 2 a_0 +n \cdot d \Big) = (n+1) \Big( 2 a_0 +n \cdot d \Big)
+\\
+S_{n} = \frac{(n+1)}{2} ( 2 a_0 +n \cdot d )
+\end{gather*}
+\end{theorem}
+
+\subsection{Example: Sum of Natural Numbers}\label{Sum of Natural Numbers}
+Prove that $$\sum\limits_{i=0}^{n} i = 0+ 1+2+3+...+n = \frac{n(n+1)}{2}$$
+
+Proof:
+Set $a_0 = 0$ and $d=1$
+$$\sum\limits_{i=0}^{n} i
+=
+\frac{(n+1)}{2} (n )$$
+
+\end{document}

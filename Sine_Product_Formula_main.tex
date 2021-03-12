@@ -1,0 +1,224 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\title{Euler Sine Product Formula}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\section{Sine Product Formula}
+
+\begin{theorem} \label{sine prod formula} 
+$\boxed{\frac{sin(x)}{x} = \prod_{k=1}^{\infty} \Big( 1-\frac{x^2}{(k\pi)^2} \Big)}$
+
+Proof
+\begin{gather*}
+\frac{sin(x)}{x} \text{has roots } x = \pi, -\pi, 2\pi, -2\pi, 3\pi, -3\pi, ... \\
+\text{If we treat it as a normal polynomial then it can be written as a product of it's roots like such }\\
+\frac{sin(x)}{x} = A \Big(1-\frac{x}{\pi}\Big)\Big(1+\frac{x}{\pi}\Big)
+\Big(1-\frac{x}{2\pi}\Big)
+\Big(1+\frac{x}{2\pi}\Big)
+\Big(1-\frac{x}{3\pi}\Big)
+\Big(1+\frac{x}{3\pi}\Big) \cdot \cdot \cdot \\
+\text{For justification of why we can do this, see section \ref{rigour}}\\
+\frac{sin(x)}{x} = A \Big(1-\frac{x^2}{\pi^2}\Big)
+\Big(1-\frac{x^2}{2^2 \pi^2}\Big)
+\Big(1-\frac{x^2}{3^2 \pi^2}\Big) \cdot \cdot \cdot \\
+\frac{sin(x)}{x} = A \prod_{k=1}^{\infty}
+\Big(1-\frac{x^2}{k^2 \pi^2}\Big)
+\\
+\text{Solving for } A:
+\\
+\text{From the taylor expansion }
+sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + ... \\
+\lim_{x \to 0} \frac{sin(x)}{x} = \lim_{x \to 0} \frac{x}{x} - \frac{x^2}{3!} + \frac{x^4}{5!} - \frac{x^6}{7!} + ... \\
+\lim_{x \to 0} \frac{sin(x)}{x} = 1\\
+ A = 1 \\
+ \frac{sin(x)}{x} = \prod_{k=1}^{\infty}
+\Big(1-\frac{x^2}{k^2 \pi^2}\Big)
+\end{gather*}
+\end{theorem}
+
+\subsection{Change of variables of the Sine Product Formula}
+\begin{theorem} \label{sine prod formula no pi} 
+$\boxed{\frac{sin(\pi x)}{\pi x} = \prod_{k=1}^{\infty} \Big( 1-\frac{x^2}{k^2} \Big)}$
+
+Proof\\
+Replace $x$ with $x'/\pi$ in Theorem \ref{sine prod formula}
+\end{theorem}
+
+
+\subsection{Basel Problem}
+\label{basel}
+\subsubsection{Context}
+This product form of sine was originally developed by Euler to solve the Basel problem. 
+\\
+\\
+The Basel problem was to determine what value the sum $\sum_{k=1}^{\infty} \frac{1}{k^2}$ converged to. Mathematicians at the time knew that this infinite sum converged due to the various convergence tests, but no one knew the exact value. 
+\\
+\\
+Euler's solution to this open problem was one of the first of many solutions for him to gain a reputation in the international math community.
+\\
+\\
+This problem would later be generalized as a particular value of the zeta function, $\zeta(z) = \sum_{k=1}^{\infty} \frac{1}{k^z}$. Riemann was the first to consider complex value of this function, and even today there is an open millennium prize problem revolving around the zeros of this function. 
+\subsubsection{Solution}
+\begin{theorem} 
+$\boxed{\sum_{k=1}^{\infty} \frac{1}{k^2} =  \frac{\pi^2}{6}}$
+
+Proof\\
+\begin{gather*}
+\text{Expanding the product form }
+\\
+\frac{sin(x)}{x} = \prod_{k=1}^{\infty} \Big( 1-\frac{x^2}{(k\pi)^2} \Big) 
+\\
+\frac{sin(x)}{x} = 1 - \Big( \sum_{k=1}^{\infty} \frac{1}{k^2 \pi^2} \Big) x^2 + O\Big( x^4 \Big)
+\\
+\text{Expanding using the taylor series }\\
+sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + ... 
+\\
+\text{Comparing the coefficient of } x^2 
+\\
+\sum_{k=1}^{\infty} \frac{1}{k^2 \pi^2} = \frac{1}{3!}
+\\
+\sum_{k=1}^{\infty} \frac{1}{k^2} = \frac{\pi^2}{6}
+\end{gather*}
+\end{theorem}
+
+
+\subsection{Series representation of $cot(\pi x)$}
+\begin{theorem} 
+$\boxed{ \pi cot(\pi x) = \sum_{k=-\infty}^{\infty} \frac{1}{x + k} 
+}$
+
+Proof\\
+\begin{gather*}
+\text{Starting from Theorem \ref{sine prod formula no pi}}
+\\
+\frac{sin(\pi x)}{\pi x} = \prod_{k=1}^{\infty} \Big( 1-\frac{x^2}{k^2} \Big)
+\\
+\intertext{The idea is to take the derivative of the log of both sides. \footnotemark}
+\text{First taking the log of both sides}
+\\
+ln(sin(\pi x)) = ln(\pi x) + \sum_{k=1}^{\infty} ln \Big( 1-\frac{x^2}{k^2} \Big)
+\\
+\text{Now taking the derivative of both sides w.r.t. $x$ we get}
+\\
+\pi \frac{cos(\pi x)}{sin(\pi x)} = \frac{1}{x} + \sum_{k=1}^{\infty} \frac{\frac{-2x}{k^2}}{\Big( 1-\frac{x^2}{k^2} \Big)} 
+\\
+\intertext{Simplifying} 
+\pi \cdot cot(\pi x) = \frac{1}{x} 
++ 2x \sum_{k=1}^{\infty} \frac{1}{x^2-k^2}
+\\
+\text{Note   } \frac{1}{x+k} + \frac{1}{x-k} = \frac{x-k + x+k}{x^2-k^2} = \frac{2x}{x^2-k^2}
+\\
+\intertext{Plugging this into the series expression} 
+\pi \cdot cot(\pi x) = \frac{1}{x} 
++ \sum_{k=1}^{\infty} \frac{1}{x+k} + \frac{1}{x-k}
+\\
+\intertext{Cleaning up the indicies}
+\pi \cdot cot(\pi x) = \sum_{k=-\infty}^{\infty} \frac{1}{x+k}
+\end{gather*}
+\end{theorem}
+
+\footnotetext{This is similar to the definition of the Di-Gamma function $\Psi$, see Gamma function document.}
+
+
+\begin{theorem} \label{cot series zeta}
+$\boxed{x \pi cot(\pi x) = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k} 
+}$
+
+Proof\\
+\begin{gather*}
+\text{Starting from previous intermediate result}
+\\
+\pi cot(\pi x) = \frac{1}{x} + \sum_{k=1}^{\infty} \frac{\frac{-2x}{k^2}}{\Big( 1-\frac{x^2}{k^2} \Big)} 
+\\
+\pi x \cdot cot(\pi x) = 1 + \sum_{k=1}^{\infty} \frac{\frac{-2x^2}{k^2}}{\Big( 1-\frac{x^2}{k^2} \Big)} 
+\\
+\intertext{Using the infinite geometric series formula $\frac{1}{1-x} = \sum_{n=0}^{\infty} x^n $ for $|x| < 1$}
+\pi x \cdot cot(\pi x) = 1 + \sum_{k=1}^{\infty} \Bigg( \sum_{n=0}^{\infty} \Big( \frac{x^2}{k^2} \Big)^n \Bigg) \frac{-2x^2}{k^2}  
+\\
+\intertext{Simplfying}
+\pi x \cdot cot(\pi x) = 1 - 2 \sum_{k=1}^{\infty} \Bigg( \sum_{n=0}^{\infty} \Big( \frac{x^2}{k^2} \Big)^{n+1} \Bigg)
+\\
+\pi x \cdot cot(\pi x) = 1 - 2 \sum_{k=1}^{\infty} \Bigg( \sum_{n=1}^{\infty} \Big( \frac{x}{k} \Big)^{2n} \Bigg)
+\\
+\intertext{Interchanging the summations since both series are absolutly convergent \footnotemark}
+\pi x \cdot cot(\pi x) = 1 - 2 \sum_{n=1}^{\infty} \Bigg( \sum_{k=1}^{\infty} \Big( \frac{1}{k^{2n}} \Big) \Bigg) x^{2n}
+\\
+\intertext{Using the definition of $\zeta(x) = \sum_{k=1}^{\infty} \frac{1}{k^x}$}
+\pi x \cdot cot(\pi x) = 1 - 2 \sum_{n=1}^{\infty} \zeta(2n) x^{2n}
+\end{gather*}
+\end{theorem}
+
+\footnotetext{Technically this needs to be shown.}
+
+
+\subsection{Wallis Product}
+\label{wallis product}
+\begin{theorem} 
+$\boxed{ 
+\prod_{n=1}^{\infty} \Big( \frac{2n}{2n-1} \Big) \Big( \frac{2n}{2n+1} \Big) = \frac{\pi}{2}
+}$
+
+Proof\\
+\begin{gather*}
+\text{Starting from Theorem \ref{sine prod formula no pi}}
+\\
+\frac{sin(\pi x)}{\pi x} = \prod_{k=1}^{\infty} \Big( 1-\frac{x^2}{k^2} \Big)
+\\
+\intertext{Plugging in $x=\frac{1}{2}$}
+\frac{sin(\frac{\pi}{2})}{\frac{\pi}{2}} = 
+\frac{2}{\pi} = \prod_{k=1}^{\infty} \Big( 1-\frac{1}{4 k^2} \Big)
+\\
+\frac{2}{\pi} = \prod_{k=1}^{\infty} \Big( \frac{4 k^2 -1}{4 k^2} \Big)
+\\
+\frac{2}{\pi} = \prod_{k=1}^{\infty} \Big( \frac{2 k -1}{2 k} \Big) \cdot \Big( \frac{2 k +1}{2 k} \Big)
+\\
+\frac{\pi}{2} = \prod_{k=1}^{\infty} \Big( \frac{2k}{2 k -1} \Big) \cdot \Big( \frac{2 k }{2 k+1} \Big)
+\end{gather*}
+\end{theorem}
+
+
+
+\section{Rigorous proof of convergence}
+\label{rigour}
+Euler's original proof did not include proper justification of why we are allowed to write $\sin(x)$ as an infinite product of it's roots. The justification comes from what is known as Weierstrass factorization theorem. 
+
+\subsection{Weierstrass factorization theorem}
+Define elementary factors
+\begin{equation}
+E_{n}(z) = 
+\begin{cases}
+(1-z) &\text{if } n=0 \\
+(1-z) e^{z + z^2/2 + ... + z^n /n} & otherwise 
+\end{cases}
+\end{equation}
+
+\begin{theorem}
+Let f be an entire function, and let $\{a_n\}$ be the non-zero zeros of f repeated according to multiplicity. Suppose also that f has a zero at z=0 of order m $\geq$ 0 (a zero of order m = 0 at z = 0 means $f(0) \not = 0$). Then there exists an entire function g and a sequence of integers  $\{p_n\}$ such that
+\begin{equation}
+f(z) = z^m e^{g(z)} \prod_{n=1}^{\infty} E_{p_n}(\frac{z}{a_n})
+\end{equation}
+
+
+
+Proof
+TODO
+\end{theorem}
+
+
+\end{document}

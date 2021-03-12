@@ -1,0 +1,451 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\title{Zeta Function}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\section{Definition}
+
+\begin{definition}\label{zeta def}
+The Riemann Zeta function is defined as 
+$$
+\zeta(z) = \sum_{k=1}^{\infty} \frac{1}{k^z}
+$$
+\end{definition}
+
+We have already shown that \footnote{See Gamma function document}
+\begin{equation}
+\zeta(2) = \sum_{k=1}^{\infty} \frac{1}{k^2} =\frac{\pi^2}{6}
+\end{equation}
+
+\section{Bernoulli Numbers}
+Examining the Taylor expansion of $\frac{x}{e^x -1}$, this will be required for the evaluation of the even integer values of $\zeta.$
+
+\begin{definition}\label{bernoulli def}
+The Bernoulli numbers $B_n$ are defined as the coefficients of the Taylor expansion of the following function
+$$\boxed{
+\frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
+}
+$$
+\end{definition}
+
+\begin{theorem}
+\begin{equation} \label{bernoulli generating}
+\sum_{k}^{n} \binom{n+1}{k} B_k = 0  \quad \forall n > 0, \text{ with } B_0 = 1
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Starting from definition \ref{bernoulli def}}
+\frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
+\\
+\intertext{Using the Taylor expansion of $e^x$}
+\frac{x}{\sum_{k=1}^{\infty} \frac{x^k}{k!}} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
+\\
+\intertext{Rearranging}
+x = \sum_{k=1}^{\infty} \frac{x^k}{k!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
+\\
+1 = \sum_{k=1}^{\infty} \frac{x^{k-1}}{k!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x
+\\
+\intertext{Adjusting the indicies}
+1 = \sum_{k=0}^{\infty} \frac{x^{k}}{(k+1)!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
+\\
+\intertext{Using Cauchy's product formula for infinite sums \footnotemark}
+1 = \sum_{n=0}^{\infty} 
+\underbrace{\sum_{k=0}^{n} 
+\underbrace{\Big(\frac{B_k}{k!} x^k \Big)}_{a_k} 
+\underbrace{\Big(\frac{x^{n-k}}{(n-k+1)!} \Big)}_{b_{n-k}}}_{c_n}
+\\
+\intertext{Simplifying}
+1 = \sum_{n=0}^{\infty}
+\frac{1}{(n+1)!} 
+\sum_{k=0}^{n} 
+\binom{n+1}{k}
+B_k x^k  x^{n-k}
+\\
+1 = \sum_{n=0}^{\infty}
+\frac{x^n}{(n+1)!} 
+\sum_{k=0}^{n}  \binom{n+1}{k} B_k 
+\intertext{Comparing coefficients of powers of $x$ of both sides we get}
+n=0, \quad  1 =  B_0 
+\\
+n \not =0, \quad 0= \sum_{k=0}^{n}  \binom{n+1}{k} B_k 
+\end{gather*}
+\end{theorem}
+
+\footnotetext{$\Big( \sum_{n=0}^{\infty} a_n \Big) \Big( \sum_{n=0}^{\infty} b_n \Big) = \sum_{n=0}^{\infty} c_n $ where $c_n = \sum_{k=0}^{n} a_k b_{n-k}$. See proof: TODO ADD}
+
+\subsection{First few Bernoulli numbers}
+Using equation \ref{bernoulli generating} with $n=1$ implies $ \binom{2}{0} B_0 + \binom{2}{1} B_1 = 0 = 1 + 2 B_1 $ which implies 
+\begin{equation}
+B_1 = -\frac{1}{2}
+\end{equation}
+ 
+Using equation \ref{bernoulli generating} with $n=2$ implies $ \binom{3}{0} B_0 + \binom{3}{1} B_1 + \binom{3}{2} B_2 = 0 = 1 - \frac{3}{2} + 3 B_2 $ which implies 
+\begin{equation}
+B_2 = \frac{1}{6}
+\end{equation}
+
+Similarly when we apply this equation for increasing values of n
+\begin{equation}
+B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, ...
+\end{equation}
+
+
+\begin{theorem}
+In fact we can show that all odd Bernoulli numbers after n=1 are 0
+\begin{equation} \label{odd bernoulli} B_n = 0  \quad \forall \text{ odd }n > 1
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Starting from definition \ref{bernoulli def}}
+\frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
+\\
+\intertext{Removing the first two terms of the sum}
+\frac{x}{e^x -1} = B_0 + B_1 x + \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n\\
+\intertext{Rearranging}
+\frac{x}{e^x -1}  - 1 + \frac{x}{2}= \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n
+\\
+\frac{x + xe^x}{2e^x -2}  - 1 = \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n
+\\
+\intertext{If we can show that the RHS is an even function then we have established the proof}
+y(x) = \frac{x + xe^x}{2e^x -2}  - 1
+\\
+y(-x) = \frac{-x + -xe^{-x}}{2e^{-x} -2}  - 1
+\\
+\intertext{Simplfying}
+y(-x) = \frac{-x -xe^{-x}}{2e^{-x} -2} \cdot \frac{e^x}{e^x}  - 1
+\\
+y(-x) = \frac{-xe^x -x}{2 -2e^x}  - 1
+\\
+y(-x) = \frac{x+xe^x}{2e^x - 2}  - 1
+\\
+y(-x) = y(x)
+\\
+B_n = 0  \quad \forall \text{ odd }n > 1
+\end{gather*}
+\end{theorem}
+
+\pagebreak
+
+\section{Even integer values $\zeta(2n)$}
+
+While the odd integer values of $\zeta(n)$ do not have a closed form expression, the even values do.
+
+\begin{theorem}
+We can express all even integer values of $\zeta$ using Bernoulli numbers
+\begin{equation} \label{even zeta} 
+\zeta(2n) = (-1)^{n+1} \frac{(2\pi)^{2n} B_{2n}}{2 \cdot (2n)!}
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Starting from the series representation \footnotemark of cotangent}
+\pi x cot(\pi x) = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+\\
+\intertext{Using the complex exponential representation \footnotemark of cotangent}
+i \pi x +  \frac{2i \pi x}{e^{2 i\pi x} -1} = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+\\
+\intertext{Using the Bernoulli numbers definition \ref{bernoulli def}} 
+i \pi x + \sum_{n=0}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
+ = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+\\
+\intertext{Rearranging and using the first two values of the Bernoulli numbers} 
+\\
+i \pi x + B_0 + B_1 (2 i \pi x) +  \sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
+ = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+\\
+i \pi x + 1 + - i \pi x +  \sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
+ = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+\\
+\sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi)^nx^n
+ = - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+\\
+\intertext{Using the fact the the odd Bernoulli numbers after $B_1$ are 0} 
+\sum_{k=1}^{\infty} \frac{B_{2k}}{(2k)!} (-1)^{k}(2 \pi)^{2k} x^{2k}
+ = \sum_{k=1}^{\infty} - \zeta(2k) x^{2k}\ 
+\\
+\intertext{Comparing coefficients}
+\zeta(2k) =  \frac{B_{2k}}{(2k)!} (-1)^{k+1}(2 \pi)^{2k} \quad \forall  k \in \mathbb N_{> 0}
+\end{gather*}
+\end{theorem}
+
+\addtocounter{footnote}{-1}
+\footnotetext{See Euler's Sine Product Formula document}
+\stepcounter{footnote}
+\footnotetext{$cot(x) = i +  \frac{2i}{e^{2ix} -1}$. See Basic trig functions document}
+
+\subsection{The first few even integer values of $\zeta$}
+
+\begin{gather*}
+\zeta(2) = \frac{\pi^2}{6}, 
+\zeta(4) = \frac{\pi^4}{90},
+\zeta(6) = \frac{\pi^6}{945},
+\zeta(8) = \frac{\pi^8}{9450},
+\zeta(10) = \frac{\pi^{10}}{93555},
+\\
+\zeta(12) = \frac{691}{638512875} \pi^{12},
+\zeta(14) = \frac{2}{18243225} \pi^{14},
+\zeta(16) = \frac{3617}{325641566250} \pi^{16},
+\\
+\zeta(18) = \frac{43867}{38979295480125} \pi^{18},
+\zeta(20) = \frac{174611}{1531329465290625} \pi^{20},
+\zeta(22) = \frac{155366}{13447856940643125} \pi^{22},
+\\
+\zeta(24) = \frac{236364091}{201919571963756521875} \pi^{24},
+...
+\end{gather*}
+
+\pagebreak
+
+\section{Related functions}
+
+\subsection{Dirichlet Eta Function}
+
+\begin{definition}\label{Dirichlet Eta Function def}
+The Dirichlet Eta function is defined as 
+$$
+\eta(z) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k^z} = 1 - \frac{1}{2^z} +  \frac{1}{3^z} -  \frac{1}{4^z} + ...
+$$
+\end{definition}
+
+\begin{theorem}
+\begin{equation}
+\boxed{
+\eta(z) = (1 - 2^{1-s}) \zeta(z)
+}
+\end{equation}
+
+Proof
+\\
+\begin{gather*}
+\text{Starting from the definition of $\eta(z)$}
+\\
+\eta(z) 
+=
+\sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k^z}
+=
+\sum_{k=1}^{\infty} \frac{1}{k^z} - 2 \sum_{k=1}^{\infty} \frac{1}{(2k)^z}
+\\
+\text{Using the definition of $\zeta(z)$}
+\\
+\eta(z) 
+=
+\zeta(z) - \frac{2}{2^{z}} \zeta(z)
+\\
+\eta(z) = (1 - 2^{1-z}) \zeta(z)
+\end{gather*}
+\end{theorem}
+
+
+\subsubsection{Values}
+\begin{equation}
+\eta(1) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k} = ln(2) \quad \quad \footnotemark 
+\end{equation}
+
+\begin{equation} 
+\eta(2) = (1 - 2^{1-2}) \cdot \zeta(2) =
+\frac{1}{2} \cdot \frac{\pi^2}{6} = \frac{\pi^2}{12} 
+\end{equation}
+
+\footnotetext{This can be seen by taking the Taylor-Expansion of $ln(x+1)$ and evaluating at $x=1$}
+
+\pagebreak
+
+\subsection{Dirichlet Lambda Function}
+
+\begin{definition}\label{Dirichlet Lambda Function def}
+The Dirichlet Lambda function is defined as 
+$$
+\lambda(z) = \sum_{k=0}^{\infty} \frac{1}{(2k +1))^z} = 1 + \frac{1}{3^z} +  \frac{1}{5^z} +  \frac{1}{7^z} + ...
+$$
+\end{definition}
+
+\begin{theorem}
+\begin{equation}
+\boxed{
+\lambda(z) = (1 - 2^{-s}) \zeta(z)
+}
+\end{equation}
+
+Proof
+\\
+\begin{gather*}
+\text{Starting from the definition of $\lambda(z)$}
+\\
+\lambda(z) 
+=
+\sum_{k=0}^{\infty} \frac{1}{(2k +1))^z}
+=
+\sum_{k=1}^{\infty} \frac{1}{k^z} - \sum_{k=1}^{\infty} \frac{1}{(2k)^z}
+\\
+\text{Using the definition of $\zeta(z)$}
+\\
+\lambda(z) 
+=
+\zeta(z) - \frac{1}{2^{z}} \zeta(z)
+\\
+\lambda(z) = (1 - 2^{-z}) \zeta(z)
+\end{gather*}
+\end{theorem}
+
+\subsubsection{Values}
+
+\begin{equation} 
+\lambda(2) = (1 - 2^{-2}) \cdot \zeta(2) =
+\frac{3}{4} \cdot \frac{\pi^2}{6} = \frac{\pi^2}{8} 
+\end{equation}
+
+\pagebreak
+
+\section{Integral Forms}
+\subsection{Gamma with Zeta functions}
+\begin{theorem}
+See the Gamma function document for the definition and properties of the Gamma function.
+\begin{equation}
+\boxed{
+\Gamma(z) \zeta(z) = \int_{0}^{\infty} \frac{u^{z-1}}{e^{u} - 1} du}
+\end{equation}
+
+Proof
+\\
+\begin{gather*}
+\text{Using $\Gamma(z) = n^z  \int_{0}^{\infty} e^{-n u} u^{z-1} du$ from the Gamma Function document and rearranging}
+\\
+\Gamma(z) \frac{1}{n^z} =  \int_{0}^{\infty} e^{-n u} u^{z-1} du
+\\
+\text{Let n be all integers and take the sum of all equalities}
+\\
+\sum_{n=1}^{\infty} \Gamma(z) \frac{1}{n^z} 
+=
+\Gamma(z) \zeta(z)
+= 
+\sum_{n=1}^{\infty} \int_{0}^{\infty} e^{-n u} u^{z-1} du
+\\
+\text{Bringing the summation into the integral since this integral converges uniformly}
+\\
+\Gamma(z) \zeta(z) =  \int_{0}^{\infty} \Big( \sum_{n=1}^{\infty} e^{-n u} \Big) u^{z-1} du
+\\
+\text{Notice that $\sum_{n=1}^{\infty} e^{-n u}$ is a geometric series if $u>0$}
+\\
+\Gamma(z) \zeta(z) =  \int_{0}^{\infty} \Big(\frac{e^{-u}}{1-e^{-u}} \Big) u^{z-1} du
+\\
+\text{Simplfiying by multiplying top and bottom by $e^u$}
+\\
+\Gamma(z) \zeta(z) =  \int_{0}^{\infty} \frac{u^{z-1}}{e^u -1} du
+\end{gather*}
+\end{theorem}
+
+\pagebreak
+
+\section{Jacobi Theta Function}
+
+\subsection{Definition}
+\begin{definition}\label{Jacobi Theta def}
+The Jacobi Theta function is defined as 
+$$
+\Theta(x) = \sum_{k=-\infty}^{\infty} e^{- \pi n^2 x} 
+$$
+\end{definition}
+
+\begin{theorem}
+The Jacobi Theta function has the following functional form
+\begin{equation} \label{Jacobi functional form}
+\Theta(x) = \frac{1}{\sqrt{x}} \Theta(\frac{1}{x})
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Using the Poisson Summation Formula \footnotemark}
+\Theta(x) = \sum_{n=-\infty}^{\infty} e^{- \pi n^2 x} = \sum_{k=-\infty}^{\infty} 
+\int_{-\infty}^{\infty}
+e^{- \pi y^2 x} e^{-2 \pi i k y} dy 
+=
+\sum_{k=-\infty}^{\infty} 
+\int_{-\infty}^{\infty}
+e^{- \pi y^2 x -2 \pi i k y} dy 
+\\
+\intertext{Re-writting the exponent}
+\\ 
+- \pi y^2 x -2 \pi i k y 
+= - \pi x (y^2 -2 \pi i \frac{k}{x} y)
+= - \pi x (y + i \frac{k}{x})^2 - \pi \frac{k^2}{x}
+\\
+\intertext{Plugging in the factored exponent, we get}
+\\
+\Theta(x) 
+=
+\sum_{k=-\infty}^{\infty} 
+\int_{-\infty}^{\infty}
+e^{- \pi x (y + i \frac{k}{x})^2 - \pi \frac{k^2}{x}} dy 
+=
+\sum_{k=-\infty}^{\infty}
+e^{- \pi \frac{k^2}{x}} 
+\int_{-\infty}^{\infty}
+e^{- \pi x (y + i \frac{k}{x})^2} dy
+\\
+\intertext{After a change of variables $z = y + i \frac{k}{x}$ we can use the Guassian integral identity as proved before, refer to the Guassian integral document, $\int_{-\infty}^{\infty}
+e^{- a z^2 } dz = \sqrt{\frac{\pi}{a}} $, we get:}
+\\ 
+\Theta(x) 
+=
+\sum_{k=-\infty}^{\infty}
+e^{- \pi \frac{k^2}{x}} 
+\sqrt{\frac{\pi}{x \pi}}
+= \frac{1}{\sqrt{x}} \Theta(\frac{1}{x}) 
+\end{gather*}
+\end{theorem}
+
+\footnotetext{$\sum_{n=-\infty}^{\infty} f(n)  = \sum_{n=-\infty}^{\infty} \hat{f}(n)$. See proof: TODO ADD}
+
+
+\section{Functional Form}
+\subsection{First Form}
+
+\begin{theorem}
+The symmetric functional equation of $\zeta$
+\begin{equation} 
+\boxed{
+\pi^{-\frac{s}{2}} \Gamma(\frac{s}{2}) \zeta(s) = \pi^{- \frac{1-s}{2}} \Gamma(\frac{1-s}{2}) \zeta(1-s)
+}
+\end{equation}
+
+Proof
+\begin{gather*}
+TODO 
+\end{gather*}
+\end{theorem}
+
+\subsection{Second Form}
+\begin{theorem}
+\begin{equation} 
+\boxed{
+\zeta(s) = 2^s \pi^{s-1} sin(\frac{\pi s}{2}) \Gamma (1-s) \zeta(1-s)
+}
+\end{equation}
+
+Proof
+\begin{gather*}
+TODO 
+\end{gather*}
+\end{theorem}
+
+\section{Riemann Hypothesis Statement}
+
+\end{document}

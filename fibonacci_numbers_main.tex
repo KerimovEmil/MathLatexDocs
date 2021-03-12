@@ -1,0 +1,735 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\title{Fibonacci Numbers}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\section{Definition}
+
+The Fibonacci sequence is defined as:
+\begin{equation}
+\begin{aligned}
+f_0 &= 0 \\
+f_1 &= 1 \\
+f_{n+2} &= f_{n+1} + f_{n} \quad \forall \quad n \in \mathbb{Z}^+
+\end{aligned}
+\end{equation}
+
+The first few Fibonacci numbers then would be:
+$$
+0,1,1,2,3,5,8,13,21, 34, ...
+$$
+
+\section{Ratios}\label{basic_ratio}
+
+Taking the ratios of consecutive Fibonacci numbers we find this pattern:
+
+(Insert continued fractions Reference)
+
+\begin{gather*}
+\frac{f_{1}}{f_{0}} =1 \\
+\frac{f_{2}}{f_{1}} =2 = 1 + 1\\
+\frac{f_{3}}{f_{2}} = \frac{3}{2} = 1 + \frac{1}{1+1}\\
+\frac{f_{4}}{f_{3}} = \frac{5}{3} = 1 + \frac{2}{3}= 1 + \frac{1}{1 + \frac{1}{1 + 1}}\\
+\frac{f_{5}}{f_{4}} = \frac{8}{5} = 1 + \frac{3}{5}= 1 + \frac{1}{1 + \frac{1}{1 + \frac{1}{1 + 1}}}\\
+\end{gather*}
+
+Introducing a new notation for continued fractions: (See Continued Fraction Latex document)
+
+\begin{equation}
+[a_0;a_1,a_2,a_3,a_4, ...] =  a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{a_3 +  \frac{1}{a_4 + \frac{1}{...}}}}}
+\end{equation}
+
+Note that this notation has the following property:
+\begin{equation}\label{Property of continued fractions}
+A + \frac{1}{[a_0;a_1,a_2,a_3,a_4, ...]} = A + \frac{1}{a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{a_3 +  \frac{1}{a_4 + \frac{1}{...}}}}}}
+= [A; a_0,a_1,a_2,a_3,a_4, ...]
+\end{equation}
+
+This notation can be used for all fractions, for example: 
+\begin{equation*}
+\frac{8}{5} = [1;1,1,1,1, 1] =  1 + \frac{1}{1 + \frac{1}{1 + \frac{1}{1 + \frac{1}{1} }}}
+\end{equation*}
+
+\begin{theorem}
+$$
+\frac{f_{n+1}}{f_{n}} = \underbrace{[1;1,1,1,..,1]}_\text{n+1}
+$$
+Proof by induction
+\begin{gather*}
+\shortintertext{Assume true for k}
+\frac{f_{k+1}}{f_{k}} = \underbrace{[1;1,1,1,..,1]}_\text{k+1} \\
+\shortintertext{For k+1}
+\frac{f_{k+2}}{f_{k+1}} = \frac{f_{k+1} + f_{k}}{f_{k+1}} = 1 + \frac{1}{\frac{f_{k+1}}{f_{k}}}
+\\
+\shortintertext{Using equation \ref{Property of continued fractions}}
+\frac{f_{k+2}}{f_{k+1}} = 1 + \frac{1}{\frac{f_{k+1}}{f_{k}}} = \underbrace{[1;1,1,1,..,1]}_\text{k+2}\\
+\end{gather*}
+\end{theorem}
+
+\begin{theorem}
+If $\lim_{n \to \infty} \underbrace{[1;1,1,1,..,1]}_\text{n} $ converges then  $\lim_{n \to \infty} \frac{f_{n+1}}{f_{n}} = \frac{1+ \sqrt{5}}{2} $
+
+Proof
+
+\begin{gather*}
+\shortintertext{Assume convergence}
+\lim_{n \to \infty} \underbrace{[1;1,1,1,..,1]}_\text{n} = x\\
+\shortintertext{Then}
+x = \lim_{n \to \infty} \frac{f_{n+1}}{f_{n}} = \lim_{n \to \infty} 1 + \frac{1}{\frac{f_{n}}{f_{n-1}}} =  1 + \frac{1}{ \lim_{n \to \infty} \frac{f_{n}}{f_{n-1}}} = 1 + \frac{1}{x} \\
+\shortintertext{Therefore}
+x = 1 + \frac{1}{x}\\
+x^2 - x  -1 = 0\\
+x= \frac{1 \pm \sqrt{5}}{2}\\
+\shortintertext{Since we know the value is positive we get}
+x = \lim_{n \to \infty} \frac{f_{n+1}}{f_{n}}= \frac{1 + \sqrt{5}}{2}\\
+\end{gather*}
+\end{theorem}
+
+This is only a preview to the relation of the Fibonacci numbers to the golden ratio, and it's characteristic equation.
+
+\section{Negative}
+If we ignore the condition of $n>0$ we can can use the functional form definition of Fibonacci numbers to define negative indices: 
+
+\begin{equation}
+f_{n-2} = f_n - f_{n-1}
+\end{equation}
+
+%Therefore the first few will be:
+%
+%\begin{align*}
+%f_{-1} &=& f_{1} &- f_{0} &= 1 &- 0 &=& 1\\
+%f_{-2} &=& f_{0} &- f_{-1} &= 0 &- 1 &=& -1\\
+%f_{-3} &=& f_{-1} &- f_{-2} &= 1 &- (-1) &=& 2\\
+%f_{-4} &=& f_{-2} &- f_{-3} &= -1 &- 2 &=& -3\\
+%f_{-5} &=& f_{-3} &- f_{-4} &= 2 &- (-3)&=& 5\\
+%\end{align*}
+
+Therefore the first few will be:
+
+\begin{align*}
+f_{-1} &= f_{1} - f_{0} = 1 - 0 = 1\\
+f_{-2} &= f_{0} - f_{-1} = 0 - 1 = -1\\
+f_{-3} &= f_{-1} - f_{-2} = 1 - (-1) = 2\\
+f_{-4} &= f_{-2} - f_{-3} = -1 - 2 = -3\\
+f_{-5} &= f_{-3} - f_{-4} = 2 - (-3)= 5\\
+\end{align*}
+
+\begin{theorem}
+$$
+f_{-n} = (-1)^{n+1} f_{n}
+$$
+Proof by induction
+\begin{gather*}
+\shortintertext{Assume true for k, and k+1}
+f_{-k} = (-1)^{k+1} f_{k}\\
+f_{-k-1} = (-1)^{k+2} f_{k+1}\\
+\shortintertext{Proving for k+2}
+\begin{split}
+f_{-k-2} &= f_{-k} - f_{-k-1} \\
+		&= (-1)^{k+1} f_{k} - (-1)^{k+2} f_{k+1}\\
+		 &= (-1)^{k+3} f_{k} + (-1)^{k+3} f_{k+1} \\
+		 &= (-1)^{k+3} f_{k+2}
+\\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+
+\section{Closed Form (Binet's Formula)}
+Normally this is proved by taking the characteristic equation of this sequence definition. However since we haven't proved the characteristic equation yet, see Characteristic Equation of recurrence relations, we will investigate a particular function behaviours, without any motivation. 
+
+Recall the equation from the ratio limits $x^2 -x -1 = 0$, with solutions $x = \frac{1 \pm \sqrt{5}}{2}$.  
+
+\begin{theorem} \label{Charac}
+If 
+$ x^2 - x - 1 = 0$ then 
+$
+x^n = f_n \cdot x + f_{n-1} \quad 
+ \forall  n \in \mathbb{Z}^+ $
+
+Proof by induction
+\begin{gather*}
+\shortintertext{For n=1 and n=2}
+x = 1 \cdot x  + 0 = f_1 \cdot x  + f_0\\
+x = 1 \cdot x  + 1 = f_2 \cdot x  + f_1\\
+\shortintertext{Assume true for k}
+x^k = f_k \cdot x + f_{k-1}\\
+\shortintertext{Proving for k+1}
+\begin{split}
+x^{k+1} &= x \cdot x^k \\
+		&= f_k \cdot x^2 + f_{k-1} \cdot x\\
+		&= f_k \cdot (x + 1) + f_{k-1} \cdot x\\
+		&= (f_k + f_{k-1}) \cdot x + f_{k} \\
+		&= f_{k+1} \cdot x + f_{k} \\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+
+\begin{theorem}
+Let 
+$x_1 = \frac{1 + \sqrt{5}}{2}$ and 
+$x_2 = \frac{1 - \sqrt{5}}{2}$ then 
+$$
+f_n = \frac{x_1^n - x_2^n}{\sqrt{5}}  \quad  \forall  n \in \mathbb{Z}^+ 
+$$
+
+Proof
+\begin{gather*}
+\shortintertext{Since both $x_1$ and $x_2$ satisfy Theorem \ref{Charac} we get}
+x_1^n = x_1 \cdot f_n + f_{n-1} \\
+x_2^n = x_2 \cdot f_n + f_{n-1} \\
+\shortintertext{Subtracting both equations we get:}
+\begin{split}
+x_1^n - x_2^n &= (x_1 - x_2) \cdot f_n \\
+			  &= (\frac{1 + \sqrt{5}}{2} - \frac{1 - \sqrt{5}}{2}) \cdot f_n \\
+			  &= \frac{2\sqrt{5}}{2} \cdot f_n \\
+			  &= \sqrt{5} \cdot f_n\\
+\end{split}
+\shortintertext{Therefore:}
+f_n = \frac{x_1^n - x_2^n}{\sqrt{5}} \\
+\end{gather*}
+\end{theorem}
+
+\section{General Fibonacci}
+We can slightly generalize the Fibonacci sequence by keeping the same recurrence relation, but not fixing the initial values. 
+
+\begin{align}
+p_1 &= a \\
+p_2 &= b 
+\end{align}
+
+\begin{equation}
+p_{n+2} = p_{n+1} + p_{n} \quad \forall \quad n \in \mathbb{Z}^+
+\end{equation}
+
+The first few General Fibonacci numbers then would be:
+$$
+a,b,a+b,a+2b,2a+3b,3a+5b,5a+8b, ...
+$$
+
+\begin{theorem}
+Let 
+$x_1 = \frac{1 + \sqrt{5}}{2}$ and 
+$x_2 = \frac{1 - \sqrt{5}}{2}$ then 
+$$
+p_n = p_1 \cdot f_{n-2} + p_2 \cdot f_{n-1}  \ \ \forall \  n \geq 2 
+$$
+or in another form
+$$
+p_n = p_1 \cdot \frac{x_1^{n-2} - x_2^{n-2}}{\sqrt{5}} + p_2 \cdot \frac{x_1^{n-1} - x_2^{n-1}}{\sqrt{5}}  \ \ \forall \  n \geq 2 
+$$
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=2 and n=3}
+p_2 = a \cdot f_0 + b \cdot f_1 = b \\
+p_3 = a \cdot f_1 + b \cdot f_2 = a + b \\
+\shortintertext{Assume true for k-1 and k}
+p_{k-1} = a \cdot f_{k-3} + b \cdot f_{k-2}\\
+p_k = a \cdot f_{k-2} + b \cdot f_{k-1}\\
+\shortintertext{Proving for k+1}
+\begin{split}
+p_{k+1} &= p_k + p_{k-1}\\
+		&= a \cdot f_{k-2} + b \cdot f_{k-1} + a \cdot f_{k-3} + b \cdot f_{k-2}\\
+		&= a \cdot (f_{k-2}+f_{k-3}) + b \cdot (f_{k-1}+f_{k-2})\\
+		&= a \cdot f_{k-1} + b \cdot f_{k}\\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\subsection{Relation to Fibonacci}
+Note that if 
+
+\begin{equation*}
+\begin{aligned}
+p_1 &= a= f_1 = 1  \\
+p_2 &= b= f_2 = 1  \\
+\end{aligned}
+\end{equation*}
+
+Then we get back the same Fibonacci closed form as before.
+
+\begin{equation}
+\begin{split}
+p_n &= 1 \cdot f_{n-2} + 1 \cdot f_{n-1} \\
+&= f_n  \\
+\end{split}
+\end{equation}
+
+Alternatively, if someone hates themselves or wants to practise their algebra skills this can be proves through just the closed form as shown below:
+
+\begin{equation*}
+\begin{split}
+p_n &= 1 \cdot \frac{x_1^{n-2} - x_2^{n-2}}{\sqrt{5}} + 1 \cdot \frac{x_1^{n-1} - x_2^{n-1}}{\sqrt{5}} \\
+&= \frac{x_1^{n-2} - x_2^{n-2} + x_1^{n-1} - x_2^{n-1} }{\sqrt{5}} \\
+&= \frac{x_1^{n-2}(x_1 + 1) - x_2^{n-2}(x_2 + 1) }{\sqrt{5}} \\
+&= \frac{x_1^{n-2}(x_1^2) - x_2^{n-2}(x_2^2) }{\sqrt{5}} \\
+&= \frac{x_1^{n}- x_2^{n}}{\sqrt{5}} \\
+&= f_n \\
+\end{split}
+\end{equation*}
+
+\subsection{Relation to Lucas Numbers}
+Note that there exist other variations of Fibonacci numbers such as Lucas Numbers which are defined as  
+
+\begin{equation}
+\begin{aligned}
+p_0 &= 2  \\
+p_1 &= 1  \\
+\end{aligned}
+\end{equation}
+
+Which implies that $p_2 = 3$.
+\\
+\\
+The following lemma will become useful in simplifying the closed form of Lucas numbers.
+\begin{theorem}\label{lucas lemma}
+Let $x_1,$ and $x_2$ be solutions to $x^2 = x+1$. 
+$x_1 = \frac{1 + \sqrt{5}}{2}$ and 
+$x_2 = \frac{1 - \sqrt{5}}{2}$ then we get
+\begin{equation*}
+\begin{aligned}
+3x_1 + 1 = \sqrt{5} x_1^2  \\
+3x_2 + 1 = -\sqrt{5} x_2^2  \\
+\end{aligned}
+\end{equation*}
+
+Proof 
+\begin{equation*}
+\begin{split}
+3x + 1 &= 3 \frac{1 \pm \sqrt{5}}{2} + 1 \\
+&= \frac{5 \pm 3\sqrt{5}}{2} \\
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+\sqrt{5} x^2 &= \sqrt{5} (x + 1) \\
+&= \sqrt{5} (\frac{1 \pm \sqrt{5}}{2} + 1) \\
+&= \sqrt{5} \frac{3 \pm \sqrt{5}}{2}  \\
+&= \frac{3\sqrt{5} \pm 5}{2}  \\
+\end{split}
+\end{equation*}
+\end{theorem}
+
+
+
+\begin{theorem}\label{lucas closed}
+Let 
+$x_1 = \frac{1 + \sqrt{5}}{2}$ and 
+$x_2 = \frac{1 - \sqrt{5}}{2}$ then 
+the closed form solution for the Lucas Numbers are
+\begin{equation}
+\begin{split}
+p_n &= 1 \cdot f_{n-2} + 3 \cdot f_{n-1} \\
+&= x_1^n + x_2^n  \\
+\end{split}
+\end{equation}
+
+Proof
+\begin{equation*}
+\begin{split}
+p_n &= 1 \cdot \frac{x_1^{n-2} - x_2^{n-2}}{\sqrt{5}} + 3 \cdot \frac{x_1^{n-1} - x_2^{n-1}}{\sqrt{5}} \\
+&= \frac{x_1^{n-2} - x_2^{n-2} + 3x_1^{n-1} - 3x_2^{n-1} }{\sqrt{5}} \\
+&= \frac{x_1^{n-2}(3x_1 + 1) - x_2^{n-2}(3x_2 + 1) }{\sqrt{5}} \\
+\shortintertext{Using Theorem \ref{lucas lemma}}
+&= \frac{\sqrt{5} x_1^{n-2}(x_1^2) + \sqrt{5} x_2^{n-2}(x_2^2) }{\sqrt{5}} \\
+&= x_1^{n} + x_2^{n}  \\
+\end{split}
+\end{equation*}
+\end{theorem}
+
+\section{Sum}
+We can examine the sequential sum of this generalized Fibonacci sequence.
+
+\begin{theorem}
+Let 
+$P_n = p_1 + p_2 + ... + p_n$ and $F_n = f_1 + f_2 + ... + f_n$ then 
+$$
+P_n = f_n \cdot p_1 + F_{n-1} \cdot p_2  \ \ \forall \  n \geq 2
+$$
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=2 and n=3}
+\begin{split}
+P_2 &= f_2 \cdot p_1 + F_{1} \cdot p_2 \\
+    &= 1 \cdot p_1 + 1 \cdot p_2 \\
+    &= p_1 + p_2 \\
+\end{split}\\
+\begin{split}
+P_3 &= f_3 \cdot p_1 + F_{2} \cdot p_2 \\
+    &= 2 \cdot p_1 + (1+1) \cdot p_2 \\
+    &= (p_1) + (p_2) + (p_1 + p_2) \\
+    &= p_1 + p_2 + p_3 \\
+\end{split}
+\shortintertext{Assume true for k}
+P_k = f_k \cdot p_1 + F_{k-1} \cdot p_2\\
+\shortintertext{Proving for k+1}
+\begin{split}
+P_{k+1} &= P_k + p_{k+1}\\
+		&= (f_k \cdot p_1 + F_{k-1} \cdot p_2) + (p_k + p_{k-1}) \\
+		&= (f_k \cdot p_1 + F_{k-1} \cdot p_2) + \Big( (p_1 \cdot f_{k-2} + p_2 \cdot f_{k-1}) + (p_1 \cdot f_{k-3} + p_2 \cdot f_{k-2})
+		\Big) \\
+		&= (f_k + f_{k-2} + f_{k-3})\cdot p_1 + (F_{k-1} +f_{k-1} + f_{k-2}) \cdot p_2\\
+		&= (f_k + f_{k-1})\cdot p_1 + (F_{k-1} +f_{k}) \cdot p_2\\
+		&= f_{k+1}\cdot p_1 + F_{k} \cdot p_2\\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\subsection{Fibonacci Sum}
+We have expressed the sum of the general Fibonacci sequence in terms of the sum to the Fibonacci sequence, so now we can investigate the sum of the Fibonacci sequence.
+
+\begin{theorem}
+$$
+F_n = f_{n+2} -1 \ \forall \  n \geq 1
+$$
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=1}
+\begin{split}
+F_1 &= f_{3} - 1  \\
+    &= 2 - 1 \\
+    &= 1 \\
+    &= f_1 \\
+\end{split}\\
+\shortintertext{Assume true for k}
+F_k = f_{k+2} -1
+\shortintertext{Proving for k+1}
+\begin{split}
+F_{k+1} &= F_k + f_{k+1}\\
+		&= (f_{k+2} -1) + f_{k+1} \\
+		&= (f_{k+2} + f_{k+1}) -1  \\
+		&= f_{k+3} -1  \\ \\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\subsection{Generalized Fibonacci Sum}
+Combining these two theorems we obtain:
+
+\begin{theorem}
+$$
+P_n = f_n \cdot p_1 + (f_{n+1} -1) \cdot p_2  \ \ \forall \  n \geq 2
+$$
+
+Proof
+\begin{gather*}
+\begin{split}
+P_n &= f_n \cdot p_1 + F_{n-1} \cdot p_2 \\
+    &= f_n \cdot p_1 + (f_{n+1} -1) \cdot p_2 \\
+\end{split}\\
+\end{gather*}
+\end{theorem}
+
+Note if we chose $p_1$ and $p_2$ such that $p_1 = p_2 = c$ we obtain:
+\begin{equation}
+P_n = c \cdot f_{n+2} - c
+\end{equation}
+
+\section{General Fibonacci Negative Indices}
+If we again ignore the restriction of only positive indices, using the functional form we can obtain the following relation.
+
+\begin{theorem}
+$$
+p_{-n} = (-1)^{n+1} f_{n+2} \cdot p_1 + (-1)^{n}f_{n+1} \cdot p_2 
+$$
+
+Proof
+\begin{gather*}
+\begin{split}
+p_{-n} &= f_{-n-2} \cdot p_1 + f_{-n-1} \cdot p_2 \\
+    &= (-1)^{n+3} f_{n+2} \cdot p_1 + (-1)^{n+4} f_{n+1} \cdot p_2 \\
+    &= (-1)^{n+1} f_{n+2} \cdot p_1 + (-1)^{n} f_{n+1} \cdot p_2 \\
+\end{split}\\
+\end{gather*}
+\end{theorem}
+
+\section{Ratio Limit}
+Expanding on section \ref{basic_ratio}, let us consider $\lim_{n \to \infty} \frac{p_{n+\alpha}}{p_n}$
+
+\begin{theorem}
+$$
+\lim_{n \to \infty} \frac{p_{n+\alpha}}{p_n} = \Big(\frac{1+\sqrt{5}}{2}\Big)^{\alpha}
+$$
+
+Proof
+\begin{gather*}
+\begin{split}
+K &= \lim_{n \to \infty} \frac{p_{n+\alpha}}{p_n} \\
+    &= \lim_{n \to \infty} \frac{    
+p_1 \cdot \frac{x_1^{n+ \alpha -2} - x_2^{n+\alpha -2}}{\sqrt{5}} + p_2 \cdot \frac{x_1^{n+\alpha-1} - x_2^{n+\alpha-1}}{\sqrt{5}}
+    }{
+p_1 \cdot \frac{x_1^{n-2} - x_2^{n -2}}{\sqrt{5}} + p_2 \cdot \frac{x_1^{n-1} - x_2^{n-1}}{\sqrt{5}}
+    } \\
+    &= \lim_{n \to \infty} \frac{    
+p_1 \cdot (x_1^{n+ \alpha -2} - x_2^{n+\alpha -2} ) + p_2 \cdot (x_1^{n+\alpha-1} - x_2^{n+\alpha-1})
+    }{
+p_1 \cdot (x_1^{n-2} - x_2^{n -2}) + p_2 \cdot (x_1^{n-1} - x_2^{n-1})
+    }\\
+\shortintertext{Note that since $|x_2| <1$ then $\lim_{r \to \infty} x_2^r = 0$ }
+    &= \lim_{n \to \infty} \frac{    
+p_1 \cdot x_1^{n+ \alpha -2} + p_2 \cdot x_1^{n+\alpha-1}
+    }{
+p_1 \cdot x_1^{n-2} + p_2 \cdot x_1^{n-1}
+    } \\
+    &= \lim_{n \to \infty} \frac{    
+p_1 \cdot x_1^{\alpha} + p_2 \cdot x_1^{\alpha+1}
+    }{
+p_1 \cdot 1 + p_2 \cdot x_1
+    } \\
+    &= x_1^{\alpha} \cdot \lim_{n \to \infty} \frac{    
+p_1 \cdot 1 + p_2 \cdot x_1
+    }{
+p_1 \cdot 1 + p_2 \cdot x_1
+    } \\
+    &=  x_1^{\alpha} \\
+    &= \Big(\frac{1+\sqrt{5}}{2}\Big)^{\alpha} \\
+\end{split}\\
+\end{gather*}
+\end{theorem}
+
+
+\section{Sum of every other Fibonacci number}
+Some other sums.
+\subsection{Even indices}
+If we sum all of the even indices we obtain:
+
+\begin{theorem}
+$$
+\Sigma_{i=1}^{n} p_{2i} = p_{2n+1} - p_1 \ \forall \  n \geq 1
+$$
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=1}
+\begin{split}
+\sum_{i=1}^{1} p_{2i} &= p_{3} - p_1  \\
+    &= p_{2} + p_1 - p_1 \\
+    &= p_2 \\
+\end{split}\\
+\shortintertext{Assume true for k}
+\sum_{i=1}^{k} p_{2i} = p_{2k+1} - p_1
+\shortintertext{Proving for k+1}
+\begin{split}
+\sum_{i=1}^{k+1} p_{2i} &= \sum_{i=1}^{k} p_{2i} + p_{2k+2}\\
+		&= (p_{2k+1} - p_1) + p_{2k+2} \\
+		&= (p_{2k+1} + p_{2k+2}) -p_1  \\
+		&= p_{2k+3} -p_1  \\ \\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\subsection{Odd indices}
+If we sum all of the odd indices we obtain:
+
+\begin{theorem}
+$$
+\sum_{i=1}^{n} p_{2i-1} = p_{2n} - p_2 + p_1 \ \forall \  n \geq 1
+$$
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=1}
+\begin{split}
+\sum_{i=1}^{1} p_{2i-1} &= p_{2} - p_{2} + p_{1}  \\
+    &= p_1 \\
+\end{split}\\
+\shortintertext{Assume true for k}
+\sum_{i=1}^{k} p_{2i-1} = p_{2k} - p_2 + p_1
+\shortintertext{Proving for k+1}
+\begin{split}
+\sum_{i=1}^{k+1} p_{2i-1} &= \sum_{i=1}^{k} p_{2i-1} + p_{2k+1}\\
+		&= (p_{2k} - p_2 + p_1) + p_{2k+1} \\
+		&= (p_{2k} + p_{2k+1}) - p_2 + p_1  \\
+		&= p_{2k+2} - p_2 + p_1  \\ \\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\section{Relation of Squares}
+
+\begin{theorem}
+$$
+f_{2n+1}^2 - f_{2n+1} f_{2n} - f_{2n}^2  = 1
+$$
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=0}
+\begin{split}
+f_{1}^2 - f_{1} f_{0} - f_{0}^2  &= f_{1}-0 - 0  \\
+    &= 1 \\
+\end{split}\\
+% \shortintertext{For n=1}
+% \begin{split}
+% p_{3}^2 - p_{3} p_{2} - p_{2}^2  &= (p_1 + %p_2)^2 - (p_1 + p_2) p_2 - p_{2}^2  \\
+%    &= p_1^2 + 2p_1 p_2 + p_2^2 - p_1 p_2 - 2 %p_2^2 \\
+%    &= p_1^2 - p_2^2 + p_1 p_2   \\
+%\end{split}\\
+\shortintertext{Assume true for k}
+f_{2k+1}^2 - f_{2k+1} f_{2k} - f_{2k}^2  = 1
+\shortintertext{Proving for k+1}
+\begin{split}
+1 &= f_{2k+1}^2 - f_{2k+1} f_{2k} - f_{2k}^2 \\
+  &=  f_{2k+1}^2 - f_{2k+1} (f_{2k+2} - f_{2k+1}) - (f_{2k+2} - f_{2k+1})^2 \\
+  &= f_{2k+1}^2 - f_{2k+1} f_{2k+2} + f_{2k+1}^2  - f_{2k+2}^2  -f_{2k+1}^2 + 2 f_{2k+2} f_{2k+1}  \\
+  &= f_{2k+1}^2 + f_{2k+1} f_{2k+2} - f_{2k+2}^2  \\
+  &= (f_{2k+3} - f_{2k+2})^2 + (f_{2k+3} - f_{2k+2}) f_{2k+2} - f_{2k+2}^2  \\
+  &= f_{2k+3}^2 -  2f_{2k+3}f_{2k+2} + f_{2k+2}^2 + f_{2k+3}f_{2k+2} - f_{2k+2}^2 - f_{2k+2}^2  \\
+  &= f_{2k+3}^2 -  f_{2k+3}f_{2k+2} - f_{2k+2}^2  \\
+  &= f_{2(k+1)+1}^2 -  f_{2(k+1)+1}f_{2(k+1)} - f_{2(k+1)}^2  \\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\section{Sum of squared Fibonacci numbers}
+\begin{theorem}
+$$
+\sum_{i=1}^{n} p_{i}^2 = p_{n} p_{n+1} - p_1 p_2 + p_1^2 \ \forall \  n \geq 1
+$$
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=1}
+\begin{split}
+\sum_{i=1}^{1} p_{i}^2 &= p_{1} p_{2} - p_1 p_2 + p_1^2  \\
+    &= p_{1}^2 \\
+\end{split}\\
+\shortintertext{Assume true for k}
+\sum_{i=1}^{k} p_{i}^2 = p_{k} p_{k+1} - p_1 p_2 + p_1^2
+\shortintertext{Proving for k+1}
+\begin{split}
+\sum_{i=1}^{k+1} p_{i}^2 &= \sum_{i=1}^{k} p_{i}^2 + p_{k+1}^2\\
+		&= (p_{k}p_{k+1} - p_1 p_2 + p_1^2) + p_{k+1}^2 \\
+		&= (p_{k}p_{k+1} + p_{k+1}^2) - p_1 p_2 + p_1^2  \\
+		&= (p_{k+1}(p_{k} + p_{k+1})) - p_1 p_2 + p_1^2  \\
+		&= (p_{k+1}p_{k+2} - p_1 p_2 + p_1^2  \\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\section{Generating Functions}
+Let us define a function with power series coefficients defined as the Fibonacci numbers
+
+\begin{equation}
+S_n(x) = \sum_{k=0}^{n} f_k x^k = x + x^2 + 2x^3 + 3x^4 + 5x^5 + 8x^7 + ... + f_n x^n
+\end{equation}
+
+Note that using the sums we have showed before we get:
+\begin{equation}
+S_n(1) = f_{n+2} -1
+\end{equation}
+
+\subsection{Finite Series}
+\begin{equation}
+\begin{split}
+S_{n}(x) & = \sum_{k=0}^{n} f_k x^k \\
+ & = f_1 x + \sum_{k=2}^{n} f_k x^k \\
+ & = f_1 x + \sum_{k=2}^{n} (f_{k-1} + f_{k-2}) x^k \\ 
+ & = f_1 x + \sum_{k=2}^{n} f_{k-1} x^k + \sum_{k=2}^{n} f_{k-2} x^k \\
+  & = f_1 x + x \sum_{k=2}^{n} f_{k-1} x^{k-1} + x^2 \sum_{k=2}^{n} f_{k-2} x^{k-2} \\
+  & = f_1 x + x \Big( \sum_{k=0}^{n} f_{k} x^{k} - f_n x^n  - x f_0 \Big) + x^2 \Big( \sum_{k=0}^{n} f_{k} x^{k} - f_n x^n - f_{n-1} x^{n-1} \Big) \\ 
+  & = f_1 x + x S_{n}(x) + x^2 S_{n}(x) - f_{n}x^{n+1} - x^2 f_0 - f_n x^{n+2} - f_{n-1} x^{n+1}\\ 
+\end{split}
+\end{equation}
+
+Therefore we can write 
+
+\begin{equation}
+S_{n}(x) (1 - x -x^2 ) = f_1 x - x^2 f_0 - f_{n+1}x^{n+1} - f_n x^{n+2}\\ 
+\end{equation}
+
+For the Fibonacci sequence since $f_0 = 0$, and  $f_1 = 1$ we obtain:
+
+\begin{equation}
+S_{n}(x) = \frac{x - f_{n+1}x^{n+1} - f_n x^{n+2}}{1 - x -x^2 }  \\ 
+\end{equation}
+
+
+\subsection{Infinite Series}
+Therefore 
+\begin{equation}
+\lim_{n \to \infty} S_n(1) = \infty
+\end{equation}
+
+Let's try to investigate for what values of x does the series $\lim_{n \to \infty} S_n(x)$ converge.
+
+\begin{equation}
+\begin{split}
+S_{\infty}(x) & = \lim_{n \to \infty} S_n(x) \\
+ & = \sum_{k=0}^{\infty} f_k x^k \\
+ & = f_1 x + \sum_{k=2}^{\infty} f_k x^k \\
+ & = f_1 x + \sum_{k=2}^{\infty} (f_{k-1} + f_{k-2}) x^k \\ 
+ & = f_1 x + \sum_{k=2}^{\infty} f_{k-1} x^k + \sum_{k=2}^{\infty} f_{k-2} x^k \\
+  & = f_1 x + x \sum_{k=2}^{\infty} f_{k-1} x^{k-1} + x^2 \sum_{k=2}^{\infty} f_{k-2} x^{k-2} \\
+  & = f_1 x + x \sum_{k=0}^{\infty} f_{k} x^{k} - x f_0 + x^2 \sum_{k=0}^{\infty} f_{k} x^{k} \\ 
+  & = f_1 x + x S_{\infty}(x) + x^2 S_{\infty}(x) \\ 
+\end{split}
+\end{equation}
+
+Therefore we can write 
+
+\begin{equation}
+S_{\infty}(x) (1 - x -x^2 ) = f_1 x \\ 
+\end{equation}
+
+For the Fibonacci sequence since $f_1 = 1$ we obtain:
+
+\begin{equation}
+S_{\infty}(x) = \frac{x}{1 - x -x^2 }  \\ 
+\end{equation}
+
+By the ratio convergence test [Insert reference here] 
+we get that 
+\begin{equation}
+\lim_{k \to 
+\infty} \frac{f_{k+1} |x|^{k+1}}{f_{k} |x|^{k}} = \phi |x| < 1 \\ 
+\end{equation}
+
+This implies that this series converges for 
+\begin{equation}
+|x| < \frac{1}{\phi} \\ 
+\end{equation}
+Diverges for 
+\begin{equation}
+|x| > \frac{1}{\phi} \\ 
+\end{equation}
+And since we have the generating function we can test for equality and see that the series diverges at equality as well, due to the denominator being 0.
+
+\subsection{Reciprocal power series}
+We can obtain a very similar relation if we define a function with inverse power series coefficients defined as the Fibonacci numbers
+
+\begin{equation}
+r_n(x) = \sum_{k=0}^{n} \frac{f_k}{x^k} = \frac{1}{x} + \frac{1}{x^2} + \frac{2}{x^3} + ... + \frac{f_n}{x^n}
+\end{equation}
+
+Following the same argument we obtain the following infinite series representation.
+
+\begin{equation}
+r_{\infty}(x) = \frac{x}{x^2 - x - 1} for \ x>0 \\ 
+\end{equation}
+
+
+\section{Base Fibonacci}
+TODO
+
+\end{document}

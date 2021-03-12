@@ -1,0 +1,179 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+
+\title{Useful Imaginary Identities}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+
+\section{Definition}
+Define a number $i$ such that 
+\begin{definition} \label{i def}
+$$
+\boxed{
+i^2 = -1
+}$$
+\end{definition}
+
+\section{Euler's equation}
+This formula is the underlying connection between imaginary numbers and the trigonometric functions.
+\begin{theorem}
+Euler's equation
+\begin{equation}
+\boxed{
+e^{ix} = cos(x) + i \cdot sin(x)
+}
+\end{equation}
+
+Proof 1 through Taylor series expansion
+\begin{gather*}
+\intertext{Taking the taylor series of $cos(x), sin(x), e^{ix}$ we obtain}
+cos(x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!} = 1 - \frac{x^2}{2} + \frac{x^4}{24} - ...
+\\
+sin(x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k+1}}{(2k + 1)!}
+= x - \frac{x^3}{6} + \frac{x^5}{120} - ...
+\\
+e^{ix} = \sum_{k=0}^{\infty} \frac{ (ix)^{k}}{k!}
+\\
+\intertext{Note that we can split the taylor series of $e^{ix}$ into a real part and an imaginary part}
+e^{ix} = \sum_{k=0}^{\infty} \frac{ (ix)^{k}}{k!} = \Big( 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - ... \Big) + i \Big( x - \frac{x^3}{3!} + \frac{x^5}{5!} - ... \Big)
+\\
+e^{ix} = cos(x) + i \cdot sin(x)
+\end{gather*}
+
+Proof 2 through partial fraction decomposition
+\begin{gather*}
+\intertext{Evaluating the integral of $\int \frac{1}{x^2 +1}$ two different ways}
+\intertext{First way, change of variables}
+\text{Let $tan(\theta) = x$, then $d x = \frac{1}{cos^2(\theta)} d \theta$}
+\\
+\int \frac{1}{x^2 +1} dx 
+= \int \frac{1}{\frac{sin^2(\theta)}{cos^2(\theta)} +1} \frac{1}{cos^2(\theta)} d \theta
+=  \int \frac{1}{sin^2(\theta) +  cos^2(\theta)} d \theta = \int d \theta = \theta + C_1
+\\
+\int \frac{1}{x^2 +1} dx = arctan(x) + C_1\\
+\intertext{Second way, partial fractions decomposition}
+\int \frac{1}{x^2 +1} dx = \int \frac{1}{(x +i)(x-i)} dx = \frac{i}{2} \cdot \int \frac{1}{x+i} dx - \frac{i}{2} \cdot \int \frac{1}{(x-i)} dx 
+\\
+\int \frac{1}{x^2 +1} dx = \frac{i}{2} \cdot ln(x+i) - \frac{i}{2} ln(x-i) + C_2 
+\\
+\int \frac{1}{x^2 +1} dx = \frac{i}{2} ln \Big( \frac{x+i}{x-i} \Big) + C_2
+\intertext{Equating the two expressions}
+\frac{i}{2} ln \Big( \frac{x+i}{x-i} \Big) + C_2 = arctan(x) + C_1
+\\
+\intertext{simplifying}
+-ln \Big( \frac{x+i}{x-i} \Big) + C = 2i \cdot arctan(x)
+\\
+ln \Big( \frac{x-i}{x+i} \Big) + C = 2i \cdot arctan(x)
+\\
+K \frac{x-i}{x+i} = e^{2i \cdot arctan(x)}
+\\
+\intertext{Using a change of variables of $tan(\theta) = x$}
+K \frac{tan(\theta)-i}{tan(\theta)+i} = e^{2i \cdot \theta}
+\\
+\intertext{simplifying}
+e^{2i \cdot \theta} = K \frac{(tan(\theta)-i)^2}{tan^2(\theta)+1} = K \frac{tan^2(\theta)-2i \cdot tan(\theta) -1}{\frac{1}{cos^2(\theta)}} = K(sin^2(\theta) - i \cdot 2sin(\theta) cos(\theta) - cos^2(\theta)
+\\
+\intertext{Using the double angle sin and cos formulas}
+e^{2i \cdot \theta} = K(-cos(2\theta) - i sin(2\theta)
+\\
+\intertext{Plugging in $\theta = 0$ we get}
+K = -1
+\\
+\intertext{Replacing $2\theta$ with $x$}
+e^{i \cdot x} = cos(x) + i sin(x)
+\end{gather*}
+
+
+Proof 3 through differential equations
+\begin{gather*}
+\intertext{Consider the soluions of the differential equation $y' = i \cdot y$, with $y(0) = 1$}
+\text{Notice that both } y(x) = e^{ix} \text{ and } y(x) = cos(x) + i sin(x) \text{  both satisfy the equation}
+\\
+\intertext{Prove that the solution is unique}
+\text{let $y_1(x), y_2(x)$ be two solutions to the above equation, then define}
+\\
+f(x) = y_1(x) - y_2(x)
+\\
+\text{Notice that } f(0) = 1 - 1 = 0
+\\
+f'(x) = y'_1(x) - y'_2(x) = i \cdot f(x)
+\\
+\text{To prove that f' is 0, hence f is constant, we define }
+\\
+g(x) = e^{-ix} f(x)
+\\
+\text{Notice that } g(0) = 1 \cdot f(0) = 0
+\\
+g'(x) = -i \cdot g(x) + e^{-ix} f'(x)
+\\
+g'(x) = -i \cdot g(x) + i \cdot e^{-ix}  f(x)
+\\
+g'(x) = -i \cdot g(x) + i \cdot g(x) = 0
+\\
+g(x) = 0 \quad \forall x
+\\
+e^{-ix} f(x)  = 0 \quad \forall x
+\\
+\intertext{Assuming $e^{ix}$ is not 0 for any x}
+f(x) = 0 \quad \forall x
+\\
+y_1(x) - y_2(x) = 0 \quad \forall x
+\\
+e^{i \cdot x} = cos(x) + i sin(x)  \quad \forall x
+\end{gather*}
+
+\end{theorem}
+
+\section{Properties}
+Starting from Euler's equation
+\begin{definition}
+$$e^{ix} = cos(x) + i \cdot sin(x)$$
+\end{definition}
+
+Using this equation we can plug in the value of $x = \frac{\pi}{2}$ and obtain
+
+\begin{equation}
+e^{i\frac{\pi}{2}} = cos(\frac{\pi}{2}) + i \cdot sin(\frac{\pi}{2}) = 0 + i \cdot 1 = i
+\end{equation}
+
+Therefore we can claim
+\begin{definition}
+$$i = e^{i\frac{\pi}{2}} $$
+\end{definition}
+
+\subsection{Reciprocal}
+\begin{equation}
+\frac{1}{i} = \frac{1 \cdot i}{i \cdot i} = \frac{i}{-1} =-i
+\end{equation}
+
+
+\subsection{Square Root}
+\begin{equation}
+\sqrt{i} = (e^{i\frac{\pi}{2}})^{\frac{1}{2}} = e^{i\frac{\pi}{4}} = cos(\frac{\pi}{4}) + i \cdot sin(\frac{\pi}{4}) = \frac{1}{\sqrt{2}} + \frac{i}{\sqrt{2}}
+\end{equation}
+
+\subsection{i to the power of i}
+\begin{equation}
+i^i = (e^{i\frac{\pi}{2}})^{i} = e^{-\frac{\pi}{2}} \approx 0.208
+\end{equation}
+
+
+
+
+
+\end{document}

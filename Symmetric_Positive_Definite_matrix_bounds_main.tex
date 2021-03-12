@@ -1,0 +1,209 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\title{Symmetric Positive-Definite matrix bounds}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\section{Motivating Example}
+Suppose there are three assets, $a,b,c$ , by knowing the volatility of each of the assets, and the correlation between assets $a$ and $b$, as well as the correlation between assets $b$ and $c$, what is the interval of valid correlations between and assets $a$ and $c$?
+
+This document presents one general method of addressing this problem, and solves the case of three assets analytically.
+
+\section{Definition}
+
+\begin{definition}\label{PD}
+A positive-definite matrix is defined as TODO.
+\end{definition}
+
+\begin{definition}\label{PSD}
+A semi-positive-definite matrix is defined as TODO.
+\end{definition}
+
+\begin{definition}\label{principle minor}
+A principle minor is defined as TODO.
+\end{definition}
+
+\section{Background Theory}
+We make use of some known properties of positive-definite (PD) and positive-semi-definite (PSD) matrices. 
+
+\begin{theorem} \label{PD implies positive eigenvalues} 
+A PD matrix must have all positive eigenvalues.
+
+Proof:
+\begin{gather*}
+\shortintertext{From the definition of PD}
+TODO
+\end{gather*}
+\end{theorem}
+
+\begin{theorem} \label{PD implies positive principle minors} 
+A PD matrix must have all positive principle minors.
+
+Proof:
+\begin{gather*}
+\shortintertext{From the definition of PD}
+TODO
+\end{gather*}
+\end{theorem}
+
+\section{Main Idea}
+All principle majors of a PD matrix, must be positive. Therefore compute them all, and figure out bounds on the unknown quantities. 
+
+\subsection{Two Asset}
+The case of $n=2$ is trivial, due to the definition of correlation being bounded by $-1$ and $1$. 
+
+\begin{gather*}
+|\rho_{a,b}| \leq 1 \\
+|\frac{\sigma_{a,b}}{\sigma_a \cdot \sigma_b}| \leq 1 \\
+\shortintertext{Since $\sigma_a$ and $\sigma_b$ are positive by definition} \\
+|\sigma_{a,b}| \leq \sigma_a \cdot \sigma_b
+\end{gather*}
+
+We show that the positive principle minors method arrives at the same bound. 
+
+Let matrix $C$ be a $2$x$2$ matrix, 
+\begin{equation}
+C = \begin{pmatrix}
+\sigma_a^2 & \sigma_{ab} \\
+\sigma_{ab} & \sigma_b^2
+\end{pmatrix}
+\end{equation}
+
+\subsection{3x3}
+We can  
+
+\begin{equation}
+C = \begin{pmatrix}
+1 & \rho_{ab} & \mathbf{\rho_{ac}} \\
+\rho_{ab} & 1 & \rho_{bc} \\
+\mathbf{\rho_{ac}} & \rho_{bc} & 1
+\end{pmatrix}
+\end{equation}
+
+\begin{theorem} \label{three} 
+\begin{equation}
+\boxed{
+|\mathbf{\rho_{ac}} - \rho_{ab} \cdot \rho_{bc}| \leq \sqrt{(1 - \rho_{ab}^2) \cdot (1 - \rho_{bc}^2)}
+}
+\end{equation}
+
+Proof:
+\begin{gather*}
+\shortintertext{Det(C) >= 0}
+TODO
+\end{gather*}
+\end{theorem}
+
+\subsection{4x4}
+We can  
+
+\begin{equation}
+C = \begin{pmatrix}
+1 & \rho_{ab} & \rho_{ac} & x \\
+\rho_{ab} & 1 & \rho_{bc} & \rho_{bd} \\
+\rho_{ac} & \rho_{bc} & 1 & \rho_{cd} \\
+x & \rho_{bd} & \rho_{cd} & 1
+\end{pmatrix}
+\end{equation}
+
+\begin{theorem} \label{four} 
+Bounds on $x=\rho_{ad}$
+\\
+\boxed{
+\begin{gathered}
+% \boxed{
+|\mathbf{\rho_{ad}} - \frac{(\rho_{a,b} \cdot \rho_{b,d} + \rho_{a,c} \cdot \rho_{c,d}) - \rho_{b,c} \cdot (\rho_{a,b} \cdot \rho_{c,d} + \rho_{a,c} \cdot \rho_{b,d}) }{1 - \rho_{b,c}^2} | \leq (1 - \rho_{b,c}^2) \sqrt{D}
+\\
+D = (1 - \rho_{a,b}^2 - \rho_{a,c}^2 -\rho_{b,c}^2 + 2 \cdot \rho_{a,b} \cdot \rho_{a,c} \cdot \rho_{b,c}) \cdot (1 - \rho_{b,c}^2 - \rho_{b,d}^2- \rho_{c,d}^2+ 2 \cdot \rho_{b,c} \cdot \rho_{b,d} \cdot \rho_{c,d})
+\end{gathered}
+}
+   
+Proof:
+\begin{gather*}
+Det(C) \geq 0 
+\\
+1 - (\rho_{c,d}^2 + \rho_{b,c}^2 + \rho_{b,d}^2 + \rho_{a,b}^2 + \rho_{a,c}^2) 
+\\
++ 2 \cdot (\rho_{b,c} \rho_{b,d} \rho_{c,d} 
++ \rho_{a,b} \rho_{b,c} \rho_{a,c}) 
+\\
+- 2 ( \rho_{a,b} \rho_{b,d} \rho_{a,c} \rho_{c,d} )
+\\
++ (\rho_{a,b}^2 \rho_{c,d}^2 + \rho_{a,c}^2 \rho_{b,d}^2)
+\\
++ 2x (\rho_{a,b} \rho_{b,d} + \rho_{a,c} \rho_{c,d})
+\\
+- 2x ( \rho_{a,b} \rho_{b,c} \rho_{c,d} 
++ \rho_{a,c} \rho_{b,d} \rho_{b,c} )
+\\
++ x^2 ( \rho_{b,c}^2 -1) \geq 0
+\\
+\shortintertext{This is just a quadradic equation}
+\\
+a = \rho_{b,c}^2 -1 
+\\
+b = 2( \rho_{a,b} \rho_{b,d} + \rho_{a,c} \rho_{c,d}) - 2 ( \rho_{a,b} \rho_{b,c} \rho_{c,d} 
++ \rho_{a,c} \rho_{b,d} \rho_{b,c} ) 
+\\
+c = 1 - (\rho_{c,d}^2 + \rho_{b,c}^2 + \rho_{b,d}^2 + \rho_{a,b}^2 + \rho_{a,c}^2) 
+\\
++ 2 \cdot (\rho_{b,c} \rho_{b,d} \rho_{c,d} 
++ \rho_{a,b} \rho_{b,c} \rho_{a,c}) 
+\\
+- 2 ( \rho_{a,b} \rho_{b,d} \rho_{a,c} \rho_{c,d} )
+\\
++ (\rho_{a,b}^2 \rho_{c,d}^2 + \rho_{a,c}^2 \rho_{b,d}^2)
+\\
+ax^2 + bx + c \geq 0
+\\
+|2ax + b| \leq \sqrt{b^2 - 4ac}
+\\
+\shortintertext{Dividing all sides by 2}
+a = \rho_{b,c}^2 -1 
+\\
+b = ( \rho_{a,b} \rho_{b,d} + \rho_{a,c} \rho_{c,d}) - ( \rho_{a,b} \rho_{b,c} \rho_{c,d} 
++ \rho_{a,c} \rho_{b,d} \rho_{b,c} ) 
+\\
+c = 1 - (\rho_{c,d}^2 + \rho_{b,c}^2 + \rho_{b,d}^2 + \rho_{a,b}^2 + \rho_{a,c}^2) 
+\\
++ 2 \cdot (\rho_{b,c} \rho_{b,d} \rho_{c,d} 
++ \rho_{a,b} \rho_{b,c} \rho_{a,c}) 
+\\
+- 2 ( \rho_{a,b} \rho_{b,d} \rho_{a,c} \rho_{c,d} )
+\\
++ (\rho_{a,b}^2 \rho_{c,d}^2 + \rho_{a,c}^2 \rho_{b,d}^2)
+\\
+|ax + b| \leq \sqrt{b^2 - ac}
+\\
+\shortintertext{Simplifying the square root}
+b^2 - ac = (a,b)^2 (b,d)^2 + (a,c)^2 (c,d)^2 + (b,c)^2 (c,d)^2 +(b,c)^2 (b,d)^2
+\\
+ + (b,c)^2 (a,b)^2 + (b,c)^2 (a,c)^2 - (a,b)^2 (c,d)^2 -(a,c)^2 (b,d)^2 
+\\
++(2*(b,c)^2 + (c,d)^2 + (b,d)^2 + (a,b)^2 + (a,c)^2) -1 
+\\
++
+4 (a,b)(b,c)^2 (c,d)(a,c)(b,c) - 2((b,c)(b,d)(c,d) + (a,b)(b,c)(a,c)) - (b,c)^4 
+\\
+- 2((a,b)^2 (b,d)(b,c)(c,d) + (a,b)(b,d)^2(b,c) (a,c) + (a,c)(c,d)^2 (a,b) (b,c) 
+\\
++ (a,c)^2 (c,d) (b,c) (b,d)) - 2 ( (b,c)^3 (b,d) (c,d) + (b,c)^3 (a,b) (a,c))
+\end{gather*}
+\end{theorem}
+
+\end{document}

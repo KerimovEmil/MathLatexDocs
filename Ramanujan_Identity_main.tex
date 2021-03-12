@@ -1,0 +1,208 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+
+\title{One of Ramanujan Identity}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Ramanujan Identity}\label{Ramanujan Identity}
+
+Prove that:
+
+$$\alpha \sum\limits_{k=1}^{\infty} \frac{k}{e^{2\alpha k}-1}  + \beta \sum\limits_{k=1}^{\infty} \frac{k}{e^{2\beta k}-1} = \frac{\alpha + \beta}{24} - \frac{1}{4}$$
+
+$$\alpha>0, \beta>0, \alpha \cdot \beta = \pi^2$$
+
+
+
+$$\displaystyle f(t)=\begin{cases} 
+\frac{|t|}{e^{2\alpha |t|}-1} & t\neq 0  \\ 
+\frac{1}{2\alpha} & t=0 
+\end{cases}$$
+
+
+$$\displaystyle \hat{f}(s)=\int_{-\infty}^{\infty}f(t) e^{-i2\pi st}dt= \int_{-\infty}^{\infty}f(t)\cos(2\pi st) dt + i\int_{-\infty}^{\infty}f(t) \sin(2\pi st)dt = 2\int_{0}^{\infty}\frac{t\cos(2\pi st)}{e^{2\alpha t}-1}dt \mbox{ and } s\neq 0$$
+
+$$\displaystyle \hat{f}(0)= 2\int_{0}^{\infty}\frac{t}{e^{2\alpha t}-1}dt = \frac{2}{(2\alpha)^{2}}\zeta(2) = \frac{\pi^2}{12\alpha^2} \mbox{ (Insert Reference) }$$
+
+Notice both the function and it's Fourier Transform are even.
+
+By Poisson Summation formula (Include Reference):
+
+$$\displaystyle \hat{f}(0) + 2\sum_{m=1}^{\infty} \hat{f}(m)
+={f}(0) + 2\sum_{n=1}^{\infty} {f}(n)
+$$
+
+Hence applying this:
+
+$$\frac{1}{2\alpha} + 2\sum_{n=1}^{\infty} \frac{n}{e^{2\alpha n}-1}
+=\frac{\pi^2}{12\alpha^2} + 4\sum_{m=1}^{\infty} \int_{0}^{\infty}\frac{t\cos(2\pi mt)}{e^{2\alpha t}-1}dt
+$$
+
+Examining $$\int_{0}^{\infty}\frac{t\cos(2\pi mt)}{e^{2\alpha t}-1}dt$$
+
+By considering $$\int_{0}^{\infty}\frac{\sin(cx)}{e^{x}-1}dx 
+=\int_{0}^{\infty}\frac{e^{-x}\sin(cx)}{1-e^{-x}}dx
+= \int_{0}^{\infty}\sin{cx}\sum\limits_{k=1}^{\infty} e^{-kx}dx
+$$
+
+
+By the Dominant Convergence Theorem: (Include Reference)
+
+
+$$\int_{0}^{\infty}\sin(cx)\sum\limits_{k=1}^{\infty} e^{-kx}dx
+=\sum\limits_{k=1}^{\infty} \int_{0}^{\infty}\sin(cx)e^{-kx} dx
+$$
+
+By the LaPlace Transform of $\sin{at}$:
+
+$$\int_{0}^{\infty}\sin(ct)e^{-sx} dt
+=\frac{c}{c^2 + s^2} \mbox{  (Insert Reference)}
+$$
+
+$$
+\sum\limits_{k=1}^{\infty} \int_{0}^{\infty}\sin(cx)e^{-kx} dx
+=\sum\limits_{k=1}^{\infty} \frac{c}{c^2+k^2}
+$$
+
+By the Tangent Identity (Insert Reference)
+$$\sum\limits_{n=-\infty}^{\infty} \frac{1}{\alpha^2+n^2}
+=\frac{\pi}{\alpha}\coth(\pi \alpha)$$
+
+Where $$\coth(x)=\frac{\cosh(x)}{\sinh(x)}=\frac{e^{x}+e^{-x}}{e^{x}-e^{-x}}
+=\frac{e^{2x}+1}{e^{2x}-1}
+$$
+
+Hence:
+$$\sum\limits_{n=-\infty}^{\infty} \frac{1}{\alpha^2+n^2}
+=\frac{\pi}{\alpha}\cdot\frac{e^{2\pi \alpha}+1}{e^{2\pi \alpha}-1}
+$$
+
+Hence:
+$$\sum\limits_{n=1}^{\infty} \frac{1}{\alpha^2+n^2}
+=\frac{1}{2}\cdot(\frac{\pi}{\alpha}\cdot\frac{e^{2\pi \alpha}+1}{e^{2\pi \alpha}-1} - \frac{1}{\alpha^2})
+$$
+
+$$=> 
+\sum\limits_{k=1}^{\infty} \frac{c}{c^2+k^2}
+=\frac{\pi}{2}\cdot\frac{e^{2\pi c}+1}{e^{2\pi c}-1} - \frac{1}{2c}
+$$
+
+$$=>
+\int_{0}^{\infty}\frac{\sin(cx)}{e^{x}-1}dx
+=\frac{\pi}{2}\cdot\frac{e^{2\pi c}+1}{e^{2\pi c}-1} - \frac{1}{2c}
+$$
+
+Taking the derivative of both sides using Leibniz Rule
+
+$$
+\frac{d}{dc}\int_{0}^{\infty}\frac{\sin(cx)}{e^{x}-1}dx
+=\int_{0}^{\infty}\frac{\partial}{\partial c}\frac{\sin(cx)}{e^{x}-1}dx
+=\int_{0}^{\infty}\frac{x\cos(cx)}{e^{x}-1}dx
+$$
+
+$$=\frac{d}{dc}(\frac{\pi}{2}\cdot\frac{e^{2\pi c}+1}{e^{2\pi c}-1} - \frac{1}{2c})
+= \frac{\pi}{2}\cdot\frac{2\pi e^{2\pi c}}{e^{2\pi c}-1} -\frac{\pi}{2}\cdot\frac{2\pi e^{4\pi c}+2\pi e^{2\pi c}}{(e^{2\pi c}-1)^2} + \frac{1}{2c^2}
+= \frac{-2\pi^2e^{2\pi c}}{(e^{2\pi c}-1)^2} + \frac{1}{2c^2}
+$$
+
+
+Therefore making a change of variables $x=2\alpha t$
+$$
+\int_{0}^{\infty}\frac{x\cos(cx)}{e^{x}-1}dx
+=\int_{0}^{\infty}\frac{2\alpha t\cos(2\alpha ct)}{e^{2\alpha t}-1}2\alpha dt
+=(2\alpha)^2\int_{0}^{\infty}\frac{t\cos(2\alpha ct)}{e^{2\alpha t}-1}dt
+=\frac{-2\pi^2e^{2\pi c}}{(e^{2\pi c}-1)^2} + \frac{1}{2c^2}
+$$
+
+Letting $c=\pi \cdot \frac{m}{\alpha}$ 
+
+$$
+(2\alpha)^2\int_{0}^{\infty}\frac{t\cos(2 \pi m \cdot t)}{e^{2\alpha t}-1}dt
+=\frac{-2\pi^2e^{2\pi^2 \cdot \frac{m}{\alpha}}}{(e^{2\pi^2 \cdot \frac{m}{\alpha}}-1)^2} + \frac{1}{2\pi^2 \cdot \frac{m^2}{\alpha^2}}
+=\frac{-2\pi^2e^{2\pi^2 \cdot \frac{m}{\alpha}}}{(e^{2\pi^2 \cdot \frac{m}{\alpha}}-1)^2} + \frac{\alpha^2}{2\pi^2 m^2}
+$$
+
+Plugging this result back into our original statement:
+
+$$\frac{1}{2\alpha} + 2\sum_{n=1}^{\infty} \frac{n}{e^{2\alpha n}-1}
+=\frac{\pi^2}{12\alpha^2} + \sum_{m=1}^{\infty} (\frac{-2\pi^2e^{2\pi^2 \cdot \frac{m}{\alpha}}}{\alpha^2(e^{2\pi^2 \cdot \frac{m}{\alpha}}-1)^2} + \frac{1}{2\pi^2 m^2})
+=\frac{\pi^2}{12\alpha^2} + \sum_{m=1}^{\infty} \frac{-2\pi^2e^{2\pi^2 \cdot \frac{m}{\alpha}}}{\alpha^2(e^{2\pi^2 \cdot \frac{m}{\alpha}}-1)^2} + \frac{1}{2\pi^2}\zeta(2)
+$$
+
+$$
+\frac{1}{2\alpha} + 2\sum_{n=1}^{\infty} \frac{n}{e^{2\alpha n}-1}
+=\frac{\pi^2}{12\alpha^2} + \sum_{m=1}^{\infty} \frac{-2\pi^2e^{2\pi^2 \cdot \frac{m}{\alpha}}}{\alpha^2(e^{2\pi^2 \cdot \frac{m}{\alpha}}-1)^2} + \frac{1}{12}
+$$
+
+Let $\beta = \frac{\pi^2}{\alpha}$
+$$=>
+\frac{1}{2\alpha} + 2\sum_{n=1}^{\infty} \frac{n}{e^{2\alpha n}-1}
+=\frac{\pi^2}{12\alpha^2}+ \frac{1}{12} -\frac{2\pi^2}{\alpha^2}\sum_{m=1}^{\infty} \frac{e^{2m\beta}}{(e^{2m\beta}-1)^2}
+$$
+
+Examining $\sum_{m=1}^{\infty} \frac{e^{2m\beta}}{(e^{2m\beta}-1)^2}$
+
+$$
+\sum_{n=1}^{\infty} \frac{n}{e^{2\beta n}-1}
+=\sum_{n=1}^{\infty} \frac{ne^{-2\beta n}}{1-e^{-2\beta n}}
+=\sum_{n=1}^{\infty} (n\sum_{m=1}^{\infty} e^{-2\beta \cdot n \cdot m})
+$$
+
+$$
+\sum_{n=1}^{\infty} (n\sum_{m=1}^{\infty} e^{-2\beta \cdot n \cdot m})
+=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty} ne^{-2\beta \cdot n \cdot m}
+=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty} ne^{-2\beta \cdot n \cdot m}
+$$
+
+Insert Reference from Geometric Series Section
+
+$$
+\sum_{m=1}^{\infty}\frac{e^{-2\beta \cdot m}}{(1-e^{-2\beta \cdot m})^2}
+=\sum_{m=1}^{\infty}\frac{e^{2\beta \cdot m}}{(e^{2\beta \cdot m}-1)^2}
+=\sum_{n=1}^{\infty} \frac{n}{e^{2\beta n}-1}
+$$
+
+Hence combining this fact we obtain:
+
+$$=>
+\frac{1}{2\alpha} + 2\sum_{n=1}^{\infty} \frac{n}{e^{2\alpha n}-1}
+=\frac{\pi^2}{12\alpha^2}+ \frac{1}{12} -\frac{2\pi^2}{\alpha^2}\sum_{n=1}^{\infty} \frac{n}{e^{2\beta n}-1}
+$$
+
+$$
+\frac{1}{2\alpha} + 2\sum_{n=1}^{\infty} \frac{n}{e^{2\alpha n}-1}
+=\frac{\beta}{12\alpha}+ \frac{1}{12} -\frac{2\beta}{\alpha}\sum_{n=1}^{\infty} \frac{n}{e^{2\beta n}-1}
+$$
+
+$$
+\frac{1}{2} + 2\alpha \sum_{n=1}^{\infty} \frac{n}{e^{2\alpha n}-1}
+=\frac{\beta}{12}+ \frac{\alpha}{12} -2\beta\sum_{n=1}^{\infty} \frac{n}{e^{2\beta n}-1}
+$$
+
+$$\boxed{
+\alpha \sum_{n=1}^{\infty} \frac{n}{e^{2\alpha n}-1}+\beta\sum_{n=1}^{\infty} \frac{n}{e^{2\beta n}-1}
+=\frac{\beta+\alpha}{24}- \frac{1}{4}
+}
+$$
+
+Where $\alpha \cdot \beta = \pi^2$
+
+The special case of $\alpha=\beta=\pi$:
+
+$$
+\boxed{
+\sum_{n=1}^{\infty} \frac{n}{e^{2\pi n}-1}
+=\frac{1}{24}- \frac{1}{8\pi}
+}
+$$
+
+\end{document}

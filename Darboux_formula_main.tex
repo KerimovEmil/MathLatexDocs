@@ -1,0 +1,352 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\title{Darboux's formula}
+\author{Emil Kerimov}
+\date{\today}
+\begin{document}
+\maketitle
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+
+\section{Darboux's formula}
+
+Let $\phi(t)$ be a polynomial of degree $n$ and $f(x)$ is an analytic function then,
+
+\begin{theorem}
+\begin{multline} \label{Darboux's formula}
+\sum_{m=0}^{n} (-1)^m (z-a)^m \Big[ \phi^{(n-m)}(1) f^{(m)}(z)  - \phi^{(n-m)}(0) f^{(m)}(a) \Big]
+=
+\\
+(-1)^n (z-a)^{n+1} \int_{0}^{1} \phi(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\end{multline}
+
+Proof
+\begin{gather*}
+\intertext{For $n = 0$ we have $\phi(t) = c$ then}
+LHS_{0} = c \Big[ f(z)  - f(a) \Big]
+\\
+RHS_{0} = (z-a) \int_{0}^{1} c f^{(1)}\Big[a + t(z-a)\Big] dt
+\intertext{After a change of variables $u = a + t(z-a)$, $du = dt(z-a)$ we get}
+RHS_{0} = c \int_{a}^{z} f^{(1)}(u) du = c \Big[ f(u)\Big] \Biggr|_{u=a}^{u=z} = c \Big[  f(z) - f(a) \Big] = LHS_{0}
+\\
+\intertext{For $n > 0$}
+RHS_{n} = (-1)^n (z-a)^{n+1} \int_{0}^{1} \phi(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt 
+\\
+\intertext{Using integration by parts $\int_{t=0}^{1} uv' = uv \big |_{t=0}^{1} - \int_{t=0}^{1} u'v$, with $u = \phi(t)$, and $ v' = f^{(n+1)}(a + t(z-a))$}
+RHS_{n} = (-1)^{n} (z-a)^{n+1} \Bigg[ 
+\phi(t) \frac{f^{(n)}\Big[a + t(z-a)\Big]}{(z-a)} \Biggr|_{t=0}^{t=1} 
+-
+\int_{0}^{1} \phi'(t) \frac{f^{(n)}\Big[a + t(z-a)\Big]}{(z-a)} dt
+\Bigg]
+\\
+\intertext{Evaluating the first definite integral and multipying by $(z-a)$}
+RHS_{n} = (-1)^{n} (z-a)^{n} \Bigg[ 
+\phi(1) f^{(n)}(z) - \phi(0) f^{(n)}(a)
+-
+\int_{0}^{1} \phi'(t) f^{(n)}\Big[a + t(z-a)\Big] dt
+\Bigg]
+\\
+\intertext{Moving the second integral out to it's own term}
+RHS_{n} = (-1)^{n} (z-a)^{n} \Bigg[ 
+\phi(1) f^{(n)}(z) - \phi(0) f^{(n)}(a) \Bigg]
++ (-1)^{n-1} (z-a)^{n}
+\int_{0}^{1} \phi'(t) f^{(n)}\Big[a + t(z-a)\Big] dt
+\intertext{Repeating the integration by parts process we get}
+RHS_{n} = (-1)^{n} (z-a)^{n} \Bigg[ 
+\phi(1) f^{(n)}(z) - \phi(0) f^{(n)}(a) \Bigg] 
+\\
++(-1)^{n-1} (z-a)^{n-1} \Bigg[ 
+\phi^{(1)}(1) f^{(n-1)}(z) - \phi^{(1)}(0) f^{(n-1)}(a) \Bigg]
+\\
++ (-1)^{n-2} (z-a)^{n-1}
+\int_{0}^{1} \phi^{(2)}(t) f^{(n-1)}\Big[a + t(z-a)\Big] dt
+\intertext{Repeating the integration by parts $n$-times until $\phi^{(n+1)}(t) = 0$ we get}
+RHS_{n} = \sum_{k=0}^{n} (-1)^{n-k} (z-a)^{n-k} \Bigg[ 
+\phi^{(k)}(1) f^{(n-k)}(z) - \phi^{(k)}(0) f^{(n-k)}(a) \Bigg]
++ 0
+\intertext{Changing the index of summation $m=n-k$}
+RHS_{n} = \sum_{m=0}^{n} (-1)^{m} (z-a)^{m} \Bigg[ 
+\phi^{(n-m)}(1) f^{(m)}(z) - \phi^{(n-m)}(0) f^{(m)}(a) \Bigg]
+\intertext{Therefore we get}
+\sum_{m=0}^{n} (-1)^m (z-a)^m \Big[ \phi^{(n-m)}(1) f^{(m)}(z)  - \phi^{(n-m)}(0) f^{(m)}(a) \Big]
+=
+\\
+(-1)^n (z-a)^{n+1} \int_{0}^{1} \phi(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\end{gather*}
+\end{theorem}
+
+\pagebreak
+
+\section{Taylor's formula}
+Set $\phi(t) = (t-1)^n$ into Darnoux's formula to obtain Taylor's formula. 
+
+\begin{theorem}
+\begin{equation}\label{Taylor's formula}
+\boxed{
+f(z) = \sum_{m=0}^{n} \frac{(z-a)^m f^{(m)}(a)}{m!} + (-1)^n \frac{(z-a)^{n+1}}{n!} \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
+}
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Starting from Darboux's formula \ref{Darboux's formula}}
+\sum_{m=0}^{n} (-1)^m (z-a)^m \Big[ \phi^{(n-m)}(1) f^{(m)}(z)  - \phi^{(n-m)}(0) f^{(m)}(a) \Big]
+=
+\\
+(-1)^n (z-a)^{n+1} \int_{0}^{1} \phi(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{Setting $\phi(t) = (t-1)^n$, which is an n-degree polynomial}
+\intertext{Note that $\phi^{(k)}(t) = \frac{n!}{(n-k)!} (t-1)^{n-k}$ for $k\leq n$, therefore}
+\phi^{(k)}(0) =\frac{n!}{(n-k)!} (-1)^{n-k} \quad \text{for } k \leq n
+\\
+\phi^{(k)}(1) = 0 \quad \text{for } k < n
+\\
+\phi^{(n)}(1) = n!
+\\
+\sum_{m=1}^{n} (-1)^m (z-a)^m \Big[ 0 - \frac{n! (-1)^{m}}{(m)!} f^{(m)}(a) \Big] + (-1)^0 (z-a)^0 \Big[n! f^{(0)}(z) - n! f^{(0)}(a) \Big]
+\\
+=
+(-1)^n (z-a)^{n+1} \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{Simplfiying and dividing by $n!$}
+-\sum_{m=1}^{n} \frac{(z-a)^m}{m!} f^{(m)}(a) + \Big[ f(z) - f(a) \Big]
+\\
+=
+(-1)^n  \frac{(z-a)^{n+1}}{n!}  \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{Rearranging}
+f(z) = f(a) + 
+\sum_{m=1}^{n} \frac{(z-a)^m}{m!} f^{(m)}(a) + (-1)^n \frac{(z-a)^{n+1}}{n!} \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{Adding the extra term into the summation to finish the proof}
+f(z) = \sum_{m=0}^{n} \frac{(z-a)^m}{m!} f^{(m)}(a) + (-1)^n \frac{(z-a)^{n+1}}{n!} \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\end{gather*}
+\end{theorem}
+
+\subsection{Infinite Series}
+
+\begin{theorem}
+If $|f^{(k)}(x)| \leq M$ and $|z-a| \leq R \quad \forall x$ then 
+\begin{equation}\label{Taylor's Series}
+\boxed{
+f(z) = \sum_{m=0}^{\infty} \frac{(z-a)^m f^{(m)}(a)}{m!}
+}
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Starting from Taylor's formula \ref{Taylor's formula} and taking the limit as $n$ approaches infinity}
+f(z) = \sum_{m=0}^{\infty} \frac{(z-a)^m f^{(m)}(a)}{m!} + \lim_{n \to \infty} (-1)^n \frac{(z-a)^{n+1}}{n!} \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\\
+\intertext{Define the remainder term, and then we will show that it converges to 0}
+R_n = (-1)^n \frac{(z-a)^{n+1}}{n!} \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\\
+|R_n| = \Big|(-1)^n \Big| \cdot \Big| \frac{(z-a)^{n+1}}{n!} \Big| \cdot \Big| \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt \Big|
+\\
+|R_n| \leq \frac{|z-a|^{n+1}}{n!} \cdot \int_{0}^{1} \Big| (t-1)^n \Big| \cdot \Big| f^{(n+1)}\Big[a + t(z-a)\Big] \Big| dt 
+\intertext{Using $|f^{(k)}(x)| \leq M$}
+|R_n| \leq \frac{|z-a|^{n+1}}{n!} \cdot \int_{0}^{1} |t-1|^n \cdot M  dt 
+\intertext{Using $|z-a| \leq R$}
+|R_n| \leq \frac{R^{n+1} M}{n!} \cdot \int_{0}^{1} |t-1|^n dt
+\intertext{Note that between $0 \leq t \leq 1$, $|t-1| \leq 1$, therefore}
+|R_n| \leq \frac{R^{n+1} M}{n!}
+\intertext{Therefore since $M$ and $R$ are constant:}
+\lim_{n \to \infty} R_n \leq \lim_{n \to \infty} |R_n| \leq 0
+\intertext{Therefore}
+f(z) = \sum_{m=0}^{\infty} \frac{(z-a)^m f^{(m)}(a)}{m!}
+\end{gather*}
+\end{theorem}
+
+\pagebreak
+
+\section{Euler-Maclaurin formula}
+Set $\phi(t) = B_n(x)$ into Darnoux's formula to obtain the Euler-Maclaurin formula, where $B_n(x)$ is the Bernoulli polynomial\footnote{$B_{n}(x) = \sum_{k=0}^{n} {n \choose k} B_k x^{n-k}$. See the Bernoulli number document for the full definition.}.  
+
+\begin{theorem}
+For any analytical $g(x)$
+
+\begin{equation}
+\boxed{
+\begin{gathered}\label{Euler-Maclaurin's formula}
+w \sum_{j=0}^{r-1} g(a+jw)  - \int_{x=a}^{a+rw} g(x) dx 
+=
+\frac{w}{2} \Big( g(a) - g(a+rw) \Big)
++ 
+\\
+\sum_{k=1}^{\lfloor n/2 \rfloor} \frac{w^{2k} B_{2k}}{(2k)!} \Big(g^{(2k-1)}(a+rw) - g^{(2k-1)}(a)\Big) + R_{n,r}
+\\
+R_{n,r} = \frac{(-1)^{n+1} w^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) f^{(n+1)}(a+tw) dt
+\end{gathered}
+}
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Starting from Darboux's formula \ref{Darboux's formula}}
+\sum_{m=0}^{n} (-1)^m (z-a)^m \Big[ \phi^{(n-m)}(1) f^{(m)}(z)  - \phi^{(n-m)}(0) f^{(m)}(a) \Big]
+=
+\\
+(-1)^n (z-a)^{n+1} \int_{0}^{1} \phi(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{Setting $\phi(t) = B_n(t)$, which is an n-degree polynomial}
+\intertext{Note that $\phi^{(k)}(t) = \frac{n!}{(n-k)!} B_{n-k}(t)$ for $k\leq n$, therefore}
+\phi^{(k)}(0) = \phi^{(k)}(1) = \frac{n!}{(n-k)!} B_{n-k} \quad \text{for } k \leq n, k \neq 1
+\\
+\phi^{(1)}(0) = - \phi^{(1)}(1) = B_1
+\intertext{adjusting the indicies we get}
+\phi^{(n-m)}(0) = \phi^{(n-m)}(1) = \frac{n!}{m!} B_{m} \quad \text{for } n \geq m \geq 0, m \neq 1
+\\
+\phi^{(n-1)}(0) = B_1 = -\phi^{(n-1)}(1) 
+\intertext{Plugging these values into Darboux's formula, and removing the first two terms we get}
+\sum_{m=2}^{n} (-1)^m (z-a)^m \Big[  \frac{n!}{m!} B_{m} f^{(m)}(z)  -  \frac{n!}{m!} B_{m} f^{(m)}(a) \Big]
++ n! B_0 \Big(f(z) - f(a) \Big)
+\\
++ (-1) n! (z-a) \Big( - B_{1} f^{'}(z) -  B_{1} f^{'}(a) \Big)
+=
+(-1)^n (z-a)^{n+1} \int_{0}^{1} B_n(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{simplfying}
+\sum_{m=2}^{n} \frac{(-1)^m (z-a)^m B_m}{m!} (f^{(m)}(z) - f^{(m)}(a)) 
++ B_0 \Big(f(z) - f(a) \Big)
++ (z-a) B_1 \Big( f^{'}(z) + f^{'}(a) \Big)
+=
+\\
+\frac{(-1)^n (z-a)^{n+1}}{n!} \int_{0}^{1} B_n(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{To simplify notation let us define $R_n^{a}$}
+R_n^{a} = \frac{(-1)^n (z-a)^{n+1}}{n!} \int_{0}^{1} B_n(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{Therefore we get}
+\sum_{m=2}^{n} \frac{(-1)^m (z-a)^m B_m}{m!} (f^{(m)}(z) - f^{(m)}(a)) + B_0 \Big(f(z) - f(a) \Big)
++ (z-a) B_1 \Big( f^{'}(z) + f^{'}(a) \Big)
+= R_n^{a}
+\intertext{Plugging in $B_0 =1$ and $B_1 = -\frac{1}{2}$}
+\sum_{m=2}^{n} \frac{(-1)^m (z-a)^m B_m}{m!} \Big(f^{(m)}(z) - f^{(m)}(a)\Big) + \Big(f(z) - f(a) \Big)
+- (z-a) \frac{1}{2} \Big( f^{'}(z) + f^{'}(a) \Big)
+= R_n^{a}
+\intertext{Adding $(z-a) f^{'}(a)$ to both sides and rearranging we get}
+(z-a) f^{'}(a) = f(z) - f(a)
+- \frac{(z-a)}{2} \Big( f^{'}(z) - f^{'}(a) \Big)
++
+\sum_{m=2}^{n} \frac{(-1)^m (z-a)^m B_m}{m!} \Big(f^{(m)}(z) - f^{(m)}(a)\Big)
+- R_n^{a}
+\intertext{Define $w=z-a$ and $g(x) = f'(x)$ therefore we get}
+w g(a) = \int_{x=a}^{a+w} g(x) dx
+- \frac{w}{2} \Big( g(a+w) - g(a) \Big)
++
+\sum_{m=2}^{n} \frac{(-1)^m w^m B_m}{m!} \Big(g^{(m-1)}(a+w) - g^{(m-1)}(a)\Big)
+- R_n^{a}
+\intertext{Allowing $a$ to be multiples of $w$, $a'= a + j w$ and summing over $i$ we get}
+\sum_{j=0}^{r-1} w g(a+jw) = \sum_{j=0}^{r-1} \int_{x=a+jw}^{a+(j+1)w} g(x) dx
+- \sum_{j=0}^{r-1} \frac{w}{2} \Big( g(a+(j+1)w) - g(a+jw) \Big)
+\\
++
+\sum_{j=0}^{r-1} \sum_{m=2}^{n} \frac{(-1)^m w^m B_m}{m!} \Big(g^{(m-1)}(a+(j+1)w) - g^{(m-1)}(a+jw)\Big)
+- \sum_{j=0}^{r-1} R_n^{a+jw}
+\intertext{Simplyfying and evaluating the sums we get}
+w \sum_{j=0}^{r-1} g(a+jw) = \int_{x=a}^{a+rw} g(x) dx
+- \frac{w}{2} \Big( g(a+rw) - g(a) \Big)
+\\
++ \sum_{m=2}^{n} \frac{(-1)^m w^m B_m}{m!} \Big(g^{(m-1)}(a+rw) - g^{(m-1)}(a)\Big)
+- \sum_{j=0}^{r-1} R_n^{a+jw}
+\intertext{Rearranging}
+w \sum_{j=0}^{r-1} g(a+jw)  - \int_{x=a}^{a+rw} g(x) dx =
+\frac{w}{2} \Big( g(a) - g(a+rw) \Big)
+\\
++ \sum_{m=2}^{n} \frac{(-1)^m w^m B_m}{m!} \Big(g^{(m-1)}(a+rw) - g^{(m-1)}(a)\Big)
+- \sum_{j=0}^{r-1} R_n^{a+jw}
+\intertext{Using the fact that $B_{2n+1}=0, n\geq 1$ we can simplfy the sum using m = 2k}
+w \sum_{j=0}^{r-1} g(a+jw)  - \int_{x=a}^{a+rw} g(x) dx =
+\frac{w}{2} \Big( g(a) - g(a+rw) \Big)
+\\
++ \sum_{k=1}^{\lfloor n/2 \rfloor} \frac{w^{2k} B_{2k}}{(2k)!} \Big(g^{(2k-1)}(a+rw) - g^{(2k-1)}(a)\Big)
+- \sum_{j=0}^{r-1} R_n^{a+jw}
+\intertext{Recall the remainder term definition}
+R_n^{a} = \frac{(-1)^n (z-a)^{n+1}}{n!} \int_{0}^{1} B_n(t) f^{(n+1)}\Big[a + t(z-a)\Big] dt
+\intertext{Plugging in the definition of $w = (z-a)$ we get}
+R_n^{a} = \frac{(-1)^n w^{n+1}}{n!} \int_{0}^{1} B_n(t) f^{(n+1)}\Big[a + tw\Big] dt
+\intertext{Define the new remainder term}
+R_n = - \sum_{j=0}^{r-1} R_n^{a+jw}
+\intertext{Plug in the definition of $R_n^{a+jw}$ and simplfy}
+R_n = - \sum_{j=0}^{r-1} \frac{(-1)^n w^{n+1}}{n!} \int_{0}^{1} B_n(t) f^{(n+1)}(a+jw + tw) dt
+\intertext{Simplfy the remainder term using the fractional operator $\{x\}$}
+R_{n,r} = \frac{(-1)^{n+1} w^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) f^{(n+1)}(a+tw) dt
+\end{gather*}
+\end{theorem}
+
+\subsection{Infinite Series}
+Note that as $n$ approaches infinity, the remainder term goes to 0. 
+\begin{theorem}
+If $|g^{(k)}(x)| \leq M \quad \forall x$ and $a, w, M$ finite then 
+\begin{equation}\label{Inifite Euler Mac's Series}
+\boxed{
+\lim_{n \to \infty} R_{n,r} = \lim_{n \to \infty} \frac{(-1)^{n+1} w^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) f^{(n+1)}(a+tw) dt = 0
+}
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Starting from the definition of $R_{n,r}$}
+\lim_{n \to \infty} R_n = \lim_{n \to \infty} \frac{(-1)^{n+1} w^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) f^{(n+1)}(a+tw) dt = 0
+\\
+\lim_{n \to \infty} R_n \leq \lim_{n \to \infty} |R_n|
+\\
+|R_n| \leq \frac{|w|^{n+1}}{n!} \int_{0}^{r} |B_n(\{t\})| M dt \leq \frac{|w|^{n+1} |B_n(t)| r M }{n!}
+\intertext{Using $\lim_{n \to \infty} \frac{B_n(x)}{n!} = 0$ from BERNOULLI DOCUMENT TODO}
+\lim_{n \to \infty} R_n \leq \lim_{n \to \infty} |R_n| = 0
+\end{gather*}
+
+\end{theorem}
+
+
+\subsection{Simple version}
+By specifying $a=0$ and $w=1$ we obtain an exact difference between the summation and the integral of any analytic function $g(x)$.
+
+\begin{theorem}
+For any analytical $g(x)$
+
+\begin{equation}
+\boxed{
+\begin{gathered}\label{Simple Euler-Maclaurin's formula}
+\sum_{j=0}^{r} g(j)  - \int_{x=0}^{r} g(x) dx 
+=
+\frac{g(0) + g(r)}{2} + 
+\sum_{k=1}^{\lfloor n/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(g^{(2k-1)}(r) - g^{(2k-1)}(0)\Big) + R_{n, r}
+\\
+R_{n, r} = \frac{(-1)^{n+1} }{n!} \int_{0}^{r} B_n(\{t\}) g^{(n)}(t) dt
+\end{gathered}
+}
+\end{equation}
+
+Proof
+\begin{gather*}
+\intertext{Starting from the Euler-Maclaurin formula}
+w \sum_{j=0}^{r-1} g(a+jw)  - \int_{x=a}^{a+rw} g(x) dx 
+=
+\frac{w}{2} \Big( g(a) - g(a+rw) \Big)
++ 
+\\
+\sum_{k=1}^{\lfloor n/2 \rfloor} \frac{w^{2k} B_{2k}}{(2k)!} \Big(g^{(2k-1)}(a+rw) - g^{(2k-1)}(a)\Big) + R_{n, r}
+\\
+R_{n, r} = \frac{(-1)^{n+1} w^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) g^{(n)}(a+tw) dt
+\intertext{Plugging in $a=0$ and $w=1$ we get}
+\sum_{j=0}^{r-1} g(j)  - \int_{x=0}^{r} g(x) dx 
+=
+\frac{1}{2} \Big( g(0) - g(r) \Big)
++ 
+\sum_{k=1}^{\lfloor n/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(g^{(2k-1)}(r) - g^{(2k-1)}(0)\Big) + R_{n, r}
+\\
+R_{n, r} = \frac{(-1)^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) g^{(n)}(t) dt
+\intertext{Adding $g(r)$ to both sides}
+\sum_{j=0}^{r} g(j)  - \int_{x=0}^{r} g(x) dx 
+=
+\frac{g(0) + g(r)}{2} + 
+\sum_{k=1}^{\lfloor n/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(g^{(2k-1)}(r) - g^{(2k-1)}(0)\Big) + R_{n, r}
+\end{gather*}
+\end{theorem}
+
+\end{document}

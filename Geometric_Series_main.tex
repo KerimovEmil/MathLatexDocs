@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{cleveref}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\numberwithin{equation}{subsection}
+\usepackage[english]{babel}
+ 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[CE]{\Author}
+\fancyhead[CO]{\Title}
+\renewcommand\headrulewidth{0pt}
+\pagestyle{fancy}
+
+\author{Emil Kerimov}
+%\title{Basic Trig Functions}
+
+\makeatletter
+\let\Title\@author
+
+\begin{document}
+\section{Geometric Series}\label{Geometric Series}
+
+Prove that:
+
+$$\sum\limits_{i=1}^{n} a\cdot r^{i-1} =  \frac{a\cdot(1-r^{n+1})}{1-r}$$
+
+Proof:
+
+Define $S_n$ such that:
+
+$$S_{n} = a + ar + ar^2 + ... + ar^{n-1}+ar^n$$
+Note that $$r\cdot S_{n} = ar + ar^2 + ... + ar^{n-1} + ar^n + ar^{n+1}$$
+Such that $$S_{n}-r\cdot S_{n} = a-ar^{n+1}$$
+$$=>
+S_{n} = \frac{a\cdot(1-r^{n+1})}{1-r}
+$$
+
+
+If $|r|<1$:
+
+Then 
+$$\sum\limits_{i=1}^{\infty} a\cdot r^{i-1}
+= \lim_{n \to +\infty}\frac{a\cdot(1-r^{n+1})}{1-r}
+= \frac{a}{1-r}
+$$
+
+Note that by taking derivatives of both sides and a bit of reindexing:
+
+$$\sum\limits_{i=0}^{\infty} \frac{d}{dr}a\cdot r^{i}
+=\sum\limits_{i=0}^{\infty} i\cdot a\cdot r^{i-1}
+=0+\sum\limits_{i=1}^{\infty} i\cdot a\cdot r^{i-1}
+= \frac{a}{(1-r)^2}
+$$
+
+$$=>
+\sum\limits_{i=1}^{\infty} i\cdot r^{i}
+= \frac{r}{(1-r)^2} \mbox{ when } |r|<1
+$$
+\end{document}
