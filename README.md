@@ -4,6 +4,8 @@ A repo to keep track of various math PDFs I've created
 # Mostly Completed Documents
 
 ### Bernoulli Numbers
+* Bernoulli Numbers
+* Bernoulli Polynomial
 
 ### Continued Fractions
 
