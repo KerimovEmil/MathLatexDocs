@@ -1,0 +1,142 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{cleveref}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\numberwithin{equation}{subsection}
+\usepackage[english]{babel}
+ 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[CE]{\Author}
+\fancyhead[CO]{\Title}
+\renewcommand\headrulewidth{0pt}
+\pagestyle{fancy}
+
+\author{Emil Kerimov}
+%\title{Basic Trig Functions}
+
+\makeatletter
+\let\Title\@author
+
+
+\begin{document}
+\section{Basic Inverse Trig Functions}
+If we assume we have this as a given.
+
+\begin{definition}
+$$e^{ix} = cos(x) + i \cdot sin(x)$$
+\end{definition}
+
+%We can prove every other trigonometry identity.
+
+\begin{theorem}
+$$sin(x) = \frac{e^{ix} - e^{-ix}}{2i} =-i \frac{e^{ix} - e^{-ix}}{2}$$
+Proof
+$$e^{-ix} = cos(-x) + i \cdot sin(-x) = cos(x) - i \cdot sin(x)$$
+$$e^{ix} - e^{-ix} = 2i \cdot sin(x)$$
+$$sin(x) = \frac{e^{ix} - e^{-ix}}{2i} =-i \frac{e^{ix} - e^{-ix}}{2} $$
+\end{theorem}
+
+\begin{theorem}
+$$cos(x) = \frac{e^{ix} + e^{-ix}}{2}$$
+Proof: Same as above. 
+\end{theorem}
+
+\begin{theorem}
+$$tan(x) = -i \frac{e^{ix} - e^{-ix}}{e^{ix} + e^{-ix}}$$
+Proof: Same as above. 
+\end{theorem}
+
+\begin{theorem}
+$$ cot(x) = i +  \frac{2i}{e^{2ix} -1} $$
+Proof
+\begin{gather*}
+tan(x) = -i \frac{e^{ix} - e^{-ix}}{e^{ix} + e^{-ix}}
+\\
+cot(x) = i \frac{e^{ix} + e^{-ix}}{e^{ix} - e^{-ix}}
+\\
+cot(x) = i \frac{(e^{ix} - e^{-ix}) +( 2e^{-ix})}{e^{ix} - e^{-ix}}
+\\
+cot(x) = i  + 2i \frac{e^{-ix}}{e^{ix} - e^{-ix}}
+\\
+cot(x) = i  + \frac{2i}{e^{2ix} - 1}
+\end{gather*}
+\end{theorem}
+
+If we for now ignore the non-uniqueness of the square root and logarithm of complex numbers, we can obtain 
+\begin{theorem}
+$$arcsin(x) = -i \cdot ln( ix + \sqrt{1- x^2} )$$
+Proof: Let $y=arcsin(x)$
+$$sin(y) = \frac{e^{iy} - e^{-iy}}{2i}$$
+$$sin(arcsin(x)) = x = \frac{e^{iy} - e^{-iy}}{2i}$$
+$$ 2i x = e^{iy} - e^{-iy}$$
+$$ e^{2iy} - 2ix e^{iy} - 1 = 0$$
+$$ e^{iy} = \frac{2ix \pm \sqrt{-4x^2 + 4}}{2}$$
+$$ e^{iy} = ix \pm \sqrt{1 -x^2}$$
+$$ iy =  ln( ix + \sqrt{1- x^2} )$$
+$$ y = \frac{ln( ix + \sqrt{1- x^2})}{i} = -i \cdot ln( ix + \sqrt{1- x^2})$$
+$$arcsin(x) = -i \cdot ln( ix + \sqrt{1- x^2} )$$
+\end{theorem}
+
+\begin{theorem}
+$$arccos(x) = -i \cdot ln(x + \sqrt{ x^2 - 1} )$$
+Proof: Same as above.
+\end{theorem}
+
+\begin{theorem}
+$$arctan(x) = \frac{i}{2} \cdot ln\Big(\frac{i+x}{i-x}\Big)$$
+Proof: Same as above.
+\end{theorem}
+
+\begin{theorem}
+$$arcsec(x) = -i ln \Big( \frac{1}{x}  + \sqrt{1 - \frac{i}{x^2}} \Big)$$
+Proof: Same as above.
+\end{theorem}
+
+\begin{theorem}
+$$arccsc(x) = -i ln \Big( \frac{i}{x}  + \sqrt{1 - \frac{1}{x^2}} \Big)$$
+Proof: Same as above.
+\end{theorem}
+
+\begin{theorem}
+$$arccot(x) = \frac{i}{2} \cdot ln\Big(\frac{x-i}{x+i}\Big)$$
+Proof: Same as above.
+\end{theorem}
+
+The same can be applied to hyperbolic functions, using
+
+\begin{definition}
+$$sinh(x) = \frac{e^x - e^{-x}}{2} $$
+\end{definition}
+
+\begin{definition}
+$$cosh(x) = \frac{e^x + e^{-x}}{2} $$
+\end{definition}
+
+\begin{definition}
+$$tanh(x) = \frac{sinh(x)}{cosh(x)} $$
+\end{definition}
+
+For each normal trigonometry identities there is a similar hyperbolic trigonometry identity.
+
+The relation of the two are
+\begin{definition}
+$$cosh(ix) = cos(x)$$
+$$sinh(ix) = i \cdot sin(x)$$
+$$tanh(ix) = i \cdot tan(x)$$
+$$cos(ix) = cosh(x)$$
+$$sin(ix) = i \cdot sinh(x)$$
+$$tan(ix) = i \cdot tanh(x)$$
+\end{definition}
+
+\end{document}
