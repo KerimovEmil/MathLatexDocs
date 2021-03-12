@@ -18,7 +18,7 @@
 Given a quadratic function $ y = ax^2 + bx + c$, to find the slope of the tangent line for all $x$, we need to solve for $m$ such that $y_t = mx+b$ intersects the quadratic function.
 
 \begin{equation}
-ax^2 + bx + c = mx+k
+ax^2 + bx + c = mx+k \label{eq:equation}
 \end{equation}
 
 Since we know the quadratic function is strictly convex, we know that the tangent line will only intersect the quadratic curve at one and only one point.
@@ -37,11 +37,11 @@ x = \frac{m-b}{2a}\\
 
 Notice that this is the same as the derivative of $ax^2 + bx +c$.
 
-\section{A reciprocal function}
+\section{A reciprocal function}\label{sec:a-reciprocal-function}
 Given a reciprocal function $ y = \frac{a}{x}$, to find the slope of the tangent line for all $x$, we need to solve for $m$ such that $y_t = mx+b$ intersects the quadratic function.
 
 \begin{equation}
-\frac{a}{x} = mx+k
+\frac{a}{x} = mx+k \label{eq:equation2}
 \end{equation}
 
 Since we know the reciprocal function is strictly concave, we know that the tangent line will only intersect the reciprocal curve at one and only one point.
@@ -57,7 +57,7 @@ x = \frac{-k \pm \sqrt{k^2 + 4ma}}{2m}\\
 x = \frac{-k}{2m}\\
 \shortintertext{Substituting for k}
 x = \frac{-(\frac{a}{x}-mx)}{2m}\\
-\shortintertext{Simplifing}
+\shortintertext{Simplifying}
 2mx = mx -\frac{a}{x}\\
 \shortintertext{Solving for $m$}
 m = -\frac{a}{x^2}\\
