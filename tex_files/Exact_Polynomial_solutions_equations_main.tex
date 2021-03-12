@@ -14,7 +14,6 @@
 \date{\today}
 
 
-
 \begin{document}
 \maketitle
 
@@ -23,67 +22,69 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}{Definition}[section]
 
-\section{History}
+\section{History}\label{sec:history}
 
 Scipione del Ferro is thought to have been the first to discover the general solution to the cubic equation, but did not publish it, and kept it a secret until his deathbed, telling his student Antonio Fior.
-Fior then challenged Niccolo Fontana, also know as
-Tartaglia, in 1535 to solve a list of 30
-depressed cubics. On the night of February 13, 1535,
-Tartaglia discovered the solution.
+Fior then challenged Niccolo Fontana, also known as Tartaglia, in 1535 to solve a list of 30 depressed cubics.
+On the night of February 13, 1535, Tartaglia discovered the solution.
 \\
 \\
 Tartaglia revealed the secret to
 Gerolamo Cardano on March 25, 1539, with the oath
-of Cardano to never publish the findings. Cardano, along with his pupil Ludovico Ferrari, discovered the solution of the
-general cubic equation. 
+of Cardano to never publish the findings.
+Cardano, along with his pupil Ludovico Ferrari, discovered the solution of the general cubic equation.
 \\
 \\
-While inspecting del Ferro’s papers, they
-came across a solution to the depressed
-cubic in del Ferro’s own handwriting. Cardano and Ferrari were no longer
-prohibited from publishing their results.
+While inspecting del Ferro's papers, they
+came across a solution to the depressed cubic in del Ferro's own handwriting.
+Cardano and Ferrari were no longer prohibited from publishing their results.
 \\
 \\
 In 1545, Cardano published his book Ars
-Magna, the “Great Art.”
-In it he published the solution to the
+Magna, the \textquotedblleft Great Art.\textquotedblright
+In it, he published the solution to the
 depressed cubic, with a preface crediting
 del Ferro with the original solution.
 He also published his solution of the
-general cubic and also Ferrari’s solution of
+general cubic and also Ferrari's solution of
 the quartic.
 \\
 \\
 Lagrange published a paper in 1771, Reflections on the Algebraic Theory of Equations, in which he described why the techniques used to solve the quadratic, cubic and quartic equations could not be applied to solve the quintic equation. 
 \\
 \\
-Paolo Ruffini attempted to prove that the quintic equation was insolvable. He published 6 proofs on the subject from 1799 to 1813. However other mathematicians found his work too long and difficult to understand, except for Cauchy. These proofs did end up having a few gaps in them, but were on the right track. 
+Paolo Ruffini attempted to prove that the quintic equation was insolvable.
+He published 6 proofs on the subject from 1799 to 1813.
+However, other mathematicians found his work too long and difficult to understand, except for Cauchy.
+These proofs did end up having a few gaps in them, but were on the right track.
 \\
 \\
-Niels Henrik Abel published his proof that the quintic equation was insolvable in 1824. Abel is credited for finally putting this question to rest. 
+Niels Henrik Abel published his proof that the quintic equation was insolvable in 1824.
+Abel is credited for finally putting this question to rest.
 \\
 \\
-Evariste Galois, who died at the age of 20 in 1832 in a duel, studied attempted to generalize how to determine when the roots could be solved in terms of radicals. He became the first mathematician to use the word 'group' and defined the normal subgroup.
+Evariste Galois, who died at the age of 20 in 1832 in a duel, studied attempted to generalize how to determine when the roots could be solved in terms of radicals.
+He became the first mathematician to use the word 'group' and defined the normal subgroup.
 
-\section{Quadratic}
+\section{Quadratic}\label{sec:quadratic}
 
 \begin{definition}\label{quad def}
 A quadratic polynomial 
-$$
+\[
 ax^2 + bx + c = 0
-$$
+\]
 \end{definition}
 
 Given a quadratic polynomial, the two solutions of $x$ that satisfy this equation are given by the quadratic equation
 \begin{equation}
 \boxed{
 x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-}
+}\label{eq:equation}
 \end{equation}
 
 This one equation has three solutions due to the cube root of complex numbers.
 
-\subsection{Algebraic Proof}
+\subsection{Algebraic Proof}\label{subsec:algebraic-proof}
 The most straight-forward proof is given by a technique referred to as 'Completing the Square'.
 
 \begin{gather*}
@@ -103,25 +104,25 @@ x  &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\\
 \end{alignedat}
 \end{gather*}
 
-\subsection{Discriminant}
+\subsection{Discriminant}\label{subsec:discriminant}
 
 The discriminant of a quadratic equation is defined to be 
 \begin{equation}
-\Delta = b^2 - 4ac
+\Delta = b^2 - 4ac\label{eq:equation2}
 \end{equation}
 
-\section{Cubic}
+\section{Cubic}\label{sec:cubic}
 
 \begin{definition}\label{cubic def}
-A cubic polynomial 
-$$
+A cubic polynomial
+\[
 ax^3 + bx^2 + cx + d = 0
-$$
+\]
 \end{definition}
 
 Given a cubic polynomial the three solutions of $x$ that satisfy this equation are given by 
 
-\begin{equation} \label{cubic solution}
+\begin{equation} \label{eq:cubic-solution}
 \boxed{
 \begin{split}
 x = - \frac{b}{3a} +
@@ -147,12 +148,12 @@ x = - \frac{b}{3a} +
 
 This was first shown by Gerolamo Cardano in 1545
 
-\subsection{Depressed Cubic}
+\subsection{Depressed Cubic}\label{subsec:depressed-cubic}
 \begin{definition}\label{depressed cubic def}
 A depressed cubic is a polynomial in the form of
-$$
+\[
 x^3 + cx + d = 0
-$$
+\]
 \end{definition}
 
 
@@ -161,7 +162,7 @@ We can transform any cubic to a depressed cubic form.
 
 Proof
 \begin{gather*}
-\intertext{Starting from definition \ref{cubic def}}
+\intertext{Starting from definition~\ref{cubic def}}
 ax^3 + bx^2 + cx + d = 0
 \\
 \intertext{Dividing by a, we define}
@@ -205,14 +206,14 @@ Starting from the depressed cubic form, we can solve for the roots.
 
 Proof
 \begin{gather*}
-\intertext{Starting from definition \ref{depressed cubic def}}
+\intertext{Starting from definition~\ref{depressed cubic def}}
 z^3 + cz + d = 0
 \\
 \intertext{Define $p=-\frac{c}{3}$ and $q=-\frac{d}{2} $}
 z^3 = 3pz + 2q
 \\
 \intertext{Consider $z=u+v$}
-z^3 = (u+v)^3 = u^3 + 3u^2v + 3 u v^2 + v^3 = u^3 + v^3 + 3uv(u+v) = 3uv(z) + u^3 + v^3
+z^3 = (u+v)^3 = u^3 + 3u^2 v + 3 u v^2 + v^3 = u^3 + v^3 + 3uv(u+v) = 3uv(z) + u^3 + v^3
 \\
 \intertext{Comparing these forms}
 3uv = 3p \\
@@ -244,7 +245,7 @@ z = \sqrt[3]{-\frac{d}{2} + \sqrt{\frac{d^2}{4} +\frac{c^3}{27}}} + \sqrt[3]{-\f
 
 
 
-\subsection{General Cubic}
+\subsection{General Cubic}\label{subsec:general-cubic}
 Combining all of these results to back out the solution for a general cubic equation in terms of the original variables, $ax^3 + bx^2 + cx + d = 0$, 
 we first summarize the steps taken. 
 
@@ -258,9 +259,9 @@ Undoing these substitutions backwards
 \begin{gather*}
 z = \sqrt[3]{-\frac{d'}{2} + \sqrt[2]{\frac{d'^2}{4} +\frac{c'^3}{27}}} + \sqrt[3]{-\frac{d'}{2} - \sqrt[2]{\frac{d'^2}{4} + \frac{c'^3}{27}}}
 \\
-\intertext{Using $ c' =  \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 $
+\intertext{Using $ c' =  \frac{c}{a} - 3 \Big\left( \frac{b}{3a} \Big\right)^2 $
 and
-$d' =\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} c' $}
+$d' =\frac{d}{a} - \Big\left( \frac{b}{3a} \Big\right)^3 - \frac{b}{3a} c' $}
 z = \sqrt[3]{-\frac{\Big( \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)}{2} + \sqrt[2]{\frac{\Big(\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^2}{4} +\frac{\Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^3}{27}}} 
 \\
 +
@@ -282,9 +283,9 @@ z = \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} + \frac{1}{(3a)^3} \sqrt[2]
 +
 \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} - 
 \frac{1}{(3a)^3} \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3}}
-\intertext{Simplfying $\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3 = A + B$}
+\intertext{Simplifying $\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3 = A + B$}
 A = \frac{27^2}{4} a^4 d^2
-+ 27 a^2 b^3 d - \frac{27 \cdot 9}{2} a^3 bc d + b^6 - 9 ab^4c + \frac{9^2}{4} a^2 b^2 c^2
++ 27 a^2 b^3 d - \frac{27 \cdot 9}{2} a^3 bc d + b^6 - 9 a b^4 c + \frac{9^2}{4} a^2 b^2 c^2
 \\
 B = 3^3 a^3 c^3 - 27 a^2 b^2 c^2 + 9 a b^4 c - b^6
 \\
@@ -346,7 +347,7 @@ x = - \frac{b}{3a} +
 3a \sqrt[2]{
 3
 \Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+27 a^2 d^2 + 4 b^3 d - 18 a b c d + 4 a c^3 - b^2 c^2
 \Big)
 }}
 \Bigg)
@@ -362,29 +363,27 @@ x = - \frac{b}{3a} +
 \Bigg)
 \end{gather*}
 
-\subsection{Discriminant}
+\subsection{Discriminant}\label{subsec:discriminant2}
 The discriminant of a cubic equation is defined to be 
 \begin{equation}
-\Delta = b^2 c^2 - 27a^2 d^2 + 18abcd - 4ac^3 - 4b^3d
+\Delta = b^2 c^2 - 27a^2 d^2 + 18a b c d - 4ac^3 - 4b^{3}d\label{eq:equation3}
 \end{equation}
-\subsection{Elliptical Curves}
 
-\section{Quartic}
+\subsection{Elliptical Curves}\label{subsec:elliptical-curves}
+
+\section{Quartic}\label{sec:quartic}
 \url{https://en.wikipedia.org/wiki/Quartic_function}
 
-\section{Appendix}
+\section{Appendix}\label{sec:appendix}
 
-\subsection{General Discriminant}
+\subsection{General Discriminant}\label{subsec:general-discriminant}
 
-$$
-A(x) = a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0
-$$
+\begin{gather*}
+    A(x) = a_{n}x^n+a_{n-1}x^{n-1}+\cdots+a_{1}x+a_0\\
+    \operatorname{Disc}_x(A) = \frac{(-1)^{\frac{n(n-1)}{2}}} {a_n}\operatorname{Res}_x(A,A')\\
+\end{gather*}
 
-$$
-\operatorname{Disc}_x(A) = \frac{(-1)^\frac{n(n-1)}{2}}{a_n}\operatorname{Res}_x(A,A')
-$$
-
-The resultant of A and its derivative A'(x) is the determinant of the Sylvester matrix of A and A′.
+The resultant of A and its derivative A'(x) is the determinant of the Sylvester matrix of A and A'.
 \\
 This sign has been historically chosen, in order that, over the reals, the discriminant is positive if all the roots of the polynomial are real.
 \\
