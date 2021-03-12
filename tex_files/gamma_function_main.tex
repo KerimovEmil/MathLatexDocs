@@ -12,1063 +12,1101 @@
 \author{Emil Kerimov}
 \date{\today}
 \begin{document}
-\maketitle
+    \maketitle
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
-
-\section{Definition}
-
-\begin{definition}\label{gamma def}
-The Gamma Function is defined as:
-$$
-\Gamma(z) = \int_{0}^{\infty} e^{-t} t^{z-1} dt
-$$
-\end{definition}
-
-The first few evaluation of the Gamma function are:
-\begin{equation}
-\begin{aligned}
-\Gamma(1) &= \int_{0}^{\infty} e^{-t} \ dt  = - e^{-t}\Big|_{0}^{\infty} = 0 - (-1) = 1 \\
-\Gamma(2) &= \int_{0}^{\infty} e^{-t}  t \ dt = - e^{-t}t\Big|_{0}^{\infty} + \int_{0}^{\infty} e^{-t} \ dt = 1 \\
-\Gamma(3) &= \int_{0}^{\infty} e^{-t}  t^2 \ dt = - e^{-t}t^2\Big|_{0}^{\infty} + 2\int_{0}^{\infty} e^{-t}t \ dt = 2 \\
-\Gamma(4) &= \int_{0}^{\infty} e^{-t}  t^3 \ dt = - e^{-t}t^3\Big|_{0}^{\infty} + 3\int_{0}^{\infty} e^{-t}t \ dt = 6 \\
-\end{aligned}
-\end{equation}
-
-\section{Relation to the Factorial Function}
-Expanding on the pattern we found by evaluating the first few integer values of the Gamma function through integration by parts we obtain:
-
-\begin{theorem} \label{Def} 
-$ \Gamma(z+1) = z \Gamma(z) $
-
-Proof by induction
-\begin{gather*}
-\shortintertext{Assume true for k}
-\Gamma(k+1) = k \Gamma(k) 
-\shortintertext{Proving for k+1}
-\begin{split}
-\Gamma(k+1) &= \int_{0}^{\infty} e^{-t}  t^k \ dt  \\
-		&= - e^{-t}t^k\Big|_{0}^{\infty} + k\int_{0}^{\infty} e^{-t}t^{k-1} \ dt\\
-		&= 0 - 0  + k\Gamma(k-1) \\
-		&= k\Gamma(k-1) \\
-\end{split}
-\end{gather*}
-\end{theorem}
-
-\subsection{Integer Values}
-Therefore since $\Gamma(1) = 1$, then for positive integer values 
-
-\begin{equation}
-\Gamma(n) = (n-1)!
-\end{equation}
-
-\section{Equivalent Integral Forms}
-
-\begin{equation}
-\Gamma(z) = \int_{0}^{\infty} e^{-t} t^{z-1} dt
-\end{equation}
-
-\begin{theorem}
-Starting from Equation \ref{gamma def}, we can use the substitution $t = -ln(u)$ to obtain 
-\begin{equation}
-\Gamma(z) = \int_{0}^{1} (-ln u)^{z-1} dt
-\end{equation}
-
-Proof
-\begin{gather*}
-t = -ln(u) \\
-dt = - \frac{du}{u} \\
-\Gamma(z) = \int_{1}^{0} e^{ln(u)} (-ln(u))^{z-1} \frac{-du}{u} \\
-\Gamma(z) = - \int_{1}^{0} u (-ln(u))^{z-1} \frac{du}{u} \\
-\Gamma(z) = - \int_{1}^{0} (-ln(u))^{z-1} du \\
-\Gamma(z) = \int_{0}^{1} (-ln(u))^{z-1} du \\
-\end{gather*}
-\end{theorem}
+    \newtheorem{theorem}{Theorem}[section]
+    \newtheorem{corollary}{Corollary}[theorem]
+    \newtheorem{lemma}[theorem]{Lemma}
+    \newtheorem{definition}{Definition}[section]
 
 
-\section{Finite Gamma Expression}
-Define the finite gamma function (find out its real name)
-\begin{equation}\label{gamma def}
-\Gamma_{p}(x) = \frac{p! p^x}{x (x+ 1)(x + 2)...(x + p)} = \frac{p^x}{x (\frac{x}{1} + 1)(\frac{x}{2} + 1)...(\frac{x}{p} + 1)}  
-\ \ x>0
-\end{equation}
+    \section{Definition}\label{sec:definition}
 
-Note that this function has the following properties:
-\begin{equation}
-\Gamma_{p}(1) = \frac{p! p}{1 (1 + 1)(1+2)...(1+p)} = \frac{p! p}{p! (1+p)} = \frac{p}{1+p} 
-\end{equation}
+    \begin{definition}
+        \label{gamma-def-1}
+        The Gamma Function is defined as:
+        \[
+        \Gamma(z) = \int_{0}^{\infty} e^{-t} t^{z-1} dt
+        \]
+    \end{definition}
 
-\begin{equation}\label{relation to next}
-\begin{split}
-\Gamma_{p}(x+1) &= \frac{p! p p^x}{(x + 1)(x+2)...(x+p)(x+p+1)} \\
-&= \frac{x p! p p^x}{x(x + 1)(x+2)...(x+p)(x+p+1)} \\
-&= \frac{x p}{x+p+1} \Gamma_{p}(x) \\
-\end{split}
-\end{equation}
-
-\subsection{Taking the limit to obtain Gamma}
-
-Using Equation \ref{relation to next} and assuming $\Gamma_{\infty}(x)$ converges we get:
-
-\begin{equation}
-\lim_{p \to \infty} \Gamma_{p}(x+1) = 
-\lim_{p \to \infty} \frac{x p}{x+p+1} \Gamma_{p}(x) = x \lim_{p \to \infty} \Gamma_{p}(x)
-\end{equation}
-
-Therefore using the above properties we see that if $\Gamma_{\infty}(x)$ converges then it must be equal to $\Gamma(x)$. 
+    The first few evaluations of the Gamma function are:
+    \begin{equation}
+        \begin{aligned}
+            \Gamma(1) &= \int_{0}^{\infty} e^{-t} \ dt  = - e^{-t}\Big|_{0}^{\infty} = 0 - (-1) = 1 \\
+            \Gamma(2) &= \int_{0}^{\infty} e^{-t}  t \ dt = - e^{-t}t\Big|_{0}^{\infty} + \int_{0}^{\infty} e^{-t} \ dt = 1 \\
+            \Gamma(3) &= \int_{0}^{\infty} e^{-t}  t^2 \ dt = - e^{-t}t^2\Big|_{0}^{\infty} + 2\int_{0}^{\infty} e^{-t}t \ dt = 2 \\
+            \Gamma(4) &= \int_{0}^{\infty} e^{-t}  t^3 \ dt = - e^{-t}t^3\Big|_{0}^{\infty} + 3\int_{0}^{\infty} e^{-t}t \ dt = 6 \\
+        \end{aligned}\label{eq:equation}
+    \end{equation}
 
 
+    \section{Relation to the Factorial Function}\label{sec:relation-to-the-factorial-function}
+    Expanding on the pattern we found by evaluating the first few integer values of the Gamma function through integration by parts we obtain:
 
-\section{Euler Mascheroni constant}\label{euler const}
-The Euler Mascheroni constant is defined as:
-\begin{equation}\label{gamma def}
-\gamma = \lim_{p \to \infty} \sum_{i=1}^{p} 1/i - ln(p) \approx 0.5772
-\end{equation}
+    \begin{theorem}
+        \label{Def}
+        $ \Gamma(z+1) = z \Gamma(z) $
 
-This constant can be interpreted as the difference between the sum of $1/x$ and the integral of $1/x$ from $1$ to $\infty$. 
-It is unknown whether this number is transcendental or even irrational! 
-One can show numerically that if it is rational then the denominator must be greater than $10^{242080}$.
+        Proof by induction
+        \begin{gather*}
+            \shortintertext{Assume true for k}
+            \Gamma(k+1) = k \Gamma(k)
+            \shortintertext{Proving for k+1}
+            \begin{split}
+                \Gamma(k+1) &= \int_{0}^{\infty} e^{-t}  t^k \ dt  \\
+                &= - e^{-t}t^k\Big|_{0}^{\infty} + k\int_{0}^{\infty} e^{-t}t^{k-1} \ dt\\
+                &= 0 - 0 + k\Gamma(k-1) \\
+                &= k\Gamma(k-1) \\
+            \end{split}
+        \end{gather*}
+    \end{theorem}
 
-\section{Weierstrass Formula}\label{Weierstrass}
-\begin{theorem}\label{partial form}
-Let $\gamma$ be the Euler Mascheroni constant as defined in section \ref{euler const}, and $\Gamma$ be the Gamma function, then
-\begin{equation} \label{gamma product}
-\frac{1}{\Gamma(x)}  = x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k}
-\end{equation}
+    \subsection{Integer Values}\label{subsec:integer-values}
+    Therefore since $\Gamma(1) = 1$, then for positive integer values
 
-Proof
-\\
-Re-writing $p^x$
+    \begin{equation}
+        \Gamma(n) = (n-1)!\label{eq:equation2}
+    \end{equation}
+
+
+    \section{Equivalent Integral Forms}\label{sec:equivalent-integral-forms}
+
+    \begin{equation}
+        \Gamma(z) = \int_{0}^{\infty} e^{-t} t^{z-1} dt\label{eq:equation3}
+    \end{equation}
+
+    \begin{theorem}
+        Starting from Equation~\ref{gamma-def-1}, we can use the substitution $t = -ln(u)$ to obtain
+        \begin{equation}
+            \Gamma(z) = \int_{0}^{1} (-ln u)^{z-1} dt\label{eq:equation4}
+        \end{equation}
+
+        Proof
+        \begin{gather*}
+            t = -ln(u) \\
+            dt = - \frac{du}{u} \\
+            \Gamma(z) = \int_{1}^{0} e^{ln(u)} (-ln(u))^{z-1} \frac{-du}{u} \\
+            \Gamma(z) = - \int_{1}^{0} u (-ln(u))^{z-1} \frac{du}{u} \\
+            \Gamma(z) = - \int_{1}^{0} (-ln(u))^{z-1} du \\
+            \Gamma(z) = \int_{0}^{1} (-ln(u))^{z-1} du \\
+        \end{gather*}
+    \end{theorem}
+
+
+    \section{Finite Gamma Expression}\label{sec:finite-gamma-expression}
+    Define the finite gamma function (find out its real name)
+    \begin{equation}
+        \label{eq:finite-gamma-def}
+        \Gamma_{p}(x) = \frac{p! p^x}{x (x+ 1)(x + 2)...(x + p)} = \frac{p^x}{x (\frac{x}{1} + 1)(\frac{x}{2} + 1)...(\frac{x}{p} + 1)}
+        \ \ x>0
+    \end{equation}
+
+    Note that this function has the following properties:
+    \begin{equation}
+        \Gamma_{p}(1) = \frac{p! p}{1 (1 + 1)(1+2)...(1+p)} = \frac{p! p}{p! (1+p)} = \frac{p}{1+p}\label{eq:equation5}
+    \end{equation}
+
+    \begin{equation}
+        \label{eq:relation-to-next}
+        \begin{split}
+            \Gamma_{p}(x+1) &= \frac{p! p p^x}{(x + 1)(x+2)...(x+p)(x+p+1)} \\
+            &= \frac{x p! p p^x}{x(x + 1)(x+2)...(x+p)(x+p+1)} \\
+            &= \frac{x p}{x+p+1} \Gamma_{p}(x) \\
+        \end{split}
+    \end{equation}
+
+    \subsection{Taking the limit to obtain Gamma}\label{subsec:taking-the-limit-to-obtain-gamma}
+
+    Using Equation~\ref{eq:relation-to-next} and assuming $\Gamma_{\infty}(x)$ converges we get:
+
+    \begin{equation}
+        \lim_{p \to \infty} \Gamma_{p}(x+1) =
+        \lim_{p \to \infty} \frac{x p}{x+p+1} \Gamma_{p}(x) = x \lim_{p \to \infty} \Gamma_{p}(x)\label{eq:equation6}
+    \end{equation}
+
+    Therefore using the above properties we see that if $\Gamma_{\infty}(x)$ converges then it must be equal to $\Gamma(x)$.
+
+
+    \section{Euler Mascheroni constant}\label{sec:euler-const}
+    The Euler Mascheroni constant is defined as:
+    \begin{equation}
+        \label{eq:euler_mascheroni_def}
+        \gamma = \lim_{p \to \infty} \sum_{i=1}^{p} 1/i - ln(p) \approx 0.5772
+    \end{equation}
+
+    This constant can be interpreted as the difference between the sum of $1/x$ and the integral of $1/x$ from $1$ to $\infty$.
+    It is unknown whether this number is transcendental or even irrational!
+    One can show numerically that if it is rational then the denominator must be greater than $10^{242080}$.
+
+
+    \section{Weierstrass Formula}\label{sec:weierstrass}
+    \begin{theorem}
+        \label{partial form}
+        Let $\gamma$ be the Euler Mascheroni constant as defined in section~\ref{sec:euler-const}, and $\Gamma$ be the Gamma function, then
+        \begin{equation}
+            \label{eq:gamma-product}
+            \frac{1}{\Gamma(x)}  = x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k}
+        \end{equation}
+
+        Proof
+        \\
+        Re-writing $p^x$
 %Starting from equation \ref{gamma def}, and re-writing $p^x$
-\begin{gather*}
-p^x = e^{x lnp} = e^{x [lnp - 1 - 1/2 - 1/3 - ... - 1/p]} e^{x + x/2 + x/3 + ... + x/p} \\
-\text{Plugging $p^x$ into equation \ref{gamma def}} \\
-\Gamma_{p}(x) = \frac{e^{x [lnp - 1 - 1/2 - 1/3 - ... - 1/p]} e^{x + x/2 + x/3 + ... + x/p}}{x (\frac{x}{1} + 1)(\frac{x}{2} + 1)...(\frac{x}{p} + 1)}   \\
-\Gamma_{p}(x) = e^{x [lnp - 1 - 1/2 - 1/3 - ... - 1/p]} \cdot \frac{1}{x} \cdot \frac{e^{x}}{x+1} \cdot \frac{e^{x/2}}{x/2+1} \cdot \frac{e^{x/3}}{x/3+1}
-\cdot \cdot \cdot \cdot \frac{e^{x/p}}{x/p+1}
-\\
-\Gamma_{p}(x) = e^{x [lnp - 1 - 1/2 - 1/3 - ... - 1/p]} \cdot \frac{1}{x} \cdot \prod_{k=1}^{p} \frac{e^{x/k}}{1 + x/k} \\
-\text{Taking the limit as $p \to \infty$ }\\
-\Gamma(x) = \lim_{p \to \infty} \Gamma_{p}(x) = 
-\lim_{p \to \infty} e^{x [lnp - 1 - 1/2 - 1/3 - ... - 1/p]} \cdot \frac{1}{x} \cdot \prod_{k=1}^{p} \frac{e^{x/k}}{1 + x/k} \\
-\Gamma(x) = e^{-x \gamma} \cdot  \frac{1}{x} \cdot \prod_{k=1}^{\infty} \frac{e^{x/k}}{1 + x/k}  \\
-\text{Equivalently}\\
-\frac{1}{\Gamma(x)}  = x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k}  \\
-\end{gather*}
-\end{theorem}
-
-\subsection{Symmetry around 1/2 relation}\label{Symmetric Gamma}
-Using \ref{Weierstrass} we derive the following functional form. 
-
-\begin{theorem}
-\begin{equation} \label{Symmetric Gamma eq}
-\boxed{
-\frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(1-x)} = \frac{sin(\pi x)}{\pi}
-}
-\end{equation}
-
-Proof
-\\
-Starting from \ref{Weierstrass} and considering $\frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(-x)}$ we obtain
-\begin{gather*}
-\frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(-x)} = x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k}   \cdot -x \cdot e^{-x \gamma} \cdot \prod_{k=1}^{\infty} (1 - x/k) \cdot e^{x/k} 
-\\
-\frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(-x)} = -x^2 \cdot \prod_{k=1}^{\infty} (1 - x^2/k^2) \\
-\text{Using the functional form of $\Gamma$, we get $\Gamma(1-x) = \Gamma(-x+1) = -x \Gamma(-x)$} 
-\\
-\frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(1-x)} = x \cdot \prod_{k=1}^{\infty} (1 - x^2/k^2) \\
-\text{Using the product form of $\frac{sin(\pi x)}{\pi x} = \prod_{k=1}^{\infty} \Big( 1-\frac{x^2}{k^2} \Big)$
-, See Euler's Sine Product Form document}
-\\
-\frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(1-x)} = \frac{sin(\pi x)}{\pi}
-\end{gather*}
-\end{theorem}
-
-\subsection{Special Examples}
-Plugging in various values for $x$ we obtain certain values and relations for $\Gamma(x)$
-
-$x = \frac{1}{2}$
-\begin{equation} \label{gamma half}
-\Gamma(\frac{1}{2}) = \sqrt{\frac{\pi}{sin(\frac{\pi}{2})}} = \sqrt{\pi}
-\end{equation}
-
-$x = \frac{1}{3}$
-\begin{equation}
-\Gamma(\frac{1}{3}) \Gamma(\frac{2}{3}) = \frac{\pi}{sin(\frac{\pi}{3})} = \frac{2\pi}{\sqrt{3}} 
-\end{equation}
-
-$x = \frac{1}{4}$
-\begin{equation}
-\Gamma(\frac{1}{4}) \Gamma(\frac{3}{4}) = \frac{\pi}{sin(\frac{\pi}{4})} = \sqrt{2} \pi 
-\end{equation}
-
-\begin{theorem}
-$x = -\frac{1}{2}$ with equation \ref{gamma half}
-\begin{equation} \label{negative gamma half}
-\Gamma(-\frac{1}{2}) = -2 \sqrt{\pi}
-\end{equation}
-
-Proof
-\\
-\begin{gather*}
-\Gamma(-\frac{1}{2}) \cdot \Gamma(1-(-\frac{1}{2})) = \frac{\pi}{sin(-\frac{\pi}{2})}
-\\
-\Gamma(-\frac{1}{2}) = -\frac{\pi}{\Gamma(\frac{3}{2})}
-\\
-\Gamma(-\frac{1}{2}) = -\frac{\pi}{\frac{1}{2} \Gamma(\frac{1}{2})}
-\\
-\Gamma(-\frac{1}{2}) = -\frac{\pi}{\frac{1}{2} \sqrt{\pi}}
-\\
-\Gamma(-\frac{1}{2}) = -2\sqrt{\pi}
-\end{gather*}
-
-\end{theorem}
-
-
-
-Note that equation \ref{gamma half} implies that 
-\begin{equation}
-\Gamma(\frac{1}{2}) = \int_{0}^{\infty} \frac{1}{e^t \sqrt{t}} dt = \sqrt{\pi}
-\end{equation}
-Since $\Gamma(x) = (x-1)!$ for integer values of $x$, this is where the idea of $(-\frac{1}{2})! = \sqrt{\pi}$ comes from.
-
-\section{Other relations}
-Using equation \ref{gamma def} we derive the following. 
-
-\begin{theorem} 
-This is the more general multiplication equation referred to as the multiplication formula or Gauss's multiplication formula
-\begin{equation} \label{legendre mult}
-\boxed{
-\Gamma(x) \cdot \Gamma(x+\frac{1}{n}) \cdot \Gamma(x+\frac{2}{n}) \cdot \cdot \cdot \Gamma(x+\frac{n-1}{n}) = (2 \pi)^{\frac{n-1}{2}} n^{1/2 - nx} \Gamma(nx)
-}
-\end{equation}
-
-Proof
-\\
-TODO.
-\end{theorem}
-
-Plugging in $x=0$ into Equation \ref{legendre mult} we get
-\begin{equation}
-\Gamma(\frac{1}{n}) \cdot \Gamma(\frac{2}{n}) \cdot \cdot \cdot \Gamma(\frac{n-1}{n}) = \frac{(2 \pi)^{\frac{n-1}{2}}}{\sqrt{n}}  
-\end{equation}
-
-
-\begin{theorem}
-There is a multiplicative relation to the Zeta function. Refer to the Zeta function document for the definition and properties of the Zeta function.
-\begin{equation}
-\boxed{
-\Gamma(x) \zeta(x) = \int_{0}^{\infty} \frac{u^{s-1}}{e^{u} - 1} du}
-\end{equation}
-Proof
-\\
-See the Zeta function document.
-\end{theorem}
-
-
-\section{Digamma function}
-\subsection{Definition}
-Define the Digamma function 
-\begin{equation}\label{digamma def}
-\Psi(x) = \frac{\partial}{\partial x}  ln(\Gamma(x)) = \frac{\Gamma'(x)}{\Gamma(x)}
-\end{equation}
-
-\subsection{Series Representation}
-
-\begin{theorem}
-Let $\gamma$ be the Euler Mascheroni constant as defined in section \ref{euler const} then, 
-\begin{equation} \label{psi series}
-\boxed{
-\Psi(x) = -\gamma - \frac{1}{x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{x+k}  \Big)
-}
-\end{equation}
-
-Proof
-\\
-\begin{gather*}
-\Psi(x) = \frac{\partial}{\partial x}  ln(\Gamma(x))
-\\
-\text{Using equation \ref{gamma product}}
-\\
-\Psi(x) = -\frac{\partial}{\partial x} ln(x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k})
-\\
-\Psi(x) = -\frac{\partial}{\partial x} \Big[ ln(x) +  x \gamma + \sum_{k=1}^{\infty} ln(1 + x/k) - \frac{x}{k}
-\Big]
-\\
-\Psi(x) = -\frac{1}{x}  -  \gamma - \sum_{k=1}^{\infty} \frac{1}{k} \cdot \frac{1}{1 + x/k} - \frac{1}{k}
-\\
-\Psi(x) = -\frac{1}{x}  -  \gamma + \sum_{k=1}^{\infty} \frac{1}{k} - \frac{1}{x + k}
-\end{gather*}
-\end{theorem}
-
-
-
-\subsection{Derivatives}
-\begin{theorem}
-\begin{equation} \label{psi first deriv}
-\boxed{
-\Psi'(x) = \sum_{k=1}^{\infty} \frac{1}{(k+x-1)^2} 
-}
-\end{equation}
-
-Proof
-\\
-\begin{gather*}
-\text{Using equation \ref{psi series}}
-\\
-\Psi(x) = -\gamma - \frac{1}{x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{x+k}  \Big)
-\\
-\Psi'(x) = \frac{1}{x^2} + \sum_{k=1}^{\infty} \frac{1}{(x+k)^2}
-\\
-\text{Including the first term in the sum}
-\\
-\Psi'(x) = \sum_{k=1}^{\infty} \frac{1}{(x+k - 1)^2}
-\end{gather*}
-\end{theorem}
-
-\begin{theorem}
-\begin{equation} \label{psi nth deriv}
-\boxed{
-\Psi^{n}(x) = \sum_{k=1}^{\infty} \frac{(-1)^{n+1} n! }{(k+x-1)^{n+1}} 
-}
-\end{equation}
-
-Proof
-\\
-Take repeated deriviates of equation \ref{psi first deriv}
-\end{theorem}
-
-\subsection{Special values}
-\begin{theorem}
-\begin{equation}
-\Psi^{n}(x+1) = \Psi^{n}(x) + \frac{(-1)^n n!}{x^{n+1}} 
-\end{equation}
-
-Proof
-\\
-\begin{gather*}
-\Psi^{n}(x + 1) = \sum_{k=1}^{\infty} \frac{(-1)^{n+1} n! }{(k+x)^{n+1}}
-\\
-\Psi^{n}(x + 1) = \frac{(-1)^n n!}{x^{n+1}}  + \sum_{k=2}^{\infty} \frac{(-1)^{n+1} n! }{(k+x)^{n+1}}
-\\
-\Psi^{n}(x + 1) = \frac{(-1)^n n!}{x^{n+1}}  + \sum_{k=1}^{\infty} \frac{(-1)^{n+1} n! }{(k+x - 1)^{n+1}}
-\\
-\Psi^{n}(x + 1) = \frac{(-1)^n n!}{x^{n+1}}  + \Psi^{n}(x)
-\end{gather*}
-\end{theorem}
-
-\begin{theorem}
-Reflection formula
-\begin{equation}
-\Psi(1-x) = \Psi(x) + \pi cot(\pi x)
-\end{equation}
-
-Proof
-\begin{gather*}
-\Psi(1-x) = -\gamma - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{k+1-x}  \Big)
-\\
-\intertext{Adding and subtracting $\Psi(x)$}
-\Psi(1-x) = -\gamma - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{k+1-x}  \Big) + \Psi(x) - \Psi(x) 
-\\
-\Psi(1-x) = -\gamma - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{k+1-x}  \Big) + \Psi(x) - \Bigg(-\gamma - \frac{1}{x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{x+k}  \Big) \Bigg)
-\\
-\intertext{Simplifying}
-\Psi(1-x) = \Psi(x) + \frac{1}{x} - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{k+1-x}  -  \frac{1}{k} + \frac{1}{x+k} \Big)
-\\
-\Psi(1-x) = \Psi(x) + \frac{1}{x} - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big(\frac{1}{x+k} - \frac{1}{k+1-x} \Big)
-\\
-\Psi(1-x) = \Psi(x) + \sum_{k=0}^{\infty} \Big(\frac{1}{x+k} + \frac{1}{x -k -1} \Big)
-\\
-\Psi(1-x) = \Psi(x) + \sum_{k=-\infty}^{\infty} \Big(\frac{1}{x+k} \Big)
-\\
-\text{Using the series \footnotemark for }\pi cot(\pi x) = \sum_{k=-\infty}^{\infty} \frac{1}{x + k}
-\\
-\Psi(1-x) = \Psi(x) + \pi cot(\pi x)
-\end{gather*}
-\end{theorem}
-
-\footnotetext{See the Euler's Sine Product formula document.}
-
-\begin{theorem}
-\begin{equation}
-\Psi(2x) = \frac{1}{2} \cdot \Psi(x) + \frac{1}{2} \cdot \Psi(x + \frac{1}{2}) + ln(2)
-\end{equation}
-
-Proof
-\\
-TODO
-\end{theorem}
-
-\begin{equation}
-\Psi(1) = \Gamma'(1) = - \gamma
-\end{equation}
-
-\begin{equation}
-\Psi^{(n)}(1) = (-1)^{n+1} n! \zeta(n+1)
-\end{equation}
-Where $\zeta(z)$ is the Riemann Zeta function defined as $\zeta(z) = \sum_{k=1}^{\infty} \frac{1}{k^z}$. CONFIRM THIS?
-
-\begin{equation}
-\Psi(n) = \frac{\Gamma'(n)}{\Gamma(n)} = -\gamma + \sum_{k=1}^{n-1} \frac{1}{k} = -\gamma + H_{n-1}
-\end{equation}
-Where $H_{n}$ is the sum of the $n$ first harmonic numbers. Note that this implies that the derivative of the $\Gamma$ function is diverges to $\infty$.
-
-\section{Using The Gamma Function for Euler Integrals}
-
-\begin{theorem}
-Let 
-$p = x + yi$ and 
-$\alpha =tan^{-1}(\frac{y}{x})$ then 
-\begin{equation} \label{sin gamma integral}
-\boxed{
-\frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
-}
-\end{equation}
-
-\begin{equation} \label{cos gamma integral}
-\boxed{
-\frac{\Gamma(s)}{n |p|^s} cos(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} cos(y u^n) du
-}
-\end{equation}
-
-Proof
-\begin{gather*}
-\Gamma(s) = \int_{0}^{\infty} e^{-t} t^{s-1} dt
-\shortintertext{Using substitution $t = p \cdot u^n$ hence $dt = p \cdot n \cdot u^{n-1} \cdot du$}
-\Gamma(s) = \int_{0}^{\infty} p^{n-1} u^{ns - n} e^{-pu} n p u^{n-1} du
-= n \int_{0}^{\infty} p^{s} u^{ns - 1} e^{-pu^{n}} du \\
-\frac{\Gamma(s)}{n p^s} = \int_{0}^{\infty} u^{ns - 1} e^{-pu^{n}} du \\
-\shortintertext{Assuming $p$ is a complex number with real part $x$, imaginary part $y$}
-\shortintertext{Taking the conjugate of both sides, we obtain a second equation.}
-\frac{\Gamma(s)}{n \bar{p}^s} = \int_{0}^{\infty} u^{ns - 1} e^{-\bar{p}u^{n}} du \\
-\shortintertext{Note that $p = x + yi = |p| e^{i \alpha}$ and $\bar{p} = x - yi = |p| e^{-i \alpha}$ where $\alpha = tan^{-1}(\frac{y}{x})$}
-\shortintertext{Adding and subtracting both equations we get}
-\frac{\Gamma(s)}{n} \Big[ \frac{1}{\bar{p}^s} \pm  \frac{1}{p^s} \Big] = \int_{0}^{\infty} u^{ns - 1} \Big[ e^{-\bar{p}u^{n}} \pm e^{-pu^{n}} \Big] du \\
-\frac{\Gamma(s)}{n |p|^s} \Big[ \frac{1}{e^{-i \alpha s}} \pm  \frac{1}{e^{i \alpha s}} \Big] = \int_{0}^{\infty} u^{ns - 1} \Big[ e^{-xu^{n}+yu^{n}i} \pm e^{-xu^{n}-yu^{n}i} \Big] du \\
-\frac{\Gamma(s)}{n |p|^s} \Big[e^{i \alpha s} \pm  e^{-i \alpha s} \Big] = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} \Big[ e^{yu^{n}i} \pm e^{-yu^{n}i} \Big] du \\
-\shortintertext{With addition we get}
-\frac{\Gamma(s)}{n |p|^s} \Big[2 cos(\alpha s)\Big] = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} \Big[ 2 cos( yu^{n}) \Big] du \\
-\frac{\Gamma(s)}{n |p|^s} cos(\alpha s) = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} cos( yu^{n}) \Big] du \\
-\shortintertext{With subtraction we get}
-\frac{\Gamma(s)}{n |p|^s} \Big[2i sin(\alpha s)\Big] = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} \Big[ 2i sin( yu^{n}) \Big] du \\
-\frac{\Gamma(s)}{n |p|^s} sin(\alpha s) = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} sin( yu^{n}) \Big] du \\
-\end{gather*}
-\end{theorem}
-
-\subsection{Examples}
-
-\subsubsection{Sinc Integral $\int \frac{\sin(x)}{x}$}
-
-\begin{theorem}
-\begin{equation}
-\boxed{
-\int_{0}^{\infty} \frac{\sin(x)}{x} = \frac{\pi}{2}
-}
-\end{equation}
-
-Proof
-\\
-Starting from equation \ref{sin gamma integral}
-\begin{gather*}
-\frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
-\\
-\text{setting $y=1, n=1, x=0$ and taking the limit as $s \to 0$ we obtain}
-\\
-|p| = 1, \alpha = tan^{-1}(1/0) = \pi/2
-\\
-\lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \lim_{s \to 0} \int_{0}^{\infty} u^{s -1} sin(u) du  = \int_{0}^{\infty} \frac{sin(u)}{u} du 
-\\
-\text{To evaluate the RHS limit we use equation \ref{Symmetric Gamma eq}  } \Gamma(s) = \frac{\pi}{\Gamma(1-s)sin(\pi s)}
-\\
-\lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \lim_{s \to 0} \frac{\pi}{\Gamma(1-s)sin(\pi s)} sin(s \frac{\pi}{2}) 
-\\
-\text{We can split this limit into the product of 3 limits since all of these limits exist}
-\\
-\lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \lim_{s \to 0}  \frac{\frac{\pi}{2}}{\Gamma(1-s)} \cdot 
-\lim_{s \to 0}
-\frac{\pi}{sin(\pi s)} 
-\cdot 
-\lim_{s \to 0}
-\frac{sin(s \frac{\pi}{2})}{\frac{\pi}{2}}
-\\
-\lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \frac{\pi}{2}
-\\
-\int_{0}^{\infty} \frac{sin(u)}{u} du = \frac{\pi}{2}
-\\
-\text{since } \frac{sin(u)}{u} \text{ is an even function}
-\\
-\int_{-\infty}^{\infty} \frac{sin(u)}{u} du = \pi
-\end{gather*}
-\end{theorem}
-
-\subsubsection{$\int \sin(x^2)$}
-
-\begin{theorem}
-\begin{equation}
-\boxed{
-\int_{0}^{\infty} \sin(x^2) = \frac{\sqrt{2\pi}}{4}
-}
-\end{equation}
-
-Proof
-\\
-Starting from equation \ref{sin gamma integral}
-\begin{gather*}
-\frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
-\\
-\text{setting $y=1, n=2, x=0$ and $ns -1 = 0$ we obtain}
-\\
-|p| = 1, \alpha = tan^{-1}(1/0) = \pi/2, s = 1/2
-\\
-\frac{\Gamma(\frac{1}{2}) sin(\frac{\pi}{4})}{2} = \int_{0}^{\infty} sin(u^2) du
-\\
-\text{using equation \ref{gamma half}: } \Gamma(\frac{1}{2}) = \sqrt{\pi}
-\\
-\int_{0}^{\infty} sin(u^2) du = \frac{\sqrt{\pi} \frac{1}{\sqrt{2}}}{2}
-= \frac{\sqrt{2\pi}}{4}
-\end{gather*}
-\end{theorem}
-
-\subsubsection{$\int \cos(x^2)$}
-
-\begin{theorem}
-\begin{equation}
-\boxed{
-\int_{0}^{\infty} \cos(x^2) = \frac{\sqrt{2\pi}}{4}
-}
-\end{equation}
-
-Proof
-\\
-Starting from equation \ref{cos gamma integral}
-\begin{gather*}
-\frac{\Gamma(s)}{n |p|^s} cos(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} cos(y u^n) du
-\\
-\text{setting $y=1, n=2, x=0$ and $ns -1 = 0$ we obtain}
-\\
-|p| = 1, \alpha = tan^{-1}(1/0) = \pi/2, s = 1/2
-\\
-\frac{\Gamma(\frac{1}{2}) cos(\frac{\pi}{4})}{2} = \int_{0}^{\infty} cos(u^2) du
-\\
-\text{using equation \ref{gamma half}: } \Gamma(\frac{1}{2}) = \sqrt{\pi}
-\\
-\int_{0}^{\infty} cos(u^2) du = \frac{\sqrt{\pi} \frac{1}{\sqrt{2}}}{2}
-= \frac{\sqrt{2\pi}}{4}
-\end{gather*}
-\end{theorem}
-
-\subsubsection{$\int \frac{\sin(x^2)}{x^2}$}
-
-\begin{theorem}
-\begin{equation}
-\boxed{
-\int_{0}^{\infty} \frac{\sin(x^2)}{x^2} = \sqrt{\frac{\pi}{2}}
-}
-\end{equation}
-
-Proof
-\\
-Starting from equation \ref{sin gamma integral}
-\begin{gather*}
-\frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
-\\
-\text{setting $y=1, n=2, x=0$ and $ns -1 = -2$ we obtain}
-\\
-|p| = 1, \alpha = tan^{-1}(1/0) = \pi/2, s = -1/2
-\\
-\frac{\Gamma(\frac{-1}{2}) sin(-\frac{\pi}{4})}{2} = \int_{0}^{\infty} \frac{sin(u^2)}{u^2} du
-\\
-\text{using equation \ref{negative gamma half}: } \Gamma(-\frac{1}{2}) = -2\sqrt{\pi}
-\\
-\int_{0}^{\infty} \frac{sin(u^2)}{u^2} du = -\frac{\Gamma(\frac{-1}{2})}{2\sqrt{2}} =
-\sqrt{\frac{\pi}{2}}
-\end{gather*}
-\end{theorem}
-
-\subsubsection{$\int \frac{\sin(x^n)}{x^n}$}
-
-\begin{theorem}
-\begin{equation}
-\boxed{
-\int_{0}^{\infty} \frac{\sin(x^n)}{x^n} = \frac{\Gamma(\frac{1}{n})}{n-1} \cdot cos(\frac{\pi}{2n})
-\quad ,   n > 1
-}
-\end{equation}
-
-Proof
-\\
-Starting from equation \ref{sin gamma integral}
-\begin{gather*}
-\frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
-\\
-\text{setting $y=1, x=0$ and $ns -1 = -n$ we obtain}
-\\
-|p| = 1, \alpha = tan^{-1}(1/0) = \pi/2, s = 1/n -1
-\\
-\frac{\Gamma(\frac{1}{n} - 1) sin(\frac{\pi}{2n} - \frac{\pi}{2})}{n} = \int_{0}^{\infty} \frac{sin(u^n)}{u^n} du
-\\
-\text{using equation \ref{Def} and assuming $n \neq 1$: } \Gamma(k+1) = k \Gamma(k)
-\\
-\int_{0}^{\infty} \frac{sin(u^n)}{u^n} du = \frac{\Gamma(\frac{1}{n})}{n (\frac{1}{n} -1 ) }  sin(\frac{\pi}{2n} - \frac{\pi}{2})
-\\
-\int_{0}^{\infty} \frac{sin(u^n)}{u^n} du = \frac{\Gamma(\frac{1}{n})}{1 - n )}  sin(\frac{\pi}{2n} - \frac{\pi}{2})
-\\
-\text{using $sin(x - \frac{\pi}{2}) = - cos(x)$}
-\\
-\int_{0}^{\infty} \frac{sin(u^n)}{u^n} du = \frac{\Gamma(\frac{1}{n})}{n-1} \cdot cos(\frac{\pi}{2n})
-\end{gather*}
-\end{theorem}
-
-\pagebreak
-
-\section{Relation to the Beta Function}
-
-\subsection{Definition}
-The Beta Function is defined as:
-\begin{definition} \label{beta def}
-$$
-\beta(x, y) = \int_{0}^{1} t^{x-1} (1-t)^{y-1} dt
-$$
-\end{definition}
-
-\subsection{Symmetry}
-\begin{theorem}
-\begin{equation}
-\beta(x, y) = \beta(y, x)
-\end{equation}
-
-Proof
-\\
-Starting from the definition \ref{beta def}
-\begin{gather*}
-\beta(x, y) = \int_{0}^{1} t^{x-1} (1-t)^{y-1} dt
-\\
-\text{setting $u = 1-t$, hence $du = -dt$ we obtain}
-\\
-\beta(x, y) = \int_{1}^{0} (1-u)^{x-1} {u}^{y-1} -du
-\\
-\text{Switching the bounds of integration we get}
-\\
-\beta(x, y) = \int_{0}^{1} (1-u)^{x-1} {u}^{y-1} du = \beta(y, x)
-\end{gather*}
-\end{theorem}
-
-\subsection{Relation to Gamma}
-\begin{theorem} \label{relation to beta}
-\begin{equation}
-\boxed{
-\beta(x, y) = \frac{\Gamma(x) \Gamma(y)}{\Gamma(x+y)}
-}
-\end{equation}
-
-Proof
-\\
-Starting from the definition \ref{beta def}
-\begin{gather*}
-\beta(x, y) = \int_{0}^{1} t^{x-1} (1-t)^{y-1} dt
-\\
-\text{setting $t = \frac{1}{1+u}$, hence $dt = -\frac{1}{(1+u)^2} du$ we obtain}
-\\
-\beta(x, y) = \int_{\infty}^{0} (\frac{1}{1+u})^{x-1} (1-\frac{1}{1+u})^{y-1} \frac{1}{(1+u)^2} (-du)
-\\
-\text{Switching the bounds of integration and simplifying we get}
-\\
-\beta(x, y) = \int_{0}^{\infty} (\frac{1}{1+u})^{x-1} (\frac{u}{1+u})^{y-1} \frac{1}{(1+u)^2} du
-\\
-\text{collecting powers of $(1+u)$}
-\\
-\beta(x, y) = \int_{0}^{\infty} 
-\frac{u^{y-1}}{(1+u)^{x+y}} du
-\\
-\text{Using the Gamma definition \ref{gamma def} and applying a change of variables $\alpha w = t$, hence $dt = \alpha dw$}
-\\
-\Gamma(z) = \alpha^z  \int_{0}^{\infty} e^{-\alpha w} w^{z-1} dw
-\\
-\text{setting $z = x+y$ and $\alpha = 1+u$, we obtain}
-\\
-\Gamma(x+y) = (1+u)^{x+y}  \int_{0}^{\infty} e^{-(1+u) w} w^{x+y-1} dw
-\\
-\text{Combining with the Beta function integral we obtained}
-\\
-\beta(x, y) \Gamma(x+y) = \int_{0}^{\infty}  \Gamma(x+y) \frac{u^{y-1}}{(1+u)^{x+y}} du
-\\
-\beta(x, y) \Gamma(x+y) =
-\int_{0}^{\infty}  \Big( (1+u)^{x+y} \int_{0}^{\infty} e^{-(1+u) w} w^{x+y-1} dw \Big) \frac{u^{y-1}}{(1+u)^{x+y}} du
-\\
-\text{Simplfying}
-\\
-\beta(x, y) \Gamma(x+y) =
-\int_{0}^{\infty} \int_{0}^{\infty} e^{-(1+u) w} w^{x+y-1}  u^{y-1} dw du
-\\
-\text{Rearranging}
-\\
-\beta(x, y) \Gamma(x+y) =
-\int_{0}^{\infty} \Big( \int_{0}^{\infty} e^{-uw} u^{y-1} du \Big) e^{-w} w^{x+y-1} dw
-\\
-\text{Using $\Gamma(z) = \alpha^z  \int_{0}^{\infty} e^{-\alpha u} u^{z-1} du$}
-\\
-\beta(x, y) \Gamma(x+y) =
-\int_{0}^{\infty} \frac{\Gamma(y)}{w^y}  e^{-w} w^{x+y-1} dw
-\\
-\text{Simplfying and moving $\Gamma(y)$ outside the integral}
-\\
-\beta(x, y) \Gamma(x+y) = \Gamma(y)
-\int_{0}^{\infty} e^{-w} w^{x-1} dw
-\\
-\text{Using the definition of the $\Gamma(z)$}
-\\
-\beta(x, y) \Gamma(x+y) = \Gamma(y) \Gamma(x)
-\\
-\beta(x, y)  =\frac{\Gamma(y) \Gamma(x)}{\Gamma(x+y)}  
-\end{gather*}
-\end{theorem}
-
-\subsection{Relation to integral of powers of sin(x) and cos(x)}
-
-\begin{theorem}
-\begin{equation}
-\boxed{
-\int_{0}^{\pi/2} sin^{n}(t) cos^{m}(t) dt = \frac{1}{2} \beta \Big( \frac{n+1}{2}, \frac{m+1}{2} \Big)
-=
-\frac{\Gamma(\frac{n+1}{2}) \Gamma(\frac{m+1}{2})}{\Gamma(\frac{n+m}{2} + 1)} 
-}
-\end{equation}
-
-Proof
-\\
-\begin{gather*}
-A(m, n) = \int_{0}^{\pi/2} sin^{n}(t) cos^{m}(t) dt
-\\
-\text{setting $sin^{2}(t) = u$, hence $2 sin(t) cos(t) dt = du$ we obtain}
-\\
-\text{note $cos^{2}(t) = 1-u$, and $sin^{2}(0) = 0$ and $sin^{2}(\frac{\pi}{2}) = 1$}
-\\
-A(m, n) = \int_{0}^{1} u^{\frac{n}{2}} (1-u)^{\frac{m}{2}} \frac{du}{2 \sqrt{u} \sqrt{1-u}}
-\\
-\text{Simplifying the powers we get}
-\\
-A(m, n) = \frac{1}{2} \int_{0}^{1} u^{\frac{n}{2} -\frac{1}{2}} (1-u)^{\frac{m}{2}-\frac{1}{2}} du
-\\
-\text{Writing it in the Beta function form we get}
-\\
-A(m, n) = \frac{1}{2} \int_{0}^{1} u^{\frac{n+1}{2}- 1} (1-u)^{\frac{m+1}{2} -1} du = \frac{1}{2} \beta(\frac{n+1}{2}, \frac{m+1}{2})
-\end{gather*}
-\end{theorem}
-
-\subsection{Proof of the Legendre duplication formula} \label{proof of leg dup}
-
-\begin{theorem}
-\begin{equation}
-\boxed{
-\Gamma(x) \cdot \Gamma(x+\frac{1}{2}) = \frac{\sqrt{\pi}}{2^{2x - 1}} \Gamma(2x)
-}
-\end{equation}
-
-Proof
-\\
-\begin{gather*}
-\text{Using the relation to the Beta function, and the definition of the Beta function}
-\\
-\frac{\Gamma(x) \Gamma(y)}{\Gamma(x+y)} =
-\int_{0}^{1} t^{x-1} (1-t)^{y-1} dt
-\\
-\text{let $x=y=s$}
-\\
-\frac{\Gamma(s) \Gamma(s)}{\Gamma(2s)} =
-\int_{0}^{1} t^{s-1} (1-t)^{s-1} dt
-\\
-\text{let $t = \frac{1+x}{2}$, hence $dt = \frac{dx}{2}$}
-\\
-\text{note when $t=0$ then $x=-1$, and when $t=1$ then $x=1$}
-\\
-\frac{\Gamma(s) \Gamma(s)}{\Gamma(2s)} =
-\int_{-1}^{1} (\frac{1+x}{2})^{s-1} (\frac{1-x}{2})^{s-1} \frac{dx}{2}
-\\
-\text{Simplifying the powers of 2 and rearranging}
-\\
-2^{2s -1} \Gamma(s) \Gamma(s)= \Gamma(2s)
-\int_{-1}^{1} (1+x)^{s-1} (1-x)^{s-1} dx
-\\
-2^{2s -1} \Gamma(s) \Gamma(s)= 
-\Gamma(2s) \int_{-1}^{1} (1-x^2)^{s-1} dx
-\\
-\text{Notice that the integral is even around 0, hence}
-\\
-2^{2s -1} \Gamma(s) \Gamma(s)= 
-2 \Gamma(2s) \int_{0}^{1} (1-x^2)^{s-1} dx
-\\
-\text{To evaluate the integral, notice that after a substitution of $u=x^2$ the integral is just $\beta(1/2, s)$}
-\\
-\beta(1/2, s) = \int_{0}^{1} t^{-\frac{1}{2}} (1-t)^{s-1} dt
-\\
-\text{Let $t=x^2$, hence $dt = 2x dx$}
-\\
-\beta(1/2, s) 
-=
-\int_{0}^{1} \frac{1}{x}(1-x^2)^{s-1} 2x dx 
-=
-2\int_{0}^{1} (1-x^2)^{s-1} dx 
-\\
-\text{Hence}
-\\
-2^{2s -1} \Gamma(s) \Gamma(s)= \Gamma(2s) \beta(1/2, s) 
-\\
-\text{Using theorem \ref{relation to beta}}
-\\
-2^{2s -1} \Gamma(s) \Gamma(s)= \Gamma(2s) \frac{\Gamma(1/2) \Gamma(s)}{\Gamma(s+1/2)} 
-\\
-\text{Rearranging and using equation \ref{gamma half}}
-\\
- \Gamma(s) \Gamma(s+1/2)= \Gamma(2s) \frac{\sqrt{\pi}}{2^{2s -1}} 
-\end{gather*}
-\end{theorem}
-
-\pagebreak
-\section{Approximations}
-\subsection{Stirling's Approximation}
-\begin{theorem}
-The basic approximation of the factorial function for large n is
-\begin{equation}
-\boxed{
-n! \approx (\frac{n}{e})^n \sqrt{2\pi n}
-}
-\end{equation}
-
-Proof
-\\
-Starting from the definition of the Gamma function \ref{gamma def}
-\begin{gather*}
-\Gamma(n+1) = n! = \int_{0}^{\infty} e^{-t} t^{n} dt 
-\\
-\text{the idea is to take the log of the integrand and then slightly perturb it}
-\\
-ln(e^{-t} t^{n}) = n ln(t) - t
-\\
-\text{let $t=n + \epsilon$} 
-\\
-\ln(e^{-t} t^{n}) = n ln(n + \epsilon) - (n + \epsilon)
-=
-n ln(n) + n ln(1 + \frac{\epsilon}{n}) - (n + \epsilon)
-\\
-\text{for large n, $\frac{\epsilon}{n} << 1$}
-\\
-\text{Using the Taylor-Expansion of $ln(1+x)$}
-\\
-\ln(e^{-t} t^{n})
-= 
-n \Big( ln(n) +  \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k} (\frac{\epsilon}{n})^k \Big) - (n + \epsilon)
-\\
-\ln(e^{-t} t^{n})
-= 
-n ln(n) -n + \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k} (\frac{\epsilon^k}{n^{k-1}}) - \epsilon
-\\
-\ln(e^{-t} t^{n})
-= 
-n ln(n) - n - \frac{\epsilon^2}{2n} + \frac{\epsilon^3}{3n^2}
-- \frac{\epsilon^4}{4n^3} + ...
-\\
-\ln(e^{-t} t^{n})
-\approx
-n ln(n) - n - \frac{\epsilon^2}{2n}
-\\
-e^{-t} t^{n}
-\approx
-\frac{n^n}{e^n} e^{-\frac{\epsilon^2}{2n}}
-\\
-n! 
-\approx
-\int_{-n}^{\infty} \frac{n^n}{e^n} e^{-\frac{\epsilon^2}{2n}} d\epsilon 
-\\
-n! 
-\approx
-\frac{n^n}{e^n}
-\int_{-n}^{\infty}  e^{\frac{-\epsilon^2}{2n}} d\epsilon
-\\
-\text{Assuming n is large enough}
-\\
-n! 
-\approx
-\frac{n^n}{e^n}
-\int_{-\infty}^{\infty}  e^{-\frac{\epsilon^2}{2n}} d\epsilon
-\\
-\text{Using $\int_{-\infty}^{\infty}  e^{-px^2} dx = \sqrt{\frac{\pi}{p}}$}
-\\
-n! 
-\approx
-\frac{n^n}{e^n} \sqrt{2n \pi}
-\end{gather*}
-\end{theorem}
-\subsubsection{Limit as n approaches infinity}
-
-The approximation in the this result can be stated more correctly as follows
-\begin{equation} \label{stirling_limit}
-\boxed{\lim_{n \to \infty} \frac{n!}{(\frac{n}{e})^n \sqrt{2\pi n}} = 1
-}
-\end{equation}
-
-We can state this equivalently by taking logarithms of both sides. We will use this form to help derive the full Stirling approximation. 
-
-\begin{equation} \label{stirling_limit_log}
-\boxed{\lim_{n \to \infty} 
-ln(n!) - nln(n) + n - \frac{ln(n)}{2}= ln(\sqrt{2\pi})
-}
-\end{equation}
-
-\subsection{Stirling's Full Approximation}
-\begin{theorem}
-Expanding on Stirling's approximation to include as many terms as needed we need to use the Euler-Maclaurin formula\footnote{See the Darboux Formula document}.
-\begin{equation}
-\boxed{
-n! = (\frac{n}{e})^n \sqrt{2\pi n} \cdot
-exp \Big( \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}} - \frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt \Big)
-}
-\end{equation}
-
-Proof
-\\
-Starting from the definition of the simple version of the Euler-Maclaurin formula
-\begin{gather*}
-\sum_{j=0}^{r} g(j)  - \int_{x=0}^{r} g(x) dx 
-=
-\frac{g(0) + g(r)}{2} + 
-\sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(g^{(2k-1)}(r) - g^{(2k-1)}(0)\Big) + R_{r,m}
-\\
-R_{r,m} = \frac{(-1)^{m+1} }{m!} \int_{0}^{r} B_m(\{t\}) g^{(m)}(t) dt
-\\
-\text{Define $f(x) = g(x+1)$ and $n = r+1$, so that $f(n) = f(r+1) = g(r)$. we get}
-\\
-\sum_{j=1}^{n} f(j)  - \int_{x=1}^{n} f(x) dx 
-=
-\frac{f(1) + f(n)}{2} + 
-\sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(f^{(2k-1)}(n) - f^{(2k-1)}(1)\Big) + R_{n,m}
-\\
-R_{n,m} = \frac{(-1)^{m+1} }{m!} \int_{1}^{n-1} B_m(\{t\}) f^{(m)}(t) dt
-\end{gather*}
-\begin{gather*}
-\text{Let $f(x) = ln(x)$, therefore}
-\\
-f^{(m)}(x) = \frac{(-1)^{m-1} \cdot (m-1)!}{(x)^m}  \text{  or  }
-f^{(2k-1)}(x) = \frac{(-1)^{2k-2} \cdot (2k-2)!}{(x)^{2k-1}}
-\\
-\text{Plugging in $f(x)$ and $f^{(m)}(x)$ into the Euler-Maclaurin formula we get}
-\\
-\sum_{j=1}^{n} ln(j) = ln(n!) = \int_{x=1}^{n} ln(x) dx 
-+
-\frac{ln(1) + ln(n)}{2} 
-\\
-+ \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(\frac{(-1)^{2k-2} \cdot (2k-2)!}{n^{2k-1}} - \frac{(-1)^{2k-2} \cdot (2k-2)!}{1^{2k-1}}\Big) + R_{n,m}
-\\
-R_{n,m} = \frac{(-1)^{m+1} }{m!} \int_{1}^{n-1} B_m(\{t\}) \frac{(-1)^{m-1} \cdot (m-1)!}{t^m}  dt
-\\
-\text{Evalulating the integral and simplifying}
-\\
-ln(n!) = \big(n \cdot ln(n) - n \big) - \big(1 \cdot ln(1) - 1 \big) +
-\frac{ln(n)}{2} 
-+ \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k} \cdot (2k-2)!}{(2k)!} \Big(\frac{1}{n^{2k-1}} - 1\Big) + R_{n,m}
-\\
-R_{n,m} = \frac{1}{m} \int_{1}^{n-1} \frac{B_m(\{t\})}{t^m}  dt
-\\
-\text{Further simplifying}
-\\
-ln(n!) = n \cdot ln(n) - n  + 1 +
-\frac{ln(n)}{2} 
-+ \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \Big(\frac{1}{n^{2k-1}} - 1\Big) + R_{n,m}
-\end{gather*}
-To eliminate some terms we can rearranging and take limits of both sides. This would allow us to use the simple Stirling Approximation to skip the evaluation of one of the sums.
-\begin{gather*}
-\lim_{n \to \infty}
-ln(n!)  - n \cdot ln(n) + n - \frac{ln(n)}{2} 
-\\
-= \lim_{n \to \infty}
-1 + \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}}
-- \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}
-+ R_{n,m}
-\\
-= 1 - \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}
-+ \lim_{n \to \infty} R_{n,m}
-\\
-\intertext{Using equation \ref{stirling_limit_log}}
-1 - \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} + \lim_{n \to \infty} R_{n,m}
-= ln(\sqrt{2\pi})
-\\
-\text{Plugging this back in, we get:}
-\\
-ln(n!)  - n \cdot ln(n) + n - \frac{ln(n)}{2} 
-= ln(\sqrt{2\pi}) + \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}}
-+ R_{n,m} - \lim_{n \to \infty} R_{n,m}
-\\
-\text{Using the integral form of $R_{n,m}$ we can then re-write the difference } 
-D = R_{n,m} - \lim_{n \to \infty} R_{n,m}
-\\
-D = R_{n,m} - \lim_{n \to \infty} R_{n,m} 
-= 
-\frac{1}{m} \int_{1}^{n-1} \frac{B_m(\{t\})}{t^m}  dt
-- 
-\frac{1}{m} \int_{1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt
-= 
-- \frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt
-\\
-\text{Now raising e to the value of both sides, we get}
-\\
-n! = (\frac{n}{e})^n \sqrt{2\pi n} \cdot
-exp \Big( \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}} - \frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt \Big)
-\end{gather*}
-\end{theorem}
-
-\subsubsection{Approximation big-O notation}
-
-\begin{theorem}
-The integral in the exponent can be bound by a polynomial power with respect to $n$. 
-\begin{equation}
-\boxed{
-n! = (\frac{n}{e})^n \sqrt{2\pi n} \cdot
-exp \Big( \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}} + O(\frac{1}{n^m}) \Big)
-}
-\end{equation}
-
-Proof
-\\
-We  need to show that $\frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt = O\Big( \frac{1}{n^m} \Big)$
-\begin{gather*}
-D = - \frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt
-\\
-D \leq  |D| \leq \frac{1}{|m|} \int_{n-1}^{\infty} \frac{|B_m(\{t\})|}{t^m} dt \leq 
-\frac{\max_{x \in [0,1]} |B_m(x)|}{|m|} \int_{n-1}^{\infty} \frac{1}{t^m}  dt
-\\
-=
-\underbrace{\frac{\max_{x \in [0,1]} |B_m(x)|}{m\cdot (m+1)}}_{\neq f(n)}
-\underbrace{\frac{1}{(n-1)^m}}_{f(n)}
-= O \big( \frac{1}{n^m} \big)
-\end{gather*}
-\end{theorem}
-
-\subsection{Plugging in values}
-Generating an approximation with $m=7$ and using $B_2=\frac{1}{6}, B_4=-\frac{1}{30}, B_6=\frac{1}{42}$ we obtain:
-
-\begin{equation}\label{n_factorial_approx}
-n! = (\frac{n}{e})^n \sqrt{2\pi n} \cdot
-exp \Big( \frac{1}{12 n} 
--
-\frac{1}{360 n^{3}} 
-+
-\frac{1}{1260 n^{5}} 
-+ O(\frac{1}{n^7}) \Big)
-\end{equation}
-
-Since the factorial function grows very fast, it's useful to consider the logarithm of the factorial function. This would result in the following approximation. 
-
-\begin{equation}\label{log_n_factorial_approx}
-ln(n!) = 
-\frac{ln(2\pi)}{2} + 
-n ln(n) - n +
-+ \frac{ln(n)}{2}
-+ \frac{1}{12 n} 
-- \frac{1}{360 n^{3}} 
-+ \frac{1}{1260 n^{5}} 
-+ O(\frac{1}{n^7})
-\end{equation}
+        \begin{gather*}
+            p^x = e^{x lnp} = e^{x [lnp - 1 - 1/2 - 1/3 - \dots - 1/p]} e^{x + x/2 + x/3 + \dots + x/p} \\
+            \text{Plugging $p^x$ into equation~\ref{eq:finite-gamma-def}} \\
+            \Gamma_{p}(x) = \frac{e^{x [lnp - 1 - 1/2 - 1/3 - \dots - 1/p]} e^{x + x/2 + x/3 + \dots + x/p}}{x (\frac{x}{1} + 1)(\frac{x}{2} + 1)...(\frac{x}{p} + 1)}   \\
+            \Gamma_{p}(x) = e^{x [lnp - 1 - 1/2 - 1/3 - \dots - 1/p]} \cdot \frac{1}{x} \cdot \frac{e^{x}}{x+1} \cdot \frac{e^{x/2}}{x/2+1} \cdot \frac{e^{x/3}}{x/3+1}
+            \cdot \cdot \cdot \cdot \frac{e^{x/p}}{x/p+1}
+            \\
+            \Gamma_{p}(x) = e^{x [lnp - 1 - 1/2 - 1/3 - \dots - 1/p]} \cdot \frac{1}{x} \cdot \prod_{k=1}^{p} \frac{e^{x/k}}{1 + x/k} \\
+            \text{Taking the limit as $p \to \infty$ }\\
+            \Gamma(x) = \lim_{p \to \infty} \Gamma_{p}(x) =
+            \lim_{p \to \infty} e^{x [lnp - 1 - 1/2 - 1/3 - \dots - 1/p]} \cdot \frac{1}{x} \cdot \prod_{k=1}^{p} \frac{e^{x/k}}{1 + x/k} \\
+            \Gamma(x) = e^{-x \gamma} \cdot  \frac{1}{x} \cdot \prod_{k=1}^{\infty} \frac{e^{x/k}}{1 + x/k}  \\
+            \text{Equivalently}\\
+            \frac{1}{\Gamma(x)}  = x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k}  \\
+        \end{gather*}
+    \end{theorem}
+
+    \subsection{Symmetry around 1/2 relation}\label{subsec:symmetric-gamma}
+    Using~\ref{sec:weierstrass} we derive the following functional form.
+
+    \begin{theorem}
+        \begin{equation}
+            \label{eq:symmetric-gamma-eq}
+            \boxed{
+                \frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(1-x)} = \frac{sin(\pi x)}{\pi}
+            }
+        \end{equation}
+
+        Proof
+        \\
+        Starting from~\ref{sec:weierstrass} and considering $\frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(-x)}$ we obtain
+        \begin{gather*}
+            \frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(-x)} = x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k}   \cdot -x \cdot e^{-x \gamma} \cdot \prod_{k=1}^{\infty} (1 - x/k) \cdot e^{x/k}
+            \\
+            \frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(-x)} = -x^2 \cdot \prod_{k=1}^{\infty} (1 - x^2/k^2) \\
+            \text{Using the functional form of $\Gamma$, we get $\Gamma(1-x) = \Gamma(-x+1) = -x \Gamma(-x)$}
+            \\
+            \frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(1-x)} = x \cdot \prod_{k=1}^{\infty} (1 - x^2/k^2) \\
+            \text{Using the product form of $\frac{\sin(\pi x)}{\pi x} = \prod_{k=1}^{\infty} \Big\left( 1-\frac{x^2}{k^2} \Big\right)$
+                , See Euler's Sine Product Form document}
+            \\
+            \frac{1}{\Gamma(x)}\cdot \frac{1}{\Gamma(1-x)} = \frac{sin(\pi x)}{\pi}
+        \end{gather*}
+    \end{theorem}
+
+    \subsection{Special Examples}\label{subsec:special-examples}
+    Plugging in various values for $x$ we obtain certain values and relations for $\Gamma(x)$
+
+    $x = \frac{1}{2}$
+    \begin{equation}
+        \label{eq:gamma-half}
+        \Gamma(\frac{1}{2}) = \sqrt{\frac{\pi}{sin(\frac{\pi}{2})}} = \sqrt{\pi}
+    \end{equation}
+
+    $x = \frac{1}{3}$
+    \begin{equation}
+        \Gamma(\frac{1}{3}) \Gamma(\frac{2}{3}) = \frac{\pi}{sin(\frac{\pi}{3})} = \frac{2\pi}{\sqrt{3}} \label{eq:equation7}
+    \end{equation}
+
+    $x = \frac{1}{4}$
+    \begin{equation}
+        \Gamma(\frac{1}{4}) \Gamma(\frac{3}{4}) = \frac{\pi}{sin(\frac{\pi}{4})} = \sqrt{2} \pi \label{eq:equation8}
+    \end{equation}
+
+    \begin{theorem}
+        $x = -\frac{1}{2}$ with equation~\ref{eq:gamma-half}
+        \begin{equation}
+            \label{eq:negative-gamma-half}
+            \Gamma(-\frac{1}{2}) = -2 \sqrt{\pi}
+        \end{equation}
+
+        Proof
+        \\
+        \begin{gather*}
+            \Gamma(-\frac{1}{2}) \cdot \Gamma(1-(-\frac{1}{2})) = \frac{\pi}{sin(-\frac{\pi}{2})}
+            \\
+            \Gamma(-\frac{1}{2}) = -\frac{\pi}{\Gamma(\frac{3}{2})}
+            \\
+            \Gamma(-\frac{1}{2}) = -\frac{\pi}{\frac{1}{2} \Gamma(\frac{1}{2})}
+            \\
+            \Gamma(-\frac{1}{2}) = -\frac{\pi}{\frac{1}{2} \sqrt{\pi}}
+            \\
+            \Gamma(-\frac{1}{2}) = -2\sqrt{\pi}
+        \end{gather*}
+
+    \end{theorem}
+
+
+
+    Note that equation~\ref{eq:gamma-half} implies that
+    \begin{equation}
+        \Gamma(\frac{1}{2}) = \int_{0}^{\infty} \frac{1}{e^t \sqrt{t}} dt = \sqrt{\pi} \label{eq:equation9}
+    \end{equation}
+    Since $\Gamma(x) = (x-1)!$ for integer values of $x$, this is where the idea of $(-\frac{1}{2})! = \sqrt{\pi}$ comes from.
+
+
+    \section{Other relations}\label{sec:other-relations}
+    Using equation~\ref{gamma-def-1} we derive the following.
+
+    \begin{theorem}
+        This is the more general multiplication equation referred to as the multiplication formula or Gauss's multiplication formula
+        \begin{equation}
+            \label{eq:legendre-mult}
+            \boxed{
+                \Gamma(x) \cdot \Gamma(x+\frac{1}{n}) \cdot \Gamma(x+\frac{2}{n}) \cdot \cdot \cdot \Gamma(x+\frac{n-1}{n}) = (2 \pi)^{\frac{n-1}{2}} n^{1/2 - nx} \Gamma(nx)
+            }
+        \end{equation}
+
+        Proof
+        \\
+        TODO
+    \end{theorem}
+
+    Plugging in $x=0$ into Equation~\ref{eq:legendre-mult} we get
+    \begin{equation}
+        \Gamma(\frac{1}{n}) \cdot \Gamma(\frac{2}{n}) \cdot \cdot \cdot \Gamma(\frac{n-1}{n}) = \frac{(2 \pi)^{\frac{n-1}{2}}}{\sqrt{n}} \label{eq:equation10}
+    \end{equation}
+
+
+    \begin{theorem}
+        There is a multiplicative relation to the Zeta function.
+        Refer to the Zeta function document for the definition and properties of the Zeta function.
+        \begin{equation}
+            \boxed{
+                \Gamma(x) \zeta(x) = \int_{0}^{\infty} \frac{u^{s-1}}{e^{u} - 1} du} \label{eq:equation11}
+        \end{equation}
+        Proof
+        \\
+        See the Zeta function document.
+    \end{theorem}
+
+
+    \section{Digamma function}\label{sec:digamma-function}
+
+    \subsection{Definition}\label{subsec:definition}
+    Define the Digamma function
+    \begin{equation}
+        \label{eq:digamma-def}
+        \Psi(x) = \frac{\partial}{\partial x}  ln(\Gamma(x)) = \frac{\Gamma'(x)}{\Gamma(x)}
+    \end{equation}
+
+    \subsection{Series Representation}\label{subsec:series-representation}
+
+    \begin{theorem}
+        Let $\gamma$ be the Euler Mascheroni constant as defined in section~\ref{sec:euler-const} then,
+        \begin{equation}
+            \label{eq:psi-series}
+            \boxed{
+                \Psi(x) = -\gamma - \frac{1}{x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{x+k}  \Big)
+            }
+        \end{equation}
+
+        Proof
+        \\
+        \begin{gather*}
+            \Psi(x) = \frac{\partial}{\partial x}  ln(\Gamma(x))
+            \\
+            \text{Using equation~\ref{eq:gamma-product}}
+            \\
+            \Psi(x) = -\frac{\partial}{\partial x} ln(x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k})
+            \\
+            \Psi(x) = -\frac{\partial}{\partial x} \Big[ ln(x) + x \gamma + \sum_{k=1}^{\infty} ln(1 + x/k) - \frac{x}{k}
+            \Big]
+            \\
+            \Psi(x) = -\frac{1}{x}  -  \gamma - \sum_{k=1}^{\infty} \frac{1}{k} \cdot \frac{1}{1 + x/k} - \frac{1}{k}
+            \\
+            \Psi(x) = -\frac{1}{x}  -  \gamma + \sum_{k=1}^{\infty} \frac{1}{k} - \frac{1}{x + k}
+        \end{gather*}
+    \end{theorem}
+
+    \subsection{Derivatives}\label{subsec:derivatives}
+    \begin{theorem}
+        \begin{equation}
+            \label{eq:psi-first-deriv}
+            \boxed{
+                \Psi'(x) = \sum_{k=1}^{\infty} \frac{1}{(k+x-1)^2}
+            }
+        \end{equation}
+
+        Proof
+        \\
+        \begin{gather*}
+            \text{Using equation~\ref{eq:psi-series}}
+            \\
+            \Psi(x) = -\gamma - \frac{1}{x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{x+k}  \Big)
+            \\
+            \Psi'(x) = \frac{1}{x^2} + \sum_{k=1}^{\infty} \frac{1}{(x+k)^2}
+            \\
+            \text{Including the first term in the sum}
+            \\
+            \Psi'(x) = \sum_{k=1}^{\infty} \frac{1}{(x+k - 1)^2}
+        \end{gather*}
+    \end{theorem}
+
+    \begin{theorem}
+        \begin{equation}
+            \label{eq:psi-nth-deriv}
+            \boxed{
+                \Psi^{n}(x) = \sum_{k=1}^{\infty} \frac{(-1)^{n+1} n! }{(k+x-1)^{n+1}}
+            }
+        \end{equation}
+
+        Proof
+        \\
+        Take repeated derivatives of equation~\ref{eq:psi-first-deriv}
+    \end{theorem}
+
+    \subsection{Special values}\label{subsec:special-values}
+    \begin{theorem}
+        \begin{equation}
+            \Psi^{n}(x+1) = \Psi^{n}(x) + \frac{(-1)^n n!}{x^{n+1}} \label{eq:equation12}
+        \end{equation}
+
+        Proof
+        \\
+        \begin{gather*}
+            \Psi^{n}(x + 1) = \sum_{k=1}^{\infty} \frac{(-1)^{n+1} n! }{(k+x)^{n+1}}
+            \\
+            \Psi^{n}(x + 1) = \frac{(-1)^n n!}{x^{n+1}}  + \sum_{k=2}^{\infty} \frac{(-1)^{n+1} n! }{(k+x)^{n+1}}
+            \\
+            \Psi^{n}(x + 1) = \frac{(-1)^n n!}{x^{n+1}}  + \sum_{k=1}^{\infty} \frac{(-1)^{n+1} n! }{(k+x - 1)^{n+1}}
+            \\
+            \Psi^{n}(x + 1) = \frac{(-1)^n n!}{x^{n+1}}  + \Psi^{n}(x)
+        \end{gather*}
+    \end{theorem}
+
+    \begin{theorem}
+        Reflection formula
+        \begin{equation}
+            \Psi(1-x) = \Psi(x) + \pi cot(\pi x) \label{eq:equation13}
+        \end{equation}
+
+        Proof
+        \begin{gather*}
+            \Psi(1-x) = -\gamma - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{k+1-x}  \Big)
+            \\
+            \intertext{Adding and subtracting $\Psi(x)$}
+            \Psi(1-x) = -\gamma - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{k+1-x}  \Big) + \Psi(x) - \Psi(x)
+            \\
+            \Psi(1-x) = -\gamma - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{k+1-x}  \Big) + \Psi(x) - \Bigg(-\gamma - \frac{1}{x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{x+k}  \Big) \Bigg)
+            \\
+            \intertext{Simplifying}
+            \Psi(1-x) = \Psi(x) + \frac{1}{x} - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{k+1-x}  -  \frac{1}{k} + \frac{1}{x+k} \Big)
+            \\
+            \Psi(1-x) = \Psi(x) + \frac{1}{x} - \frac{1}{1-x} + \sum_{k=1}^{\infty} \Big(\frac{1}{x+k} - \frac{1}{k+1-x} \Big)
+            \\
+            \Psi(1-x) = \Psi(x) + \sum_{k=0}^{\infty} \Big(\frac{1}{x+k} + \frac{1}{x -k -1} \Big)
+            \\
+            \Psi(1-x) = \Psi(x) + \sum_{k=-\infty}^{\infty} \Big(\frac{1}{x+k} \Big)
+            \\
+            \text{Using the series \footnotemark for }\pi cot(\pi x) = \sum_{k=-\infty}^{\infty} \frac{1}{x + k}
+            \\
+            \Psi(1-x) = \Psi(x) + \pi cot(\pi x)
+        \end{gather*}
+    \end{theorem}
+
+    \footnotetext{See the Euler's Sine Product formula document.}
+
+    \begin{theorem}
+        \begin{equation}
+            \Psi(2x) = \frac{1}{2} \cdot \Psi(x) + \frac{1}{2} \cdot \Psi(x + \frac{1}{2}) + ln(2) \label{eq:equation14}
+        \end{equation}
+
+        Proof
+        \\
+        TODO
+    \end{theorem}
+
+    \begin{equation}
+        \Psi(1) = \Gamma'(1) = - \gamma \label{eq:equation15}
+    \end{equation}
+
+    \begin{equation}
+        \Psi^{(n)}(1) = (-1)^{n+1} n! \zeta(n+1) \label{eq:equation16}
+    \end{equation}
+    Where $\zeta(z)$ is the Riemann Zeta function defined as $\zeta(z) = \sum_{k=1}^{\infty} \frac{1}{k^z}$.
+    CONFIRM THIS?
+
+    \begin{equation}
+        \Psi(n) = \frac{\Gamma'(n)}{\Gamma(n)} = -\gamma + \sum_{k=1}^{n-1} \frac{1}{k} = -\gamma + H_{n-1} \label{eq:equation17}
+    \end{equation}
+    Where $H_{n}$ is the sum of the $n$ first harmonic numbers.
+    Note that this implies that the derivative of the $\Gamma$ function is diverges to $\infty$.
+
+
+    \section{Using The Gamma Function for Euler Integrals} \label{sec:using-the-gamma-function-for-euler-integrals}
+
+    \begin{theorem}
+        Let
+        $p = x + yi$ and
+        $\alpha =tan^{-1} \left( \frac{y}{x} \right)$ then
+        \begin{equation}
+            \label{eq:sin-gamma-integral}
+            \boxed{
+                \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
+            }
+        \end{equation}
+
+        \begin{equation}
+            \label{eq:cos-gamma-integral}
+            \boxed{
+                \frac{\Gamma(s)}{n |p|^s} cos(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} cos(y u^n) du
+            }
+        \end{equation}
+
+        Proof
+        \begin{gather*}
+            \Gamma(s) = \int_{0}^{\infty} e^{-t} t^{s-1} dt
+            \shortintertext{Using substitution $t = p \cdot u^n$ hence $dt = p \cdot n \cdot u^{n-1} \cdot du$}
+            \Gamma(s) = \int_{0}^{\infty} p^{n-1} u^{ns - n} e^{-pu} n p u^{n-1} du
+            = n \int_{0}^{\infty} p^{s} u^{ns - 1} e^{-pu^{n}} du \\
+            \frac{\Gamma(s)}{n p^s} = \int_{0}^{\infty} u^{ns - 1} e^{-pu^{n}} du \\
+            \shortintertext{Assuming $p$ is a complex number with real part $x$, imaginary part $y$}
+            \shortintertext{Taking the conjugate of both sides, we obtain a second equation.}
+            \frac{\Gamma(s)}{n \bar{p}^s} = \int_{0}^{\infty} u^{ns - 1} e^{-\bar{p}u^{n}} du \\
+            \shortintertext{Note that $p = x + yi = |p| e^{i \alpha}$ and $\bar{p} = x - yi = |p| e^{-i \alpha}$ where $\alpha = tan^{-1} \left( \frac{y}{x} \right)$}
+            \shortintertext{Adding and subtracting both equations we get}
+            \frac{\Gamma(s)}{n} \Big[ \frac{1}{\bar{p}^s} \pm  \frac{1}{p^s} \Big] = \int_{0}^{\infty} u^{ns - 1} \Big[ e^{-\bar{p}u^{n}} \pm e^{-pu^{n}} \Big] du \\
+            \frac{\Gamma(s)}{n |p|^s} \Big[ \frac{1}{e^{-i \alpha s}} \pm  \frac{1}{e^{i \alpha s}} \Big] = \int_{0}^{\infty} u^{ns - 1} \Big[ e^{-xu^{n}+yu^{n}i} \pm e^{-xu^{n}-yu^{n}i} \Big] du \\
+            \frac{\Gamma(s)}{n |p|^s} \Big[e^{i \alpha s} \pm  e^{-i \alpha s} \Big] = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} \Big[ e^{yu^{n}i} \pm e^{-yu^{n}i} \Big] du \\
+            \shortintertext{With addition we get}
+            \frac{\Gamma(s)}{n |p|^s} \Big[2 cos(\alpha s)\Big] = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} \Big[ 2 cos( yu^{n}) \Big] du \\
+            \frac{\Gamma(s)}{n |p|^s} cos(\alpha s) = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} cos( yu^{n}) \Big] du \\
+            \shortintertext{With subtraction we get}
+            \frac{\Gamma(s)}{n |p|^s} \Big[2i sin(\alpha s)\Big] = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} \Big[ 2i sin( yu^{n}) \Big] du \\
+            \frac{\Gamma(s)}{n |p|^s} sin(\alpha s) = \int_{0}^{\infty} u^{ns - 1} e^{-xu^{n}} sin( yu^{n}) \Big] du \\
+        \end{gather*}
+    \end{theorem}
+
+    \subsection{Examples}\label{subsec:examples}
+
+    \subsubsection{Sinc Integral $\int \frac{\sin(x)}{x}$}
+
+    \begin{theorem}
+        \begin{equation}
+            \boxed{
+                \int_{0}^{\infty} \frac{\sin(x)}{x} = \frac{\pi}{2}
+            }\label{eq:equation18}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from equation~\ref{eq:sin-gamma-integral}
+        \begin{gather*}
+            \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
+            \\
+            \text{setting $y=1, n=1, x=0$ and taking the limit as $s \to 0$ we obtain}
+            \\
+            |p| = 1, \alpha = tan^{-1}(1/0) = \pi/2
+            \\
+            \lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \lim_{s \to 0} \int_{0}^{\infty} u^{s -1} sin(u) du  = \int_{0}^{\infty} \frac{sin(u)}{u} du
+            \\
+            \text{To evaluate the RHS limit we use equation~\ref{eq:symmetric-gamma-eq}  } \Gamma(s) = \frac{\pi}{\Gamma(1-s)sin(\pi s)}
+            \\
+            \lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \lim_{s \to 0} \frac{\pi}{\Gamma(1-s)sin(\pi s)} sin(s \frac{\pi}{2})
+            \\
+            \text{We can split this limit into the product of 3 limits since all of these limits exist}
+            \\
+            \lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \lim_{s \to 0}  \frac{\frac{\pi}{2}}{\Gamma(1-s)} \cdot
+            \lim_{s \to 0}
+            \frac{\pi}{sin(\pi s)}
+            \cdot
+            \lim_{s \to 0}
+            \frac{sin(s \frac{\pi}{2})}{\frac{\pi}{2}}
+            \\
+            \lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \frac{\pi}{2}
+            \\
+            \int_{0}^{\infty} \frac{sin(u)}{u} du = \frac{\pi}{2}
+            \\
+            \text{since } \frac{sin(u)}{u} \text{ is an even function}
+            \\
+            \int_{-\infty}^{\infty} \frac{sin(u)}{u} du = \pi
+        \end{gather*}
+    \end{theorem}
+
+    \subsubsection{$\int \sin(x^2)$}
+
+    \begin{theorem}
+        \begin{equation}
+            \boxed{
+                \int_{0}^{\infty} \sin(x^2) = \frac{\sqrt{2\pi}}{4}
+            }\label{eq:equation19}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from equation~\ref{eq:sin-gamma-integral}
+        \begin{gather*}
+            \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
+            \\
+            \text{setting $y=1, n=2, x=0$ and $ns -1 = 0$ we obtain}
+            \\
+            |p| = 1, \alpha = tan^{-1}(1/0) = \pi/2, s = 1/2
+            \\
+            \frac{\Gamma(\frac{1}{2}) sin(\frac{\pi}{4})}{2} = \int_{0}^{\infty} sin(u^2) du
+            \\
+            \text{using equation~\ref{eq:gamma-half}: } \Gamma(\frac{1}{2}) = \sqrt{\pi}
+            \\
+            \int_{0}^{\infty} sin(u^2) du = \frac{\sqrt{\pi} \frac{1}{\sqrt{2}}}{2}
+            = \frac{\sqrt{2\pi}}{4}
+        \end{gather*}
+    \end{theorem}
+
+    \subsubsection{$\int \cos(x^2)$}
+
+    \begin{theorem}
+        \begin{equation}
+            \boxed{
+                \int_{0}^{\infty} \cos(x^2) = \frac{\sqrt{2\pi}}{4}
+            }\label{eq:equation20}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from equation~\ref{eq:cos-gamma-integral}
+        \begin{gather*}
+            \frac{\Gamma(s)}{n |p|^s} cos(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} cos(y u^n) du
+            \\
+            \text{setting $y=1, n=2, x=0$ and $ns -1 = 0$ we obtain}
+            \\
+            |p| = 1, \alpha = tan^{-1}(1/0) = \pi/2, s = 1/2
+            \\
+            \frac{\Gamma(\frac{1}{2}) cos(\frac{\pi}{4})}{2} = \int_{0}^{\infty} cos(u^2) du
+            \\
+            \text{using equation~\ref{eq:gamma-half}: } \Gamma(\frac{1}{2}) = \sqrt{\pi}
+            \\
+            \int_{0}^{\infty} cos(u^2) du = \frac{\sqrt{\pi} \frac{1}{\sqrt{2}}}{2}
+            = \frac{\sqrt{2\pi}}{4}
+        \end{gather*}
+    \end{theorem}
+
+    \subsubsection{$\int \frac{\sin(x^2)}{x^2}$}
+
+    \begin{theorem}
+        \begin{equation}
+            \boxed{
+                \int_{0}^{\infty} \frac{\sin(x^2)}{x^2} = \sqrt{\frac{\pi}{2}}
+            }\label{eq:equation21}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from equation~\ref{eq:sin-gamma-integral}
+        \begin{gather*}
+            \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
+            \\
+            \text{setting $y=1, n=2, x=0$ and $ns -1 = -2$ we obtain}
+            \\
+            |p| = 1, \alpha = tan^{-1}(1/0) = \pi/2, s = -1/2
+            \\
+            \frac{\Gamma(\frac{-1}{2}) sin(-\frac{\pi}{4})}{2} = \int_{0}^{\infty} \frac{sin(u^2)}{u^2} du
+            \\
+            \text{using equation~\ref{eq:negative-gamma-half}: } \Gamma(-\frac{1}{2}) = -2\sqrt{\pi}
+            \\
+            \int_{0}^{\infty} \frac{sin(u^2)}{u^2} du = -\frac{\Gamma(\frac{-1}{2})}{2\sqrt{2}} =
+            \sqrt{\frac{\pi}{2}}
+        \end{gather*}
+    \end{theorem}
+
+    \subsubsection{$\int \frac{\sin(x^n)}{x^n}$}
+
+    \begin{theorem}
+        \begin{equation}
+            \boxed{
+                \int_{0}^{\infty} \frac{\sin(x^n)}{x^n} = \frac{\Gamma(\frac{1}{n})}{n-1} \cdot cos(\frac{\pi}{2n})
+                \quad ,   n > 1
+            }\label{eq:equation22}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from equation~\ref{eq:sin-gamma-integral}
+        \begin{gather*}
+            \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
+            \\
+            \text{setting $y=1, x=0$ and $ns -1 = -n$ we obtain}
+            \\
+            |p| = 1, \alpha = tan^{-1}(1/0) = \pi/2, s = 1/n -1
+            \\
+            \frac{\Gamma(\frac{1}{n} - 1) sin(\frac{\pi}{2n} - \frac{\pi}{2})}{n} = \int_{0}^{\infty} \frac{sin(u^n)}{u^n} du
+            \\
+            \text{using equation~\ref{Def} and assuming $n \neq 1$: } \Gamma(k+1) = k \Gamma(k)
+            \\
+            \int_{0}^{\infty} \frac{sin(u^n)}{u^n} du = \frac{\Gamma(\frac{1}{n})}{n (\frac{1}{n} -1 ) }  sin(\frac{\pi}{2n} - \frac{\pi}{2})
+            \\
+            \int_{0}^{\infty} \frac{sin(u^n)}{u^n} du = \frac{\Gamma(\frac{1}{n})}{1 - n )}  sin(\frac{\pi}{2n} - \frac{\pi}{2})
+            \\
+            \text{using $\sin\left(x - \frac{\pi}{2}\right) = - \cos(x)$}
+            \\
+            \int_{0}^{\infty} \frac{sin(u^n)}{u^n} du = \frac{\Gamma(\frac{1}{n})}{n-1} \cdot cos(\frac{\pi}{2n})
+        \end{gather*}
+    \end{theorem}
+
+    \pagebreak
+
+
+    \section{Relation to the Beta Function}\label{sec:relation-to-the-beta-function}
+
+    \subsection{Definition}\label{subsec:definition2}
+    The Beta Function is defined as:
+    \begin{definition}
+        \label{beta def}
+        \[
+        \beta(x, y) = \int_{0}^{1} t^{x-1} (1-t)^{y-1} dt
+        \]
+    \end{definition}
+
+    \subsection{Symmetry}\label{subsec:symmetry}
+    \begin{theorem}
+        \begin{equation}
+            \beta(x, y) = \beta(y, x) \label{eq:equation23}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from the definition~\ref{beta def}
+        \begin{gather*}
+            \beta(x, y) = \int_{0}^{1} t^{x-1} (1-t)^{y-1} dt
+            \\
+            \text{setting $u = 1-t$, hence $du = -dt$ we obtain}
+            \\
+            \beta(x, y) = \int_{1}^{0} (1-u)^{x-1} {u}^{y-1} -du
+            \\
+            \text{Switching the bounds of integration we get}
+            \\
+            \beta(x, y) = \int_{0}^{1} (1-u)^{x-1} {u}^{y-1} du = \beta(y, x)
+        \end{gather*}
+    \end{theorem}
+
+    \subsection{Relation to Gamma}\label{subsec:relation-to-gamma}
+    \begin{theorem}
+        \label{relation to beta}
+        \begin{equation}
+            \boxed{
+                \beta(x, y) = \frac{\Gamma(x) \Gamma(y)}{\Gamma(x+y)}
+            }\label{eq:equation24}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from the definition~\ref{beta def}
+        \begin{gather*}
+            \beta(x, y) = \int_{0}^{1} t^{x-1} (1-t)^{y-1} dt
+            \\
+            \text{setting $t = \frac{1}{1+u}$, hence $dt = -\frac{1}{(1+u)^2} du$ we obtain}
+            \\
+            \beta(x, y) = \int_{\infty}^{0} (\frac{1}{1+u})^{x-1} (1-\frac{1}{1+u})^{y-1} \frac{1}{(1+u)^2} (-du)
+            \\
+            \text{Switching the bounds of integration and simplifying we get}
+            \\
+            \beta(x, y) = \int_{0}^{\infty} (\frac{1}{1+u})^{x-1} (\frac{u}{1+u})^{y-1} \frac{1}{(1+u)^2} du
+            \\
+            \text{collecting powers of $(1+u)$}
+            \\
+            \beta(x, y) = \int_{0}^{\infty}
+            \frac{u^{y-1}}{(1+u)^{x+y}} du
+            \\
+            \text{Using the Gamma definition~\ref{gamma-def-1} and applying a change of variables $\alpha w = t$, hence $dt = \alpha dw$}
+            \\
+            \Gamma(z) = \alpha^z  \int_{0}^{\infty} e^{-\alpha w} w^{z-1} dw
+            \\
+            \text{setting $z = x+y$ and $\alpha = 1+u$, we obtain}
+            \\
+            \Gamma(x+y) = (1+u)^{x+y}  \int_{0}^{\infty} e^{-(1+u) w} w^{x+y-1} dw
+            \\
+            \text{Combining with the Beta function integral we obtained}
+            \\
+            \beta(x, y) \Gamma(x+y) = \int_{0}^{\infty}  \Gamma(x+y) \frac{u^{y-1}}{(1+u)^{x+y}} du
+            \\
+            \beta(x, y) \Gamma(x+y) =
+            \int_{0}^{\infty}  \Big( (1+u)^{x+y} \int_{0}^{\infty} e^{-(1+u) w} w^{x+y-1} dw \Big) \frac{u^{y-1}}{(1+u)^{x+y}} du
+            \\
+            \text{Simplfying}
+            \\
+            \beta(x, y) \Gamma(x+y) =
+            \int_{0}^{\infty} \int_{0}^{\infty} e^{-(1+u) w} w^{x+y-1}  u^{y-1} dw du
+            \\
+            \text{Rearranging}
+            \\
+            \beta(x, y) \Gamma(x+y) =
+            \int_{0}^{\infty} \Big( \int_{0}^{\infty} e^{-uw} u^{y-1} du \Big) e^{-w} w^{x+y-1} dw
+            \\
+            \text{Using $\Gamma(z) = \alpha^z  \int_{0}^{\infty} e^{-\alpha u} u^{z-1} du$}
+            \\
+            \beta(x, y) \Gamma(x+y) =
+            \int_{0}^{\infty} \frac{\Gamma(y)}{w^y}  e^{-w} w^{x+y-1} dw
+            \\
+            \text{Simplifying and moving $\Gamma(y)$ outside the integral}
+            \\
+            \beta(x, y) \Gamma(x+y) = \Gamma(y)
+            \int_{0}^{\infty} e^{-w} w^{x-1} dw
+            \\
+            \text{Using the definition of the $\Gamma(z)$}
+            \\
+            \beta(x, y) \Gamma(x+y) = \Gamma(y) \Gamma(x)
+            \\
+            \beta(x, y)  =\frac{\Gamma(y) \Gamma(x)}{\Gamma(x+y)}
+        \end{gather*}
+    \end{theorem}
+
+    \subsection{Relation to integral of powers of sin(x) and cos(x)}\label{subsec:relation-to-integral-of-powers-of-sin(x)-and-cos(x)}
+
+    \begin{theorem}
+        \begin{equation}
+            \boxed{
+                \int_{0}^{\pi/2} sin^{n}(t) cos^{m}(t) dt = \frac{1}{2} \beta \Big( \frac{n+1}{2}, \frac{m+1}{2} \Big)
+                =
+                \frac{\Gamma(\frac{n+1}{2}) \Gamma(\frac{m+1}{2})}{\Gamma(\frac{n+m}{2} + 1)}
+            }\label{eq:equation25}
+        \end{equation}
+
+        Proof
+        \\
+        \begin{gather*}
+            A(m, n) = \int_{0}^{\pi/2} sin^{n}(t) cos^{m}(t) dt
+            \\
+            \text{setting $sin^{2}(t) = u$, hence $2 \sin(t) \cos(t) dt = du$ we obtain}
+            \\
+            \text{note $cos^{2}(t) = 1-u$, and $sin^{2}(0) = 0$ and $sin^{2} \left( \frac{\pi}{2} \right) = 1$}
+            \\
+            A(m, n) = \int_{0}^{1} u^{\frac{n}{2}} (1-u)^{\frac{m}{2}} \frac{du}{2 \sqrt{u} \sqrt{1-u}}
+            \\
+            \text{Simplifying the powers we get}
+            \\
+            A(m, n) = \frac{1}{2} \int_{0}^{1} u^{\frac{n}{2} -\frac{1}{2}} (1-u)^{\frac{m}{2}-\frac{1}{2}} du
+            \\
+            \text{Writing it in the Beta function form we get}
+            \\
+            A(m, n) = \frac{1}{2} \int_{0}^{1} u^{\frac{n+1}{2}- 1} (1-u)^{\frac{m+1}{2} -1} du = \frac{1}{2} \beta(\frac{n+1}{2}, \frac{m+1}{2})
+        \end{gather*}
+    \end{theorem}
+
+    \subsection{Proof of the Legendre duplication formula} \label{subsec:proof-of-leg-dup}
+
+    \begin{theorem}
+        \begin{equation}
+            \boxed{
+                \Gamma(x) \cdot \Gamma(x+\frac{1}{2}) = \frac{\sqrt{\pi}}{2^{2x - 1}} \Gamma(2x)
+            }\label{eq:equation26}
+        \end{equation}
+
+        Proof
+        \\
+        \begin{gather*}
+            \text{Using the relation to the Beta function, and the definition of the Beta function}
+            \\
+            \frac{\Gamma(x) \Gamma(y)}{\Gamma(x+y)} =
+            \int_{0}^{1} t^{x-1} (1-t)^{y-1} dt
+            \\
+            \text{let $x=y=s$}
+            \\
+            \frac{\Gamma(s) \Gamma(s)}{\Gamma(2s)} =
+            \int_{0}^{1} t^{s-1} (1-t)^{s-1} dt
+            \\
+            \text{let $t = \frac{1+x}{2}$, hence $dt = \frac{dx}{2}$}
+            \\
+            \text{note when $t=0$ then $x=-1$, and when $t=1$ then $x=1$}
+            \\
+            \frac{\Gamma(s) \Gamma(s)}{\Gamma(2s)} =
+            \int_{-1}^{1} (\frac{1+x}{2})^{s-1} (\frac{1-x}{2})^{s-1} \frac{dx}{2}
+            \\
+            \text{Simplifying the powers of 2 and rearranging}
+            \\
+            2^{2s -1} \Gamma(s) \Gamma(s)= \Gamma(2s)
+            \int_{-1}^{1} (1+x)^{s-1} (1-x)^{s-1} dx
+            \\
+            2^{2s -1} \Gamma(s) \Gamma(s)=
+            \Gamma(2s) \int_{-1}^{1} (1-x^2)^{s-1} dx
+            \\
+            \text{Notice that the integral is even around 0, hence}
+            \\
+            2^{2s -1} \Gamma(s) \Gamma(s)=
+            2 \Gamma(2s) \int_{0}^{1} (1-x^2)^{s-1} dx
+            \\
+            \text{To evaluate the integral, notice that after a substitution of $u=x^2$ the integral is just $\beta(1/2, s)$}
+            \\
+            \beta(1/2, s) = \int_{0}^{1} t^{-\frac{1}{2}} (1-t)^{s-1} dt
+            \\
+            \text{Let $t=x^2$, hence $dt = 2x dx$}
+            \\
+            \beta(1/2, s)
+            =
+            \int_{0}^{1} \frac{1}{x}(1-x^2)^{s-1} 2x dx
+            =
+            2\int_{0}^{1} (1-x^2)^{s-1} dx
+            \\
+            \text{Hence}
+            \\
+            2^{2s -1} \Gamma(s) \Gamma(s)= \Gamma(2s) \beta(1/2, s)
+            \\
+            \text{Using theorem~\ref{relation to beta}}
+            \\
+            2^{2s -1} \Gamma(s) \Gamma(s)= \Gamma(2s) \frac{\Gamma(1/2) \Gamma(s)}{\Gamma(s+1/2)}
+            \\
+            \text{Rearranging and using equation~\ref{eq:gamma-half}}
+            \\
+            \Gamma(s) \Gamma(s+1/2)= \Gamma(2s) \frac{\sqrt{\pi}}{2^{2s -1}}
+        \end{gather*}
+    \end{theorem}
+
+    \pagebreak
+
+
+    \section{Approximations}\label{sec:approximations}
+
+    \subsection{Stirling's Approximation}\label{subsec:stirling's-approximation}
+    \begin{theorem}
+        The basic approximation of the factorial function for large n is
+        \begin{equation}
+            \boxed{
+                n! \approx (\frac{n}{e})^n \sqrt{2\pi n}
+            }\label{eq:equation27}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from the definition of the Gamma function~\ref{gamma-def-1}
+        \begin{gather*}
+            \Gamma(n+1) = n! = \int_{0}^{\infty} e^{-t} t^{n} dt
+            \\
+            \text{the idea is to take the log of the integrand and then slightly perturb it}
+            \\
+            ln(e^{-t} t^{n}) = n ln(t) - t
+            \\
+            \text{let $t=n + \epsilon$}
+            \\
+            \ln(e^{-t} t^{n}) = n ln(n + \epsilon) - (n + \epsilon)
+            =
+            n ln(n) + n ln(1 + \frac{\epsilon}{n}) - (n + \epsilon)
+            \\
+            \text{for large n, $\frac{\epsilon}{n} \ll 1$}
+            \\
+            \text{Using the Taylor-Expansion of $\ln(1+x)$}
+            \\
+            \ln(e^{-t} t^{n})
+            =
+            n \Big( ln(n) +  \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k} (\frac{\epsilon}{n})^k \Big) - (n + \epsilon)
+            \\
+            \ln(e^{-t} t^{n})
+            =
+            n ln(n) -n + \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k} (\frac{\epsilon^k}{n^{k-1}}) - \epsilon
+            \\
+            \ln(e^{-t} t^{n})
+            =
+            n ln(n) - n - \frac{\epsilon^2}{2n} + \frac{\epsilon^3}{3n^2}
+            - \frac{\epsilon^4}{4n^3} + \dots
+            \\
+            \ln(e^{-t} t^{n})
+            \approx
+            n ln(n) - n - \frac{\epsilon^2}{2n}
+            \\
+            e^{-t} t^{n}
+            \approx
+            \frac{n^n}{e^n} e^{-\frac{\epsilon^2}{2n}}
+            \\
+            n!
+            \approx
+            \int_{-n}^{\infty} \frac{n^n}{e^n} e^{-\frac{\epsilon^2}{2n}} d\epsilon
+            \\
+            n!
+            \approx
+            \frac{n^n}{e^n}
+            \int_{-n}^{\infty}  e^{\frac{-\epsilon^2}{2n}} d\epsilon
+            \\
+            \text{Assuming n is large enough}
+            \\
+            n!
+            \approx
+            \frac{n^n}{e^n}
+            \int_{-\infty}^{\infty}  e^{-\frac{\epsilon^2}{2n}} d\epsilon
+            \\
+            \text{Using $\int_{-\infty}^{\infty}  e^{-px^2} dx = \sqrt{\frac{\pi}{p}}$}
+            \\
+            n!
+            \approx
+            \frac{n^n}{e^n} \sqrt{2n \pi}
+        \end{gather*}
+    \end{theorem}
+
+    \subsubsection{Limit as n approaches infinity}
+
+    The approximation in the this result can be stated more correctly as follows
+    \begin{equation}
+        \label{eq:stirling_limit}
+        \boxed{\lim_{n \to \infty} \frac{n!}{(\frac{n}{e})^n \sqrt{2\pi n}} = 1
+        }
+    \end{equation}
+
+    We can state this equivalently by taking logarithms of both sides.
+    We will use this form to help derive the full Stirling approximation.
+
+    \begin{equation}
+        \label{eq:stirling-limit-log}
+        \boxed{\lim_{n \to \infty}
+            ln(n!) - nln(n) + n - \frac{ln(n)}{2}= ln(\sqrt{2\pi})
+        }
+    \end{equation}
+
+    \subsection{Stirling's Full Approximation}\label{subsec:stirling's-full-approximation}
+    \begin{theorem}
+        Expanding on Stirling's approximation to include as many terms as needed we need to use the Euler-Maclaurin formula\footnote{See the Darboux Formula document}.
+        \begin{equation}
+            \boxed{
+                n! = (\frac{n}{e})^n \sqrt{2\pi n} \cdot
+                exp \Big( \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}} - \frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt \Big)
+            }\label{eq:equation28}
+        \end{equation}
+
+        Proof
+        \\
+        Starting from the definition of the simple version of the Euler-Maclaurin formula
+        \begin{gather*}
+            \sum_{j=0}^{r} g(j)  - \int_{x=0}^{r} g(x) dx
+            =
+            \frac{g(0) + g(r)}{2} +
+            \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(g^{(2k-1)}(r) - g^{(2k-1)}(0)\Big) + R_{r,m}
+            \\
+            R_{r,m} = \frac{(-1)^{m+1} }{m!} \int_{0}^{r} B_m(\{t\}) g^{(m)}(t) dt
+            \\
+            \text{Define $f(x) = g(x+1)$ and $n = r+1$, so that $f(n) = f(r+1) = g(r)$. we get}
+            \\
+            \sum_{j=1}^{n} f(j)  - \int_{x=1}^{n} f(x) dx
+            =
+            \frac{f(1) + f(n)}{2} +
+            \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(f^{(2k-1)}(n) - f^{(2k-1)}(1)\Big) + R_{n,m}
+            \\
+            R_{n,m} = \frac{(-1)^{m+1} }{m!} \int_{1}^{n-1} B_m(\{t\}) f^{(m)}(t) dt
+        \end{gather*}
+        \begin{gather*}
+            \text{Let $f(x) = \ln(x)$, therefore}
+            \\
+            f^{(m)}(x) = \frac{(-1)^{m-1} \cdot (m-1)!}{(x)^m}  \text{  or  }
+            f^{(2k-1)}(x) = \frac{(-1)^{2k-2} \cdot (2k-2)!}{(x)^{2k-1}}
+            \\
+            \text{Plugging in $f(x)$ and $f^{(m)}(x)$ into the Euler-Maclaurin formula we get}
+            \\
+            \sum_{j=1}^{n} ln(j) = ln(n!) = \int_{x=1}^{n} ln(x) dx
+            +
+            \frac{ln(1) + ln(n)}{2}
+            \\
+            + \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{(2k)!} \Big(\frac{(-1)^{2k-2} \cdot (2k-2)!}{n^{2k-1}} - \frac{(-1)^{2k-2} \cdot (2k-2)!}{1^{2k-1}}\Big) + R_{n,m}
+            \\
+            R_{n,m} = \frac{(-1)^{m+1} }{m!} \int_{1}^{n-1} B_m(\{t\}) \frac{(-1)^{m-1} \cdot (m-1)!}{t^m}  dt
+            \\
+            \text{Evaluating the integral and simplifying}
+            \\
+            ln(n!) = \big(n \cdot ln(n) - n \big) - \big(1 \cdot ln(1) - 1 \big) +
+            \frac{ln(n)}{2}
+            + \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k} \cdot (2k-2)!}{(2k)!} \Big(\frac{1}{n^{2k-1}} - 1\Big) + R_{n,m}
+            \\
+            R_{n,m} = \frac{1}{m} \int_{1}^{n-1} \frac{B_m(\{t\})}{t^m}  dt
+            \\
+            \text{Further simplifying}
+            \\
+            ln(n!) = n \cdot ln(n) - n + 1 +
+            \frac{ln(n)}{2}
+            + \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \Big(\frac{1}{n^{2k-1}} - 1\Big) + R_{n,m}
+        \end{gather*}
+        To eliminate some terms we can rearranging and take limits of both sides.
+        This would allow us to use the simple Stirling Approximation to skip the evaluation of one of the sums.
+        \begin{gather*}
+            \lim_{n \to \infty}
+            ln(n!)  - n \cdot ln(n) + n - \frac{ln(n)}{2}
+            \\
+            = \lim_{n \to \infty}
+            1 + \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}}
+            - \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}
+            + R_{n,m}
+            \\
+            = 1 - \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}
+            + \lim_{n \to \infty} R_{n,m}
+            \\
+            \intertext{Using equation~\ref{eq:stirling-limit-log}}
+            1 - \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} + \lim_{n \to \infty} R_{n,m}
+            = ln(\sqrt{2\pi})
+            \\
+            \text{Plugging this back in, we get:}
+            \\
+            ln(n!)  - n \cdot ln(n) + n - \frac{ln(n)}{2}
+            = ln(\sqrt{2\pi}) + \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}}
+            + R_{n,m} - \lim_{n \to \infty} R_{n,m}
+            \\
+            \text{Using the integral form of $R_{n,m}$ we can then re-write the difference }
+            D = R_{n,m} - \lim_{n \to \infty} R_{n,m}
+            \\
+            D = R_{n,m} - \lim_{n \to \infty} R_{n,m}
+            =
+            \frac{1}{m} \int_{1}^{n-1} \frac{B_m(\{t\})}{t^m}  dt
+            -
+            \frac{1}{m} \int_{1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt
+            =
+            - \frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt
+            \\
+            \text{Now raising e to the value of both sides, we get}
+            \\
+            n! = (\frac{n}{e})^n \sqrt{2\pi n} \cdot
+            exp \Big( \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}} - \frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt \Big)
+        \end{gather*}
+    \end{theorem}
+
+    \subsubsection{Approximation big-O notation}
+
+    \begin{theorem}
+        The integral in the exponent can be bound by a polynomial power with respect to $n$.
+        \begin{equation}
+            \boxed{
+                n! = (\frac{n}{e})^n \sqrt{2\pi n} \cdot
+                exp \Big( \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} \frac{1}{n^{2k-1}} + O(\frac{1}{n^m}) \Big)
+            }\label{eq:equation29}
+        \end{equation}
+
+        Proof
+        \\
+        We need to show that $\frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt = O \left( \frac{1}{n^m} \right)$
+        \begin{gather*}
+            D = - \frac{1}{m} \int_{n-1}^{\infty} \frac{B_m(\{t\})}{t^m}  dt
+            \\
+            D \leq  |D| \leq \frac{1}{|m|} \int_{n-1}^{\infty} \frac{|B_m(\{t\})|}{t^m} dt \leq
+            \frac{\max_{x \in [0,1]} |B_m(x)|}{|m|} \int_{n-1}^{\infty} \frac{1}{t^m}  dt
+            \\
+            =
+            \underbrace{\frac{\max_{x \in [0,1]} |B_m(x)|}{m\cdot (m+1)}}_{\neq f(n)}
+            \underbrace{\frac{1}{(n-1)^m}}_{f(n)}
+            = O \big( \frac{1}{n^m} \big)
+        \end{gather*}
+    \end{theorem}
+
+    \subsection{Plugging in values}\label{subsec:plugging-in-values}
+    Generating an approximation with $m=7$ and using $B_2=\frac{1}{6}, B_4=-\frac{1}{30}, B_6=\frac{1}{42}$ we obtain:
+
+    \begin{equation}
+        \label{eq:n_factorial_approx}
+        n! = (\frac{n}{e})^n \sqrt{2\pi n} \cdot
+        exp \Big( \frac{1}{12 n}
+        -
+        \frac{1}{360 n^{3}}
+        +
+        \frac{1}{1260 n^{5}}
+        + O(\frac{1}{n^7}) \Big)
+    \end{equation}
+
+    Since the factorial function grows very fast, it's useful to consider the logarithm of the factorial function.
+    This would result in the following approximation.
+
+    \begin{equation}
+        \label{eq:log_n_factorial_approx}
+        ln(n!) =
+        \frac{ln(2\pi)}{2} +
+        n ln(n) - n +
+        + \frac{ln(n)}{2}
+        + \frac{1}{12 n}
+        - \frac{1}{360 n^{3}}
+        + \frac{1}{1260 n^{5}}
+        + O(\frac{1}{n^7})
+    \end{equation}
 
 \end{document}
