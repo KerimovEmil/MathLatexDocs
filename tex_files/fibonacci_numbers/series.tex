@@ -1,0 +1,88 @@
+We can examine the sequential sum of this generalized Fibonacci sequence.
+
+\begin{theorem}
+Let 
+$P_n = p_1 + p_2 + \dots + p_n$ and $F_n = f_1 + f_2 + \dots + f_n$ then
+\[
+P_n = f_n \cdot p_1 + F_{n-1} \cdot p_2  \ \ \forall \  n \geq 2
+\]
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=2 and n=3}
+\begin{split}
+P_2 &= f_2 \cdot p_1 + F_{1} \cdot p_2 \\
+    &= 1 \cdot p_1 + 1 \cdot p_2 \\
+    &= p_1 + p_2 \\
+\end{split}\\
+\begin{split}
+P_3 &= f_3 \cdot p_1 + F_{2} \cdot p_2 \\
+    &= 2 \cdot p_1 + (1+1) \cdot p_2 \\
+    &= (p_1) + (p_2) + (p_1 + p_2) \\
+    &= p_1 + p_2 + p_3 \\
+\end{split}
+\shortintertext{Assume true for k}
+P_k = f_k \cdot p_1 + F_{k-1} \cdot p_2\\
+\shortintertext{Proving for k+1}
+\begin{split}
+P_{k+1} &= P_k + p_{k+1}\\
+		&= (f_k \cdot p_1 + F_{k-1} \cdot p_2) + (p_k + p_{k-1}) \\
+		&= (f_k \cdot p_1 + F_{k-1} \cdot p_2) + \Big( (p_1 \cdot f_{k-2} + p_2 \cdot f_{k-1}) + (p_1 \cdot f_{k-3} + p_2 \cdot f_{k-2})
+		\Big) \\
+		&= (f_k + f_{k-2} + f_{k-3})\cdot p_1 + (F_{k-1} +f_{k-1} + f_{k-2}) \cdot p_2\\
+		&= (f_k + f_{k-1})\cdot p_1 + (F_{k-1} +f_{k}) \cdot p_2\\
+		&= f_{k+1}\cdot p_1 + F_{k} \cdot p_2\\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\subsection{Fibonacci Sum}\label{subsec:fibonacci-sum}
+We have expressed the sum of the general Fibonacci sequence in terms of the sum to the Fibonacci sequence, so now we can investigate the sum of the Fibonacci sequence.
+
+\begin{theorem}
+\[
+F_n = f_{n+2} -1 \ \forall \  n \geq 1
+\]
+
+Proof by Induction
+\begin{gather*}
+\shortintertext{For n=1}
+\begin{split}
+F_1 &= f_{3} - 1  \\
+    &= 2 - 1 \\
+    &= 1 \\
+    &= f_1 \\
+\end{split}\\
+\shortintertext{Assume true for k}
+F_k = f_{k+2} -1
+\shortintertext{Proving for k+1}
+\begin{split}
+F_{k+1} &= F_k + f_{k+1}\\
+		&= (f_{k+2} -1) + f_{k+1} \\
+		&= (f_{k+2} + f_{k+1}) -1  \\
+		&= f_{k+3} -1  \\ \\
+\end{split}
+\end{gather*}
+\end{theorem}
+
+\subsection{Generalized Fibonacci Sum}\label{subsec:generalized-fibonacci-sum}
+Combining these two theorems we obtain:
+
+\begin{theorem}
+\[
+P_n = f_n \cdot p_1 + (f_{n+1} -1) \cdot p_2  \ \ \forall \  n \geq 2
+\]
+
+Proof
+\begin{gather*}
+\begin{split}
+P_n &= f_n \cdot p_1 + F_{n-1} \cdot p_2 \\
+    &= f_n \cdot p_1 + (f_{n+1} -1) \cdot p_2 \\
+\end{split}\\
+\end{gather*}
+\end{theorem}
+
+Note if we chose $p_1$ and $p_2$ such that $p_1 = p_2 = c$ we obtain:
+\begin{equation}
+P_n = c \cdot f_{n+2} - c\label{eq:equation8}
+\end{equation}
