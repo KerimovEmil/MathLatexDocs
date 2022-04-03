@@ -21,9 +21,7 @@
     \newtheorem{lemma}[theorem]{Lemma}
     \newtheorem{definition}{Definition}[section]
 
-    \newcommand{\CFDots{
-        \genfrac{}{}{0pt}{0}{}{\ddots}
-    }}
+    \newcommand{\CFDots}[]{\genfrac{}{}{0pt}{0}{}{\ddots}}
 
     \section{History}\label{sec:history}
     Continued fractions were often times used off-handedly in the last 2000 years, but the foundations of continued
@@ -74,7 +72,7 @@
 
     \begin{definition}
         \label{def_finite_gen_c_fract}
-        A finite general continued fraction is defined as:
+        A \textbf{finite general} continued fraction is defined as:
         \[
             a_0 +
             \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{\cdots + \cfrac{b_n}{a_n} }}}
@@ -85,17 +83,16 @@
 
     \begin{definition}
         \label{def_gen_c_fract}
-        A general continued fraction is defined as:
+        A \textbf{general} continued fraction is defined as:
         \[
             a_0 +
-            \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{a_3 +
-            \CFDots}}}
+            \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{a_3 + \CFDots}}}
         \]
     \end{definition}
 
     \begin{definition}
         \label{def_finite_c_fract}
-        A finite standard continued fraction is defined as:
+        A \textbf{finite standard} continued fraction is defined as:
         \[
             [a_0;a_1, a_2, \cdots, a_n] = a_0 +
             \cfrac{1}{a_1+\cfrac{1}{a_2 +\cfrac{1}{\cdots + \cfrac{1}{a_n}}}}
@@ -106,7 +103,7 @@
 
     \begin{definition}
         \label{def_c_fract}
-        A standard continued fraction is defined as:
+        A \textbf{standard} continued fraction is defined as:
         \[
             a_0 +
             \cfrac{1}{a_1+\cfrac{1}{a_2 +\cfrac{1}{a_3 + \CFDots}}}
@@ -191,7 +188,7 @@
         \[
         \frac{p_n}{q_n} = [a_0; a_1, a_2, a_3, \dots, a_n]
         \]
-        For reasons that will become apparent later we define $p_{-1} = 1$ and $q_{-1} = 0$.
+        For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ and $q_{-1} = 0, q_{-2} = 1$.
     \end{definition}
 
     \begin{lemma}
@@ -201,6 +198,35 @@
         We can find $p_n, q_n$ using the previous convergents through the following recurrence relation:
         \[
         \frac{p_{n}}{q_n} = \frac{a_n \cdot p_{n-1} + p_{n-2}}{a_n \cdot q_{n-1} + q_{n-2}}
+        \]
+
+        Proof
+        \begin{gather*}
+            \frac{p_{0}}{q_0} = a_0 = \frac{a_0 \cdot 1 + 0}{a_0 \cdot 0 + 1}
+              = \frac{a_0 \cdot p_{-1} + p_{-2}}{a_0 \cdot q_{-1} + q_{-2}} \\
+            \frac{p_{1}}{q_1} = a_0 + \frac{1}{a_1} = \frac{a_{0} a_{1} + 1}{a_1}
+              = \frac{a_1 \cdot a_0 + 1}{a_1 \cdot 1 + 0} \\
+            \frac{p_{2}}{q_2} = a_0 + \frac{1}{a_1 + \frac{1}{a_2}} = a_0 + \frac{a_2}{a_1 a_2 + 1}
+            = \frac{a_{0} a_{1} a_2 + a_0 + a_2}{a_1 a_2 + 1}
+              = \frac{a_2 \cdot (a_0 a_1 + 1) + a_0}{a_2 \cdot a_1 + 1} \\
+            \shortintertext{Assume true for \( k \)  and prove for  \( k+1 \):} \\
+            \frac{p_{k+1}}{q_{k+1}} = a_0 + \cfrac{1}{a_1 + \cfrac{1}{\ddots \, + \cfrac{1}{a_{k} + \cfrac{1}{a_{k+1}} }}} \\
+            \frac{p_{k+1}}{q_{k+1}} = a_0 + \cfrac{1}{a_1 + \cfrac{1}{\ddots \, + \cfrac{1}{\cfrac{a_{k} a_{k+1} + 1}{a_{k+1}} }}} \\
+            \shortintertext{Let \( a_{k}^{'} = \frac{a_{k} a_{k+1} + 1}{a_{k+1}} \)  and use the assumption for \( \frac{p_k}{q_k} \):} \\
+            \frac{p_{k+1}}{q_{k+1}} = \frac{\frac{a_{k} a_{k+1} + 1}{a_{k+1}} \cdot p_{k-1} + p_{k-2}}{\frac{a_{k} a_{k+1} + 1}{a_{k+1}} \cdot q_{k-1} + q_{k-2}}  \\
+            \frac{p_{k+1}}{q_{k+1}} = \frac{(a_{k} a_{k+1} + 1) \cdot p_{k-1} + a_{k+1} p_{k-2} }{(a_{k} a_{k+1} + 1) \cdot q_{k-1} + a_{k+1} q_{k-2}}  \\
+            \frac{p_{k+1}}{q_{k+1}} = \frac{a_{k+1} (a_{k}  p_{k-1} + p_{k-2}) + p_{k-1}}{a_{k+1} (a_{k} q_{k-1} + q_{k-2})  + q_{k-1}}  \\
+            \shortintertext{Again using the recursive assumption for \( p_k \) and \( \q_k \)  we finish the inductive proof:} \\
+            \frac{p_{k+1}}{q_{k+1}} = \frac{a_{k+1} p_{k} + p_{k-1}}{a_{k+1} q_{k}  + q_{k-1}}  \\
+        \end{gather*}
+    \end{lemma}
+
+    \begin{lemma}
+        \label{lemma3}
+        For $\frac{p_{n}}{q_n}$ the $n^{th}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$.
+
+        \[
+        p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1} = (-1)^n
         \]
 
         Proof
@@ -220,21 +246,10 @@
 
         Proof
         \begin{gather*}
-            todo
-        \end{gather*}
-    \end{lemma}
-
-    \begin{lemma}
-        \label{lemma3}
-        For $\frac{p_{n}}{q_n}$ the $n^{th}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$.
-
-        \[
-        p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1} = (-1)^n
-        \]
-
-        Proof
-        \begin{gather*}
-            todo
+            \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n}
+            = \frac{p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1}}{q_{n} q_{n-1}}  \\
+            \shortintertext{Using \cref{lemma3} we have} \\
+            \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n} = \frac{(-1)^n}{q_{n} q_{n-1}}
         \end{gather*}
     \end{lemma}
 
