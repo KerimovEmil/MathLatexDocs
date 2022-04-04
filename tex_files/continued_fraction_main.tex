@@ -231,7 +231,19 @@
 
         Proof
         \begin{gather*}
-            todo
+            n=0 \mapsto p_{-1} \cdot q_0 - p_{0} \cdot q_{-1} = 1 \cdot 1 - a_0 \cdot 0 = 1 = (-1)^0 \\
+            n=1 \mapsto p_{0} \cdot q_1 - p_{1} \cdot q_{0} = a_0 \cdot a_1 - (a_0 a_1 + 1)  \cdot 1 = -1 = (-1)^1 \\
+            n=2 \mapsto p_{1} \cdot q_2 - p_{2} \cdot q_{1} = (a_0 a_1 + 1) \cdot (a_2 a_1 + 1)
+                        - (a_0 a_1 a_2 + a_0 + a_2)  \cdot a_1 = 1 = (-1)^2 \\
+
+            \shortintertext{Assume true for \( k \)} \\
+
+            p_{k-1} \cdot q_k - p_{k} \cdot q_{k-1} = (-1)^k \\
+
+            \shortintertext{Prove for  \( k+1 \):} \\
+
+            p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} = p_{k} \cdot (a_{k+1} q_{k} + q_{k-1}) - (a_{k+1} p_{k} + p_{k-1}) \cdot q_{k} \\
+            p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} = p_{k} \cdot q_{k-1} - p_{k-1} \cdot q_{k} = -1 \cdot (-1)^k = (-1)^{k+1} \\
         \end{gather*}
     \end{lemma}
 
@@ -248,7 +260,7 @@
         \begin{gather*}
             \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n}
             = \frac{p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1}}{q_{n} q_{n-1}}  \\
-            \shortintertext{Using \cref{lemma3} we have} \\
+            \shortintertext{Using ~\ref{lemma3} we have} \\
             \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n} = \frac{(-1)^n}{q_{n} q_{n-1}}
         \end{gather*}
     \end{lemma}
@@ -298,47 +310,39 @@
 
         \begin{align*}
             \sum_{k=1}^{n+1} \frac{(-1)^{k-1}}{a_k} =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
-            \cfrac{1}{\cdots + \cfrac{a_{n-1}^2}{\widehat{a_n} - a_{n-1}}}}}}
+            \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{\widehat{a_n} - a_{n-1}}}}}}
             \\
             =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
-            \cfrac{1}{\cdots + \cfrac{a_{n-1}^2}{\Big( a_{n} + \frac{a_n^2}{a_{n+1} - a_{n}} \Big) - a_{n-1}}}}}}
+            \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{\Big( a_{n} + \frac{a_n^2}{a_{n+1} - a_{n}} \Big) - a_{n-1}}}}}}
             \\
             =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
-            \cfrac{1}{\cdots + \cfrac{a_{n-1}^2}{a_{n} - a_{n-1} + \frac{a_n^2}{a_{n+1} - a_{n}} }}}}}
+            \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{a_{n} - a_{n-1} + \frac{a_n^2}{a_{n+1} - a_{n}} }}}}}
         \end{align*}
         Which proves the theorem for $n+1$ since this matches the form we were expecting for $n+1$.
 
     \end{theorem}
 
     \begin{theorem}
-        \label{relation_to_power_series}
+        \label{euler_continued_fraction_formula}
         \[
-        \sum_{k=1}^{n} \frac{(-1)^{k-1} \cdot b_k}{a_k} = \cfrac{b_1}{a_1 \cdot b_1 + TODO \cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
-        \cfrac{1}{\cdots + \cfrac{a_{n-1}^2}{a_n - a_{n-1}}}}}}
+        \sum_{k=0}^{n}  a_0 a_1 a_2 \cdots a_k = \cfrac{a_0}{1 - \cfrac{a_{1}}{1 + a_1 - \cfrac{a_2}{1 + a_2 -
+        \cfrac{a_3}{\cdots +  1 + a_{n-1} - \cfrac{a_{n}}{1 + a_n}}}}}
         \]
 
-        Proof
-        Starting from Theorem~\ref{relation_to_series} define $\widehat{a_k} = \frac{a_k}{b_k}$ therefore
+        Proof\\
+        TODO
+    \end{theorem}
 
-        \begin{align*}
-            \sum_{k=1}^{n} \frac{(-1)^{k-1} \cdot b_k}{a_k} =&
-            \sum_{k=1}^{n} \frac{(-1)^{k-1}}{\widehat{a_k}}
-            \\
-            =& \cfrac{1}{\widehat{a_1}+\cfrac{\widehat{a_{1}^{2}}}{\widehat{a_2} - \widehat{a_1} +\cfrac{\widehat{a_2^2}}{\widehat{a_3} - \widehat{a_2}
-            \cfrac{1}{\cdots + \cfrac{\widehat{a_{n-1}^2}}{\widehat{a_n} - \widehat{a_{n-1}}}}}}}
-            \\
-            =& \cfrac{1}{\frac{a_1}{b_1}+\cfrac{\frac{a_{1}^{2}}{b_{1}^{2}}}{ \frac{a_2}{b_2} - \frac{a_1}{b_1} +\cfrac{\frac{a_{2}^{2}}{b_{2}^{2}}}{\frac{a_3}{b_3} - \frac{a_2}{b_2}
-            \cfrac{1}{\cdots + \cfrac{\frac{a_{n-1}^{2}}{b_{n-1}^{2}}}{\frac{a_n}{b_n} - \frac{a_{n-1}}{b_{n-1}}}}}}}
-            \intertext{Multiply entire fraction by $1= \frac{b_1}{b_1}$ }
-            =&
-            \cfrac{b_1}{a_1+\cfrac{\frac{a_{1}^{2}}{b_{1}}}{ \frac{a_2}{b_2} - \frac{a_1}{b_1} +\cfrac{\frac{a_{2}^{2}}{b_{2}^{2}}}{\frac{a_3}{b_3} - \frac{a_2}{b_2}
-            \cfrac{1}{\cdots + \cfrac{\frac{a_{n-1}^{2}}{b_{n-1}^{2}}}{\frac{a_n}{b_n} - \frac{a_{n-1}}{b_{n-1}}}}}}}
-            \intertext{Multiply first sub-fraction by $1= \frac{b_1 \cdot b_2 }{b_1 \cdot b_2}$ }
-            =&
-            \cfrac{b_1}{a_1+\cfrac{b_2 \cdot a_{1}^{2}}{ b_1 \cdot a_2 - b_2 \cdot a_1 +\cfrac{ b_1 \cdot \frac{a_{2}^{2}}{b_{2}}}{\frac{a_3}{b_3} - \frac{a_2}{b_2}
-            \cfrac{1}{\cdots + \cfrac{\frac{a_{n-1}^{2}}{b_{n-1}^{2}}}{\frac{a_n}{b_n} - \frac{a_{n-1}}{b_{n-1}}}}}}}
-        \end{align*}
+    \begin{theorem}
+        \label{relation_to_power_series}
+        TODO confirm the details of this is correct
+        \[
+        \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} = \cfrac{1}{a_1 + \cfrac{a_{1}}{a_2 - 1 +\cfrac{a_2}{a_3 - 1
+        \cfrac{1}{\cdots +  a_n - 1 \cfrac{a_{n-1}}{a_n - 1}}}}}
+        \]
 
+        Proof\\
+        TODO
     \end{theorem}
 
     \subsection{Example ln(2)}\label{subsec:example-ln(2)}
