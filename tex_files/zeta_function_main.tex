@@ -103,7 +103,7 @@ B_2 = \frac{1}{6}
 
 Similarly when we apply this equation for increasing values of n
 \begin{equation}
-B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, ...
+B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \dots
 \end{equation}
 
 
@@ -157,39 +157,39 @@ We can express all even integer values of $\zeta$ using Bernoulli numbers
 Proof
 \begin{gather*}
 \intertext{Starting from the series representation \footnotemark of cotangent}
-\pi x cot(\pi x) = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+\pi x cot(\pi x) = 1 - 2 \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
 \\
 \intertext{Using the complex exponential representation \footnotemark of cotangent}
-i \pi x +  \frac{2i \pi x}{e^{2 i\pi x} -1} = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+i \pi x +  \frac{2i \pi x}{e^{2 i\pi x} -1} = 1 - 2 \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
 \\
 \intertext{Using the Bernoulli numbers definition \ref{bernoulli def}} 
 i \pi x + \sum_{n=0}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
- = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+ = 1 - 2 \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
 \\
 \intertext{Rearranging and using the first two values of the Bernoulli numbers} 
 \\
 i \pi x + B_0 + B_1 (2 i \pi x) +  \sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
- = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+ = 1 - 2 \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
 \\
 i \pi x + 1 + - i \pi x +  \sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
- = 1 - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+ = 1 - 2 \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
 \\
-\sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi)^nx^n
- = - \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
+\sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi)^n x^n
+ = - 2 \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
 \\
 \intertext{Using the fact the the odd Bernoulli numbers after $B_1$ are 0} 
 \sum_{k=1}^{\infty} \frac{B_{2k}}{(2k)!} (-1)^{k}(2 \pi)^{2k} x^{2k}
- = \sum_{k=1}^{\infty} - \zeta(2k) x^{2k}\ 
+ = \sum_{k=1}^{\infty} - 2 \zeta(2k) x^{2k}\
 \\
 \intertext{Comparing coefficients}
-\zeta(2k) =  \frac{B_{2k}}{(2k)!} (-1)^{k+1}(2 \pi)^{2k} \quad \forall  k \in \mathbb N_{> 0}
+\zeta(2k) =  \frac{B_{2k}}{2 \cdot (2k)!} (-1)^{k+1}(2 \pi)^{2k} \quad \forall  k \in \mathbb N_{> 0}
 \end{gather*}
 \end{theorem}
 
 \addtocounter{footnote}{-1}
 \footnotetext{See Euler's Sine Product Formula document}
 \stepcounter{footnote}
-\footnotetext{$cot(x) = i +  \frac{2i}{e^{2ix} -1}$. See Basic trig functions document}
+\footnotetext{$\cot(x) = i +  \frac{2i}{e^{2ix} -1}$. See Basic trig functions document}
 
 \subsection{The first few even integer values of $\zeta$}
 
@@ -209,7 +209,7 @@ i \pi x + 1 + - i \pi x +  \sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
 \zeta(22) = \frac{155366}{13447856940643125} \pi^{22},
 \\
 \zeta(24) = \frac{236364091}{201919571963756521875} \pi^{24},
-...
+\dots
 \end{gather*}
 
 \pagebreak
@@ -264,7 +264,7 @@ Proof
 \frac{1}{2} \cdot \frac{\pi^2}{6} = \frac{\pi^2}{12} 
 \end{equation}
 
-\footnotetext{This can be seen by taking the Taylor-Expansion of $ln(x+1)$ and evaluating at $x=1$}
+\footnotetext{This can be seen by taking the Taylor-Expansion of $\ln(x+1)$ and evaluating at $x=1$}
 
 \pagebreak
 
