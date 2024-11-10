@@ -178,7 +178,6 @@
     \\
     The algorithm presented here will work for every number as long as a decimal representation is available for said number.
 
-
     \section{Useful lemmas}\label{sec:useful-lemmas}
     \begin{definition}
         \label{convergents}
@@ -219,31 +218,38 @@
         \end{gather*}
     \end{lemma}
 
-    \begin{lemma}
-        \label{lemma3}
-        For $\frac{p_{n}}{q_n}$ the $n^{th}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$.
+\begin{lemma}
+    \label{lemma3}
+    For $\frac{p_{n}}{q_n}$, the $n^{\text{th}}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$:
+    \[
+    p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1} = (-1)^n
+    \]
+\end{lemma}
 
-        \[
-        p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1} = (-1)^n
-        \]
+\begin{proof}
+    We proceed by verifying the base cases and then using mathematical induction on \( n \).
 
-        Proof
-        \begin{gather*}
-            n=0 \mapsto p_{-1} \cdot q_0 - p_{0} \cdot q_{-1} = 1 \cdot 1 - a_0 \cdot 0 = 1 = (-1)^0 \\
-            n=1 \mapsto p_{0} \cdot q_1 - p_{1} \cdot q_{0} = a_0 \cdot a_1 - (a_0 a_1 + 1)  \cdot 1 = -1 = (-1)^1 \\
-            n=2 \mapsto p_{1} \cdot q_2 - p_{2} \cdot q_{1} = (a_0 a_1 + 1) \cdot (a_2 a_1 + 1)
-                        - (a_0 a_1 a_2 + a_0 + a_2)  \cdot a_1 = 1 = (-1)^2 \\
+    \paragraph{Base Cases:}
+    \begin{align*}
+        n = 0: \quad & p_{-1} \cdot q_0 - p_{0} \cdot q_{-1} = 1 \cdot 1 - a_0 \cdot 0 = 1 = (-1)^0, \\
+        n = 1: \quad & p_{0} \cdot q_1 - p_{1} \cdot q_{0} = a_0 \cdot a_1 - (a_0 a_1 + 1) \cdot 1 = -1 = (-1)^1, \\
+    \end{align*}
 
-            \shortintertext{Assume true for \( k \)} \\
+    \paragraph{Induction Hypothesis:} Assume that for \( k \), the statement holds:
+    \[
+    p_{k-1} \cdot q_k - p_{k} \cdot q_{k-1} = (-1)^k.
+    \]
 
-            p_{k-1} \cdot q_k - p_{k} \cdot q_{k-1} = (-1)^k \\
+    \paragraph{Inductive Step:} We need to prove the statement for \( k+1 \):
+    \begin{align*}
+        p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} &= p_{k} \cdot (a_{k+1} q_{k} + q_{k-1}) - (a_{k+1} p_{k} + p_{k-1}) \cdot q_{k} \\
+        &= \left( p_{k} \cdot q_{k-1} - p_{k-1} \cdot q_{k} \right) \\
+        &= (-1)^k.
+    \end{align*}
+    Therefore, \( p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} = (-1)^{k+1} \), completing the induction step.
 
-            \shortintertext{Prove for  \( k+1 \):} \\
-
-            p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} = p_{k} \cdot (a_{k+1} q_{k} + q_{k-1}) - (a_{k+1} p_{k} + p_{k-1}) \cdot q_{k} \\
-            p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} = p_{k} \cdot q_{k-1} - p_{k-1} \cdot q_{k} = -1 \cdot (-1)^k = (-1)^{k+1} \\
-        \end{gather*}
-    \end{lemma}
+    \qed
+\end{proof}
 
     \begin{lemma}
         \label{lemma2}
