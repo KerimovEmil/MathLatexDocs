@@ -73,7 +73,7 @@
         A \textbf{finite general} continued fraction is defined as:
         \[
             a_0 +
-            \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{\cdots + \cfrac{b_n}{a_n} }}}
+            \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{\ddots + \cfrac{b_n}{a_n} }}}
         \]
     \end{definition}
 
@@ -93,7 +93,7 @@
         A \textbf{finite standard} continued fraction is defined as:
         \[
             [a_0;a_1, a_2, \cdots, a_n] = a_0 +
-            \cfrac{1}{a_1+\cfrac{1}{a_2 +\cfrac{1}{\cdots + \cfrac{1}{a_n}}}}
+            \cfrac{1}{a_1+\cfrac{1}{a_2 +\cfrac{1}{\ddots + \cfrac{1}{a_n}}}}
         \]
     \end{definition}
 
@@ -273,7 +273,7 @@
         \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{a_n - a_{n-1}}}}}}
         \]
 
-        Proof by induction
+        \textbf{Proof by induction}
 
         Show for n=1
         \begin{align*}
@@ -304,17 +304,17 @@
             \frac{(a_{n+1} - a_n)\cdot a_{n} + a_n^2}{a_{n+1} - a_{n}} = a_{n} + \frac{a_n^2}{a_{n+1} - a_{n}}
         \end{equation*}
 
-        Hence plugging in this new $\widehat{a_n}$ into our assumption we get:
+        Hence, plugging in this new $\widehat{a_n}$ into our assumption we get:
 
         \begin{align*}
             \sum_{k=1}^{n+1} \frac{(-1)^{k-1}}{a_k} =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
-            \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{\widehat{a_n} - a_{n-1}}}}}}
+            \cfrac{a_3^2}{\ddots + \cfrac{a_{n-1}^2}{\widehat{a_n} - a_{n-1}}}}}}
             \\
             =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
-            \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{\Big( a_{n} + \frac{a_n^2}{a_{n+1} - a_{n}} \Big) - a_{n-1}}}}}}
+            \cfrac{a_3^2}{\ddots + \cfrac{a_{n-1}^2}{\Big( a_{n} + \frac{a_n^2}{a_{n+1} - a_{n}} \Big) - a_{n-1}}}}}}
             \\
             =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
-            \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{a_{n} - a_{n-1} + \frac{a_n^2}{a_{n+1} - a_{n}} }}}}}
+            \cfrac{a_3^2}{\ddots + \cfrac{a_{n-1}^2}{a_{n} - a_{n-1} + \frac{a_n^2}{a_{n+1} - a_{n}} }}}}}
         \end{align*}
         Which proves the theorem for $n+1$ since this matches the form we were expecting for $n+1$.
 
@@ -324,7 +324,7 @@
         \label{euler_continued_fraction_formula}
         \[
         \sum_{k=0}^{n}  a_0 a_1 a_2 \cdots a_k = \cfrac{a_0}{1 - \cfrac{a_{1}}{1 + a_1 - \cfrac{a_2}{1 + a_2 -
-        \cfrac{a_3}{\cdots +  1 + a_{n-1} - \cfrac{a_{n}}{1 + a_n}}}}}
+        \cfrac{a_3}{\ddots +  1 + a_{n-1} - \cfrac{a_{n}}{1 + a_n}}}}}
         \]
 
         Proof\\
@@ -332,15 +332,78 @@
     \end{theorem}
 
     \begin{theorem}
-        \label{relation_to_power_series}
-        TODO confirm the details of this is correct
+        \label{relation_to_alternate_series}
         \[
-        \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} = \cfrac{1}{a_1 + \cfrac{a_{1}}{a_2 - 1 +\cfrac{a_2}{a_3 - 1
-        \cfrac{1}{\cdots +  a_n - 1 \cfrac{a_{n-1}}{a_n - 1}}}}}
+        \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} = \cfrac{1}{a_1 + \cfrac{a_{1}}{a_2 - 1 +\cfrac{a_2}{a_3 - 1 +
+        \cfrac{a_3}{\ddots +  a_{n-1} - 1 + \cfrac{a_{n-1}}{a_n - 1}}}}}
         \]
 
-        Proof\\
-        TODO
+        \textbf{Proof by induction}
+
+        We proceed by induction on \( n \).
+
+        \textbf{Base Case: For \( n = 1 \)}, the left-hand side of the equation is:
+        \[
+        \frac{(-1)^{1-1}}{a_1} = \frac{1}{a_1}
+        \]
+        And the right-hand side for \( n = 1 \) is:
+        \[
+        \cfrac{1}{a_1}
+        \]
+        Thus, the equation holds for \( n = 1 \).
+
+        \textbf{Base Case: For \( n = 2 \)}, the left-hand side of the equation is:
+        \[
+        \frac{1}{a_1} - \frac{1}{a_{1} a_{2}} =& \frac{a_2 - 1}{a_{1} a_{2}} = \frac{1}{\frac{a_{1} a_{2}}{a_2 - 1}}
+        =& \frac{1}{\frac{a_{1} (a_{2}-1) + a_{1}}{a_2 - 1}}
+        =& \cfrac{1}{a_{1} + \cfrac{a_{1}}{a_2 - 1}}
+        \]
+        And the right-hand side for \( n = 2 \) is:
+        \[
+        \cfrac{1}{a_{1} + \cfrac{a_{1}}{a_2 - 1}}
+        \]
+        Thus, the equation holds for \( n = 2 \).
+
+        \textbf{Inductive Step:} Assume that the equation holds for some \( n = K \), that is:
+        \[
+        \sum_{k=1}^{K} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} = \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 +
+        \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 + \cfrac{a_{K-1}}{a_K - 1}}}}}
+        \]
+
+        We want to prove that the equation holds for \( n = K+1 \), the left-hand side becomes:
+        \begin{align*}
+        \sum_{k=1}^{K+1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} &= \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
+        + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K}}
+        - \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K+1}}
+        \\
+        &= \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
+        + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K-1}} \cdot \left(\frac{1}{a_{K}} -  \frac{1}{a_{K} a_{K+1}} \right)
+        \\
+        &= \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
+        + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K-1}} \cdot \left(\frac{a_{K+1} - 1}{a_{K} a_{K+1}} \right)
+        \\
+        \text{Define $\widehat{a_{K}} = \frac{a_{K} a_{K+1}}{a_{K+1} - 1}$}
+        \\
+        &= \sum_{k=1}^{K} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_{K-1} \widehat{a_{K}}}
+        \\
+        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+        \cfrac{a_{K-1}}{\widehat{a_K} - 1}}}}}
+        \\
+        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+        \cfrac{a_{K-1}}{\frac{a_{K} a_{K+1}}{a_{K+1} - 1} - 1}}}}}
+        \\
+        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+        \cfrac{a_{K-1}}{\frac{a_{K} a_{K+1} - a_{K+1} - 1}{a_{K+1} - 1}}}}}}
+        \\
+        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+        \cfrac{a_{K-1}}{\frac{(a_{K} - 1) \cdot (a_{K+1} - 1) + a_{K}}{a_{K+1} - 1}}}}}}
+        \\
+        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+        \cfrac{a_{K-1}}{a_{K} - 1 + \frac{a_{K}}{a_{K+1} - 1}}}}}}
+        \end{align*}
+
+        \hfill \(\square\)
+
     \end{theorem}
 
     \subsection{Example ln(2)}\label{subsec:example-ln(2)}
@@ -460,12 +523,6 @@
         \\
         \url{http://archives.math.utk.edu/articles/atuyl/confrac/history.html}
         Addison-Wesley, Reading, Massachusetts, 1993.
-
-%\bibitem{einstein} 
-%Albert Einstein. 
-%\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) 
-%[\textit{On the electrodynamics of moving bodies}]. 
-%Annalen der Physik, 322(10):891–921, 1905.
 
     \end{thebibliography}
 
