@@ -47,10 +47,16 @@ foreach ($File in $Files) {
         # Change directory to the file's location so pdflatex finds local inputs (like preamble.tex)
         Push-Location $File.DirectoryName
         
-        # Run pdflatex
+        # Run pdflatex twice to resolve references
         # -interaction=nonstopmode: Don't stop for errors
-        # -output-directory: Put all results (PDF + logs) into the testing folder
+        # -output-directory: Put all results (PDF + logs) into the output folder
+        Write-Host "  Pass 1..." -ForegroundColor Gray
         & pdflatex -interaction=nonstopmode -output-directory="$AbsOutput" $File.Name | Out-Null
+        
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "  Pass 2 (resolving references)..." -ForegroundColor Gray
+            & pdflatex -interaction=nonstopmode -output-directory="$AbsOutput" $File.Name | Out-Null
+        }
         
         Pop-Location
         
