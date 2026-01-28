@@ -1,316 +1,304 @@
 \documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{mathtools}
-\usepackage{amssymb}
+\input{preamble}
 
 \title{Bernoulli Numbers}
 \author{Emil Kerimov}
-\date{\today}
+\date{}
 \begin{document}
-    \maketitle
+\maketitle
 
-    \newtheorem{theorem}{Theorem}[section]
-    \newtheorem{corollary}{Corollary}[theorem]
-    \newtheorem{lemma}[theorem]{Lemma}
-    \newtheorem{definition}{Definition}[section]
+\section{Bernoulli Numbers}\label{sec:bernoulli-numbers}
+Examining the Taylor expansion of $\frac{x}{e^x -1}$, this will be required for the evaluation of the even integer values of $\zeta.$
 
-
-    \section{Bernoulli Numbers}\label{sec:bernoulli-numbers}
-    Examining the Taylor expansion of $\frac{x}{e^x -1}$, this will be required for the evaluation of the even integer values of $\zeta.$
-
-    \begin{definition}
-        \label{bernoulli def}
-        The Bernoulli numbers $B_n$ are defined as the coefficients of the Taylor expansion of the following function
-        \[\boxed{
+\begin{definition}
+    \label{bernoulli-def}
+    The Bernoulli numbers $B_n$ are defined as the coefficients of the Taylor expansion of the following function
+    \[\boxed{
             \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
         }
-        \]
-    \end{definition}
+    \]
+\end{definition}
 
-    \begin{theorem}
-        \begin{equation}
-            \label{eq:bernoulli-generating}
-            \sum_{k}^{n} \binom{n+1}{k} B_k = 0  \quad \forall n > 0, \text{ with } B_0 = 1
-        \end{equation}
-
-        Proof
-        \begin{gather*}
-            \intertext{Starting from definition~\ref{bernoulli def}}
-            \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
-            \\
-            \intertext{Using the Taylor expansion of $e^x$}
-            \frac{x}{\sum_{k=1}^{\infty} \frac{x^k}{k!}} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
-            \\
-            \intertext{Rearranging}
-            x = \sum_{k=1}^{\infty} \frac{x^k}{k!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
-            \\
-            1 = \sum_{k=1}^{\infty} \frac{x^{k-1}}{k!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x
-            \\
-            \intertext{Adjusting the indices}
-            1 = \sum_{k=0}^{\infty} \frac{x^{k}}{(k+1)!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
-            \\
-            \intertext{Using Cauchy's product formula for infinite sums \footnotemark}
-            1 = \sum_{n=0}^{\infty}
-            \underbrace{\sum_{k=0}^{n}
-                \underbrace{\Big(\frac{B_k}{k!} x^k \Big)}_{a_k}
-                \underbrace{\Big(\frac{x^{n-k}}{(n-k+1)!} \Big)}_{b_{n-k}}}_{c_n}
-            \\
-            \intertext{Simplifying}
-            1 = \sum_{n=0}^{\infty}
-            \frac{1}{(n+1)!}
-            \sum_{k=0}^{n}
-            \binom{n+1}{k}
-            B_k x^k x^{n-k}
-            \\
-            1 = \sum_{n=0}^{\infty}
-            \frac{x^n}{(n+1)!}
-            \sum_{k=0}^{n}  \binom{n+1}{k} B_k
-            \intertext{Comparing coefficients of powers of $x$ of both sides we get}
-            n=0, \quad  1 =  B_0
-            \\
-            n \not =0, \quad 0= \sum_{k=0}^{n}  \binom{n+1}{k} B_k
-        \end{gather*}
-    \end{theorem}
-
-    \footnotetext{$\Big\left( \sum_{n=0}^{\infty} a_n \Big\right) \Big\left( \sum_{n=0}^{\infty} b_n \Big\right) = \sum_{n=0}^{\infty} c_n $ where $c_n = \sum_{k=0}^{n} a_k b_{n-k}$. See proof: TODO ADD}
-
-    \subsection{First few Bernoulli numbers}\label{subsec:first-few-bernoulli-numbers}
-    Using equation~\ref{eq:bernoulli-generating} with $n=1$ implies $ \binom{2}{0} B_0 + \binom{2}{1} B_1 = 0 = 1 + 2 B_1 $ which implies
+\begin{theorem}
     \begin{equation}
-        B_1 = -\frac{1}{2}\label{eq:equation}
+        \label{eq:bernoulli-generating}
+        \sum_{k}^{n} \binom{n+1}{k} B_k = 0  \quad \forall n > 0, \text{ with } B_0 = 1
     \end{equation}
 
-    Using equation~\ref{eq:bernoulli-generating} with $n=2$ implies $ \binom{3}{0} B_0 + \binom{3}{1} B_1 + \binom{3}{2} B_2 = 0 = 1 - \frac{3}{2} + 3 B_2 $ which implies
-    \begin{equation}
-        B_2 = \frac{1}{6}\label{eq:equation2}
-    \end{equation}
-
-    Similarly when we apply this equation for increasing values of n
-    \begin{equation}
-        B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \dots \label{eq:equation3}
-    \end{equation}
-
-
-    \begin{theorem}
-        In fact we can show that all odd Bernoulli numbers after n=1 are 0
-        \begin{equation}
-            \label{eq:odd-bernoulli} B_n = 0  \quad \forall \text{ odd }n > 1
-        \end{equation}
-
-        Proof
-        \begin{gather*}
-            \intertext{Starting from definition~\ref{bernoulli def}}
-            \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
-            \\
-            \intertext{Removing the first two terms of the sum}
-            \frac{x}{e^x -1} = B_0 + B_1 x + \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n\\
-            \intertext{Rearranging}
-            \frac{x}{e^x -1}  - 1 + \frac{x}{2}= \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n
-            \\
-            \frac{x + xe^x}{2e^x -2}  - 1 = \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n
-            \\
-            \intertext{If we can show that the RHS is an even function then we have established the proof}
-            y(x) = \frac{x + xe^x}{2e^x -2}  - 1
-            \\
-            y(-x) = \frac{-x + -xe^{-x}}{2e^{-x} -2}  - 1
-            \\
-            \intertext{Simplifying}
-            y(-x) = \frac{-x -xe^{-x}}{2e^{-x} -2} \cdot \frac{e^x}{e^x}  - 1
-            \\
-            y(-x) = \frac{-xe^x -x}{2 -2e^x}  - 1
-            \\
-            y(-x) = \frac{x+xe^x}{2e^x - 2}  - 1
-            \\
-            y(-x) = y(x)
-            \\
-            B_n = 0  \quad \forall \text{ odd }n > 1
-        \end{gather*}
-    \end{theorem}
-
-    \pagebreak
-
-
-    \section{Bernoulli Polynomials}\label{sec:bernoulli-polynomials}
-    \begin{definition}
-        \label{bernoulli poly def}
-        The Bernoulli polynomials $B_n(x)$ are defined as
-        \[\boxed{
-            B_{n}(x) = \sum_{k=0}^{n} {n \choose k} B_k x^{n-k}
-        }\]
-    \end{definition}
-
-    \subsection{Examples}\label{subsec:examples}
-    \begin{align*}
-        B_{0}(x) &= B_0 = 1
-        \\
-        B_{1}(x) &= B_0 x + B_1 = x - \frac{1}{2}
-        \\
-        B_{2}(x) &= B_0 x^2 + {2 \choose 1} B_1 x + B_2 = x^2 - x +  \frac{1}{6}
-        \\
-        B_{3}(x) &= B_0 x^3 + {3 \choose 1} B_1 x^2 + {3 \choose 2} B_2 x + B_3 = x^3 - \frac{3}{2} x^2 +  \frac{1}{2} x
-    \end{align*}
-
-    Note that $B_n(x)$ is a polynomial of degree $n$.
-
-    \subsection{Useful Properties}\label{subsec:useful-properties}
-    \begin{theorem}
-        $B_n(0)$
-        \begin{equation}
-            \boxed{B_n(0) = B_n}\label{eq:equation4}
-        \end{equation}
-        Proof
-        \begin{gather*}
-            B_n(x) = \sum_{k=0}^{n} {n \choose k} B_k x^{n-k}
-            \\
-            B_n(x) = \sum_{k=0}^{n-1} {n \choose k} B_k x^{n-k} + B_n
-            \\
-            B_n(0) = \sum_{k=0}^{n-1} {n \choose k} B_k \cdot 0 + B_n = B_n
-        \end{gather*}
-    \end{theorem}
-
-    \begin{theorem}
-        $B_n(1)$  % todo format better using piecewise
-        \begin{equation}
-            \boxed{B_n(1) = B_n \quad n\neq 1
-            \quad B_1(1) = -B_1}\label{eq:equation5}
-        \end{equation}
-        Proof
-        \begin{gather*}
-            B_n(x) = \sum_{k=0}^{n} {n \choose k} B_k x^{n-k}
-            \\
-            B_n(1) = \sum_{k=0}^{n} {n \choose k} B_k
-            \intertext{Using equation~\ref{eq:bernoulli-generating}, $\sum_{k}^{n} \binom{n+1}{k} B_k = 0$}
-            \sum_{k}^{n-1} \binom{n}{k} B_k = 0
-            \intertext{Adding $B_n$ to both sides}
-            \sum_{k}^{n} \binom{n}{k} B_k = B_n
-        \end{gather*}
-    \end{theorem}
-
-    \begin{theorem}
-        Derivative
-        \begin{equation}
-            \boxed{B^{'}_n(x) = n B_{n-1}(x)}\label{eq:equation6}
-        \end{equation}
-        Proof
-        \begin{gather*}
-            B_n(x) = \sum_{k=0}^{n} {n \choose k} B_k x^{n-k}
-            \intertext{Taking derivatives of both sides}
-            B^{'}_n(x) = \sum_{k=0}^{n-1} {n \choose k} B_k (n-k) x^{n-k-1}
-            \\
-            B^{'}_n(x) = \sum_{k=0}^{n-1} \frac{n! (n-k)}{k! (n-k)!} B_k x^{n-1-k}
-            \\
-            B^{'}_n(x) = \sum_{k=0}^{n-1} \frac{(n-1)! \cdot n}{k! (n-k-1)!} B_k x^{n-1-k}
-            \\
-            B^{'}_n(x) = n \sum_{k=0}^{n-1} {n-1 \choose k} B_k x^{n-1-k}
-            \\
-            B^{'}_n(x) = n B_{n-1}(x)
-        \end{gather*}
-    \end{theorem}
-
-    \begin{theorem}
-        Integral
-        \begin{equation}
-            \boxed{\int_{x=0}^{1} B_n(x) dx = 0}\label{eq:equation7}
-        \end{equation}
-        Proof
-        \begin{gather*}
-            \intertext{Starting from the derivative equation, using $m=n-1$}
-            B^{'}_{m+1}(x) = (m+1) \cdot B_{m}(x)
-            \intertext{Integrating both sides}
-            \int_{x=0}^{1} B^{'}_{m+1}(x) = B_{m+1}(1) - B_{m+1}(0) = (m+1) \cdot  \int_{x=0}^{1} B_{m}(x)
-            \intertext{Using the Bernoulli polynomial properties}
-            B_{m+1}(1) - B_{m+1}(0) = B_{m+1} - B_{m+1} = 0
-            \intertext{Therefore for $m \neq -1$}
-            \int_{x=0}^{1} B_{m}(x) = 0
-        \end{gather*}
-    \end{theorem}
-
-    \pagebreak
-
-
-    \section{Euler-Maclaurin formula}\label{sec:euler-maclaurin-formula}
-
-    Let $ \{ x \} = x - \lfloor{x}\rfloor $ then
-
-    \begin{theorem}
-        \begin{subequations}
-            \label{Euler-Maclaurin formula}
-            \begin{align}
-                \sum_{k=1}^{n-1} f(k) &= \int_{x=1}^{n} f(x) dx -
-                \sum_{k=1}^{m} \frac{B_k}{k!} \cdot \big( f^{(k-1)}(n) - f^{(k-1)}(1) \big) +
-                R_{mn} \\
-                R_{mn} &= \frac{(-1)^{m+1}}{m!} \cdot \int_{x=1}^{n} B_{m}(\{x\}) f^{(m)} (x) dx
-            \end{align}
-        \end{subequations}
-
-        Proof
-        \begin{gather*}
-            \intertext{See the Darboux Formula paper for proof}
-        \end{gather*}
-    \end{theorem}
-
-    \subsection{Stirling's Approximation}\label{subsec:stirling's-approximation}
-    \begin{theorem}
-%\begin{equation} 
-%n! = \Big( \frac{n}{e} \Big)^{n} \sqrt{2 \pi n} \cdot e^{\sum_{k=2}^{m} \frac{B_k}{k \cdot (k-1)} \cdot \frac{1}{n^{k-1}} + O(\frac{1}{n^{m}})} 
-%\end{equation}
-
-        \begin{equation}
-            n! = \Big( \frac{n}{e} \Big)^{n} \sqrt{2 \pi n} \cdot exp\Bigg(\sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}  \frac{1}{n^{2k-1}} + O(\frac{1}{n^{m}})\Bigg)\label{eq:equation8}
-        \end{equation}
-
-
-        Proof
-        \begin{gather*}
-            \intertext{See the Gamma function paper for proof}
-        \end{gather*}
-    \end{theorem}
-
-    \pagebreak
-
-
-    \section{Connection to $\zeta(2n)$}\label{sec:connection-to-$zeta(2n)$}
-
-    See the Zeta function document.
-
-    \begin{theorem}
-        We can express all even integer values of $\zeta$ using Bernoulli numbers
-        \begin{equation}
-            \label{eq:even-zeta}
-            \zeta(2n) = (-1)^{n+1} \frac{(2\pi)^{2n} B_{2n}}{2 \cdot (2n)!}
-        \end{equation}
-
-        Proof:
-        See the Zeta function document.
-    \end{theorem}
-
-    \subsection{The first few even integer values of $\zeta$}\label{subsec:the-first-few-even-integer-values-of-$zeta$}
-
+    Proof
     \begin{gather*}
-        \zeta(2) = \frac{\pi^2}{6},
-        \zeta(4) = \frac{\pi^4}{90},
-        \zeta(6) = \frac{\pi^6}{945},
-        \zeta(8) = \frac{\pi^8}{9450},
-        \zeta(10) = \frac{\pi^{10}}{93555},
+        \intertext{Starting from definition~\ref{bernoulli-def}}
+        \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
         \\
-        \zeta(12) = \frac{691}{638512875} \pi^{12},
-        \zeta(14) = \frac{2}{18243225} \pi^{14},
-        \zeta(16) = \frac{3617}{325641566250} \pi^{16},
+        \intertext{Using the Taylor expansion of $e^x$}
+        \frac{x}{\sum_{k=1}^{\infty} \frac{x^k}{k!}} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
         \\
-        \zeta(18) = \frac{43867}{38979295480125} \pi^{18},
-        \zeta(20) = \frac{174611}{1531329465290625} \pi^{20},
-        \zeta(22) = \frac{155366}{13447856940643125} \pi^{22},
+        \intertext{Rearranging}
+        x = \sum_{k=1}^{\infty} \frac{x^k}{k!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
         \\
-        \zeta(24) = \frac{236364091}{201919571963756521875} \pi^{24},
-        \dots
+        1 = \sum_{k=1}^{\infty} \frac{x^{k-1}}{k!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x
+        \\
+        \intertext{Adjusting the indices}
+        1 = \sum_{k=0}^{\infty} \frac{x^{k}}{(k+1)!} \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
+        \\
+        \intertext{Using Cauchy's product formula for infinite sums \footnotemark}
+        1 = \sum_{n=0}^{\infty}
+        \underbrace{\sum_{k=0}^{n}
+            \underbrace{\Big(\frac{B_k}{k!} x^k \Big)}_{a_k}
+            \underbrace{\Big(\frac{x^{n-k}}{(n-k+1)!} \Big)}_{b_{n-k}}}_{c_n}
+        \\
+        \intertext{Simplifying}
+        1 = \sum_{n=0}^{\infty}
+        \frac{1}{(n+1)!}
+        \sum_{k=0}^{n}
+        \binom{n+1}{k}
+        B_k x^k x^{n-k}
+        \\
+        1 = \sum_{n=0}^{\infty}
+        \frac{x^n}{(n+1)!}
+        \sum_{k=0}^{n}  \binom{n+1}{k} B_k
+        \intertext{Comparing coefficients of powers of $x$ of both sides we get}
+        n=0, \quad  1 =  B_0
+        \\
+        n \not =0, \quad 0= \sum_{k=0}^{n}  \binom{n+1}{k} B_k
     \end{gather*}
+\end{theorem}
 
-    \pagebreak
+\footnotetext{$\left( \sum_{n=0}^{\infty} a_n \right) \left( \sum_{n=0}^{\infty} b_n \right) = \sum_{n=0}^{\infty} c_n $ where $c_n = \sum_{k=0}^{n} a_k b_{n-k}$. See proof: TODO ADD}
+
+\subsection{First few Bernoulli numbers}\label{subsec:first-few-bernoulli-numbers}
+Using equation~\ref{eq:bernoulli-generating} with $n=1$ implies $ \binom{2}{0} B_0 + \binom{2}{1} B_1 = 0 = 1 + 2 B_1 $ which implies
+\begin{equation}
+    B_1 = -\frac{1}{2}\label{eq:equation}
+\end{equation}
+
+Using equation~\ref{eq:bernoulli-generating} with $n=2$ implies $ \binom{3}{0} B_0 + \binom{3}{1} B_1 + \binom{3}{2} B_2 = 0 = 1 - \frac{3}{2} + 3 B_2 $ which implies
+\begin{equation}
+    B_2 = \frac{1}{6}\label{eq:equation2}
+\end{equation}
+
+Similarly when we apply this equation for increasing values of n
+\begin{equation}
+    B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \dots \label{eq:equation3}
+\end{equation}
+
+
+\begin{theorem}
+    In fact we can show that all odd Bernoulli numbers after n=1 are 0
+    \begin{equation}
+        \label{eq:odd-bernoulli} B_n = 0  \quad \forall \text{ odd }n > 1
+    \end{equation}
+
+    Proof
+    \begin{gather*}
+        \intertext{Starting from definition~\ref{bernoulli-def}}
+        \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
+        \\
+        \intertext{Removing the first two terms of the sum}
+        \frac{x}{e^x -1} = B_0 + B_1 x + \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n\\
+        \intertext{Rearranging}
+        \frac{x}{e^x -1}  - 1 + \frac{x}{2}= \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n
+        \\
+        \frac{x + xe^x}{2e^x -2}  - 1 = \sum_{n=2}^{\infty} \frac{B_n}{n!} x^n
+        \\
+        \intertext{If we can show that the RHS is an even function then we have established the proof}
+        y(x) = \frac{x + xe^x}{2e^x -2}  - 1
+        \\
+        y(-x) = \frac{-x + -xe^{-x}}{2e^{-x} -2}  - 1
+        \\
+        \intertext{Simplifying}
+        y(-x) = \frac{-x -xe^{-x}}{2e^{-x} -2} \cdot \frac{e^x}{e^x}  - 1
+        \\
+        y(-x) = \frac{-xe^x -x}{2 -2e^x}  - 1
+        \\
+        y(-x) = \frac{x+xe^x}{2e^x - 2}  - 1
+        \\
+        y(-x) = y(x)
+        \\
+        B_n = 0  \quad \forall \text{ odd }n > 1
+    \end{gather*}
+\end{theorem}
+
+\pagebreak
+
+
+\section{Bernoulli Polynomials}\label{sec:bernoulli-polynomials}
+\begin{definition}
+    \label{bernoulli poly def}
+    The Bernoulli polynomials $B_n(x)$ are defined as
+    \[\boxed{
+            B_{n}(x) = \sum_{k=0}^{n} \binom{n}{k} B_k x^{n-k}
+        }\]
+\end{definition}
+
+\subsection{Examples}\label{subsec:examples}
+\begin{align*}
+    B_{0}(x) & = B_0 = 1
+    \\
+    B_{1}(x) & = B_0 x + B_1 = x - \frac{1}{2}
+    \\
+    B_{2}(x) & = B_0 x^2 + \binom{2}{1} B_1 x + B_2 = x^2 - x +  \frac{1}{6}
+    \\
+    B_{3}(x) & = B_0 x^3 + \binom{3}{1} B_1 x^2 + \binom{3}{2} B_2 x + B_3 = x^3 - \frac{3}{2} x^2 +  \frac{1}{2} x
+\end{align*}
+
+Note that $B_n(x)$ is a polynomial of degree $n$.
+
+\subsection{Useful Properties}\label{subsec:useful-properties}
+\begin{theorem}
+    $B_n(0)$
+    \begin{equation}
+        \boxed{B_n(0) = B_n}\label{eq:equation4}
+    \end{equation}
+    Proof
+    \begin{gather*}
+        B_n(x) = \sum_{k=0}^{n} \binom{n}{k} B_k x^{n-k}
+        \\
+        B_n(x) = \sum_{k=0}^{n-1} \binom{n}{k} B_k x^{n-k} + B_n
+        \\
+        B_n(0) = \sum_{k=0}^{n-1} \binom{n}{k} B_k \cdot 0 + B_n = B_n
+    \end{gather*}
+\end{theorem}
+
+\begin{theorem}
+    $B_n(1)$  % todo format better using piecewise
+    \begin{equation}
+        \boxed{B_n(1) = B_n \quad n\neq 1
+            \quad B_1(1) = -B_1}\label{eq:equation5}
+    \end{equation}
+    Proof
+    \begin{gather*}
+        B_n(x) = \sum_{k=0}^{n} \binom{n}{k} B_k x^{n-k}
+        \\
+        B_n(1) = \sum_{k=0}^{n} \binom{n}{k} B_k
+        \intertext{Using equation~\ref{eq:bernoulli-generating}, $\sum_{k}^{n} \binom{n+1}{k} B_k = 0$}
+        \sum_{k}^{n-1} \binom{n}{k} B_k = 0
+        \intertext{Adding $B_n$ to both sides}
+        \sum_{k}^{n} \binom{n}{k} B_k = B_n
+    \end{gather*}
+\end{theorem}
+
+\begin{theorem}
+    Derivative
+    \begin{equation}
+        \boxed{B^{'}_n(x) = n B_{n-1}(x)}\label{eq:equation6}
+    \end{equation}
+    Proof
+    \begin{gather*}
+        B_n(x) = \sum_{k=0}^{n} \binom{n}{k} B_k x^{n-k}
+        \intertext{Taking derivatives of both sides}
+        B^{'}_n(x) = \sum_{k=0}^{n-1} \binom{n}{k} B_k (n-k) x^{n-k-1}
+        \\
+        B^{'}_n(x) = \sum_{k=0}^{n-1} \frac{n! (n-k)}{k! (n-k)!} B_k x^{n-1-k}
+        \\
+        B^{'}_n(x) = \sum_{k=0}^{n-1} \frac{(n-1)! \cdot n}{k! (n-k-1)!} B_k x^{n-1-k}
+        \\
+        B^{'}_n(x) = n \sum_{k=0}^{n-1} \binom{n-1}{k} B_k x^{n-1-k}
+        \\
+        B^{'}_n(x) = n B_{n-1}(x)
+    \end{gather*}
+\end{theorem}
+
+\begin{theorem}
+    Integral
+    \begin{equation}
+        \boxed{\int_{x=0}^{1} B_n(x) dx = 0}\label{eq:equation7}
+    \end{equation}
+    Proof
+    \begin{gather*}
+        \intertext{Starting from the derivative equation, using $m=n-1$}
+        B^{'}_{m+1}(x) = (m+1) \cdot B_{m}(x)
+        \intertext{Integrating both sides}
+        \int_{x=0}^{1} B^{'}_{m+1}(x) = B_{m+1}(1) - B_{m+1}(0) = (m+1) \cdot  \int_{x=0}^{1} B_{m}(x)
+        \intertext{Using the Bernoulli polynomial properties}
+        B_{m+1}(1) - B_{m+1}(0) = B_{m+1} - B_{m+1} = 0
+        \intertext{Therefore for $m \neq -1$}
+        \int_{x=0}^{1} B_{m}(x) = 0
+    \end{gather*}
+\end{theorem}
+
+\pagebreak
+
+
+\section{Euler-Maclaurin formula}\label{sec:euler-maclaurin-formula}
+
+Let $ \{ x \} = x - \lfloor{x}\rfloor $ then
+
+\begin{theorem}
+    \begin{subequations}
+        \label{Euler-Maclaurin formula}
+        \begin{align}
+            \sum_{k=1}^{n-1} f(k) & = \int_{x=1}^{n} f(x) dx -
+            \sum_{k=1}^{m} \frac{B_k}{k!} \cdot \big( f^{(k-1)}(n) - f^{(k-1)}(1) \big) +
+            R_{mn}                                                                                           \\
+            R_{mn}                & = \frac{(-1)^{m+1}}{m!} \cdot \int_{x=1}^{n} B_{m}(\{x\}) f^{(m)} (x) dx
+        \end{align}
+    \end{subequations}
+
+    Proof
+    \begin{gather*}
+        \intertext{See the Darboux Formula paper for proof}
+    \end{gather*}
+\end{theorem}
+
+\subsection{Stirling's Approximation}\label{subsec:stirling's-approximation}
+\begin{theorem}
+    %\begin{equation} 
+    %n! = \Big( \frac{n}{e} \Big)^{n} \sqrt{2 \pi n} \cdot e^{\sum_{k=2}^{m} \frac{B_k}{k \cdot (k-1)} \cdot \frac{1}{n^{k-1}} + O(\frac{1}{n^{m}})} 
+    %\end{equation}
+
+    \begin{equation}
+        n! = \Big( \frac{n}{e} \Big)^{n} \sqrt{2 \pi n} \cdot exp\Bigg(\sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}  \frac{1}{n^{2k-1}} + O(\frac{1}{n^{m}})\Bigg)\label{eq:equation8}
+    \end{equation}
+
+
+    Proof
+    \begin{gather*}
+        \intertext{See the Gamma function paper for proof}
+    \end{gather*}
+\end{theorem}
+
+\pagebreak
+
+
+\section{Connection to Zeta(2n)}\label{sec:connection-to-zeta-2n}
+
+See the Zeta function document.
+
+\begin{theorem}
+    We can express all even integer values of $\zeta$ using Bernoulli numbers
+    \begin{equation}
+        \label{eq:even-zeta}
+        \zeta(2n) = (-1)^{n+1} \frac{(2\pi)^{2n} B_{2n}}{2 \cdot (2n)!}
+    \end{equation}
+
+    Proof:
+    See the Zeta function document.
+\end{theorem}
+
+\subsection{The first few even integer values of Zeta}\label{subsec:the-first-few-even-integer-values-of-zeta}
+
+\begin{gather*}
+    \zeta(2) = \frac{\pi^2}{6},
+    \zeta(4) = \frac{\pi^4}{90},
+    \zeta(6) = \frac{\pi^6}{945},
+    \zeta(8) = \frac{\pi^8}{9450},
+    \zeta(10) = \frac{\pi^{10}}{93555},
+    \\
+    \zeta(12) = \frac{691}{638512875} \pi^{12},
+    \zeta(14) = \frac{2}{18243225} \pi^{14},
+    \zeta(16) = \frac{3617}{325641566250} \pi^{16},
+    \\
+    \zeta(18) = \frac{43867}{38979295480125} \pi^{18},
+    \zeta(20) = \frac{174611}{1531329465290625} \pi^{20},
+    \zeta(22) = \frac{155366}{13447856940643125} \pi^{22},
+    \\
+    \zeta(24) = \frac{236364091}{201919571963756521875} \pi^{24},
+    \dots
+\end{gather*}
+
+\pagebreak
 
 
 \end{document}
