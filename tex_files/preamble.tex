@@ -1,0 +1,57 @@
+% Shared Preamble for MathLatexDocs
+
+% --- Core Packages ---
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc} % Standard utf8 instead of utf8x
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{microtype} % Better justification and fewer overfull hboxes
+
+% --- Layout & Design ---
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=magenta]{hyperref}
+\usepackage{cleveref} % Better cross-referencing
+\usepackage{tcolorbox} % For styled boxes
+\usepackage{tikz} % For drawing diagrams
+
+% --- Fonts ---
+% Reverted to default LaTeX font (Computer Modern)
+% \usepackage{newpxtext} 
+% \usepackage{newpxmath} 
+
+% --- Theorem Environments (Classic Style) ---
+\newtheorem{classicthm}{Theorem}[section]
+\newtheorem{classicdef}[classicthm]{Definition}
+\newtheorem{classiclem}[classicthm]{Lemma}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+% Wrappers to maintain compatibility with the {Title}{Label} syntax used in files
+\newenvironment{mytheorem}[2]{
+  \begin{classicthm}[#1]\label{thm:#2}
+}{
+  \end{classicthm}
+}
+
+\newenvironment{mydefinition}[2]{
+  \begin{classicdef}[#1]\label{def:#2}
+}{
+  \end{classicdef}
+}
+
+\newenvironment{mylemma}[2]{
+  \begin{classiclem}[#1]\label{lem:#2}
+}{
+  \end{classiclem}
+}
+
+% --- Custom Commands ---
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
