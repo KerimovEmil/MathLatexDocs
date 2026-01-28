@@ -1,45 +1,34 @@
 \documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{mathtools}
-\usepackage{amssymb}
-\usepackage{hyperref}
+\input{preamble}
 
 \title{Exact solution to Polynomial equations}
 \author{Emil Kerimov}
-\date{\today}
+\date{}
 
 
 \begin{document}
 \maketitle
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
 
 \section{History}\label{sec:history}
 
 Scipione del Ferro is thought to have been the first to discover the general solution to the cubic equation, but did not publish it, and kept it a secret until his deathbed, telling his student Antonio Fior.
 Fior then challenged Niccolo Fontana, also known as Tartaglia, in 1535 to solve a list of 30 depressed cubics.
 On the night of February 13, 1535, Tartaglia discovered the solution.
-\\
-\\
+
+\bigskip
+
 Tartaglia revealed the secret to
 Gerolamo Cardano on March 25, 1539, with the oath
 of Cardano to never publish the findings.
 Cardano, along with his pupil Ludovico Ferrari, discovered the solution of the general cubic equation.
-\\
-\\
+
 While inspecting del Ferro's papers, they
 came across a solution to the depressed cubic in del Ferro's own handwriting.
 Cardano and Ferrari were no longer prohibited from publishing their results.
-\\
-\\
+
+\bigskip
+
 In 1545, Cardano published his book Ars
 Magna, the \textquotedblleft Great Art.\textquotedblright
 In it, he published the solution to the
@@ -48,38 +37,42 @@ del Ferro with the original solution.
 He also published his solution of the
 general cubic and also Ferrari's solution of
 the quartic.
-\\
-\\
-Lagrange published a paper in 1771, Reflections on the Algebraic Theory of Equations, in which he described why the techniques used to solve the quadratic, cubic and quartic equations could not be applied to solve the quintic equation. 
-\\
-\\
+
+\bigskip
+
+Lagrange published a paper in 1771, Reflections on the Algebraic Theory of Equations, in which he described why the techniques used to solve the quadratic, cubic and quartic equations could not be applied to solve the quintic equation.
+
+\bigskip
+
 Paolo Ruffini attempted to prove that the quintic equation was insolvable.
 He published 6 proofs on the subject from 1799 to 1813.
 However, other mathematicians found his work too long and difficult to understand, except for Cauchy.
 These proofs did end up having a few gaps in them, but were on the right track.
-\\
-\\
+
+\bigskip
+
 Niels Henrik Abel published his proof that the quintic equation was insolvable in 1824.
 Abel is credited for finally putting this question to rest.
-\\
-\\
+
+\bigskip
+
 Evariste Galois, who died at the age of 20 in 1832 in a duel, studied attempted to generalize how to determine when the roots could be solved in terms of radicals.
 He became the first mathematician to use the word 'group' and defined the normal subgroup.
 
 \section{Quadratic}\label{sec:quadratic}
 
 \begin{definition}\label{quad def}
-A quadratic polynomial 
-\[
-ax^2 + bx + c = 0
-\]
+  A quadratic polynomial
+  \[
+    ax^2 + bx + c = 0
+  \]
 \end{definition}
 
 Given a quadratic polynomial, the two solutions of $x$ that satisfy this equation are given by the quadratic equation
 \begin{equation}
-\boxed{
-x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-}\label{eq:equation}
+  \boxed{
+    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+  }\label{eq:equation}
 \end{equation}
 
 This one equation has three solutions due to the cube root of complex numbers.
@@ -88,285 +81,285 @@ This one equation has three solutions due to the cube root of complex numbers.
 The most straight-forward proof is given by a technique referred to as 'Completing the Square'.
 
 \begin{gather*}
-ax^2 + bx + c = 0\\
-\shortintertext{Dividing both sides by $a$}
-x^2 + \frac{b}{a}x + \frac{c}{a} = 0\\
-\shortintertext{Adding and subtracting $\frac{b^2}{(2a)^2}$}
-x^2 + \frac{b}{a}x + \frac{b^2}{(2a)^2} +  \frac{c}{a} - \frac{b^2}{(2a)^2} = 0\\
-\shortintertext{Recognizing the 'square'}
-(x+ \frac{b}{2a})^2 +  \frac{c}{a} - \frac{b^2}{(2a)^2} = 0\\
-\shortintertext{Rearranging and solving}
-\begin{alignedat}{2}
-(x + \frac{b}{2a})^2 &= \frac{b^2}{4a^2}-  \frac{c}{a}  = \frac{b^2-4ac}{4a^2}\\
-x + \frac{b}{2a} &=\pm \sqrt{ \frac{b^2 - 4ac}{4a^2}}\\
-x  &= - \frac{b}{2a} \pm \sqrt{ \frac{b^2 - 4ac}{4a^2}}\\
-x  &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\\
-\end{alignedat}
+  ax^2 + bx + c = 0\\
+  \shortintertext{Dividing both sides by $a$}
+  x^2 + \frac{b}{a}x + \frac{c}{a} = 0\\
+  \shortintertext{Adding and subtracting $\frac{b^2}{(2a)^2}$}
+  x^2 + \frac{b}{a}x + \frac{b^2}{(2a)^2} +  \frac{c}{a} - \frac{b^2}{(2a)^2} = 0\\
+  \shortintertext{Recognizing the 'square'}
+  (x+ \frac{b}{2a})^2 +  \frac{c}{a} - \frac{b^2}{(2a)^2} = 0\\
+  \shortintertext{Rearranging and solving}
+  \begin{alignedat}{2}
+    (x + \frac{b}{2a})^2 & = \frac{b^2}{4a^2}-  \frac{c}{a}  = \frac{b^2-4ac}{4a^2} \\
+    x + \frac{b}{2a}     & =\pm \sqrt{ \frac{b^2 - 4ac}{4a^2}}                      \\
+    x                    & = - \frac{b}{2a} \pm \sqrt{ \frac{b^2 - 4ac}{4a^2}}      \\
+    x                    & = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}                     \\
+  \end{alignedat}
 \end{gather*}
 
 \subsection{Discriminant}\label{subsec:discriminant}
 
-The discriminant of a quadratic equation is defined to be 
+The discriminant of a quadratic equation is defined to be
 \begin{equation}
-\Delta = b^2 - 4ac\label{eq:equation2}
+  \Delta = b^2 - 4ac\label{eq:equation2}
 \end{equation}
 
 \section{Cubic}\label{sec:cubic}
 
 \begin{definition}\label{cubic def}
-A cubic polynomial
-\[
-ax^3 + bx^2 + cx + d = 0
-\]
+  A cubic polynomial
+  \[
+    ax^3 + bx^2 + cx + d = 0
+  \]
 \end{definition}
 
-Given a cubic polynomial the three solutions of $x$ that satisfy this equation are given by 
+Given a cubic polynomial the three solutions of $x$ that satisfy this equation are given by
 
 \begin{equation} \label{eq:cubic-solution}
-\boxed{
-\begin{split}
-x = - \frac{b}{3a} +
-\frac{1}{\sqrt[3]{2} \cdot 3 a} \Bigg(
- \sqrt[3]{9abc - 27 d a^2 - 2 b^3  + 3a \sqrt[2]{
-3 \Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
-\Big)
-}} 
-\\
-+
-\sqrt[3]{9abc - 27 d a^2 - 2 b^3 - 
-3a \sqrt[2]{
-3
-\Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
-\Big)
-}}
-\Bigg)
-\end{split}
-}
+  \boxed{
+    \begin{split}
+      x = - \frac{b}{3a} +
+      \frac{1}{\sqrt[3]{2} \cdot 3 a} \Bigg(
+      \sqrt[3]{9abc - 27 d a^2 - 2 b^3  + 3a \sqrt[2]{
+          3 \Big(
+          27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+          \Big)
+        }}
+      \\
+      +
+      \sqrt[3]{9abc - 27 d a^2 - 2 b^3 -
+        3a \sqrt[2]{
+          3
+          \Big(
+          27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+          \Big)
+        }}
+      \Bigg)
+    \end{split}
+  }
 \end{equation}
 
 This was first shown by Gerolamo Cardano in 1545
 
 \subsection{Depressed Cubic}\label{subsec:depressed-cubic}
 \begin{definition}\label{depressed cubic def}
-A depressed cubic is a polynomial in the form of
-\[
-x^3 + cx + d = 0
-\]
+  A depressed cubic is a polynomial in the form of
+  \[
+    x^3 + cx + d = 0
+  \]
 \end{definition}
 
 
 \begin{theorem}
-We can transform any cubic to a depressed cubic form. 
+  We can transform any cubic to a depressed cubic form.
 
-Proof
-\begin{gather*}
-\intertext{Starting from definition~\ref{cubic def}}
-ax^3 + bx^2 + cx + d = 0
-\\
-\intertext{Dividing by a, we define}
-a_2 = \frac{b}{a}, a_1 = \frac{c}{a}, a_0 = \frac{d}{a}
-\\
-\intertext{Rewriting}
-x^3 + a_2 x^2 + a_1 x + a_0 = 0
-\\
-\intertext{Completing the cube}
-x^3 + 3 \Big( \frac{a_2}{3} \Big) x^2 + 3 \Big( \frac{a_2}{3} \Big)^2 x  + \Big( \frac{a_2}{3} \Big)^3 - 3 \Big( \frac{a_2}{3} \Big)^2 x  - \Big( \frac{a_2}{3} \Big)^3 + a_1 x + a_0 = 0
-\\
-\intertext{Using $(x+t)^3 = x^3 + 3x^2 t + 3x t^2 + t^3$}
-\Big( x + \frac{a_2}{3} \Big)^3 + x \Big( a_1 - 3 \Big( \frac{a_2}{3} \Big)^2 \Big)  + \Big( a_0 - \Big( \frac{a_2}{3} \Big)^3 \Big) = 0
-\\
-\intertext{Let $z=x + \frac{a_2}{3}$}
-z^3 + \Big(z - \frac{a_2}{3} \Big) \Big( a_1 - 3 \Big( \frac{a_2}{3} \Big)^2 \Big)  + \Big( a_0 - \Big( \frac{a_2}{3} \Big)^3 \Big) = 0
-\\
-\intertext{Simplifying and collecting like terms}
-z^3 + 
-z \Big( a_1 - 3 \Big( \frac{a_2}{3} \Big)^2 \Big)
-+\Bigg(
-- \frac{a_2}{3} \Big( a_1 - 3 \Big( \frac{a_2}{3} \Big)^2 \Big)
-  + \Big( a_0 - \Big( \frac{a_2}{3} \Big)^3 \Big)
-  \Bigg) = 0 
-\\
-\intertext{Therefore after shifting with $z=x + \frac{b}{3a}$}
-c' = \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2
-\\
-d' = - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)
-  + \Big( \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 \Big)
-\intertext{Simplifying}
-c' =  \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2
-\\
-d' =\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} c'
-\end{gather*}
+  Proof
+  \begin{gather*}
+    \intertext{Starting from definition~\ref{cubic def}}
+    ax^3 + bx^2 + cx + d = 0
+    \\
+    \intertext{Dividing by a, we define}
+    a_2 = \frac{b}{a}, a_1 = \frac{c}{a}, a_0 = \frac{d}{a}
+    \\
+    \intertext{Rewriting}
+    x^3 + a_2 x^2 + a_1 x + a_0 = 0
+    \\
+    \intertext{Completing the cube}
+    x^3 + 3 \Big( \frac{a_2}{3} \Big) x^2 + 3 \Big( \frac{a_2}{3} \Big)^2 x  + \Big( \frac{a_2}{3} \Big)^3 - 3 \Big( \frac{a_2}{3} \Big)^2 x  - \Big( \frac{a_2}{3} \Big)^3 + a_1 x + a_0 = 0
+    \\
+    \intertext{Using $(x+t)^3 = x^3 + 3x^2 t + 3x t^2 + t^3$}
+    \Big( x + \frac{a_2}{3} \Big)^3 + x \Big( a_1 - 3 \Big( \frac{a_2}{3} \Big)^2 \Big)  + \Big( a_0 - \Big( \frac{a_2}{3} \Big)^3 \Big) = 0
+    \\
+    \intertext{Let $z=x + \frac{a_2}{3}$}
+    z^3 + \Big(z - \frac{a_2}{3} \Big) \Big( a_1 - 3 \Big( \frac{a_2}{3} \Big)^2 \Big)  + \Big( a_0 - \Big( \frac{a_2}{3} \Big)^3 \Big) = 0
+    \\
+    \intertext{Simplifying and collecting like terms}
+    z^3 +
+    z \Big( a_1 - 3 \Big( \frac{a_2}{3} \Big)^2 \Big)
+    +\Bigg(
+    - \frac{a_2}{3} \Big( a_1 - 3 \Big( \frac{a_2}{3} \Big)^2 \Big)
+    + \Big( a_0 - \Big( \frac{a_2}{3} \Big)^3 \Big)
+    \Bigg) = 0
+    \\
+    \intertext{Therefore after shifting with $z=x + \frac{b}{3a}$}
+    c' = \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2
+    \\
+    d' = - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)
+    + \Big( \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 \Big)
+    \intertext{Simplifying}
+    c' =  \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2
+    \\
+    d' =\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} c'
+  \end{gather*}
 \end{theorem}
 
 
 \begin{theorem}
-Starting from the depressed cubic form, we can solve for the roots.
+  Starting from the depressed cubic form, we can solve for the roots.
 
-Proof
-\begin{gather*}
-\intertext{Starting from definition~\ref{depressed cubic def}}
-z^3 + cz + d = 0
-\\
-\intertext{Define $p=-\frac{c}{3}$ and $q=-\frac{d}{2} $}
-z^3 = 3pz + 2q
-\\
-\intertext{Consider $z=u+v$}
-z^3 = (u+v)^3 = u^3 + 3u^2 v + 3 u v^2 + v^3 = u^3 + v^3 + 3uv(u+v) = 3uv(z) + u^3 + v^3
-\\
-\intertext{Comparing these forms}
-3uv = 3p \\
-u^3 + v^3 = 2q \\
-\intertext{This implies}
-v = \frac{p}{u}\\
-u^3 + \Big(\frac{p}{u}\Big)^3 = 2q
-\intertext{Therefore we can create a polynomial equation to solve for this relation}
-u^6 + -2q u^3 + p^3 = 0
-\\
-\intertext{We can use the quadratic solution to solve for this relation}
-u^3 = \frac{2q \pm \sqrt{4q^2 - 4p^3}}{2} = q \pm \sqrt{q^2 - p^3}
-\\
-\intertext{Define the solutions for u}
-u_{+} = \sqrt[3]{q + \sqrt{q^2 - p^3}} \\
-u_{-} = \sqrt[3]{q - \sqrt{q^2 - p^3}} \\
-\intertext{Since $u_{+}^3 u_{-}^3  = p^3$, from quadratic equation}
-u_{+}u_{-} = p
-\intertext{Using definition $v = \frac{p}{u}$}
-v_{+} = \frac{p}{u_{+}} =\frac{p u_{-}}{u_{+}u_{-}} = \frac{p u_{-}}{p} =  u_{-}
-\intertext{Similarly}
-v_{-} =  u_{+}
-\intertext{Therefore the solution to $z^3 = 3pz + 2q$}
-z = u + v = u_{+} + u_{-} =  \sqrt[3]{q + \sqrt{q^2 - p^3}} + \sqrt[3]{q - \sqrt{q^2 - p^3}}
-\intertext{Re-writing in the original form}
-z = \sqrt[3]{-\frac{d}{2} + \sqrt{\frac{d^2}{4} +\frac{c^3}{27}}} + \sqrt[3]{-\frac{d}{2} - \sqrt{\frac{d^2}{4} + \frac{c^3}{27}}}
-\end{gather*}
+  Proof
+  \begin{gather*}
+    \intertext{Starting from definition~\ref{depressed cubic def}}
+    z^3 + cz + d = 0
+    \\
+    \intertext{Define $p=-\frac{c}{3}$ and $q=-\frac{d}{2} $}
+    z^3 = 3pz + 2q
+    \\
+    \intertext{Consider $z=u+v$}
+    z^3 = (u+v)^3 = u^3 + 3u^2 v + 3 u v^2 + v^3 = u^3 + v^3 + 3uv(u+v) = 3uv(z) + u^3 + v^3
+    \\
+    \intertext{Comparing these forms}
+    3uv = 3p \\
+    u^3 + v^3 = 2q \\
+    \intertext{This implies}
+    v = \frac{p}{u}\\
+    u^3 + \Big(\frac{p}{u}\Big)^3 = 2q
+    \intertext{Therefore we can create a polynomial equation to solve for this relation}
+    u^6 + -2q u^3 + p^3 = 0
+    \\
+    \intertext{We can use the quadratic solution to solve for this relation}
+    u^3 = \frac{2q \pm \sqrt{4q^2 - 4p^3}}{2} = q \pm \sqrt{q^2 - p^3}
+    \\
+    \intertext{Define the solutions for u}
+    u_{+} = \sqrt[3]{q + \sqrt{q^2 - p^3}} \\
+    u_{-} = \sqrt[3]{q - \sqrt{q^2 - p^3}} \\
+    \intertext{Since $u_{+}^3 u_{-}^3  = p^3$, from quadratic equation}
+    u_{+}u_{-} = p
+    \intertext{Using definition $v = \frac{p}{u}$}
+    v_{+} = \frac{p}{u_{+}} =\frac{p u_{-}}{u_{+}u_{-}} = \frac{p u_{-}}{p} =  u_{-}
+    \intertext{Similarly}
+    v_{-} =  u_{+}
+    \intertext{Therefore the solution to $z^3 = 3pz + 2q$}
+    z = u + v = u_{+} + u_{-} =  \sqrt[3]{q + \sqrt{q^2 - p^3}} + \sqrt[3]{q - \sqrt{q^2 - p^3}}
+    \intertext{Re-writing in the original form}
+    z = \sqrt[3]{-\frac{d}{2} + \sqrt{\frac{d^2}{4} +\frac{c^3}{27}}} + \sqrt[3]{-\frac{d}{2} - \sqrt{\frac{d^2}{4} + \frac{c^3}{27}}}
+  \end{gather*}
 \end{theorem}
 
 
 
 \subsection{General Cubic}\label{subsec:general-cubic}
-Combining all of these results to back out the solution for a general cubic equation in terms of the original variables, $ax^3 + bx^2 + cx + d = 0$, 
-we first summarize the steps taken. 
+Combining all of these results to back out the solution for a general cubic equation in terms of the original variables, $ax^3 + bx^2 + cx + d = 0$,
+we first summarize the steps taken.
 
 \begin{itemize}
-\item shift solution by $z=x + \frac{b}{3a}$
-\item write solution in depressed cubic form
-\item solve the depressed cubic equation. 
+  \item shift solution by $z=x + \frac{b}{3a}$
+  \item write solution in depressed cubic form
+  \item solve the depressed cubic equation.
 \end{itemize}
 
-Undoing these substitutions backwards 
+Undoing these substitutions backwards
 \begin{gather*}
-z = \sqrt[3]{-\frac{d'}{2} + \sqrt[2]{\frac{d'^2}{4} +\frac{c'^3}{27}}} + \sqrt[3]{-\frac{d'}{2} - \sqrt[2]{\frac{d'^2}{4} + \frac{c'^3}{27}}}
-\\
-\intertext{Using $ c' =  \frac{c}{a} - 3 \Big\left( \frac{b}{3a} \Big\right)^2 $
-and
-$d' =\frac{d}{a} - \Big\left( \frac{b}{3a} \Big\right)^3 - \frac{b}{3a} c' $}
-z = \sqrt[3]{-\frac{\Big( \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)}{2} + \sqrt[2]{\frac{\Big(\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^2}{4} +\frac{\Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^3}{27}}} 
-\\
-+
-\sqrt[3]{-\frac{\Big( \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)}{2} - \sqrt[2]{\frac{\Big(\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^2}{4} +\frac{\Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^3}{27}}} 
-\\
-\intertext{Simplifying}
-c' = \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 =\frac{3ac - b^2}{3 a^2}
-\\
-d' = \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} c' = \frac{27 d a^2 + 2 b^3 - 9abc}{27 a^3}
-\\
-z = \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} + \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{54^2 a^6} +  \frac{\Big (3ac - b^2 \Big)^3}{3^6 a^6}   }} 
-\\
-+
-\sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} - \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{54^2 a^6} + \frac{\Big (3ac - b^2 \Big)^3}{3^6 a^6}}} 
-\\
-\intertext{Factoring out 3a}
-z = \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} + \frac{1}{(3a)^3} \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3}} 
-\\
-+
-\sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} - 
-\frac{1}{(3a)^3} \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3}}
-\intertext{Simplifying $\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3 = A + B$}
-A = \frac{27^2}{4} a^4 d^2
-+ 27 a^2 b^3 d - \frac{27 \cdot 9}{2} a^3 bc d + b^6 - 9 a b^4 c + \frac{9^2}{4} a^2 b^2 c^2
-\\
-B = 3^3 a^3 c^3 - 27 a^2 b^2 c^2 + 9 a b^4 c - b^6
-\\
-A + B = \frac{27^2}{4} a^4 d^2
-+ 27 a^2 b^3 d - \frac{27 \cdot 9}{2} a^3 bc d + 3^3 a^3 c^3 + \Big( \frac{9}{4} - 3 \Big)9 a^2 b^2 c^2
-\\
-A + B = 
-\frac{27 a^2}{4}
-\Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
-\Big)
-\intertext{Note that this quantity is the negative of the discriminant of the cubic, denoted by $\Delta$.}
-\intertext{Plugging this back in we obtain}
-z = \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} + \frac{1}{2 \cdot 3^2 a^2} \sqrt[2]{
-3 \Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
-\Big)
-}} 
-\\
-+
-\sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} - 
-\frac{1}{2 \cdot 3^2 a^2} \sqrt[2]{
-3
-\Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
-\Big)
-}}
-\\
-\intertext{Simplfying more}
-z =
-\frac{1}{\sqrt[3]{2} \cdot 3 a} \Bigg(
- \sqrt[3]{9abc - 27 d a^2 - 2 b^3  + 3a \sqrt[2]{
-3 \Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
-\Big)
-}} 
-\\
-+
-\sqrt[3]{9abc - 27 d a^2 - 2 b^3 - 
-3a \sqrt[2]{
-3
-\Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
-\Big)
-}}
-\Bigg)
-\\
-\intertext{Undoing the first shifting of $z=x + \frac{b}{3a}$}
-x = - \frac{b}{3a} +
-\frac{1}{\sqrt[3]{2} \cdot 3 a} \Bigg(
- \sqrt[3]{9abc - 27 d a^2 - 2 b^3  + 3a \sqrt[2]{
-3 \Big( 
-27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
-\Big)
-}} 
-\\
-+
-\sqrt[3]{9abc - 27 d a^2 - 2 b^3 - 
-3a \sqrt[2]{
-3
-\Big( 
-27 a^2 d^2 + 4 b^3 d - 18 a b c d + 4 a c^3 - b^2 c^2
-\Big)
-}}
-\Bigg)
-\\
-\intertext{Writing the full solution in terms of the discriminant we get}
-x = - \frac{b}{3a} +
-\frac{1}{\sqrt[3]{2} \cdot 3 a} \Bigg(
- \sqrt[3]{9abc - 27 d a^2 - 2 b^3  + 3^{\frac{3}{2}}a \sqrt[2]{\Delta
-} i} 
-+
-\sqrt[3]{9abc - 27 d a^2 - 2 b^3 - 
-3^{\frac{3}{2}} a \sqrt[2]{\Delta} i }
-\Bigg)
+  z = \sqrt[3]{-\frac{d'}{2} + \sqrt[2]{\frac{d'^2}{4} +\frac{c'^3}{27}}} + \sqrt[3]{-\frac{d'}{2} - \sqrt[2]{\frac{d'^2}{4} + \frac{c'^3}{27}}}
+  \\
+  \intertext{Using $ c' =  \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 $
+    and
+    $d' =\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} c' $}
+  z = \sqrt[3]{-\frac{\Big( \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)}{2} + \sqrt[2]{\frac{\Big(\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^2}{4} +\frac{\Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^3}{27}}}
+  \\
+  +
+  \sqrt[3]{-\frac{\Big( \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)}{2} - \sqrt[2]{\frac{\Big(\frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} \Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^2}{4} +\frac{\Big( \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 \Big)^3}{27}}}
+  \\
+  \intertext{Simplifying}
+  c' = \frac{c}{a} - 3 \Big( \frac{b}{3a} \Big)^2 =\frac{3ac - b^2}{3 a^2}
+  \\
+  d' = \frac{d}{a} - \Big( \frac{b}{3a} \Big)^3 - \frac{b}{3a} c' = \frac{27 d a^2 + 2 b^3 - 9abc}{27 a^3}
+  \\
+  z = \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} + \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{54^2 a^6} +  \frac{\Big (3ac - b^2 \Big)^3}{3^6 a^6}   }}
+  \\
+  +
+  \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} - \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{54^2 a^6} + \frac{\Big (3ac - b^2 \Big)^3}{3^6 a^6}}}
+  \\
+  \intertext{Factoring out 3a}
+  z = \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} + \frac{1}{(3a)^3} \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3}}
+  \\
+  +
+  \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} -
+    \frac{1}{(3a)^3} \sqrt[2]{\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3}}
+  \intertext{Simplifying $\frac{\Big( 27 d a^2 + 2 b^3 - 9abc \Big)^2}{2^2} + \Big (3ac - b^2 \Big)^3 = A + B$}
+  A = \frac{27^2}{4} a^4 d^2
+  + 27 a^2 b^3 d - \frac{27 \cdot 9}{2} a^3 bc d + b^6 - 9 a b^4 c + \frac{9^2}{4} a^2 b^2 c^2
+  \\
+  B = 3^3 a^3 c^3 - 27 a^2 b^2 c^2 + 9 a b^4 c - b^6
+  \\
+  A + B = \frac{27^2}{4} a^4 d^2
+  + 27 a^2 b^3 d - \frac{27 \cdot 9}{2} a^3 bc d + 3^3 a^3 c^3 + \Big( \frac{9}{4} - 3 \Big)9 a^2 b^2 c^2
+  \\
+  A + B =
+  \frac{27 a^2}{4}
+  \Big(
+  27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+  \Big)
+  \intertext{Note that this quantity is the negative of the discriminant of the cubic, denoted by $\Delta$.}
+  \intertext{Plugging this back in we obtain}
+  z = \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} + \frac{1}{2 \cdot 3^2 a^2} \sqrt[2]{
+      3 \Big(
+      27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+      \Big)
+    }}
+  \\
+  +
+  \sqrt[3]{-\frac{27 d a^2 + 2 b^3 - 9abc}{54 a^3} -
+    \frac{1}{2 \cdot 3^2 a^2} \sqrt[2]{
+      3
+      \Big(
+      27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+      \Big)
+    }}
+  \\
+  \intertext{Simplfying more}
+  z =
+  \frac{1}{\sqrt[3]{2} \cdot 3 a} \Bigg(
+  \sqrt[3]{9abc - 27 d a^2 - 2 b^3  + 3a \sqrt[2]{
+      3 \Big(
+      27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+      \Big)
+    }}
+  \\
+  +
+  \sqrt[3]{9abc - 27 d a^2 - 2 b^3 -
+    3a \sqrt[2]{
+      3
+      \Big(
+      27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+      \Big)
+    }}
+  \Bigg)
+  \\
+  \intertext{Undoing the first shifting of $z=x + \frac{b}{3a}$}
+  x = - \frac{b}{3a} +
+  \frac{1}{\sqrt[3]{2} \cdot 3 a} \Bigg(
+  \sqrt[3]{9abc - 27 d a^2 - 2 b^3  + 3a \sqrt[2]{
+      3 \Big(
+      27 a^2 d^2 + 4 b^3 d - 18 abcd + 4 a c^3 - b^2 c^2
+      \Big)
+    }}
+  \\
+  +
+  \sqrt[3]{9abc - 27 d a^2 - 2 b^3 -
+    3a \sqrt[2]{
+      3
+      \Big(
+      27 a^2 d^2 + 4 b^3 d - 18 a b c d + 4 a c^3 - b^2 c^2
+      \Big)
+    }}
+  \Bigg)
+  \\
+  \intertext{Writing the full solution in terms of the discriminant we get}
+  x = - \frac{b}{3a} +
+  \frac{1}{\sqrt[3]{2} \cdot 3 a} \Bigg(
+  \sqrt[3]{9abc - 27 d a^2 - 2 b^3  + 3^{\frac{3}{2}}a \sqrt[2]{\Delta
+    } i}
+  +
+  \sqrt[3]{9abc - 27 d a^2 - 2 b^3 -
+    3^{\frac{3}{2}} a \sqrt[2]{\Delta} i }
+  \Bigg)
 \end{gather*}
 
 \subsection{Discriminant}\label{subsec:discriminant2}
-The discriminant of a cubic equation is defined to be 
+The discriminant of a cubic equation is defined to be
 \begin{equation}
-\Delta = b^2 c^2 - 27a^2 d^2 + 18a b c d - 4ac^3 - 4b^{3}d\label{eq:equation3}
+  \Delta = b^2 c^2 - 27a^2 d^2 + 18a b c d - 4ac^3 - 4b^{3}d\label{eq:equation3}
 \end{equation}
 
 \subsection{Elliptical Curves}\label{subsec:elliptical-curves}
@@ -379,8 +372,8 @@ The discriminant of a cubic equation is defined to be
 \subsection{General Discriminant}\label{subsec:general-discriminant}
 
 \begin{gather*}
-    A(x) = a_{n}x^n+a_{n-1}x^{n-1}+\cdots+a_{1}x+a_0\\
-    \operatorname{Disc}_x(A) = \frac{(-1)^{\frac{n(n-1)}{2}}} {a_n}\operatorname{Res}_x(A,A')\\
+  A(x) = a_{n}x^n+a_{n-1}x^{n-1}+\cdots+a_{1}x+a_0\\
+  \operatorname{Disc}_x(A) = \frac{(-1)^{\frac{n(n-1)}{2}}} {a_n}\operatorname{Res}_x(A,A')\\
 \end{gather*}
 
 The resultant of A and its derivative A'(x) is the determinant of the Sylvester matrix of A and A'.
