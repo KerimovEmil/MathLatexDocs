@@ -1,532 +1,624 @@
 \documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{mathtools}
-\usepackage{amssymb}
-\usepackage{hyperref}
-
+\input{preamble}
 
 \title{Continued Fractions}
 \author{Emil Kerimov}
-\date{\today}
+\date{}
 \begin{document}
-    \maketitle
+\maketitle
 
-    \newtheorem{theorem}{Theorem}[section]
-    \newtheorem{corollary}{Corollary}[theorem]
-    \newtheorem{lemma}[theorem]{Lemma}
-    \newtheorem{definition}{Definition}[section]
+\newcommand{\CFDots}{\genfrac{}{}{0pt}{0}{}{\ddots}}
 
-    \newcommand{\CFDots}[]{\genfrac{}{}{0pt}{0}{}{\ddots}}
+\section{History}\label{sec:history}
+Continued fractions were often times used off-handedly in the last 2000 years, but the foundations of continued
+fractions were not established until late 1600's, early 1700's by John Wallis, see a fuller account in the Mathematics
+Archives~\cite{history_website}.
+\\
+Below is an except from the Mathematics Archives~\cite{history_website}.
 
-    \section{History}\label{sec:history}
-    Continued fractions were often times used off-handedly in the last 2000 years, but the foundations of continued
-    fractions were not established until late 1600's, early 1700's by John Wallis, see a fuller account in the Mathematics
-    Archives~\cite{history_website}.
-    \\
-    Below is an except from the Mathematics Archives~\cite{history_website}.
-
-    \begin{quote}
-    In his book Opera Mathematica (1695) Wallis laid some basic groundwork for continued fractions.
-    He explained how to compute the nth convergent and discovered some now familiar properties of convergents.
-    It was also in this work that the term "continued fraction" was first used.
-    \\
-    \\
-    The Dutch mathematician and astronomer Christiaan Huygens (1629-1695) was the first to demonstrate a practical application of continued fractions.
-    He wrote a paper explaining how to use the convergents of a continued fraction to find the best rational approximations for gear ratios.
-    These approximations enabled him to pick the gears with the correct number of teeth.
-    His work was motivated impart by his desire to build a mechanical planetarium.
-    \\
-    \\
-    While the work of Wallis and Huygens began the work on continued fractions, the field of continued fractions began to flourish when Leonard Euler (1707-1783), Johan Heinrich Lambert (1728-1777), and Joseph Louis Lagrange (1736-1813) embraced the topic.
-    Euler laid down much of the modern theory in his work De Fractionlous Continious (1737).
-    He showed that every rational can be expressed as a terminating simple continued fraction.
-    He also provided an expression for e in continued fraction form.
-    He used this expression to show that e and $e^2$ are irrational.
-    He also demonstrated how to go from a series to a continued fraction representation of the series, and conversely.
-    \\
-    \\
-    Lambert generalized Euler's work on e to show that both $e^x$ and $\tan(x)$ are irrational if x is rational.
-    Lagrange used continued fractions to find the value of irrational roots.
-    He also proved that a real root of a quadratic irrational is a periodic continued fraction.
-    \\
-    \\
-    The nineteenth century can probably be described as the golden age of continued fractions.
-    As Claude Brezinski writes in History of Continued Fractions and Padre Approximations, "the nineteenth century can be said to be popular period for continued fractions."
-    It was a time in which "the subject was known to every mathematician."
-    As a result, there was an explosion of growth within this field.
-    The theory concerning continued fractions was significantly developed, especially that concerning the convergents.
-    Also studied were continued fractions with complex variables as terms.
-    Some of the more prominent mathematicians to make contributions to this field include Jacobi, Perron, Hermite, Gauss, Cauchy, and Stieljes.
-    By the beginning of the 20th century, the discipline had greatly advanced from the initial work of Wallis.
-    \end{quote}
+\begin{quote}
+  In his book Opera Mathematica (1695) Wallis laid some basic groundwork for continued fractions.
+  He explained how to compute the nth convergent and discovered some now familiar properties of convergents.
+  It was also in this work that the term "continued fraction" was first used.
+  \\
+  \\
+  The Dutch mathematician and astronomer Christiaan Huygens (1629-1695) was the first to demonstrate a practical application of continued fractions.
+  He wrote a paper explaining how to use the convergents of a continued fraction to find the best rational approximations for gear ratios.
+  These approximations enabled him to pick the gears with the correct number of teeth.
+  His work was motivated impart by his desire to build a mechanical planetarium.
+  \\
+  \\
+  While the work of Wallis and Huygens began the work on continued fractions, the field of continued fractions began to flourish when Leonard Euler (1707-1783), Johan Heinrich Lambert (1728-1777), and Joseph Louis Lagrange (1736-1813) embraced the topic.
+  Euler laid down much of the modern theory in his work De Fractionlous Continious (1737).
+  He showed that every rational can be expressed as a terminating simple continued fraction.
+  He also provided an expression for e in continued fraction form.
+  He used this expression to show that e and $e^2$ are irrational.
+  He also demonstrated how to go from a series to a continued fraction representation of the series, and conversely.
+  \\
+  \\
+  Lambert generalized Euler's work on e to show that both $e^x$ and $\tan(x)$ are irrational if x is rational.
+  Lagrange used continued fractions to find the value of irrational roots.
+  He also proved that a real root of a quadratic irrational is a periodic continued fraction.
+  \\
+  \\
+  The nineteenth century can probably be described as the golden age of continued fractions.
+  As Claude Brezinski writes in History of Continued Fractions and Padre Approximations, "the nineteenth century can be said to be popular period for continued fractions."
+  It was a time in which "the subject was known to every mathematician."
+  As a result, there was an explosion of growth within this field.
+  The theory concerning continued fractions was significantly developed, especially that concerning the convergents.
+  Also studied were continued fractions with complex variables as terms.
+  Some of the more prominent mathematicians to make contributions to this field include Jacobi, Perron, Hermite, Gauss, Cauchy, and Stieljes.
+  By the beginning of the 20th century, the discipline had greatly advanced from the initial work of Wallis.
+\end{quote}
 
 
-    \section{Definition}\label{sec:definition}
+\section{Definition}\label{sec:definition}
 
-    \begin{definition}
-        \label{def_finite_gen_c_fract}
-        A \textbf{finite general} continued fraction is defined as:
-        \[
-            a_0 +
-            \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{\ddots + \cfrac{b_n}{a_n} }}}
-        \]
-    \end{definition}
+\begin{mydefinition}{Finite General Continued Fraction}{def_finite_gen_c_fract}
+A \textbf{finite general} continued fraction is defined as:
+\[
+  a_0 +
+  \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{\ddots + \cfrac{b_n}{a_n} }}}
+\]
+\end{mydefinition}
 
-    If we allow the number of levels to go to infinity we get a general continued fraction.
+If we allow the number of levels to go to infinity we get a general continued fraction.
 
-    \begin{definition}
-        \label{def_gen_c_fract}
-        A \textbf{general} continued fraction is defined as:
-        \[
-            a_0 +
-            \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{a_3 + \CFDots}}}
-        \]
-    \end{definition}
+\begin{mydefinition}{General Continued Fraction}{def_gen_c_fract}
+A \textbf{general} continued fraction is defined as:
+\[
+  a_0 +
+  \cfrac{b_1}{a_1+\cfrac{b_2}{a_2 +\cfrac{b_3}{a_3 + \CFDots}}}
+\]
+\end{mydefinition}
 
-    \begin{definition}
-        \label{def_finite_c_fract}
-        A \textbf{finite standard} continued fraction is defined as:
-        \[
-            [a_0;a_1, a_2, \cdots, a_n] = a_0 +
-            \cfrac{1}{a_1+\cfrac{1}{a_2 +\cfrac{1}{\ddots + \cfrac{1}{a_n}}}}
-        \]
-    \end{definition}
+\begin{mydefinition}{Finite Standard Continued Fraction}{def_finite_c_fract}
+A \textbf{finite standard} continued fraction is defined as:
+\[
+  [a_0;a_1, a_2, \cdots, a_n] = a_0 +
+  \cfrac{1}{a_1+\cfrac{1}{a_2 +\cfrac{1}{\ddots + \cfrac{1}{a_n}}}}
+\]
+\end{mydefinition}
 
-    If we allow the number of levels to go to infinity we get a standard continued fraction.
+If we allow the number of levels to go to infinity we get a standard continued fraction.
 
-    \begin{definition}
-        \label{def_c_fract}
-        A \textbf{standard} continued fraction is defined as:
-        \[
-            a_0 +
-            \cfrac{1}{a_1+\cfrac{1}{a_2 +\cfrac{1}{a_3 + \CFDots}}}
-        \]
-        This form is also referred to as the simple continued fraction or regular continued fraction, or the canonical form.
-    \end{definition}
+\begin{mydefinition}{Standard Continued Fraction}{def_c_fract}
+A \textbf{standard} continued fraction is defined as:
+\[
+  a_0 +
+  \cfrac{1}{a_1+\cfrac{1}{a_2 +\cfrac{1}{a_3 + \CFDots}}}
+\]
+This form is also referred to as the simple continued fraction or regular continued fraction, or the canonical form.
+\end{mydefinition}
 
-    \subsection{Rational Examples}\label{subsec:rational-examples}
-    Every rational number has a unique representation in the standard continued fraction form.
-    Moreover, every rational number can be represented using only the finite continued fraction form.
-    Below are a few examples.
+\subsection{Rational Examples}\label{subsec:rational-examples}
+Every rational number has a unique representation in the standard continued fraction form.
+Moreover, every rational number can be represented using only the finite continued fraction form.
+Below are a few examples.
 
-    \begin{equation*}
-        \frac{1}{8} = [0;8] = \textbf{0} + \cfrac{1}{\textbf{8}}
-    \end{equation*}
+\begin{equation*}
+  \frac{1}{8} = [0;8] = \textbf{0} + \cfrac{1}{\textbf{8}}
+\end{equation*}
 
-    \begin{equation*}
-        \frac{2}{5} = [0;2,2] = \textbf{0} + \cfrac{1}{\textbf{2} +\cfrac{1}{\textbf{2}}}
-    \end{equation*}
+\begin{equation*}
+  \frac{2}{5} = [0;2,2] = \textbf{0} + \cfrac{1}{\textbf{2} +\cfrac{1}{\textbf{2}}}
+\end{equation*}
 
-    \begin{equation*}
-        \frac{163}{7} = [23;3,2] = \textbf{23} + \cfrac{1}{\textbf{3} +\cfrac{1}{\textbf{2}}}
-    \end{equation*}
+\begin{equation*}
+  \frac{163}{7} = [23;3,2] = \textbf{23} + \cfrac{1}{\textbf{3} +\cfrac{1}{\textbf{2}}}
+\end{equation*}
 
-    \begin{equation*}
-        \frac{-13}{5} = [-3;2,2] = \textbf{-3} + \cfrac{1}{\textbf{2} +\cfrac{1}{\textbf{2}}}
-    \end{equation*}
+\begin{equation*}
+  \frac{-13}{5} = [-3;2,2] = \textbf{-3} + \cfrac{1}{\textbf{2} +\cfrac{1}{\textbf{2}}}
+\end{equation*}
 
-    \subsection{Generation of continued fractions}\label{subsec:generation-of-continued-fractions}
-    The simple continued fraction representation of a number is both easy to verify and easy to generate.
-    Here we go through two common ways of generating the simple continued fraction representation of a number.
+\subsection{Generation of continued fractions}\label{subsec:generation-of-continued-fractions}
+The simple continued fraction representation of a number is both easy to verify and easy to generate.
+Here we go through two common ways of generating the simple continued fraction representation of a number.
 
-    \subsubsection{Rational numbers}
-    Given a rational number $p/q$ we can use Euclid's algorithm for determining the greatest common divisor (GCD) between the numbers $p$ and $q$. \\
-    Using the example of  $\frac{163}{7}$ as listed above we get the following steps:
+\subsubsection{Rational numbers}
+Given a rational number $p/q$ we can use Euclid's algorithm for determining the greatest common divisor (GCD) between the numbers $p$ and $q$. \\
+Using the example of  $\frac{163}{7}$ as listed above we get the following steps:
 
-    \begin{align*}
-        \shortintertext{See how many times 7 goes into 163 evenly}
-        163 =& \textbf{23} \cdot 7 + \textbf{2} \\
-        \shortintertext{See how many times 2 goes into 7 evenly}
-        \\
-        7 =& \textbf{3} \cdot 2 + \textbf{1}
-        \shortintertext{See how many times 1 goes into 2 evenly}
-        \\
-        2 =& \textbf{2} \cdot 1 + \textbf{0}
-    \end{align*}
+\begin{align*}
+  \shortintertext{See how many times 7 goes into 163 evenly}
+  163 = & \textbf{23} \cdot 7 + \textbf{2} \\
+  \shortintertext{See how many times 2 goes into 7 evenly}
+  \\
+  7 =   & \textbf{3} \cdot 2 + \textbf{1}
+  \shortintertext{See how many times 1 goes into 2 evenly}
+  \\
+  2 =   & \textbf{2} \cdot 1 + \textbf{0}
+\end{align*}
 
-    Notice that the resulting divisor values exactly match the corresponding simple continued fraction representation of $\frac{163}{7}$ as shown above. In particular
-    \[
-    \frac{163}{7} = [23;3,2] = \textbf{23} + \cfrac{1}{\textbf{3} +\cfrac{1}{\textbf{2}}}
-    \]
+Notice that the resulting divisor values exactly match the corresponding simple continued fraction representation of $\frac{163}{7}$ as shown above. In particular
+\[
+  \frac{163}{7} = [23;3,2] = \textbf{23} + \cfrac{1}{\textbf{3} +\cfrac{1}{\textbf{2}}}
+\]
 
-    \subsubsection{General real numbers}
-    We can apply the same reasoning as for the rational numbers to general real numbers. \\
-    Using $\sqrt{2} = 1.4142135623730951 \dots $ as an example.
-    \begin{align*}
-        \shortintertext{Remove the largest integer from value}
-        \sqrt{2} =& \textbf{1} + 0.4142135623730951 \dots  \\
-        \shortintertext{Take the reciprocal of the result and remove the largest integer from that}
-        1/0.4142135623730951 \dots =& 2.414213562373095 = \textbf{2} + 414213562373095
-        \shortintertext{Repeat the process}
-        1/0.414213562373095 \dots =& 2.41421356237309 = \textbf{2} + 414213562373095
-    \end{align*}
+\subsubsection{General real numbers}
+We can apply the same reasoning as for the rational numbers to general real numbers. \\
+Using $\sqrt{2} = 1.4142135623730951 \dots $ as an example.
+\begin{align*}
+  \shortintertext{Remove the largest integer from value}
+  \sqrt{2} =                   & \textbf{1} + 0.4142135623730951 \dots             \\
+  \shortintertext{Take the reciprocal of the result and remove the largest integer from that}
+  1/0.4142135623730951 \dots = & 2.414213562373095 = \textbf{2} + .414213562373095 \\
+  \shortintertext{Repeat the process}
+  1/0.414213562373095 \dots =  & 2.41421356237309 = \textbf{2} + .414213562373095
+\end{align*}
 
-    These calculations seem to imply that
-    \[
-    \sqrt{2} = [1;2,2,2,\dots] =
-    \textbf{1} + \cfrac{1}{\textbf{2}+\cfrac{1}{\textbf{2} +\cfrac{1}{\textbf{2} + \CFDots}}}
-    \]
+These calculations seem to imply that
+\[
+  \sqrt{2} = [1;2,2,2,\dots] =
+  \textbf{1} + \cfrac{1}{\textbf{2}+\cfrac{1}{\textbf{2} +\cfrac{1}{\textbf{2} + \CFDots}}}
+\]
 
-    We will see in a later section that this is the exact continued fraction representation of $\sqrt{2}$.
+We will see in a later section that this is the exact continued fraction representation of $\sqrt{2}$.
 
-    Moreover, we will show that in general if $\sqrt{n}$ is not an integer then it will always have a periodic repeating infinite continued fraction representation. \\
-    \\
-    The algorithm presented here will work for every number as long as a decimal representation is available for said number.
+Moreover, we will show that in general if $\sqrt{n}$ is not an integer then it will always have a periodic repeating infinite continued fraction representation. \\
+\\
+The algorithm presented here will work for every number as long as a decimal representation is available for said number.
 
-    \section{Useful lemmas}\label{sec:useful-lemmas}
-    \begin{definition}
-        \label{convergents}
-        A convergent $\frac{p_n}{q_n}$ of a simple continued fraction $[a_0; a_1, a_2, a_3, \dots]$ is defined as:
-        \[
-        \frac{p_n}{q_n} = [a_0; a_1, a_2, a_3, \dots, a_n]
-        \]
-        For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ and $q_{-1} = 0, q_{-2} = 1$.
-    \end{definition}
+\section{Useful lemmas}\label{sec:useful-lemmas}
+\begin{mydefinition}{Convergents}{convergents}
+A convergent $\frac{p_n}{q_n}$ of a simple continued fraction $[a_0; a_1, a_2, a_3, \dots]$ is defined as:
+\[
+  \frac{p_n}{q_n} = [a_0; a_1, a_2, a_3, \dots, a_n]
+\]
+For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ and $q_{-1} = 0, q_{-2} = 1$.
+\end{mydefinition}
 
-    \begin{lemma}
-        \label{lemma1}
-        For $\frac{p_{n}}{q_n}$ the $n^{th}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$.
+\begin{mylemma}{Recurrence Relation}{lemma1}
+  For $\frac{p_{n}}{q_n}$ the $n^{th}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$.
 
-        We can find $p_n, q_n$ using the previous convergents through the following recurrence relation:
-        \[
-        \frac{p_{n}}{q_n} = \frac{a_n \cdot p_{n-1} + p_{n-2}}{a_n \cdot q_{n-1} + q_{n-2}}
-        \]
+  We can find $p_n, q_n$ using the previous convergents through the following recurrence relation:
+  \[
+    \frac{p_{n}}{q_n} = \frac{a_n \cdot p_{n-1} + p_{n-2}}{a_n \cdot q_{n-1} + q_{n-2}}
+  \]
 
-        Proof
-        \begin{gather*}
-            \frac{p_{0}}{q_0} = a_0 = \frac{a_0 \cdot 1 + 0}{a_0 \cdot 0 + 1}
-              = \frac{a_0 \cdot p_{-1} + p_{-2}}{a_0 \cdot q_{-1} + q_{-2}} \\
-            \frac{p_{1}}{q_1} = a_0 + \frac{1}{a_1} = \frac{a_{0} a_{1} + 1}{a_1}
-              = \frac{a_1 \cdot a_0 + 1}{a_1 \cdot 1 + 0} \\
-            \frac{p_{2}}{q_2} = a_0 + \frac{1}{a_1 + \frac{1}{a_2}} = a_0 + \frac{a_2}{a_1 a_2 + 1}
-            = \frac{a_{0} a_{1} a_2 + a_0 + a_2}{a_1 a_2 + 1}
-              = \frac{a_2 \cdot (a_0 a_1 + 1) + a_0}{a_2 \cdot a_1 + 1} \\
-            \shortintertext{Assume true for \( k \)  and prove for  \( k+1 \):} \\
-            \frac{p_{k+1}}{q_{k+1}} = a_0 + \cfrac{1}{a_1 + \cfrac{1}{\ddots \, + \cfrac{1}{a_{k} + \cfrac{1}{a_{k+1}} }}} \\
-            \frac{p_{k+1}}{q_{k+1}} = a_0 + \cfrac{1}{a_1 + \cfrac{1}{\ddots \, + \cfrac{1}{\cfrac{a_{k} a_{k+1} + 1}{a_{k+1}} }}} \\
-            \shortintertext{Let \( a_{k}^{'} = \frac{a_{k} a_{k+1} + 1}{a_{k+1}} \)  and use the assumption for \( \frac{p_k}{q_k} \):} \\
-            \frac{p_{k+1}}{q_{k+1}} = \frac{\frac{a_{k} a_{k+1} + 1}{a_{k+1}} \cdot p_{k-1} + p_{k-2}}{\frac{a_{k} a_{k+1} + 1}{a_{k+1}} \cdot q_{k-1} + q_{k-2}}  \\
-            \frac{p_{k+1}}{q_{k+1}} = \frac{(a_{k} a_{k+1} + 1) \cdot p_{k-1} + a_{k+1} p_{k-2} }{(a_{k} a_{k+1} + 1) \cdot q_{k-1} + a_{k+1} q_{k-2}}  \\
-            \frac{p_{k+1}}{q_{k+1}} = \frac{a_{k+1} (a_{k}  p_{k-1} + p_{k-2}) + p_{k-1}}{a_{k+1} (a_{k} q_{k-1} + q_{k-2})  + q_{k-1}}  \\
-            \shortintertext{Again using the recursive assumption for \( p_k \) and \( \q_k \)  we finish the inductive proof:} \\
-            \frac{p_{k+1}}{q_{k+1}} = \frac{a_{k+1} p_{k} + p_{k-1}}{a_{k+1} q_{k}  + q_{k-1}}  \\
-        \end{gather*}
-    \end{lemma}
+  \begin{proof}
+    \begin{gather*}
+      \frac{p_{0}}{q_0} = a_0 = \frac{a_0 \cdot 1 + 0}{a_0 \cdot 0 + 1}
+      = \frac{a_0 \cdot p_{-1} + p_{-2}}{a_0 \cdot q_{-1} + q_{-2}} \\
+      \frac{p_{1}}{q_1} = a_0 + \frac{1}{a_1} = \frac{a_{0} a_{1} + 1}{a_1}
+      = \frac{a_1 \cdot a_0 + 1}{a_1 \cdot 1 + 0} \\
+      \frac{p_{2}}{q_2} = a_0 + \frac{1}{a_1 + \frac{1}{a_2}} = a_0 + \frac{a_2}{a_1 a_2 + 1}
+      = \frac{a_{0} a_{1} a_2 + a_0 + a_2}{a_1 a_2 + 1}
+      = \frac{a_2 \cdot (a_0 a_1 + 1) + a_0}{a_2 \cdot a_1 + 1} \\
+      \shortintertext{Assume true for \( k \)  and prove for  \( k+1 \):} \\
+      \frac{p_{k+1}}{q_{k+1}} = a_0 + \cfrac{1}{a_1 + \cfrac{1}{\ddots \, + \cfrac{1}{a_{k} + \cfrac{1}{a_{k+1}} }}} \\
+      \frac{p_{k+1}}{q_{k+1}} = a_0 + \cfrac{1}{a_1 + \cfrac{1}{\ddots \, + \cfrac{1}{\cfrac{a_{k} a_{k+1} + 1}{a_{k+1}} }}} \\
+      \shortintertext{Let \( a_{k}^{'} = \frac{a_{k} a_{k+1} + 1}{a_{k+1}} \)  and use the assumption for \( \frac{p_k}{q_k} \):} \\
+      \frac{p_{k+1}}{q_{k+1}} = \frac{\frac{a_{k} a_{k+1} + 1}{a_{k+1}} \cdot p_{k-1} + p_{k-2}}{\frac{a_{k} a_{k+1} + 1}{a_{k+1}} \cdot q_{k-1} + q_{k-2}}  \\
+      \frac{p_{k+1}}{q_{k+1}} = \frac{(a_{k} a_{k+1} + 1) \cdot p_{k-1} + a_{k+1} p_{k-2} }{(a_{k} a_{k+1} + 1) \cdot q_{k-1} + a_{k+1} q_{k-2}}  \\
+      \frac{p_{k+1}}{q_{k+1}} = \frac{a_{k+1} (a_{k}  p_{k-1} + p_{k-2}) + p_{k-1}}{a_{k+1} (a_{k} q_{k-1} + q_{k-2})  + q_{k-1}}  \\
+      \shortintertext{Again using the recursive assumption for \( p_k \) and \( q_k \)  we finish the inductive proof:} \\
+      \frac{p_{k+1}}{q_{k+1}} = \frac{a_{k+1} p_{k} + p_{k-1}}{a_{k+1} q_{k}  + q_{k-1}}
+    \end{gather*}
+  \end{proof}
+\end{mylemma}
 
-\begin{lemma}
-    \label{lemma3}
-    For $\frac{p_{n}}{q_n}$, the $n^{\text{th}}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$:
-    \[
+\begin{mylemma}{Determinant Identity}{lemma3}
+  For $\frac{p_{n}}{q_n}$, the $n^{\text{th}}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$:
+  \[
     p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1} = (-1)^n
-    \]
-\end{lemma}
-
-\begin{proof}
+  \]
+  \begin{proof}
     We proceed by verifying the base cases and then using mathematical induction on \( n \).
 
-    \paragraph{Base Cases:}
+    \textbf{Base Cases:}
     \begin{align*}
-        n = 0: \quad & p_{-1} \cdot q_0 - p_{0} \cdot q_{-1} = 1 \cdot 1 - a_0 \cdot 0 = 1 = (-1)^0, \\
-        n = 1: \quad & p_{0} \cdot q_1 - p_{1} \cdot q_{0} = a_0 \cdot a_1 - (a_0 a_1 + 1) \cdot 1 = -1 = (-1)^1, \\
+      n = 0: \quad & p_{-1} \cdot q_0 - p_{0} \cdot q_{-1} = 1 \cdot 1 - a_0 \cdot 0 = 1 = (-1)^0,              \\
+      n = 1: \quad & p_{0} \cdot q_1 - p_{1} \cdot q_{0} = a_0 \cdot a_1 - (a_0 a_1 + 1) \cdot 1 = -1 = (-1)^1,
     \end{align*}
 
-    \paragraph{Induction Hypothesis:} Assume that for \( k \), the statement holds:
+    \textbf{Induction Hypothesis:} Assume that for \( k \), the statement holds:
     \[
-    p_{k-1} \cdot q_k - p_{k} \cdot q_{k-1} = (-1)^k.
+      p_{k-1} \cdot q_k - p_{k} \cdot q_{k-1} = (-1)^k.
     \]
 
-    \paragraph{Inductive Step:} We need to prove the statement for \( k+1 \):
+    \textbf{Inductive Step:} We need to prove the statement for \( k+1 \):
     \begin{align*}
-        p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} &= p_{k} \cdot (a_{k+1} q_{k} + q_{k-1}) - (a_{k+1} p_{k} + p_{k-1}) \cdot q_{k} \\
-        &= \left( p_{k} \cdot q_{k-1} - p_{k-1} \cdot q_{k} \right) \\
-        &= (-1)^k.
+      p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} & = p_{k} \cdot (a_{k+1} q_{k} + q_{k-1}) - (a_{k+1} p_{k} + p_{k-1}) \cdot q_{k} \\
+                                                & = \left( p_{k} \cdot q_{k-1} - p_{k-1} \cdot q_{k} \right)                      \\
+                                                & = - (p_{k-1} \cdot q_k - p_{k} \cdot q_{k-1}) = -(-1)^k = (-1)^{k+1}.
     \end{align*}
     Therefore, \( p_{k} \cdot q_{k+1} - p_{k+1} \cdot q_{k} = (-1)^{k+1} \), completing the induction step.
+  \end{proof}
+\end{mylemma}
 
-    \qed
-\end{proof}
+\begin{mylemma}{Difference Identity}{lemma2}
+  For $\frac{p_{n}}{q_n}$ the $n^{th}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$.
 
-    \begin{lemma}
-        \label{lemma2}
-        For $\frac{p_{n}}{q_n}$ the $n^{th}$ convergent of $[a_0; a_1, a_2, a_3, \dots]$.
+  We can define a closed form for the difference of two sequential convergents:
+  \[
+    \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n} = \frac{(-1)^n}{q_n \cdot q_{n-1}}
+  \]
 
-        We can define a closed form for the difference of two sequential convergents:
-        \[
-        \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n} = \frac{(-1)^n}{q_n \cdot q_{n-1}}
-        \]
+  \begin{proof}
+    \begin{gather*}
+      \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n}
+      = \frac{p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1}}{q_{n} q_{n-1}}  \\
+      \shortintertext{Using Lemma~\ref{lem:lemma3} we have} \\
+      \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n} = \frac{(-1)^n}{q_{n} q_{n-1}}
+    \end{gather*}
+  \end{proof}
+\end{mylemma}
 
-        Proof
-        \begin{gather*}
-            \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n}
-            = \frac{p_{n-1} \cdot q_n - p_{n} \cdot q_{n-1}}{q_{n} q_{n-1}}  \\
-            \shortintertext{Using ~\ref{lemma3} we have} \\
-            \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n}}{q_n} = \frac{(-1)^n}{q_{n} q_{n-1}}
-        \end{gather*}
-    \end{lemma}
+\section{Relation to alternating Series}\label{sec:relation-to-alternating-series}
 
-    \section{Relation to alternating Series}\label{sec:relation-to-alternating-series}
+\begin{mytheorem}{Series to Continued Fraction}{relation_to_series}
+  \[
+    \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_k} = \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
+          \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{a_n - a_{n-1}}}}}}
+  \]
 
-    \begin{theorem}
-        \label{relation_to_series}
-        \[
-        \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_k} = \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
-        \cfrac{a_3^2}{\cdots + \cfrac{a_{n-1}^2}{a_n - a_{n-1}}}}}}
-        \]
+  \begin{proof}
+    \textbf{Proof by induction}
 
-        \textbf{Proof by induction}
+    \textbf{Base Case n=1:}
+    \[ \sum_{k=1}^{1} \frac{(-1)^{k-1}}{a_k} = \frac{1}{a_1} = \cfrac{1}{a_1} \]
 
-        Show for n=1
-        \begin{align*}
-            \sum_{k=1}^{1} \frac{(-1)^{k-1}}{a_k} =& \frac{1}{a_1} = \cfrac{1}{a_1}
-        \end{align*}
+    \textbf{Base Case n=2:}
+    \begin{align*}
+      \sum_{k=1}^{2} \frac{(-1)^{k-1}}{a_k} & = \frac{1}{a_1} - \frac{1}{a_2}             \\
+                                            & = \frac{a_2 - a_1}{a_1 \cdot a_2}           \\
+                                            & = \frac{1}{\frac{a_1 \cdot a_2}{a_2 - a_1}} \\
+                                            & = \cfrac{1}{a_1 + \cfrac{a_1^2}{a_2 - a_1}}
+    \end{align*}
 
-        Assume is true for n, prove for n+1:
-        \\
-        The idea of the proof is to re-write the summation for $n+1$ as a summation over $n$ terms by obtaining a new $\widehat{a_n}$ term.
+    \textbf{Inductive Hypothesis:} Assume the statement is true for $n$:
+    \[ \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_k} = \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
+            \cfrac{a_3^2}{\ddots + \cfrac{a_{n-1}^2}{a_n - a_{n-1}}}}}} \]
 
-        \begin{align*}
-            \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_k} =& \frac{1}{a_0} - \frac{1}{a_1} + \frac{1}{a_2} - \dots + \frac{(-1)^{n-1}}{a_{n}} + \frac{(-1)^{n}}{a_{n+1}}
-            \\
-            =& \frac{1}{a_0} - \frac{1}{a_1} + \frac{1}{a_2} - \dots + (-1)^{n-1} \cdot \Big( \frac{1}{a_{n}} - \frac{1}{a_{n+1}} \Big)
-            \\
-            =& \frac{1}{a_0} - \frac{1}{a_1} + \frac{1}{a_2} - \dots + (-1)^{n-1} \cdot \Big( \frac{a_{n+1} - a_{n}}{a_{n}\cdot a_{n+1}} \Big)
-            \\
-            =& \frac{1}{a_0} - \frac{1}{a_1} + \frac{1}{a_2} - \dots + (-1)^{n-1} \cdot \Big( \frac{1}{\frac{a_{n}\cdot a_{n+1}}{a_{n+1} - a_{n}}}  \Big)
-            \\
-            =& \frac{1}{a_0} - \frac{1}{a_1} + \frac{1}{a_2} - \dots + (-1)^{n-1} \frac{1}{\widehat{a_n}}
-        \end{align*}
+    \textbf{Inductive Step:} Prove for $n+1$.
 
-        Note that
-        \begin{equation*}
-            \widehat{a_n}
-            =
-            \frac{a_{n}\cdot a_{n+1}}{a_{n+1} - a_{n}} =
-            \frac{(a_{n+1} - a_n)\cdot a_{n} + a_n^2}{a_{n+1} - a_{n}} = a_{n} + \frac{a_n^2}{a_{n+1} - a_{n}}
-        \end{equation*}
+    The idea of the proof is to re-write the summation for $n+1$ as a summation over $n$ terms by obtaining a new $\widehat{a_n}$ term.
 
-        Hence, plugging in this new $\widehat{a_n}$ into our assumption we get:
+    \begin{align*}
+      \sum_{k=1}^{n+1} \frac{(-1)^{k-1}}{a_k} = & \frac{1}{a_1} - \frac{1}{a_2} + \frac{1}{a_3} - \dots + \frac{(-1)^{n-1}}{a_{n}} + \frac{(-1)^{n}}{a_{n+1}}
+      \\
+      =                                         & \frac{1}{a_1} - \frac{1}{a_2} + \frac{1}{a_3} - \dots + (-1)^{n-1} \cdot \Big( \frac{1}{a_{n}} - \frac{1}{a_{n+1}} \Big)
+      \\
+      =                                         & \frac{1}{a_1} - \frac{1}{a_2} + \frac{1}{a_3} - \dots + (-1)^{n-1} \cdot \Big( \frac{a_{n+1} - a_{n}}{a_{n}\cdot a_{n+1}} \Big)
+      \\
+      =                                         & \frac{1}{a_1} - \frac{1}{a_2} + \frac{1}{a_3} - \dots + (-1)^{n-1} \cdot \Big( \frac{1}{\frac{a_{n}\cdot a_{n+1}}{a_{n+1} - a_{n}}}  \Big)
+      \\
+      =                                         & \frac{1}{a_1} - \frac{1}{a_2} + \frac{1}{a_3} - \dots + (-1)^{n-1} \frac{1}{\widehat{a_n}}
+    \end{align*}
 
-        \begin{align*}
-            \sum_{k=1}^{n+1} \frac{(-1)^{k-1}}{a_k} =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
+    Note that
+    \begin{equation*}
+      \widehat{a_n}
+      =
+      \frac{a_{n}\cdot a_{n+1}}{a_{n+1} - a_{n}} =
+      \frac{(a_{n+1} - a_n)\cdot a_{n} + a_n^2}{a_{n+1} - a_{n}} = a_{n} + \frac{a_n^2}{a_{n+1} - a_{n}}
+    \end{equation*}
+
+    Hence, plugging in this new $\widehat{a_n}$ into our inductive hypothesis we get:
+
+    \begin{align*}
+      \sum_{k=1}^{n+1} \frac{(-1)^{k-1}}{a_k} = & \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2 +
             \cfrac{a_3^2}{\ddots + \cfrac{a_{n-1}^2}{\widehat{a_n} - a_{n-1}}}}}}
-            \\
-            =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
+      \\
+      =                                         & \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2 +
             \cfrac{a_3^2}{\ddots + \cfrac{a_{n-1}^2}{\Big( a_{n} + \frac{a_n^2}{a_{n+1} - a_{n}} \Big) - a_{n-1}}}}}}
-            \\
-            =& \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2
+      \\
+      =                                         & \cfrac{1}{a_1+\cfrac{a_{1}^{2}}{a_2 - a_1 +\cfrac{a_2^2}{a_3 - a_2 +
             \cfrac{a_3^2}{\ddots + \cfrac{a_{n-1}^2}{a_{n} - a_{n-1} + \frac{a_n^2}{a_{n+1} - a_{n}} }}}}}
-        \end{align*}
-        Which proves the theorem for $n+1$ since this matches the form we were expecting for $n+1$.
+    \end{align*}
+    Which proves the theorem for $n+1$ since this matches the form we were expecting for $n+1$.
+  \end{proof}
+\end{mytheorem}
 
-    \end{theorem}
+\begin{mytheorem}{Euler's Continued Fraction Formula}{euler_continued_fraction_formula}
+  \url{https://en.wikipedia.org/wiki/Euler%27s_continued_fraction_formula}
+  \[
+    \sum_{k=0}^{n} a_0 a_1 \cdots a_k
+    =
+    \cfrac{a_0}{1 - \cfrac{a_{1}}{1 + a_1 - \cfrac{a_2}{1 + a_2 -
+          \cfrac{a_3}{\ddots +  1 + a_{n-1} - \cfrac{a_{n}}{1 + a_n}}}}}
+  \]
+  \begin{proof}
+    We proceed by induction on $n$.
 
-    \begin{theorem}
-        \label{euler_continued_fraction_formula}
-        Euler's continued fraction formula
-        \\
-        \url{https://en.wikipedia.org/wiki/Euler%27s_continued_fraction_formula}
-        \[
-        \sum_{k=0}^{n}  a_0 a_1 a_2 \cdots a_k = \cfrac{a_0}{1 - \cfrac{a_{1}}{1 + a_1 - \cfrac{a_2}{1 + a_2 -
-        \cfrac{a_3}{\ddots +  1 + a_{n-1} - \cfrac{a_{n}}{1 + a_n}}}}}
-        \]
+    \textbf{Base case ($n=0$).}
+    \[
+      \sum_{k=0}^0 a_0 a_1 \cdots a_k = a_0,
+      \qquad
+      \cfrac{a_0}{1} = a_0.
+    \]
 
-        Proof\\
-        TODO
-    \end{theorem}
+    \textbf{Base case ($n=1$).}
+    \begin{align*}
+      \text{LHS} & = a_0 + a_0 a_1 = a_0(1+a_1),         \\
+      \text{RHS} & = \cfrac{a_0}{1 - \cfrac{a_1}{1+a_1}}
+      = \cfrac{a_0(1+a_1)}{1+a_1-a_1}
+      = a_0(1+a_1).
+    \end{align*}
 
-    \begin{theorem}
-        \label{relation_to_alternate_series}
-        \[
-        \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} = \cfrac{1}{a_1 + \cfrac{a_{1}}{a_2 - 1 +\cfrac{a_2}{a_3 - 1 +
-        \cfrac{a_3}{\ddots +  a_{n-1} - 1 + \cfrac{a_{n-1}}{a_n - 1}}}}}
-        \]
+    \textbf{Inductive hypothesis.}
+    Assume for some $k \ge 1$ that
+    \[
+      \sum_{j=0}^{k} a_0 a_1 \cdots a_j
+      =
+      \cfrac{a_0}{1 - \cfrac{a_{1}}{1 + a_1 - \cfrac{a_2}{\ddots -
+            \cfrac{a_{k}}{1 + a_k}}}}.
+    \]
 
-        \textbf{Proof by induction}
+    \textbf{Inductive step.}
+    We show the formula holds for $k+1$.
 
-        We proceed by induction on \( n \).
+    Let
+    \[
+      S_k := \sum_{j=0}^{k} a_0 a_1 \cdots a_j.
+    \]
+    Then
+    \[
+      S_{k+1} = S_k + a_0 a_1 \cdots a_{k+1}
+      = S_k\left(1 + a_{k+1}\frac{a_0 a_1 \cdots a_k}{S_k}\right).
+    \]
 
-        \textbf{Base Case: For \( n = 1 \)}, the left-hand side of the equation is:
-        \[
-        \frac{(-1)^{1-1}}{a_1} = \frac{1}{a_1}
-        \]
-        And the right-hand side for \( n = 1 \) is:
-        \[
-        \cfrac{1}{a_1}
-        \]
-        Thus, the equation holds for \( n = 1 \).
+    From the inductive hypothesis, the ratio
+    \[
+      \frac{a_0 a_1 \cdots a_k}{S_k}
+    \]
+    is exactly the value of the \emph{last convergent} of the continued fraction, namely
+    \[
+      \frac{a_k}{1+a_k}.
+    \]
+    Hence
+    \[
+      S_{k+1} = S_k\left(1 + \frac{a_k a_{k+1}}{1+a_k}\right).
+    \]
 
-        \textbf{Base Case: For \( n = 2 \)}, the left-hand side of the equation is:
-        \[
-        \frac{1}{a_1} - \frac{1}{a_{1} a_{2}} =& \frac{a_2 - 1}{a_{1} a_{2}} = \frac{1}{\frac{a_{1} a_{2}}{a_2 - 1}}
-        =& \frac{1}{\frac{a_{1} (a_{2}-1) + a_{1}}{a_2 - 1}}
-        =& \cfrac{1}{a_{1} + \cfrac{a_{1}}{a_2 - 1}}
-        \]
-        And the right-hand side for \( n = 2 \) is:
-        \[
-        \cfrac{1}{a_{1} + \cfrac{a_{1}}{a_2 - 1}}
-        \]
-        Thus, the equation holds for \( n = 2 \).
+    Now observe that appending one more level to the continued fraction replaces the final denominator
+    \[
+      1 + a_k
+      \quad\text{by}\quad
+      1 + a_k - \cfrac{a_{k+1}}{1+a_{k+1}}.
+    \]
+    Indeed,
+    \[
+      1 + a_k - \cfrac{a_{k+1}}{1+a_{k+1}}
+      =
+      \frac{(1+a_k)(1+a_{k+1}) - a_{k+1}}{1+a_{k+1}}
+      =
+      \frac{1 + a_k + a_{k+1} + a_k a_{k+1}}{1+a_{k+1}}.
+    \]
 
-        \textbf{Inductive Step:} Assume that the equation holds for some \( n = K \), that is:
-        \[
-        \sum_{k=1}^{K} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} = \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 +
-        \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 + \cfrac{a_{K-1}}{a_K - 1}}}}}
-        \]
+    This produces exactly the multiplicative factor
+    \[
+      1 + \frac{a_k a_{k+1}}{1+a_k}
+    \]
+    in the numerator, while preserving the continued fraction structure above it.
 
-        We want to prove that the equation holds for \( n = K+1 \), the left-hand side becomes:
-        \begin{align*}
-        \sum_{k=1}^{K+1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} &= \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
-        + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K}}
-        - \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K+1}}
-        \\
-        &= \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
-        + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K-1}} \cdot \left(\frac{1}{a_{K}} -  \frac{1}{a_{K} a_{K+1}} \right)
-        \\
-        &= \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
-        + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K-1}} \cdot \left(\frac{a_{K+1} - 1}{a_{K} a_{K+1}} \right)
-        \\
-        \text{Define $\widehat{a_{K}} = \frac{a_{K} a_{K+1}}{a_{K+1} - 1}$}
-        \\
-        &= \sum_{k=1}^{K} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_{K-1} \widehat{a_{K}}}
-        \\
-        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
-        \cfrac{a_{K-1}}{\widehat{a_K} - 1}}}}}
-        \\
-        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
-        \cfrac{a_{K-1}}{\frac{a_{K} a_{K+1}}{a_{K+1} - 1} - 1}}}}}
-        \\
-        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
-        \cfrac{a_{K-1}}{\frac{a_{K} a_{K+1} - a_{K+1} - 1}{a_{K+1} - 1}}}}}}
-        \\
-        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
-        \cfrac{a_{K-1}}{\frac{(a_{K} - 1) \cdot (a_{K+1} - 1) + a_{K}}{a_{K+1} - 1}}}}}}
-        \\
-        &= \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
-        \cfrac{a_{K-1}}{a_{K} - 1 + \frac{a_{K}}{a_{K+1} - 1}}}}}}
-        \end{align*}
+    Therefore,
+    \[
+      S_{k+1}
+      =
+      \cfrac{a_0}{1 - \cfrac{a_{1}}{1 + a_1 - \cfrac{a_2}{\ddots -
+            \cfrac{a_{k+1}}{1 + a_{k+1}}}}}.
+    \]
 
-        \hfill \(\square\)
+    This completes the induction.
+  \end{proof}
+\end{mytheorem}
 
-    \end{theorem}
+\begin{mytheorem}{Infinite Product Alternatives}{relation_to_alternate_series}
+  \[
+    \sum_{k=1}^{n} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} = \cfrac{1}{a_1 + \cfrac{a_{1}}{a_2 - 1 +\cfrac{a_2}{a_3 - 1 +
+          \cfrac{a_3}{\ddots +  a_{n-1} - 1 + \cfrac{a_{n-1}}{a_n - 1}}}}}
+  \]
 
-    \subsection{Example ln(2)}\label{subsec:example-ln(2)}
+  \begin{proof}
+    \textbf{Proof by induction}
 
-    \begin{lemma}
-        \[
-        \ln(1+x) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1} \cdot x^k}{k}
-        \]
+    We proceed by induction on \( n \).
 
-        Proof
-        This can be shown using the Taylor Series for $\ln(x+1)$ centred around $a=0$.
-        See Darboux document for a proof of the Taylor Series.
+    \textbf{Base Case: For \( n = 1 \)}, the left-hand side of the equation is:
+    \[
+      \frac{(-1)^{1-1}}{a_1} = \frac{1}{a_1}
+    \]
+    And the right-hand side for \( n = 1 \) is:
+    \[
+      \cfrac{1}{a_1}
+    \]
+    Thus, the equation holds for \( n = 1 \).
 
-        Note that
-        \begin{equation*}
-            \frac{\partial^n \big(ln(x+1) \big)}{\partial x^n} \rvert_{x=0} = (-1)^{n+1} \cdot (n-1)!
-        \end{equation*}
-        Thus plugging this into Taylor's equation we get:
-        \begin{align*}
-            ln(1+x) =& \sum_{m=0}^{\infty} \frac{(x-a)^m f^{(m)}(a)}{m!}
-            \\
-            =& \sum_{m=0}^{\infty} \frac{(-1)^{m+1} \cdot x^m (m-1)!}{m!}
-            \\
-            =& \sum_{m=0}^{\infty} \frac{(-1)^{m+1} \cdot x^m}{m}
-        \end{align*}
-    \end{lemma}
+    \textbf{Base Case: For \( n = 2 \)}, the left-hand side of the equation is:
+    \begin{align*}
+      \frac{1}{a_1} - \frac{1}{a_{1} a_{2}} = & \frac{a_2 - 1}{a_{1} a_{2}} = \frac{1}{\frac{a_{1} a_{2}}{a_2 - 1}}
+      \\
+      =                                       & \frac{1}{\frac{a_{1} (a_{2}-1) + a_{1}}{a_2 - 1}}
+      \\
+      =                                       & \cfrac{1}{a_{1} + \cfrac{a_{1}}{a_2 - 1}}
+    \end{align*}
+    And the right-hand side for \( n = 2 \) is:
+    \[
+      \cfrac{1}{a_{1} + \cfrac{a_{1}}{a_2 - 1}}
+    \]
+    Thus, the equation holds for \( n = 2 \).
 
-    \begin{lemma}
-        \[
-        \ln(2) = \sum_{k=1}^{n} \frac{(-1)^{k+1}}{k} = \cfrac{1}{1+\cfrac{1^{2}}{1 +\cfrac{2^2}{1 + \cfrac{3^2}{1 + \CFDots}}}}
-        \]
+    \textbf{Inductive Step:} Assume that the equation holds for some \( n = K \), that is:
+    \[
+      \sum_{k=1}^{K} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} = \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 +
+            \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 + \cfrac{a_{K-1}}{a_K - 1}}}}}
+    \]
 
-        Proof:
-        Plugging in $x=1$ to the Taylor expansion of $\ln(x+1)$ and using Theorem~\ref{relation_to_series} we obtain the result.
-    \end{lemma}
+    We want to prove that the equation holds for \( n = K+1 \), the left-hand side becomes:
+    \begin{align*}
+      \sum_{k=1}^{K+1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k} & = \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
+      + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K}}
+      - \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K+1}}
+      \\
+                                                             & = \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
+      + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K-1}} \cdot \left(\frac{1}{a_{K}} -  \frac{1}{a_{K} a_{K+1}} \right)
+      \\
+                                                             & = \sum_{k=1}^{K-1} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_k}
+      + \frac{(-1)^{K-1}}{a_1 a_2 \cdots a_{K-1}} \cdot \left(\frac{a_{K+1} - 1}{a_{K} a_{K+1}} \right)
+      \\
+      \shortintertext{Define $\widehat{a_{K}} = \frac{a_{K} a_{K+1}}{a_{K+1} - 1}$}
+      \\
+                                                             & = \sum_{k=1}^{K} \frac{(-1)^{k-1}}{a_1 a_2 \cdots a_{K-1} \widehat{a_{K}}}
+      \\
+                                                             & = \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+              \cfrac{a_{K-1}}{\widehat{a_K} - 1}}}}}
+      \\
+                                                             & = \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+              \cfrac{a_{K-1}}{\frac{a_{K} a_{K+1}}{a_{K+1} - 1} - 1}}}}}
+      \\
+                                                             & = \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+              \cfrac{a_{K-1}}{\frac{a_{K} a_{K+1} - a_{K+1} + 1}{a_{K+1} - 1}}}}}}
+      \\
+                                                             & = \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+              \cfrac{a_{K-1}}{\frac{(a_{K} - 1) \cdot (a_{K+1} - 1) + a_{K}}{a_{K+1} - 1}}}}}}
+      \\
+                                                             & = \cfrac{1}{a_1 + \cfrac{a_1}{a_2 - 1 + \cfrac{a_2}{a_3 - 1 + \ddots + \cfrac{a_{K-2}}{a_{K-1} - 1 +
+              \cfrac{a_{K-1}}{a_{K} - 1 + \frac{a_{K}}{a_{K+1} - 1}}}}}}
+    \end{align*}
 
-    \subsection{Example $\frac{\pi}{4}$}\label{subsec:example-$frac{pi}{4}$}
-    \begin{lemma}
-        \[
-        \arctan(x) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1} \cdot x^{2k-1}}{2k-1}
-        \]
+  \end{proof}
+\end{mytheorem}
 
-        Proof
-        This can be shown using the Taylor Series for $\arctan(x)$ centred around $a=0$.
-        See Darboux document for a proof of the Taylor Series.
-    \end{lemma}
+\subsection{Example \texorpdfstring{$\ln(2)$}{ln(2)}}\label{subsec:example-ln(2)}
 
-    \begin{lemma}
-        \[
-        \frac{\pi}{4} = \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{2k-1} = \cfrac{1}{1+\cfrac{1^2}{2 +\cfrac{3^2}{2 + \cfrac{5^2}{2 + \CFDots}}}}
-        \]
+\begin{mylemma}{Taylor Series for \texorpdfstring{$\ln$}{ln}}{ln_taylor}
+  \[
+    \ln(1+x) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1} \cdot x^k}{k}
+  \]
 
-        Proof:
-        Plugging in $x=1$ to the Taylor expansion of $\arctan(x)=\arctan(1)=\frac{\pi}{4}$ and using Theorem~\ref{relation_to_series} we obtain the result.
-    \end{lemma}
+  \begin{proof}
+    This can be shown using the Taylor Series for $\ln(x+1)$ centred around $a=0$.
+    See Darboux document for a proof of the Taylor Series.
 
+    Note that
+    \begin{equation*}
+      \frac{\partial^n \big(\ln(x+1) \big)}{\partial x^n} \rvert_{x=0} = (-1)^{n+1} \cdot (n-1)!
+    \end{equation*}
+    Thus plugging this into Taylor's equation we get:
+    \begin{align*}
+      \ln(1+x) = & \sum_{m=0}^{\infty} \frac{(x-a)^m f^{(m)}(a)}{m!}
+      \\
+      =          & \sum_{m=0}^{\infty} \frac{(-1)^{m+1} \cdot x^m (m-1)!}{m!}
+      \\
+      =          & \sum_{m=0}^{\infty} \frac{(-1)^{m+1} \cdot x^m}{m}
+    \end{align*}
+  \end{proof}
+\end{mylemma}
 
-    \section{Square root numbers}\label{sec:square-root-numbers}
-    todo prove solution form
+\begin{mylemma}{Continued Fraction for \texorpdfstring{$\ln(2)$}{ln(2)}}{ln2_cf}
+  \[
+    \ln(2) = \sum_{k=1}^{n} \frac{(-1)^{k+1}}{k} = \cfrac{1}{1+\cfrac{1^{2}}{1 +\cfrac{2^2}{1 + \cfrac{3^2}{1 + \CFDots}}}}
+  \]
 
-    \begin{theorem}
-        \[
-        \sqrt{x} = 1 + \cfrac{x-1}{2 +\cfrac{x-1}{2 +\cfrac{x-1}{2 + \CFDots}}}
-        \]
+  \begin{proof}
+    Plugging in $x=1$ to the Taylor expansion of $\ln(x+1)$ and using Theorem~\ref{thm:relation_to_series} we obtain the result.
+  \end{proof}
+\end{mylemma}
 
-        Proof
-        \begin{gather*}
-            todo
-        \end{gather*}
-    \end{theorem}
+\subsection{Example \texorpdfstring{$\frac{\pi}{4}$}{pi/4}}\label{subsec:example-pi4}
+\begin{mylemma}{Taylor Series for \texorpdfstring{$\arctan$}{arctan}}{arctan_taylor}
+  \[
+    \arctan(x) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1} \cdot x^{2k-1}}{2k-1}
+  \]
 
+  \begin{proof}
+    This can be shown using the Taylor Series for $\arctan(x)$ centred around $a=0$.
+    See Darboux document for a proof of the Taylor Series.
+  \end{proof}
+\end{mylemma}
 
-    \section{Approximation of rational numbers}\label{sec:approximation-of-rational-numbers}
-    todo
+\begin{mylemma}{Continued Fraction for \texorpdfstring{$\pi/4$}{pi/4}}{pi4_cf}
+  \[
+    \frac{\pi}{4} = \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{2k-1} = \cfrac{1}{1+\cfrac{1^2}{2 +\cfrac{3^2}{2 + \cfrac{5^2}{2 + \CFDots}}}}
+  \]
 
-
-    \section{Relation to Pell's Equation}\label{sec:relation-to-pell's-equation}
-    todo
-
-    \begin{theorem}
-        If $p,q$ are integers such that
-        \[
-        p^2 - n \cdot q^2 =  \pm 1
-        \]
-        Then $p,q$ are convergents of $\sqrt{n}$
-
-        Proof
-        \begin{gather*}
-            todo
-        \end{gather*}
-    \end{theorem}
-
-
-    \section{Solving linear Diophantine Equations}\label{sec:solving-linear-diophantine-equations}
-    todo
-
-
-    \section{Gauss's continued fraction}\label{sec:gauss's-continued-fraction}
-    todo \\
-    \url{https://en.wikipedia.org/wiki/Gauss%27s_continued_fraction}
+  \begin{proof}
+    Plugging in $x=1$ to the Taylor expansion of $\arctan(x)=\arctan(1)=\frac{\pi}{4}$ and using Theorem~\ref{thm:relation_to_series} we obtain the result.
+  \end{proof}
+\end{mylemma}
 
 
-    \section{General continued fraction examples}
-    todo
+\section{Square root numbers}\label{sec:square-root-numbers}
 
-    \subsection{pi}
-    todo
 
-    \begin{thebibliography}{9}
-        \bibitem{history_website}
-        \textit{Mathematics Archives}.
-        \\
-        \url{http://archives.math.utk.edu/articles/atuyl/confrac/history.html}
-        Addison-Wesley, Reading, Massachusetts, 1993.
+\begin{mytheorem}{Square Root CF}{sqrt_cf}
+  For any $x > 0$:
+  \[
+    \sqrt{x} = 1 + \cfrac{x-1}{2 +\cfrac{x-1}{2 +\cfrac{x-1}{2 + \CFDots}}}
+  \]
 
-    \end{thebibliography}
+  \begin{proof}
+    Let $y$ denote the value of the continued fraction:
+    \[
+      y = 1 + \cfrac{x-1}{2 +\cfrac{x-1}{2 +\cfrac{x-1}{2 + \CFDots}}}
+    \]
+
+    Since the continued fraction is infinite and periodic, we can observe that the denominator starting from the first $2$ is equal to $1 + y$. That is:
+    \[
+      2 +\cfrac{x-1}{2 +\cfrac{x-1}{2 + \CFDots}} = 1 + y
+    \]
+
+    Therefore, we can rewrite $y$ as:
+    \[
+      y = 1 + \frac{x-1}{1+y}
+    \]
+
+    Multiplying both sides by $(1+y)$:
+    \begin{align*}
+      y(1+y)  & = (1+y) + (x-1) \\
+      y + y^2 & = 1 + y + x - 1 \\
+      y^2     & = x
+    \end{align*}
+
+    Since $y$ represents the value of a continued fraction with positive terms and $x > 0$, we have $y > 0$.
+    Therefore:
+    \[
+      y = \sqrt{x}
+    \]
+
+    This proves that the continued fraction equals $\sqrt{x}$.
+  \end{proof}
+\end{mytheorem}
+
+
+\section{Approximation of rational numbers}\label{sec:approximation-of-rational-numbers}
+todo
+
+
+\section{Relation to Pell's Equation}\label{sec:relation-to-pell's-equation}
+todo
+
+\begin{mytheorem}{Pell's Equation Relation}{pell_relation}
+  If $p,q$ are integers such that $ p^2 - n \cdot q^2 =  \pm 1 $, Then $p,q$ are convergents of $\sqrt{n}$.
+\end{mytheorem}
+
+
+\section{Solving linear Diophantine Equations}\label{sec:solving-linear-diophantine-equations}
+todo
+
+
+\section{Gauss's continued fraction}\label{sec:gauss's-continued-fraction}
+todo \\
+\url{https://en.wikipedia.org/wiki/Gauss%27s_continued_fraction}
+
+
+\section{General continued fraction examples}
+todo
+
+\subsection{pi}
+todo
+
+\begin{thebibliography}{9}
+  \bibitem{history_website}
+  \textit{Mathematics Archives}.
+  \\
+  \url{http://archives.math.utk.edu/articles/atuyl/confrac/history.html}
+  Addison-Wesley, Reading, Massachusetts, 1993.
+
+\end{thebibliography}
 
 \end{document}
