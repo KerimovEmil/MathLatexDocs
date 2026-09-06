@@ -8,6 +8,7 @@ A repo to keep track of various math PDFs I've created
 * Bernoulli Polynomial
 
 ### Continued Fractions
+* From Khinchin's Constant to the Gauss--Kuzmin--Wirsing Constant
 
 ### Darboux Formula
 * Darboux Formula
