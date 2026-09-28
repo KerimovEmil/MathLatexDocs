@@ -1,12 +1,6 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{mathtools}
-\usepackage{amssymb}
+\input{preamble}
 
 \title{Fibonacci Numbers}
 \author{Emil Kerimov}
@@ -14,12 +8,9 @@
 \begin{document}
 \maketitle
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
 
-\section{Definition}\label{sec:definition}
+
+\section{Definition}\label{fib:sec:definition}
 
 The Fibonacci sequence is defined as:
 \begin{equation}
@@ -27,7 +18,7 @@ The Fibonacci sequence is defined as:
 f_0 &= 0 \\
 f_1 &= 1 \\
 f_{n+2} &= f_{n+1} + f_{n} \quad \forall \quad n \in \mathbb{Z}^+
-\end{aligned}\label{eq:equation2}
+\end{aligned}\label{fib:eq:equation2}
 \end{equation}
 
 The first few Fibonacci numbers then would be:
@@ -35,7 +26,7 @@ The first few Fibonacci numbers then would be:
 0,1,1,2,3,5,8,13,21, 34, \dots
 \]
 
-\section{Ratios}\label{sec:basic_ratio}
+\section{Ratios}\label{fib:sec:basic_ratio}
 
 Taking the ratios of consecutive Fibonacci numbers we find this pattern:
 
@@ -52,11 +43,11 @@ Taking the ratios of consecutive Fibonacci numbers we find this pattern:
 Introducing a new notation for continued fractions: (See Continued Fraction Latex document)
 
 \begin{equation}
-[a_0;a_1,a_2,a_3,a_4, ...] =  a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{a_3 +  \frac{1}{a_4 + \frac{1}{...}}}}}\label{eq:equation}
+[a_0;a_1,a_2,a_3,a_4, ...] =  a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{a_3 +  \frac{1}{a_4 + \frac{1}{...}}}}}\label{fib:eq:equation}
 \end{equation}
 
 Note that this notation has the following property:
-\begin{equation}\label{eq:property-of-continued-fractions}
+\begin{equation}\label{fib:eq:property-of-continued-fractions}
 A + \frac{1}{[a_0;a_1,a_2,a_3,a_4, ...]} = A + \frac{1}{a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{a_3 +  \frac{1}{a_4 + \frac{1}{...}}}}}}
 = [A; a_0,a_1,a_2,a_3,a_4, \dots]
 \end{equation}
@@ -103,11 +94,11 @@ x = \lim_{n \to \infty} \frac{f_{n+1}}{f_{n}}= \frac{1 + \sqrt{5}}{2}\\
 
 This is only a preview to the relation of the Fibonacci numbers to the golden ratio, and it's characteristic equation.
 
-\section{Negative}\label{sec:negative}
+\section{Negative}\label{fib:sec:negative}
 If we ignore the condition of $n>0$ we can can use the functional form definition of Fibonacci numbers to define negative indices:
 
 \begin{equation}
-f_{n-2} = f_n - f_{n-1}\label{eq:equation3}
+f_{n-2} = f_n - f_{n-1}\label{fib:eq:equation3}
 \end{equation}
 
 %Therefore the first few will be:
@@ -151,14 +142,14 @@ f_{-k-2} &= f_{-k} - f_{-k-1} \\
 \end{theorem}
 
 
-\section{Closed Form (Binet's Formula)}\label{sec:closed-form-(binet's-formula)}
+\section{Closed Form (Binet's Formula)}\label{fib:sec:closed-form-(binet's-formula)}
 Normally this is proved by taking the characteristic equation of this sequence definition.
 However since we haven't proved the characteristic equation yet, see Characteristic Equation of recurrence relations,
 we will investigate a particular function behaviours, without any motivation.
 
 Recall the equation from the ratio limits $x^2 -x -1 = 0$, with solutions $x = \frac{1 \pm \sqrt{5}}{2}$.
 
-\begin{theorem} \label{Charac}
+\begin{theorem} \label{fib:Charac}
 If
 $ x^2 - x - 1 = 0$ then
 $
@@ -194,7 +185,7 @@ f_n = \frac{x_1^n - x_2^n}{\sqrt{5}}  \quad  \forall  n \in \mathbb{Z}^+
 
 Proof
 \begin{gather*}
-\shortintertext{Since both $x_1$ and $x_2$ satisfy Theorem~\ref{Charac} we get}
+\shortintertext{Since both $x_1$ and $x_2$ satisfy Theorem~\ref{fib:Charac} we get}
 x_1^n = x_1 \cdot f_n + f_{n-1} \\
 x_2^n = x_2 \cdot f_n + f_{n-1} \\
 \shortintertext{Subtracting both equations we get:}
@@ -209,7 +200,7 @@ f_n = \frac{x_1^n - x_2^n}{\sqrt{5}} \\
 \end{gather*}
 \end{theorem}
 
-\section{General Fibonacci}\label{sec:general-fibonacci}
+\section{General Fibonacci}\label{fib:sec:general-fibonacci}
 We can slightly generalize the Fibonacci sequence by keeping the same recurrence relation, but not fixing the initial values.
 
 \begin{align}
@@ -218,7 +209,7 @@ p_2 &= b
 \end{align}
 
 \begin{equation}
-p_{n+2} = p_{n+1} + p_{n} \quad \forall \quad n \in \mathbb{Z}^+\label{eq:equation4}
+p_{n+2} = p_{n+1} + p_{n} \quad \forall \quad n \in \mathbb{Z}^+\label{fib:eq:equation4}
 \end{equation}
 
 The first few General Fibonacci numbers then would be:
@@ -256,7 +247,7 @@ p_{k+1} &= p_k + p_{k-1}\\
 \end{gather*}
 \end{theorem}
 
-\subsection{Relation to Fibonacci}\label{subsec:relation-to-fibonacci}
+\subsection{Relation to Fibonacci}\label{fib:subsec:relation-to-fibonacci}
 Note that if
 
 \begin{equation*}
@@ -272,7 +263,7 @@ Then we get back the same Fibonacci closed form as before.
 \begin{split}
 p_n &= 1 \cdot f_{n-2} + 1 \cdot f_{n-1} \\
 &= f_n  \\
-\end{split}\label{eq:equation5}
+\end{split}\label{fib:eq:equation5}
 \end{equation}
 
 Alternatively, if someone hates themselves or wants to practise their algebra skills this can be proves through just the closed form as shown below:
@@ -288,21 +279,21 @@ p_n &= 1 \cdot \frac{x_1^{n-2} - x_2^{n-2}}{\sqrt{5}} + 1 \cdot \frac{x_1^{n-1} 
 \end{split}
 \end{equation*}
 
-\subsection{Relation to Lucas Numbers}\label{subsec:relation-to-lucas-numbers}
+\subsection{Relation to Lucas Numbers}\label{fib:subsec:relation-to-lucas-numbers}
 Note that there exist other variations of Fibonacci numbers such as Lucas Numbers which are defined as
 
 \begin{equation}
 \begin{aligned}
 p_0 &= 2  \\
 p_1 &= 1  \\
-\end{aligned}\label{eq:equation6}
+\end{aligned}\label{fib:eq:equation6}
 \end{equation}
 
 Which implies that $p_2 = 3$.
 \\
 \\
 The following lemma will become useful in simplifying the closed form of Lucas numbers.
-\begin{theorem}\label{lucas lemma}
+\begin{theorem}\label{fib:lucas lemma}
 Let $x_1,$ and $x_2$ be solutions to $x^2 = x+1$.
 $x_1 = \frac{1 + \sqrt{5}}{2}$ and
 $x_2 = \frac{1 - \sqrt{5}}{2}$ then we get
@@ -332,7 +323,7 @@ Proof
 
 
 
-\begin{theorem}\label{lucas closed}
+\begin{theorem}\label{fib:lucas closed}
 Let
 $x_1 = \frac{1 + \sqrt{5}}{2}$ and
 $x_2 = \frac{1 - \sqrt{5}}{2}$ then
@@ -341,7 +332,7 @@ the closed form solution for the Lucas Numbers are
 \begin{split}
 p_n &= 1 \cdot f_{n-2} + 3 \cdot f_{n-1} \\
 &= x_1^n + x_2^n  \\
-\end{split}\label{eq:equation7}
+\end{split}\label{fib:eq:equation7}
 \end{equation}
 
 Proof
@@ -350,17 +341,17 @@ Proof
 p_n &= 1 \cdot \frac{x_1^{n-2} - x_2^{n-2}}{\sqrt{5}} + 3 \cdot \frac{x_1^{n-1} - x_2^{n-1}}{\sqrt{5}} \\
 &= \frac{x_1^{n-2} - x_2^{n-2} + 3x_1^{n-1} - 3x_2^{n-1} }{\sqrt{5}} \\
 &= \frac{x_1^{n-2}(3x_1 + 1) - x_2^{n-2}(3x_2 + 1) }{\sqrt{5}} \\
-\shortintertext{Using Theorem~\ref{lucas lemma}}
+\shortintertext{Using Theorem~\ref{fib:lucas lemma}}
 &= \frac{\sqrt{5} x_1^{n-2}(x_1^2) + \sqrt{5} x_2^{n-2}(x_2^2) }{\sqrt{5}} \\
 &= x_1^{n} + x_2^{n}  \\
 \end{split}
 \end{equation*}
 \end{theorem}
 
-\section{Series}\label{sec:series}
+\section{Series}\label{fib:sec:series}
 \input{fibonacci_numbers/series}
 
-\section{General Fibonacci Negative Indices}\label{sec:general-fibonacci-negative-indices}
+\section{General Fibonacci Negative Indices}\label{fib:sec:general-fibonacci-negative-indices}
 If we again ignore the restriction of only positive indices, using the functional form we can obtain the following relation.
 
 \begin{theorem}
@@ -378,8 +369,8 @@ p_{-n} &= f_{-n-2} \cdot p_1 + f_{-n-1} \cdot p_2 \\
 \end{gather*}
 \end{theorem}
 
-\section{Ratio Limit}\label{sec:ratio-limit}
-Expanding on section~\ref{sec:basic_ratio}, let us consider $\lim_{n \to \infty} \frac{p_{n+\alpha}}{p_n}$
+\section{Ratio Limit}\label{fib:sec:ratio-limit}
+Expanding on section~\ref{fib:sec:basic_ratio}, let us consider $\lim_{n \to \infty} \frac{p_{n+\alpha}}{p_n}$
 
 \begin{theorem}
 \[
@@ -423,9 +414,9 @@ p_1 \cdot 1 + p_2 \cdot x_1
 \end{theorem}
 
 
-\section{Sum of every other Fibonacci number}\label{sec:sum-of-every-other-fibonacci-number}
+\section{Sum of every other Fibonacci number}\label{fib:sec:sum-of-every-other-fibonacci-number}
 Some other sums.
-\subsection{Even indices}\label{subsec:even-indices}
+\subsection{Even indices}\label{fib:subsec:even-indices}
 If we sum all of the even indices we obtain:
 
 \begin{theorem}
@@ -453,7 +444,7 @@ Proof by Induction
 \end{gather*}
 \end{theorem}
 
-\subsection{Odd indices}\label{subsec:odd-indices}
+\subsection{Odd indices}\label{fib:subsec:odd-indices}
 If we sum all of the odd indices we obtain:
 
 \begin{theorem}
@@ -480,7 +471,7 @@ Proof by Induction
 \end{gather*}
 \end{theorem}
 
-\section{Relation of Squares}\label{sec:relation-of-squares}
+\section{Relation of Squares}\label{fib:sec:relation-of-squares}
 
 \begin{theorem}
 \[
@@ -516,7 +507,7 @@ f_{2k+1}^2 - f_{2k+1} f_{2k} - f_{2k}^2  = 1
 \end{gather*}
 \end{theorem}
 
-\section{Sum of squared Fibonacci numbers}\label{sec:sum-of-squared-fibonacci-numbers}
+\section{Sum of squared Fibonacci numbers}\label{fib:sec:sum-of-squared-fibonacci-numbers}
 
 \begin{theorem}
 \[
@@ -543,21 +534,21 @@ Proof by Induction
 \end{gather*}
 \end{theorem}
 
-\section{Generating Functions}\label{sec:generating-functions}
+\section{Generating Functions}\label{fib:sec:generating-functions}
 Let us define a function with power series coefficients defined as the Fibonacci numbers
 
 \begin{equation}
 S_n(x) = \sum_{k=0}^{n} f_k x^k = x + x^2 + 2x^3 + 3x^4 + 5x^5 + 8x^7 + \dots + f_n x^n
-\label{eq:equation9}
+\label{fib:eq:equation9}
 \end{equation}
 
 Note that using the sums we have showed before we get:
 \begin{equation}
 S_n(1) = f_{n+2} -1
-\label{eq:equation10}
+\label{fib:eq:equation10}
 \end{equation}
 
-\subsection{Finite Series}\label{subsec:finite-series}
+\subsection{Finite Series}\label{fib:subsec:finite-series}
 \begin{equation}
 \begin{split}
 S_{n}(x) & = \sum_{k=0}^{n} f_k x^k \\
@@ -567,29 +558,29 @@ S_{n}(x) & = \sum_{k=0}^{n} f_k x^k \\
   & = f_1 x + x \sum_{k=2}^{n} f_{k-1} x^{k-1} + x^2 \sum_{k=2}^{n} f_{k-2} x^{k-2} \\
   & = f_1 x + x \Big( \sum_{k=0}^{n} f_{k} x^{k} - f_n x^n  - x f_0 \Big) + x^2 \Big( \sum_{k=0}^{n} f_{k} x^{k} - f_n x^n - f_{n-1} x^{n-1} \Big) \\
   & = f_1 x + x S_{n}(x) + x^2 S_{n}(x) - f_{n}x^{n+1} - x^2 f_0 - f_n x^{n+2} - f_{n-1} x^{n+1}\\
-\end{split}\label{eq:equation11}
+\end{split}\label{fib:eq:equation11}
 \end{equation}
 
 Therefore we can write
 
 \begin{equation}
 S_{n}(x) (1 - x -x^2 ) = f_1 x - x^2 f_0 - f_{n+1}x^{n+1} - f_n x^{n+2}\\
-\label{eq:equation12}
+\label{fib:eq:equation12}
 \end{equation}
 
 For the Fibonacci sequence since $f_0 = 0$, and  $f_1 = 1$ we obtain:
 
 \begin{equation}
 S_{n}(x) = \frac{x - f_{n+1}x^{n+1} - f_n x^{n+2}}{1 - x -x^2 }  \\
-\label{eq:equation13}
+\label{fib:eq:equation13}
 \end{equation}
 
 
-\subsection{Infinite Series}\label{subsec:infinite-series}
+\subsection{Infinite Series}\label{fib:subsec:infinite-series}
 Therefore
 \begin{equation}
 \lim_{n \to \infty} S_n(1) = \infty
-\label{eq:equation14}
+\label{fib:eq:equation14}
 \end{equation}
 
 Let's try to investigate for what values of x does the series $\lim_{n \to \infty} S_n(x)$ converge.
@@ -604,21 +595,21 @@ S_{\infty}(x) & = \lim_{n \to \infty} S_n(x) \\
   & = f_1 x + x \sum_{k=2}^{\infty} f_{k-1} x^{k-1} + x^2 \sum_{k=2}^{\infty} f_{k-2} x^{k-2} \\
   & = f_1 x + x \sum_{k=0}^{\infty} f_{k} x^{k} - x f_0 + x^2 \sum_{k=0}^{\infty} f_{k} x^{k} \\
   & = f_1 x + x S_{\infty}(x) + x^2 S_{\infty}(x) \\
-\end{split}\label{eq:equation15}
+\end{split}\label{fib:eq:equation15}
 \end{equation}
 
 Therefore we can write
 
 \begin{equation}
 S_{\infty}(x) (1 - x -x^2 ) = f_1 x \\
-\label{eq:equation16}
+\label{fib:eq:equation16}
 \end{equation}
 
 For the Fibonacci sequence since $f_1 = 1$ we obtain:
 
 \begin{equation}
 S_{\infty}(x) = \frac{x}{1 - x -x^2 }  \\
-\label{eq:equation17}
+\label{fib:eq:equation17}
 \end{equation}
 
 By the ratio convergence test [Insert reference here]
@@ -626,39 +617,39 @@ we get that
 \begin{equation}
 \lim_{k \to
 \infty} \frac{f_{k+1} |x|^{k+1}}{f_{k} |x|^{k}} = \phi |x| < 1 \\
-\label{eq:equation18}
+\label{fib:eq:equation18}
 \end{equation}
 
 This implies that this series converges for
 \begin{equation}
 |x| < \frac{1}{\phi} \\
-\label{eq:equation19}
+\label{fib:eq:equation19}
 \end{equation}
 
 Diverges for
 \begin{equation}
 |x| > \frac{1}{\phi} \\
-\label{eq:equation20}
+\label{fib:eq:equation20}
 \end{equation}
 And since we have the generating function we can test for equality and see that the series diverges at equality as well, due to the denominator being 0.
 
-\subsection{Reciprocal power series}\label{subsec:reciprocal-power-series}
+\subsection{Reciprocal power series}\label{fib:subsec:reciprocal-power-series}
 We can obtain a very similar relation if we define a function with inverse power series coefficients defined as the Fibonacci numbers
 
 \begin{equation}
 r_n(x) = \sum_{k=0}^{n} \frac{f_k}{x^k} = \frac{1}{x} + \frac{1}{x^2} + \frac{2}{x^3} + \dots + \frac{f_n}{x^n}
-\label{eq:equation21}
+\label{fib:eq:equation21}
 \end{equation}
 
 Following the same argument we obtain the following infinite series representation.
 
 \begin{equation}
 r_{\infty}(x) = \frac{x}{x^2 - x - 1} for \ x>0 \\
-\label{eq:equation22}
+\label{fib:eq:equation22}
 \end{equation}
 
 
-\section{Base Fibonacci}\label{sec:base-fibonacci}
+\section{Base Fibonacci}\label{fib:sec:base-fibonacci}
 TODO
 
 \end{document}

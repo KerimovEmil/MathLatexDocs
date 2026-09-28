@@ -2,56 +2,73 @@
 
 % --- Core Packages ---
 \usepackage[english]{babel}
-\usepackage[utf8]{inputenc} % Standard utf8 instead of utf8x
+\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{microtype} % Better justification and fewer overfull hboxes
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{mathrsfs}
 
 % --- Layout & Design ---
+\usepackage{docmute}
+\usepackage{subfiles} % Support for master/subfile structure
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[colorlinks=true, linkcolor=blue, citecolor=magenta]{hyperref}
 \usepackage{cleveref} % Better cross-referencing
 \usepackage{tcolorbox} % For styled boxes
 \usepackage{tikz} % For drawing diagrams
-
-% --- Fonts ---
-% Reverted to default LaTeX font (Computer Modern)
-% \usepackage{newpxtext} 
-% \usepackage{newpxmath} 
+\usetikzlibrary{arrows.meta,positioning}
 
 % --- Theorem Environments (Classic Style) ---
-\newtheorem{classicthm}{Theorem}[section]
-\newtheorem{classicdef}[classicthm]{Definition}
-\newtheorem{classiclem}[classicthm]{Lemma}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
+\makeatletter
+\@ifundefined{classicthm}{%
+  \newtheorem{classicthm}{Theorem}[section]
+  \newtheorem{classicdef}[classicthm]{Definition}
+  \newtheorem{classiclem}[classicthm]{Lemma}
+  \newtheorem{theorem}{Theorem}[section]
+  \newtheorem{corollary}{Corollary}[theorem]
+  \newtheorem{lemma}[theorem]{Lemma}
+  \newtheorem{definition}{Definition}[section]
+  \newtheorem{proposition}[theorem]{Proposition}
+  \newtheorem{remark}[theorem]{Remark}
+  \newtheorem{example}[theorem]{Example}
+}{}
 
 % Wrappers to maintain compatibility with the {Title}{Label} syntax used in files
-\newenvironment{mytheorem}[2]{
-  \begin{classicthm}[#1]\label{thm:#2}
-}{
-  \end{classicthm}
-}
-
-\newenvironment{mydefinition}[2]{
-  \begin{classicdef}[#1]\label{def:#2}
-}{
-  \end{classicdef}
-}
-
-\newenvironment{mylemma}[2]{
-  \begin{classiclem}[#1]\label{lem:#2}
-}{
-  \end{classiclem}
-}
+\@ifundefined{mytheorem}{%
+  \newenvironment{mytheorem}[2]{%
+    \begin{classicthm}[#1]\label{thm:#2}
+  }{%
+    \end{classicthm}
+  }
+  
+  \newenvironment{mydefinition}[2]{%
+    \begin{classicdef}[#1]\label{def:#2}
+  }{%
+    \end{classicdef}
+  }
+  
+  \newenvironment{mylemma}[2]{%
+    \begin{classiclem}[#1]\label{lem:#2}
+  }{%
+    \end{classiclem}
+  }
+}{}
+\makeatother
 
 % --- Custom Commands ---
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\G}{\mathcal{G}}
+\providecommand{\Lop}{\mathcal{L}}
+\providecommand{\PP}{\mathcal{P}}
+\providecommand{\dd}{\,\mathrm{d}}
+\providecommand{\bitand}{\mathbin{\&}}
+\providecommand{\CFDots}{\genfrac{}{}{0pt}{0}{}{\ddots}}

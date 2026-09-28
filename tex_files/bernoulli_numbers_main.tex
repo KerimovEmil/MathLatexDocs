@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -8,11 +8,11 @@
 \begin{document}
 \maketitle
 
-\section{Bernoulli Numbers}\label{sec:bernoulli-numbers}
+\section{Bernoulli Numbers}\label{bn:sec:bernoulli-numbers}
 Examining the Taylor expansion of $\frac{x}{e^x -1}$, this will be required for the evaluation of the even integer values of $\zeta.$
 
 \begin{definition}
-    \label{bernoulli-def}
+    \label{bn:bernoulli-def}
     The Bernoulli numbers $B_n$ are defined as the coefficients of the Taylor expansion of the following function
     \[\boxed{
             \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
@@ -22,13 +22,13 @@ Examining the Taylor expansion of $\frac{x}{e^x -1}$, this will be required for 
 
 \begin{theorem}
     \begin{equation}
-        \label{eq:bernoulli-generating}
+        \label{bn:eq:bernoulli-generating}
         \sum_{k}^{n} \binom{n+1}{k} B_k = 0  \quad \forall n > 0, \text{ with } B_0 = 1
     \end{equation}
 
     Proof
     \begin{gather*}
-        \intertext{Starting from definition~\ref{bernoulli-def}}
+        \intertext{Starting from definition~\ref{bn:bernoulli-def}}
         \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
         \\
         \intertext{Using the Taylor expansion of $e^x$}
@@ -63,36 +63,34 @@ Examining the Taylor expansion of $\frac{x}{e^x -1}$, this will be required for 
         \\
         n \not =0, \quad 0= \sum_{k=0}^{n}  \binom{n+1}{k} B_k
     \end{gather*}
-\end{theorem}
+\footnotetext{$\left( \sum_{n=0}^{\infty} a_n \right) \left( \sum_{n=0}^{\infty} b_n \right) = \sum_{n=0}^{\infty} c_n $ where $c_n = \sum_{k=0}^{n} a_k b_{n-k}$. See Theorem~\ref{bn:thm:mertens-cauchy-product} for the proof.}
 
-\footnotetext{$\left( \sum_{n=0}^{\infty} a_n \right) \left( \sum_{n=0}^{\infty} b_n \right) = \sum_{n=0}^{\infty} c_n $ where $c_n = \sum_{k=0}^{n} a_k b_{n-k}$. See proof: TODO ADD}
-
-\subsection{First few Bernoulli numbers}\label{subsec:first-few-bernoulli-numbers}
+\subsection{First few Bernoulli numbers}\label{bn:subsec:first-few-bernoulli-numbers}
 Using equation~\ref{eq:bernoulli-generating} with $n=1$ implies $ \binom{2}{0} B_0 + \binom{2}{1} B_1 = 0 = 1 + 2 B_1 $ which implies
 \begin{equation}
-    B_1 = -\frac{1}{2}\label{eq:equation}
+    B_1 = -\frac{1}{2}\label{bn:eq:equation}
 \end{equation}
 
 Using equation~\ref{eq:bernoulli-generating} with $n=2$ implies $ \binom{3}{0} B_0 + \binom{3}{1} B_1 + \binom{3}{2} B_2 = 0 = 1 - \frac{3}{2} + 3 B_2 $ which implies
 \begin{equation}
-    B_2 = \frac{1}{6}\label{eq:equation2}
+    B_2 = \frac{1}{6}\label{bn:eq:equation2}
 \end{equation}
 
 Similarly when we apply this equation for increasing values of n
 \begin{equation}
-    B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \dots \label{eq:equation3}
+    B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \dots \label{bn:eq:equation3}
 \end{equation}
 
 
 \begin{theorem}
     In fact we can show that all odd Bernoulli numbers after n=1 are 0
     \begin{equation}
-        \label{eq:odd-bernoulli} B_n = 0  \quad \forall \text{ odd }n > 1
+        \label{bn:eq:odd-bernoulli} B_n = 0  \quad \forall \text{ odd }n > 1
     \end{equation}
 
     Proof
     \begin{gather*}
-        \intertext{Starting from definition~\ref{bernoulli-def}}
+        \intertext{Starting from definition~\ref{bn:bernoulli-def}}
         \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
         \\
         \intertext{Removing the first two terms of the sum}
@@ -123,16 +121,16 @@ Similarly when we apply this equation for increasing values of n
 \pagebreak
 
 
-\section{Bernoulli Polynomials}\label{sec:bernoulli-polynomials}
+\section{Bernoulli Polynomials}\label{bn:sec:bernoulli-polynomials}
 \begin{definition}
-    \label{bernoulli poly def}
+    \label{bn:bernoulli poly def}
     The Bernoulli polynomials $B_n(x)$ are defined as
     \[\boxed{
             B_{n}(x) = \sum_{k=0}^{n} \binom{n}{k} B_k x^{n-k}
         }\]
 \end{definition}
 
-\subsection{Examples}\label{subsec:examples}
+\subsection{Examples}\label{bn:subsec:examples}
 \begin{align*}
     B_{0}(x) & = B_0 = 1
     \\
@@ -145,11 +143,11 @@ Similarly when we apply this equation for increasing values of n
 
 Note that $B_n(x)$ is a polynomial of degree $n$.
 
-\subsection{Useful Properties}\label{subsec:useful-properties}
+\subsection{Useful Properties}\label{bn:subsec:useful-properties}
 \begin{theorem}
     $B_n(0)$
     \begin{equation}
-        \boxed{B_n(0) = B_n}\label{eq:equation4}
+        \boxed{B_n(0) = B_n}\label{bn:eq:equation4}
     \end{equation}
     Proof
     \begin{gather*}
@@ -165,7 +163,7 @@ Note that $B_n(x)$ is a polynomial of degree $n$.
     $B_n(1)$  % todo format better using piecewise
     \begin{equation}
         \boxed{B_n(1) = B_n \quad n\neq 1
-            \quad B_1(1) = -B_1}\label{eq:equation5}
+            \quad B_1(1) = -B_1}\label{bn:eq:equation5}
     \end{equation}
     Proof
     \begin{gather*}
@@ -182,7 +180,7 @@ Note that $B_n(x)$ is a polynomial of degree $n$.
 \begin{theorem}
     Derivative
     \begin{equation}
-        \boxed{B^{'}_n(x) = n B_{n-1}(x)}\label{eq:equation6}
+        \boxed{B^{'}_n(x) = n B_{n-1}(x)}\label{bn:eq:equation6}
     \end{equation}
     Proof
     \begin{gather*}
@@ -203,7 +201,7 @@ Note that $B_n(x)$ is a polynomial of degree $n$.
 \begin{theorem}
     Integral
     \begin{equation}
-        \boxed{\int_{x=0}^{1} B_n(x) dx = 0}\label{eq:equation7}
+        \boxed{\int_{x=0}^{1} B_n(x) dx = 0}\label{bn:eq:equation7}
     \end{equation}
     Proof
     \begin{gather*}
@@ -221,13 +219,13 @@ Note that $B_n(x)$ is a polynomial of degree $n$.
 \pagebreak
 
 
-\section{Euler-Maclaurin formula}\label{sec:euler-maclaurin-formula}
+\section{Euler-Maclaurin formula}\label{bn:sec:euler-maclaurin-formula}
 
 Let $ \{ x \} = x - \lfloor{x}\rfloor $ then
 
 \begin{theorem}
     \begin{subequations}
-        \label{Euler-Maclaurin formula}
+        \label{bn:Euler-Maclaurin formula}
         \begin{align}
             \sum_{k=1}^{n-1} f(k) & = \int_{x=1}^{n} f(x) dx -
             \sum_{k=1}^{m} \frac{B_k}{k!} \cdot \big( f^{(k-1)}(n) - f^{(k-1)}(1) \big) +
@@ -242,14 +240,14 @@ Let $ \{ x \} = x - \lfloor{x}\rfloor $ then
     \end{gather*}
 \end{theorem}
 
-\subsection{Stirling's Approximation}\label{subsec:stirling's-approximation}
+\subsection{Stirling's Approximation}\label{bn:subsec:stirling's-approximation}
 \begin{theorem}
     %\begin{equation} 
     %n! = \Big( \frac{n}{e} \Big)^{n} \sqrt{2 \pi n} \cdot e^{\sum_{k=2}^{m} \frac{B_k}{k \cdot (k-1)} \cdot \frac{1}{n^{k-1}} + O(\frac{1}{n^{m}})} 
     %\end{equation}
 
     \begin{equation}
-        n! = \Big( \frac{n}{e} \Big)^{n} \sqrt{2 \pi n} \cdot exp\Bigg(\sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}  \frac{1}{n^{2k-1}} + O(\frac{1}{n^{m}})\Bigg)\label{eq:equation8}
+        n! = \Big( \frac{n}{e} \Big)^{n} \sqrt{2 \pi n} \cdot exp\Bigg(\sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}  \frac{1}{n^{2k-1}} + O(\frac{1}{n^{m}})\Bigg)\label{bn:eq:equation8}
     \end{equation}
 
 
@@ -262,14 +260,14 @@ Let $ \{ x \} = x - \lfloor{x}\rfloor $ then
 \pagebreak
 
 
-\section{Connection to Zeta(2n)}\label{sec:connection-to-zeta-2n}
+\section{Connection to Zeta(2n)}\label{bn:sec:connection-to-zeta-2n}
 
 See the Zeta function document.
 
 \begin{theorem}
     We can express all even integer values of $\zeta$ using Bernoulli numbers
     \begin{equation}
-        \label{eq:even-zeta}
+        \label{bn:eq:even-zeta}
         \zeta(2n) = (-1)^{n+1} \frac{(2\pi)^{2n} B_{2n}}{2 \cdot (2n)!}
     \end{equation}
 
@@ -277,7 +275,7 @@ See the Zeta function document.
     See the Zeta function document.
 \end{theorem}
 
-\subsection{The first few even integer values of Zeta}\label{subsec:the-first-few-even-integer-values-of-zeta}
+\subsection{The first few even integer values of Zeta}\label{bn:subsec:the-first-few-even-integer-values-of-zeta}
 
 \begin{gather*}
     \zeta(2) = \frac{\pi^2}{6},
@@ -300,5 +298,51 @@ See the Zeta function document.
 
 \pagebreak
 
+\section{Cauchy Product of Series (Mertens' Theorem)}\label{bn:sec:cauchy-product}
+
+When multiplying two infinite series $\sum_{n=0}^{\infty} a_n$ and $\sum_{n=0}^{\infty} b_n$, the resulting series arranged by total degree is known as the \emph{Cauchy product}:
+\begin{equation}
+    c_n = \sum_{k=0}^{n} a_k b_{n-k}
+\end{equation}
+
+\begin{theorem}[Mertens' Theorem on Cauchy Products]\label{bn:thm:mertens-cauchy-product}
+    Let $\sum_{n=0}^{\infty} a_n = A$ be an absolutely convergent series, and let $\sum_{n=0}^{\infty} b_n = B$ be a convergent series. Then their Cauchy product series converges to their product:
+    \begin{equation}
+        \sum_{n=0}^{\infty} c_n = \sum_{n=0}^{\infty} \left( \sum_{k=0}^{n} a_k b_{n-k} \right) = A B = \left( \sum_{n=0}^{\infty} a_n \right) \left( \sum_{n=0}^{\infty} b_n \right)
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Let $A_N = \sum_{n=0}^{N} a_n$, $B_N = \sum_{n=0}^{N} b_n$, and $C_N = \sum_{n=0}^{N} c_n$. Let $\beta_N = B_N - B$, so that $\lim_{N \to \infty} \beta_N = 0$.
+    
+    Expanding the partial sum $C_N$:
+    \begin{align*}
+        C_N &= \sum_{n=0}^{N} \sum_{k=0}^{n} a_k b_{n-k} \\
+            &= \sum_{k=0}^{N} a_k \sum_{n=k}^{N} b_{n-k} \\
+            &= \sum_{k=0}^{N} a_k B_{N-k} \\
+            &= \sum_{k=0}^{N} a_k (B + \beta_{N-k}) \\
+            &= B A_N + \sum_{k=0}^{N} a_k \beta_{N-k}
+    \end{align*}
+    Let $\gamma_N = \sum_{k=0}^{N} a_k \beta_{N-k}$. We want to show that $\lim_{N \to \infty} \gamma_N = 0$.
+    
+    Since $\sum_{n=0}^{\infty} a_n$ is absolutely convergent, let $M = \sum_{n=0}^{\infty} |a_n| < \infty$. If $M = 0$, all $a_n = 0$ and the result is trivial. Otherwise, given any $\varepsilon > 0$:
+    \begin{enumerate}
+        \item Since $\beta_N \to 0$, there exists $N_0 \in \mathbb{N}$ such that $|\beta_m| < \frac{\varepsilon}{2M}$ for all $m > N_0$.
+        \item Let $K = \sup_{m \ge 0} |\beta_m| < \infty$. Since the tail of the absolutely convergent series $\sum |a_k|$ vanishes, there exists $N_1 > N_0$ such that for all $N > N_1$:
+        \[
+            \sum_{k=N-N_0}^{N} |a_k| < \frac{\varepsilon}{2K + 1}
+        \]
+    \end{enumerate}
+    Then for any $N > N_1$:
+    \begin{align*}
+        |\gamma_N| &\le \sum_{k=0}^{N-N_0-1} |a_k| |\beta_{N-k}| + \sum_{k=N-N_0}^{N} |a_k| |\beta_{N-k}| \\
+                   &< \frac{\varepsilon}{2M} \sum_{k=0}^{N-N_0-1} |a_k| + K \sum_{k=N-N_0}^{N} |a_k| \\
+                   &< \frac{\varepsilon}{2M} (M) + K \left(\frac{\varepsilon}{2K+1}\right) < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+    \end{align*}
+    Therefore $\lim_{N \to \infty} \gamma_N = 0$, which yields:
+    \[
+        \lim_{N \to \infty} C_N = \lim_{N \to \infty} (B A_N + \gamma_N) = B A + 0 = A B
+    \]
+\end{proof}
 
 \end{document}

@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -8,9 +8,9 @@
 \begin{document}
 \maketitle
 
-\newcommand{\CFDots}{\genfrac{}{}{0pt}{0}{}{\ddots}}
+\providecommand{\CFDots}{\genfrac{}{}{0pt}{0}{}{\ddots}}
 
-\section{History}\label{sec:history}
+\section{History}\label{cf:sec:history}
 Continued fractions were often times used off-handedly in the last 2000 years, but the foundations of continued
 fractions were not established until late 1600's, early 1700's by John Wallis, see a fuller account in the Mathematics
 Archives~\cite{history_website}.
@@ -53,7 +53,7 @@ Below is an except from the Mathematics Archives~\cite{history_website}.
 \end{quote}
 
 
-\section{Definition}\label{sec:definition}
+\section{Definition}\label{cf:sec:definition}
 
 \begin{mydefinition}{Finite General Continued Fraction}{def_finite_gen_c_fract}
 A \textbf{finite general} continued fraction is defined as:
@@ -92,7 +92,7 @@ A \textbf{standard} continued fraction is defined as:
 This form is also referred to as the simple continued fraction or regular continued fraction, or the canonical form.
 \end{mydefinition}
 
-\subsection{Rational Examples}\label{subsec:rational-examples}
+\subsection{Rational Examples}\label{cf:subsec:rational-examples}
 Every rational number has a unique representation in the standard continued fraction form.
 Moreover, every rational number can be represented using only the finite continued fraction form.
 Below are a few examples.
@@ -113,7 +113,7 @@ Below are a few examples.
   \frac{-13}{5} = [-3;2,2] = \textbf{-3} + \cfrac{1}{\textbf{2} +\cfrac{1}{\textbf{2}}}
 \end{equation*}
 
-\subsection{Generation of continued fractions}\label{subsec:generation-of-continued-fractions}
+\subsection{Generation of continued fractions}\label{cf:subsec:generation-of-continued-fractions}
 The simple continued fraction representation of a number is both easy to verify and easy to generate.
 Here we go through two common ways of generating the simple continued fraction representation of a number.
 
@@ -161,7 +161,7 @@ Moreover, we will show that in general if $\sqrt{n}$ is not an integer then it w
 \\
 The algorithm presented here will work for every number as long as a decimal representation is available for said number.
 
-\section{Useful lemmas}\label{sec:useful-lemmas}
+\section{Useful lemmas}\label{cf:sec:useful-lemmas}
 \begin{mydefinition}{Convergents}{convergents}
 A convergent $\frac{p_n}{q_n}$ of a simple continued fraction $[a_0; a_1, a_2, a_3, \dots]$ is defined as:
 \[
@@ -247,7 +247,7 @@ For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ a
   \end{proof}
 \end{mylemma}
 
-\section{Relation to alternating Series}\label{sec:relation-to-alternating-series}
+\section{Relation to alternating Series}\label{cf:sec:relation-to-alternating-series}
 
 \begin{mytheorem}{Series to Continued Fraction}{relation_to_series}
   \[
@@ -483,7 +483,7 @@ For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ a
   \end{proof}
 \end{mytheorem}
 
-\subsection{Example \texorpdfstring{$\ln(2)$}{ln(2)}}\label{subsec:example-ln(2)}
+\subsection{Example \texorpdfstring{$\ln(2)$}{ln(2)}}\label{cf:subsec:example-ln(2)}
 
 \begin{mylemma}{Taylor Series for \texorpdfstring{$\ln$}{ln}}{ln_taylor}
   \[
@@ -519,7 +519,7 @@ For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ a
   \end{proof}
 \end{mylemma}
 
-\subsection{Example \texorpdfstring{$\frac{\pi}{4}$}{pi/4}}\label{subsec:example-pi4}
+\subsection{Example \texorpdfstring{$\frac{\pi}{4}$}{pi/4}}\label{cf:subsec:example-pi4}
 \begin{mylemma}{Taylor Series for \texorpdfstring{$\arctan$}{arctan}}{arctan_taylor}
   \[
     \arctan(x) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1} \cdot x^{2k-1}}{2k-1}
@@ -542,7 +542,7 @@ For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ a
 \end{mylemma}
 
 
-\section{Square root numbers}\label{sec:square-root-numbers}
+\section{Square root numbers}\label{cf:sec:square-root-numbers}
 
 
 \begin{mytheorem}{Square Root CF}{sqrt_cf}
@@ -585,11 +585,11 @@ For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ a
 \end{mytheorem}
 
 
-\section{Approximation of rational numbers}\label{sec:approximation-of-rational-numbers}
+\section{Approximation of rational numbers}\label{cf:sec:approximation-of-rational-numbers}
 todo
 
 
-\section{Relation to Pell's Equation}\label{sec:relation-to-pell's-equation}
+\section{Relation to Pell's Equation}\label{cf:sec:relation-to-pell's-equation}
 todo
 
 \begin{mytheorem}{Pell's Equation Relation}{pell_relation}
@@ -597,11 +597,11 @@ todo
 \end{mytheorem}
 
 
-\section{Solving linear Diophantine Equations}\label{sec:solving-linear-diophantine-equations}
+\section{Solving linear Diophantine Equations}\label{cf:sec:solving-linear-diophantine-equations}
 todo
 
 
-\section{Gauss's continued fraction}\label{sec:gauss's-continued-fraction}
+\section{Gauss's continued fraction}\label{cf:sec:gauss's-continued-fraction}
 todo \\
 \url{https://en.wikipedia.org/wiki/Gauss%27s_continued_fraction}
 

@@ -1,35 +1,14 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{cleveref}
-\usepackage{mathtools}
-\usepackage{fancyhdr}
-\numberwithin{equation}{subsection}
-\usepackage[colorinlistoftodos]{todonotes}
- 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
+\input{preamble}
 
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[CE]{\Author}
-\fancyhead[CO]{\Title}
-\renewcommand\headrulewidth{0pt}
-\pagestyle{fancy}
-
+\title{Pascal's Row Sum}
 \author{Emil Kerimov}
-%\title{Basic Trig Functions}
-
-\makeatletter
-\let\Title\@author
+\date{\today}
 
 \begin{document}
-\section{PascalRowSum}\label{PascalRowSum}
+\maketitle
+\section{PascalRowSum}\label{pas:PascalRowSum}
 
 
 Prove that:
@@ -51,18 +30,18 @@ Draw Pascal's Triangle.
 Notice, the sum of the nth row seems to be $2^n$.
 
 
-\subsubsection{Sidenote 1}\label{pascal_sidenote1}
+\subsubsection{Sidenote 1}\label{pas:pascal_sidenote1}
 Prove that $${p \choose 0}={p+1 \choose 0}$$
 Proof:
 $${p \choose 0}=\frac{p!}{0! \cdot (p-0)!}=\frac{p!}{p!}=1=\frac{(p+1)!}{0! \cdot (p+1-0)!}={p+1 \choose 0}$$
 
-\subsubsection{Sidenote 2 }\label{pascal_sidenote2}
+\subsubsection{Sidenote 2 }\label{pas:pascal_sidenote2}
 Prove that $${p \choose p}={p+1 \choose p+1}$$
 
 Proof:
 $${p \choose p}=\frac{p!}{0! \cdot (p-0)!}=\frac{p!}{p!}=1=\frac{(p+1)!}{0! \cdot (p+1-0)!}={p+1 \choose p+1}$$
 
-\subsubsection{Sidenote 3 }\label{pascal_sidenote3}
+\subsubsection{Sidenote 3 }\label{pas:pascal_sidenote3}
 Prove that $${p \choose q} +{p \choose q+1}={p+1 \choose q+1}$$
 
 Proof:

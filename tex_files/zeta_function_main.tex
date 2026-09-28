@@ -1,12 +1,6 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{mathtools}
-\usepackage{amssymb}
+\input{preamble}
 
 \title{Zeta Function}
 \author{Emil Kerimov}
@@ -14,14 +8,11 @@
 \begin{document}
 \maketitle
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
+
 
 \section{Definition}
 
-\begin{definition}\label{zeta def}
+\begin{definition}\label{zf:zeta def}
 The Riemann Zeta function is defined as 
 $$
 \zeta(z) = \sum_{k=1}^{\infty} \frac{1}{k^z}
@@ -36,7 +27,7 @@ We have already shown that \footnote{See Gamma function document}
 \section{Bernoulli Numbers}
 Examining the Taylor expansion of $\frac{x}{e^x -1}$, this will be required for the evaluation of the even integer values of $\zeta.$
 
-\begin{definition}\label{bernoulli def}
+\begin{definition}\label{zf:bernoulli def}
 The Bernoulli numbers $B_n$ are defined as the coefficients of the Taylor expansion of the following function
 $$\boxed{
 \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
@@ -45,13 +36,13 @@ $$
 \end{definition}
 
 \begin{theorem}
-\begin{equation} \label{bernoulli generating}
+\begin{equation} \label{zf:bernoulli generating}
 \sum_{k}^{n} \binom{n+1}{k} B_k = 0  \quad \forall n > 0, \text{ with } B_0 = 1
 \end{equation}
 
 Proof
 \begin{gather*}
-\intertext{Starting from definition \ref{bernoulli def}}
+\intertext{Starting from definition \ref{zf:bernoulli def}}
 \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
 \\
 \intertext{Using the Taylor expansion of $e^x$}
@@ -86,17 +77,15 @@ n=0, \quad  1 =  B_0
 \\
 n \not =0, \quad 0= \sum_{k=0}^{n}  \binom{n+1}{k} B_k 
 \end{gather*}
-\end{theorem}
-
-\footnotetext{$\Big( \sum_{n=0}^{\infty} a_n \Big) \Big( \sum_{n=0}^{\infty} b_n \Big) = \sum_{n=0}^{\infty} c_n $ where $c_n = \sum_{k=0}^{n} a_k b_{n-k}$. See proof: TODO ADD}
+\footnotetext{$\Big( \sum_{n=0}^{\infty} a_n \Big) \Big( \sum_{n=0}^{\infty} b_n \Big) = \sum_{n=0}^{\infty} c_n $ where $c_n = \sum_{k=0}^{n} a_k b_{n-k}$. See Mertens' Theorem (proof in Bernoulli Numbers document).}
 
 \subsection{First few Bernoulli numbers}
-Using equation \ref{bernoulli generating} with $n=1$ implies $ \binom{2}{0} B_0 + \binom{2}{1} B_1 = 0 = 1 + 2 B_1 $ which implies 
+Using equation \ref{zf:bernoulli generating} with $n=1$ implies $ \binom{2}{0} B_0 + \binom{2}{1} B_1 = 0 = 1 + 2 B_1 $ which implies 
 \begin{equation}
 B_1 = -\frac{1}{2}
 \end{equation}
  
-Using equation \ref{bernoulli generating} with $n=2$ implies $ \binom{3}{0} B_0 + \binom{3}{1} B_1 + \binom{3}{2} B_2 = 0 = 1 - \frac{3}{2} + 3 B_2 $ which implies 
+Using equation \ref{zf:bernoulli generating} with $n=2$ implies $ \binom{3}{0} B_0 + \binom{3}{1} B_1 + \binom{3}{2} B_2 = 0 = 1 - \frac{3}{2} + 3 B_2 $ which implies 
 \begin{equation}
 B_2 = \frac{1}{6}
 \end{equation}
@@ -109,12 +98,12 @@ B_3 = 0, B_4 = -\frac{1}{30}, B_5 = 0, B_6 = \frac{1}{42}, \dots
 
 \begin{theorem}
 In fact we can show that all odd Bernoulli numbers after n=1 are 0
-\begin{equation} \label{odd bernoulli} B_n = 0  \quad \forall \text{ odd }n > 1
+\begin{equation} \label{zf:odd bernoulli} B_n = 0  \quad \forall \text{ odd }n > 1
 \end{equation}
 
 Proof
 \begin{gather*}
-\intertext{Starting from definition \ref{bernoulli def}}
+\intertext{Starting from definition \ref{zf:bernoulli def}}
 \frac{x}{e^x -1} = \sum_{n=0}^{\infty} \frac{B_n}{n!} x^n
 \\
 \intertext{Removing the first two terms of the sum}
@@ -150,7 +139,7 @@ While the odd integer values of $\zeta(n)$ do not have a closed form expression,
 
 \begin{theorem}
 We can express all even integer values of $\zeta$ using Bernoulli numbers
-\begin{equation} \label{even zeta} 
+\begin{equation} \label{zf:even zeta} 
 \zeta(2n) = (-1)^{n+1} \frac{(2\pi)^{2n} B_{2n}}{2 \cdot (2n)!}
 \end{equation}
 
@@ -162,7 +151,7 @@ Proof
 \intertext{Using the complex exponential representation \footnotemark of cotangent}
 i \pi x +  \frac{2i \pi x}{e^{2 i\pi x} -1} = 1 - 2 \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
 \\
-\intertext{Using the Bernoulli numbers definition \ref{bernoulli def}} 
+\intertext{Using the Bernoulli numbers definition \ref{zf:bernoulli def}} 
 i \pi x + \sum_{n=0}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
  = 1 - 2 \sum_{k=1}^{\infty} \zeta(2k) x^{2k}
 \\
@@ -218,7 +207,7 @@ i \pi x + 1 + - i \pi x +  \sum_{n=2}^{\infty} \frac{B_n}{n!} (2 i\pi x)^n
 
 \subsection{Dirichlet Eta Function}
 
-\begin{definition}\label{Dirichlet Eta Function def}
+\begin{definition}\label{zf:Dirichlet Eta Function def}
 The Dirichlet Eta function is defined as 
 $$
 \eta(z) = \sum_{k=1}^{\infty} \frac{(-1)^{k+1}}{k^z} = 1 - \frac{1}{2^z} +  \frac{1}{3^z} -  \frac{1}{4^z} + ...
@@ -270,7 +259,7 @@ Proof
 
 \subsection{Dirichlet Lambda Function}
 
-\begin{definition}\label{Dirichlet Lambda Function def}
+\begin{definition}\label{zf:Dirichlet Lambda Function def}
 The Dirichlet Lambda function is defined as 
 $$
 \lambda(z) = \sum_{k=0}^{\infty} \frac{1}{(2k +1))^z} = 1 + \frac{1}{3^z} +  \frac{1}{5^z} +  \frac{1}{7^z} + ...
@@ -357,7 +346,7 @@ Proof
 \section{Jacobi Theta Function}
 
 \subsection{Definition}
-\begin{definition}\label{Jacobi Theta def}
+\begin{definition}\label{zf:Jacobi Theta def}
 The Jacobi Theta function is defined as 
 $$
 \Theta(x) = \sum_{n=-\infty}^{\infty} e^{- \pi n^2 x}
@@ -366,7 +355,7 @@ $$
 
 \begin{theorem}
 The Jacobi Theta function has the following functional form
-\begin{equation} \label{Jacobi functional form}
+\begin{equation} \label{zf:Jacobi functional form}
 \Theta(x) = \frac{1}{\sqrt{x}} \Theta(\frac{1}{x})
 \end{equation}
 
@@ -412,40 +401,186 @@ e^{- \pi \frac{k^2}{x}}
 \end{gather*}
 \end{theorem}
 
-\footnotetext{$\sum_{n=-\infty}^{\infty} f(n)  = \sum_{n=-\infty}^{\infty} \hat{f}(n)$. See proof: TODO ADD}
+\footnotetext{$\sum_{n=-\infty}^{\infty} f(n)  = \sum_{n=-\infty}^{\infty} \hat{f}(n)$ is the Poisson summation formula with Fourier transform $\hat{f}(k) = \int_{-\infty}^{\infty} f(x) e^{-2\pi i k x} dx$. See Fourier Series and Integrals notes.}
 
 
-\section{Functional Form}
-\subsection{First Form}
+\section{Functional Equations}\label{zf:sec:functional-equations}
 
-\begin{theorem}
-The symmetric functional equation of $\zeta$
+\subsection{First Symmetric Form}\label{zf:subsec:first-symmetric-form}
+
+\begin{theorem}[Riemann's Symmetric Functional Equation]\label{zf:thm:symmetric-functional-equation}
+The completed zeta function $\xi(s)$ satisfies the symmetric functional equation:
 \begin{equation} 
 \boxed{
-\pi^{-\frac{s}{2}} \Gamma(\frac{s}{2}) \zeta(s) = \pi^{- \frac{1-s}{2}} \Gamma(\frac{1-s}{2}) \zeta(1-s)
+\pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right) \zeta(s) = \pi^{- \frac{1-s}{2}} \Gamma\left(\frac{1-s}{2}\right) \zeta(1-s)
 }
 \end{equation}
-
-Proof
-\begin{gather*}
-TODO 
-\end{gather*}
 \end{theorem}
 
-\subsection{Second Form}
-\begin{theorem}
+\begin{proof}
+Recall the integral definition of the Gamma function:
+\[
+    \Gamma\left(\frac{s}{2}\right) = \int_0^{\infty} t^{\frac{s}{2}-1} e^{-t} \, dt
+\]
+Making the substitution $t = \pi n^2 x$ (so $dt = \pi n^2 dx$) for $n \ge 1$:
+\[
+    \Gamma\left(\frac{s}{2}\right) = \int_0^{\infty} (\pi n^2 x)^{\frac{s}{2}-1} e^{-\pi n^2 x} \pi n^2 \, dx = \pi^{\frac{s}{2}} n^s \int_0^{\infty} x^{\frac{s}{2}-1} e^{-\pi n^2 x} \, dx
+\]
+Rearranging yields:
+\[
+    \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right) n^{-s} = \int_0^{\infty} x^{\frac{s}{2}-1} e^{-\pi n^2 x} \, dx
+\]
+Summing both sides over all positive integers $n=1, 2, 3, \dots$ for $\operatorname{Re}(s) > 1$:
+\[
+    \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right) \sum_{n=1}^{\infty} n^{-s} = \sum_{n=1}^{\infty} \int_0^{\infty} x^{\frac{s}{2}-1} e^{-\pi n^2 x} \, dx
+\]
+By Fubini-Tonelli theorem, we can interchange the sum and integral:
+\[
+    \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right) \zeta(s) = \int_0^{\infty} x^{\frac{s}{2}-1} \omega(x) \, dx
+\]
+where $\omega(x) := \sum_{n=1}^{\infty} e^{-\pi n^2 x} = \frac{\Theta(x) - 1}{2}$.
+
+From Jacobi's theta transformation $\Theta(x) = \frac{1}{\sqrt{x}} \Theta\left(\frac{1}{x}\right)$, the function $\omega(x)$ satisfies:
+\[
+    \omega(x) = \frac{1}{\sqrt{x}} \omega\left(\frac{1}{x}\right) + \frac{1}{2\sqrt{x}} - \frac{1}{2}
+\]
+Now split the integral into two regions $[0, 1]$ and $[1, \infty)$:
+\[
+    \int_0^{\infty} x^{\frac{s}{2}-1} \omega(x) \, dx = \int_0^1 x^{\frac{s}{2}-1} \omega(x) \, dx + \int_1^{\infty} x^{\frac{s}{2}-1} \omega(x) \, dx
+\]
+Substitute the modular transformation of $\omega(x)$ into the integral over $[0, 1]$:
+\begin{align*}
+    \int_0^1 x^{\frac{s}{2}-1} \omega(x) \, dx &= \int_0^1 x^{\frac{s}{2}-1} \left( \frac{1}{\sqrt{x}} \omega\left(\frac{1}{x}\right) + \frac{1}{2 x^{1/2}} - \frac{1}{2} \right) \, dx \\
+    &= \int_0^1 x^{\frac{s-1}{2}-1} \omega\left(\frac{1}{x}\right) \, dx + \frac{1}{2} \left[ \frac{x^{s/2 - 1/2}}{s/2 - 1/2} \right]_0^1 - \frac{1}{2} \left[ \frac{x^{s/2}}{s/2} \right]_0^1 \\
+    &= \int_0^1 x^{\frac{s-1}{2}-1} \omega\left(\frac{1}{x}\right) \, dx + \frac{1}{s-1} - \frac{1}{s} \\
+    &= \int_0^1 x^{\frac{s-1}{2}-1} \omega\left(\frac{1}{x}\right) \, dx + \frac{1}{s(s-1)}
+\end{align*}
+In the integral $\int_0^1 x^{\frac{s-1}{2}-1} \omega\left(\frac{1}{x}\right) \, dx$, substitute $u = 1/x$ ($dx = -u^{-2} du$):
+\[
+    \int_0^1 x^{\frac{s-1}{2}-1} \omega\left(\frac{1}{x}\right) \, dx = \int_{\infty}^1 u^{-\left(\frac{s-1}{2}-1\right)} \omega(u) \left(-\frac{du}{u^2}\right) = \int_1^{\infty} u^{\frac{1-s}{2}-1} \omega(u) \, du
+\]
+Combining both parts, we obtain the fundamental representation:
+\begin{equation}
+    \xi(s) := \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right) \zeta(s) = \frac{1}{s(s-1)} + \int_1^{\infty} \left( x^{\frac{s}{2}-1} + x^{\frac{1-s}{2}-1} \right) \omega(x) \, dx
+\end{equation}
+Because $\omega(x) \sim e^{-\pi x}$ as $x \to \infty$, the integral converges absolutely and uniformly for all $s \in \mathbb{C}$, providing the analytic continuation of $\zeta(s)$ to a meromorphic function on $\mathbb{C}$ with a single simple pole at $s=1$. 
+
+Moreover, replacing $s$ with $1-s$ leaves the right-hand side completely invariant:
+\[
+    \xi(1-s) = \frac{1}{(1-s)(-s)} + \int_1^{\infty} \left( x^{\frac{1-s}{2}-1} + x^{\frac{s}{2}-1} \right) \omega(x) \, dx = \xi(s)
+\]
+which proves the theorem.
+\end{proof}
+
+\subsection{Second Asymmetric Form}\label{zf:subsec:second-asymmetric-form}
+
+\begin{theorem}[Reflection Form of the Functional Equation]\label{zf:thm:reflection-functional-equation}
+For all $s \in \mathbb{C} \setminus \{0, 1\}$:
 \begin{equation} 
 \boxed{
-\zeta(s) = 2^s \pi^{s-1} sin(\frac{\pi s}{2}) \Gamma (1-s) \zeta(1-s)
+\zeta(s) = 2^s \pi^{s-1} \sin\left(\frac{\pi s}{2}\right) \Gamma (1-s) \zeta(1-s)
 }
 \end{equation}
-
-Proof
-\begin{gather*}
-TODO 
-\end{gather*}
 \end{theorem}
 
-\section{Riemann Hypothesis Statement}
+\begin{proof}
+From the first functional equation:
+\[
+    \zeta(s) = \pi^{s - \frac{1}{2}} \frac{\Gamma\left(\frac{1-s}{2}\right)}{\Gamma\left(\frac{s}{2}\right)} \zeta(1-s)
+\]
+We simplify the ratio $\frac{\Gamma((1-s)/2)}{\Gamma(s/2)}$ using two classical identities of the Gamma function:
+\begin{enumerate}
+    \item \textbf{Legendre's Duplication Formula}:
+    \[
+        \Gamma\left(\frac{s}{2}\right) \Gamma\left(\frac{s+1}{2}\right) = 2^{1-s} \sqrt{\pi} \, \Gamma(s) \implies \frac{1}{\Gamma(s/2)} = \frac{2^{s-1}}{\sqrt{\pi}} \frac{\Gamma\left(\frac{s+1}{2}\right)}{\Gamma(s)}
+    \]
+    \item \textbf{Euler's Reflection Formula}:
+    \[
+        \Gamma\left(\frac{1-s}{2}\right) \Gamma\left(\frac{1+s}{2}\right) = \frac{\pi}{\sin\left(\pi \frac{1-s}{2}\right)} = \frac{\pi}{\cos\left(\frac{\pi s}{2}\right)}
+    \]
+    and for $\Gamma(s)$:
+    \[
+        \Gamma(s) \Gamma(1-s) = \frac{\pi}{\sin(\pi s)} \implies \frac{1}{\Gamma(s)} = \frac{\sin(\pi s)}{\pi} \Gamma(1-s) = \frac{2 \sin\left(\frac{\pi s}{2}\right) \cos\left(\frac{\pi s}{2}\right)}{\pi} \Gamma(1-s)
+    \]
+\end{enumerate}
+Combining these gives:
+\begin{align*}
+    \frac{\Gamma\left(\frac{1-s}{2}\right)}{\Gamma\left(\frac{s}{2}\right)} &= \Gamma\left(\frac{1-s}{2}\right) \cdot \frac{2^{s-1}}{\sqrt{\pi}} \frac{\Gamma\left(\frac{s+1}{2}\right)}{\Gamma(s)} \\
+    &= \frac{2^{s-1}}{\sqrt{\pi}} \left[ \Gamma\left(\frac{1-s}{2}\right) \Gamma\left(\frac{1+s}{2}\right) \right] \cdot \frac{1}{\Gamma(s)} \\
+    &= \frac{2^{s-1}}{\sqrt{\pi}} \left[ \frac{\pi}{\cos\left(\frac{\pi s}{2}\right)} \right] \cdot \left[ \frac{2 \sin\left(\frac{\pi s}{2}\right) \cos\left(\frac{\pi s}{2}\right)}{\pi} \Gamma(1-s) \right] \\
+    &= 2^s \pi^{-\frac{1}{2}} \sin\left(\frac{\pi s}{2}\right) \Gamma(1-s)
+\end{align*}
+Multiplying by $\pi^{s - 1/2} \zeta(1-s)$ yields:
+\[
+    \zeta(s) = \pi^{s - \frac{1}{2}} \cdot 2^s \pi^{-\frac{1}{2}} \sin\left(\frac{\pi s}{2}\right) \Gamma(1-s) \zeta(1-s) = 2^s \pi^{s-1} \sin\left(\frac{\pi s}{2}\right) \Gamma(1-s) \zeta(1-s)
+\]
+\end{proof}
+
+
+\section{Zeros of the Riemann Zeta Function and the Riemann Hypothesis}\label{zf:sec:riemann-hypothesis}
+
+\subsection{Trivial Zeros}\label{zf:subsec:trivial-zeros}
+Using the reflection functional equation:
+\[
+    \zeta(s) = 2^s \pi^{s-1} \sin\left(\frac{\pi s}{2}\right) \Gamma (1-s) \zeta(1-s)
+\]
+Consider negative even integers $s = -2m$ for $m \in \{1, 2, 3, \dots\}$:
+\begin{enumerate}
+    \item The factor $\sin\left(\frac{\pi (-2m)}{2}\right) = \sin(-\pi m) = 0$.
+    \item The factor $\Gamma(1 - (-2m)) = \Gamma(1 + 2m) = (2m)!$ is a positive real number (finite and non-zero).
+    \item The factor $\zeta(1 - (-2m)) = \zeta(2m + 1)$ is evaluated in the region of absolute convergence $\operatorname{Re}(s) > 1$, where the Euler product guarantees $\zeta(2m+1) > 1 \ne 0$.
+\end{enumerate}
+Therefore:
+\begin{equation}
+    \boxed{\zeta(-2m) = 0 \quad \text{for all } m \in \{1, 2, 3, \dots\}}
+\end{equation}
+These are called the \textbf{trivial zeros} of the Riemann zeta function.
+
+\begin{remark}[Negative odd integers]
+For negative odd integers $s = -(2m-1)$, $\sin\left(\frac{\pi s}{2}\right) = \sin\left(-\frac{(2m-1)\pi}{2}\right) = (-1)^m \ne 0$, and using the connection to Bernoulli numbers from Theorem~\ref{zf:thm:bernoulli-even-zeta}:
+\[
+    \zeta(-(2m-1)) = -\frac{B_{2m}}{2m} \ne 0
+\]
+In particular, $\zeta(-1) = -\frac{1}{12}$, $\zeta(-3) = \frac{1}{120}$, and $\zeta(-5) = -\frac{1}{252}$.
+\end{remark}
+
+\subsection{The Critical Strip and Non-Trivial Zeros}\label{zf:subsec:critical-strip}
+
+\begin{enumerate}
+    \item \textbf{Region $\operatorname{Re}(s) > 1$}: The Euler product $\zeta(s) = \prod_{p} (1 - p^{-s})^{-1}$ converges absolutely and non-zero, so $\zeta(s)$ has no zeros for $\operatorname{Re}(s) > 1$.
+    \item \textbf{Region $\operatorname{Re}(s) < 0$}: By the functional equation, the only zeros for $\operatorname{Re}(s) < 0$ are the trivial zeros at $s = -2, -4, -6, \dots$.
+    \item \textbf{The Critical Strip}: Consequently, all other zeros of $\zeta(s)$ must lie strictly in the strip:
+    \[
+        \mathcal{S} = \{ s \in \mathbb{C} : 0 \le \operatorname{Re}(s) \le 1 \}
+    \]
+    These are called the \textbf{non-trivial zeros}.
+    \item \textbf{Zero-Free Boundary $\operatorname{Re}(s) = 1$}: In 1896, Jacques Hadamard and Charles Jean de la Vallée Poussin independently proved that:
+    \[
+        \zeta(1 + it) \ne 0 \quad \text{for all } t \in \mathbb{R}
+    \]
+    By the functional symmetry $s \leftrightarrow 1-s$, $\zeta(0 + it) \ne 0$ as well. This zero-free boundary is mathematically equivalent to the \textbf{Prime Number Theorem}:
+    \[
+        \pi(x) \sim \frac{x}{\ln x} \quad \text{as } x \to \infty
+    \]
+\end{enumerate}
+
+\subsection{Statement of the Riemann Hypothesis}\label{zf:subsec:riemann-hypothesis-statement}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{The Riemann Hypothesis (Bernhard Riemann, 1859)}]
+All non-trivial zeros of the Riemann zeta function $\zeta(s)$ lie on the \textbf{critical line}:
+\begin{equation}
+    \boxed{\operatorname{Re}(s) = \frac{1}{2}}
+\end{equation}
+That is, if $\zeta(s) = 0$ with $0 < \operatorname{Re}(s) < 1$, then $s = \frac{1}{2} + i \gamma$ for some $\gamma \in \mathbb{R}$.
+\end{tcolorbox}
+
+The first few non-trivial zeros on the critical line have imaginary parts:
+\begin{align*}
+    \gamma_1 &\approx 14.134725\dots \\
+    \gamma_2 &\approx 21.022040\dots \\
+    \gamma_3 &\approx 25.010857\dots \\
+    \gamma_4 &\approx 30.424876\dots
+\end{align*}
+More than $10^{13}$ zeros have been verified numerically to lie on the critical line, but a general proof remains one of the most famous open problems in mathematics (a Clay Millennium Prize problem).
 
 \end{document}

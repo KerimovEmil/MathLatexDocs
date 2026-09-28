@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -8,11 +8,11 @@
 \begin{document}
 \maketitle
 
-\section{Darboux's formula}\label{sec:darboux}
+\section{Darboux's formula}\label{dar:sec:darboux}
 
 Let $\phi(t)$ be a polynomial of degree $n$ and $f(x)$ is an analytic function then,
 
-\begin{theorem}\label{thm:darboux}
+\begin{theorem}\label{dar:thm:darboux}
     \begin{multline}
         \sum_{m=0}^{n} (-1)^m (z-a)^m \Big[ \phi^{(n-m)}(1) f^{(m)}(z)  - \phi^{(n-m)}(0) f^{(m)}(a) \Big]
         =
@@ -81,7 +81,7 @@ Let $\phi(t)$ be a polynomial of degree $n$ and $f(x)$ is an analytic function t
 Set $\phi(t) = (t-1)^n$ into Darnoux's formula to obtain Taylor's formula.
 
 \begin{theorem}
-    \begin{equation}\label{Taylor's formula}
+    \begin{equation}\label{dar:Taylor's formula}
         \boxed{
             f(z) = \sum_{m=0}^{n} \frac{(z-a)^m f^{(m)}(a)}{m!} + (-1)^n \frac{(z-a)^{n+1}}{n!} \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
         }
@@ -89,7 +89,7 @@ Set $\phi(t) = (t-1)^n$ into Darnoux's formula to obtain Taylor's formula.
 
     Proof
     \begin{gather*}
-        \intertext{Starting from Darboux's formula \ref{Darboux's formula}}
+        \intertext{Starting from Darboux's formula \ref{dar:Darboux's formula}}
         \sum_{m=0}^{n} (-1)^m (z-a)^m \Big[ \phi^{(n-m)}(1) f^{(m)}(z)  - \phi^{(n-m)}(0) f^{(m)}(a) \Big]
         =
         \\
@@ -123,7 +123,7 @@ Set $\phi(t) = (t-1)^n$ into Darnoux's formula to obtain Taylor's formula.
 
 \begin{theorem}
     If $|f^{(k)}(x)| \leq M$ and $|z-a| \leq R \quad \forall x$ then
-    \begin{equation}\label{Taylor's Series}
+    \begin{equation}\label{dar:Taylor's Series}
         \boxed{
             f(z) = \sum_{m=0}^{\infty} \frac{(z-a)^m f^{(m)}(a)}{m!}
         }
@@ -131,7 +131,7 @@ Set $\phi(t) = (t-1)^n$ into Darnoux's formula to obtain Taylor's formula.
 
     Proof
     \begin{gather*}
-        \intertext{Starting from Taylor's formula \ref{Taylor's formula} and taking the limit as $n$ approaches infinity}
+        \intertext{Starting from Taylor's formula \ref{dar:Taylor's formula} and taking the limit as $n$ approaches infinity}
         f(z) = \sum_{m=0}^{\infty} \frac{(z-a)^m f^{(m)}(a)}{m!} + \lim_{n \to \infty} (-1)^n \frac{(z-a)^{n+1}}{n!} \int_{0}^{1} (t-1)^n f^{(n+1)}\Big[a + t(z-a)\Big] dt
         \\
         \intertext{Define the remainder term, and then we will show that it converges to 0}
@@ -163,7 +163,7 @@ Set $\phi(t) = B_n(x)$ into Darnoux's formula to obtain the Euler-Maclaurin form
 
     \begin{equation}
         \boxed{
-            \begin{gathered}\label{Euler-Maclaurin's formula}
+            \begin{gathered}\label{dar:Euler-Maclaurin's formula}
                 w \sum_{j=0}^{r-1} g(a+jw)  - \int_{x=a}^{a+rw} g(x) dx
                 =
                 \frac{w}{2} \Big( g(a) - g(a+rw) \Big)
@@ -178,7 +178,7 @@ Set $\phi(t) = B_n(x)$ into Darnoux's formula to obtain the Euler-Maclaurin form
 
     Proof
     \begin{gather*}
-        \intertext{Starting from Darboux's formula \ref{Darboux's formula}}
+        \intertext{Starting from Darboux's formula \ref{dar:Darboux's formula}}
         \sum_{m=0}^{n} (-1)^m (z-a)^m \Big[ \phi^{(n-m)}(1) f^{(m)}(z)  - \phi^{(n-m)}(0) f^{(m)}(a) \Big]
         =
         \\
@@ -270,7 +270,7 @@ Set $\phi(t) = B_n(x)$ into Darnoux's formula to obtain the Euler-Maclaurin form
 Note that as $n$ approaches infinity, the remainder term goes to 0.
 \begin{theorem}
     If $|g^{(k)}(x)| \leq M \quad \forall x$ and $a, w, M$ finite then
-    \begin{equation}\label{Inifite Euler Mac's Series}
+    \begin{equation}\label{dar:Inifite Euler Mac's Series}
         \boxed{
             \lim_{n \to \infty} R_{n,r} = \lim_{n \to \infty} \frac{(-1)^{n+1} w^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) f^{(n+1)}(a+tw) dt = 0
         }
@@ -299,7 +299,7 @@ By specifying $a=0$ and $w=1$ we obtain an exact difference between the summatio
 
     \begin{equation}
         \boxed{
-            \begin{gathered}\label{Simple Euler-Maclaurin's formula}
+            \begin{gathered}\label{dar:Simple Euler-Maclaurin's formula}
                 \sum_{j=0}^{r} g(j)  - \int_{x=0}^{r} g(x) dx
                 =
                 \frac{g(0) + g(r)}{2} +
