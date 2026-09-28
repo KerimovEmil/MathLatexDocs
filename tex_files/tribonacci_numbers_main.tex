@@ -1,12 +1,6 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{mathtools}
-\usepackage{amssymb}
+\input{preamble}
 
 \title{Tribonacci Numbers}
 \author{Emil Kerimov}
@@ -14,12 +8,9 @@
 \begin{document}
 \maketitle
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
 
-\section{Definition}\label{sec:definition}
+
+\section{Definition}\label{trib:sec:definition}
 
 The Tribonacci sequence is defined as:
 \begin{equation}
@@ -28,7 +19,7 @@ t_0 &= 0 \\
 t_1 &= 1 \\
 t_2 &= 1 \\
 t_{n} &= t_{n-1} + t_{n-2} + t_{n-3} \quad \forall \quad n \in \mathbb{Z}^+
-\end{aligned}\label{eq:equation2}
+\end{aligned}\label{trib:eq:equation2}
 \end{equation}
 
 The first few Tribonacci numbers then would be:
@@ -36,7 +27,7 @@ The first few Tribonacci numbers then would be:
 0,1,1,2,4,7,13,24,44, 81, \dots
 \]
 
-\section{Ratios}\label{sec:basic_ratio}
+\section{Ratios}\label{trib:sec:basic_ratio}
 
 Taking the ratios of consecutive Tribonacci numbers we find this pattern:
 
@@ -59,16 +50,16 @@ TODO
 \end{theorem}
 
 
-\section{Closed Form Expression}\label{sec:closed-form}
+\section{Closed Form Expression}\label{trib:sec:closed-form}
 Using the characteristic equation of this sequence definition (see Characteristic Equation of recurrence relations),
-we have $x^3 -x^2 -x -1 = 0$, with distinct roots of $\alpha, \beta, \gamma.
+we have $x^3 -x^2 -x -1 = 0$, with distinct roots of $\alpha, \beta, \gamma$.
 
-\begin{theorem} \label{Charac}
+\begin{theorem} \label{trib:Charac}
 \[
 t_{n} = c_1 \cdot \alpha^n + c_2 \cdot \beta^n + c_3 \cdot \gamma^n \quad
  \forall  n \in \mathbb{Z}^+
 \]
-\shortintertext{Where the constants \(c_{1}, c_{2}, c_{3}\) are derived using the initial conditions.}
+Where the constants $c_{1}, c_{2}, c_{3}$ are derived using the initial conditions.
 \end{theorem}
 
 \begin{theorem}
@@ -77,101 +68,101 @@ t_{n} = c_1 \cdot \alpha^n + c_2 \cdot \beta^n + c_3 \cdot \gamma^n \quad
 \frac{\gamma^n}{-\gamma^2 + 4 \gamma - 1} \quad
  \forall  n \in \mathbb{Z}^+
     \]
-Proof
-\begin{gather*}
-    \shortintertext{Using the initial conditions we get}\\
-    \begin{align*}
-     c_1          + c_2          + c_3          = 0  & & (n=0) \\
-      \alpha c_1  +  \beta c_2   + \gamma  c_3 = 1 & & (n=1) \\
-     \alpha^2 c_1 + \beta^2 c_2  + \gamma^2 c_3 = 1 & & (n=2)  \\
-    \end{align*}
-    \shortintertext{Re-writing this as a matrix we get a classic vandermonde matrix}
-    \begin{bmatrix*}
-        1 & 1 & 1\\
-        \alpha & \beta & \gamma\\
-        \alpha^2 & \beta^2 & \gamma^2\\
-    \end{bmatrix*}
-    \begin{bmatrix*}
-        c_{1}\\
-        c_{2}\\
-        c_{3}\\
-    \end{bmatrix*}
-    =
-    \begin{bmatrix*}
-        0\\
-        1\\
-        1\\
-    \end{bmatrix*}
-    \shortintertext{Using Gaussian elimination we can solve for the coefficients}
-    \left(\hspace{-5pt}\begin{array}{ccc|c}
+\begin{proof}
+Using the initial conditions:
+\begin{align*}
+ c_1          + c_2          + c_3          &= 0  && (n=0) \\
+  \alpha c_1  +  \beta c_2   + \gamma  c_3 &= 1 && (n=1) \\
+ \alpha^2 c_1 + \beta^2 c_2  + \gamma^2 c_3 &= 1 && (n=2)
+\end{align*}
+Rewriting this as a matrix equation gives a classic Vandermonde system:
+\[
+\begin{bmatrix}
+    1 & 1 & 1\\
+    \alpha & \beta & \gamma\\
+    \alpha^2 & \beta^2 & \gamma^2
+\end{bmatrix}
+\begin{bmatrix}
+    c_{1}\\
+    c_{2}\\
+    c_{3}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    0\\
+    1\\
+    1
+\end{bmatrix}
+\]
+Using Gaussian elimination:
+\begin{align*}
+\left(\hspace{-5pt}\begin{array}{ccc|c}
   1 & 1 & 1 & 0 \\
   \alpha & \beta & \gamma & 1 \\
   \alpha^2 & \beta^2 & \gamma^2 & 1
 \end{array}\hspace{-5pt}\right)
-    \sim
-    \left(\hspace{-5pt}\begin{array}{ccc|c}
+&\sim
+\left(\hspace{-5pt}\begin{array}{ccc|c}
   1 & 1 & 1 & 0 \\
   0 & \beta - \alpha & \gamma - \alpha & 1 \\
   0 & \beta^2 - \alpha^2 & \gamma^2 - \alpha^2 & 1
-\end{array}\hspace{-5pt}\right)
-    \sim
-        \left(\hspace{-5pt}\begin{array}{ccc|c}
+\end{array}\hspace{-5pt}\right) \\
+&\sim
+\left(\hspace{-5pt}\begin{array}{ccc|c}
   1 & 1 & 1 & 0 \\
   0 & 1 & \frac{\gamma - \alpha}{\beta - \alpha} & \frac{1}{\beta - \alpha} \\
   0 & 1 & \frac{\gamma^2 - \alpha^2}{\beta^2 - \alpha^2} & \frac{1}{\beta^2 - \alpha^2}
-  \end{array}\hspace{-5pt}\right)
-    \\
-                                   \sim
-        \left(\hspace{-5pt}\begin{array}{ccc|c}
+\end{array}\hspace{-5pt}\right) \\
+&\sim
+\left(\hspace{-5pt}\begin{array}{ccc|c}
   1 & 1 & 1 & 0 \\
   0 & 1 & \frac{\gamma - \alpha}{\beta - \alpha} & \frac{1}{\beta - \alpha} \\
   0 & 0 & \frac{\gamma^2 - \alpha^2}{\beta^2 - \alpha^2} -\frac{\gamma - \alpha}{\beta - \alpha}
   & \frac{1}{\beta^2 - \alpha^2} -  \frac{1}{\beta - \alpha}
 \end{array}\hspace{-5pt}\right)
-    \shortintertext{Therefore we can write \(c_3\):}
-    \begin{align*}
-    c_3 &= \frac{\frac{1}{\beta^2 - \alpha^2} -  \frac{1}{\beta - \alpha}}{\frac{\gamma^2 - \alpha^2}{\beta^2 - \alpha^2} -\frac{\gamma - \alpha}{\beta - \alpha}} \\
-    c_3 &= \frac{(\beta - \alpha) - (\beta^2 - \alpha^2)}{(\gamma^2 - \alpha^2)(\beta - \alpha) - (\gamma - \alpha)(\beta^2 - \alpha^2)} \\
-    c_3 &= \frac{\beta - \alpha}{(\beta - \alpha)(\gamma - \alpha)} \cdot \frac{1 - (\beta + \alpha)}{(\gamma + \alpha) - (\beta + \alpha)} \\
-    c_3 &= \frac{1 - (\beta + \alpha)}{(\gamma - \beta)(\gamma - \alpha)} \\
-    c_3 &= \frac{1 - (\beta + \alpha + \gamma) + \gamma}{(\gamma - \beta)(\gamma - \alpha)} \\
-    \end{align*}
-\shortintertext{Since \(\alpha, \beta \) and \( \gamma \) satisfy \(x^3 - x^2 - x - 1 = 0\) we get the following identities}
-\alpha + \beta + \gamma = 1 \\
-\alpha \cdot \beta \cdot \gamma = 1 \\
-\shortintertext{Using these identities we can simplify the expression for \(c_3\):}
-\begin{split}
-c_3 &= \frac{\gamma}{\gamma^2 - (\alpha + \beta) \gamma + \alpha \beta}\\
-c_3 &= \frac{\gamma}{\gamma^2 - (\alpha + \beta + \gamma) \gamma + \gamma^2 + \frac{\alpha \beta \gamma}{\gamma}}\\
-c_3 &= \frac{\gamma}{2 \gamma^2 - \gamma + \frac{1}{\gamma}}\\
-c_3 &= \frac{1}{2 \gamma - 1 + \frac{1}{\gamma^2}}\\
-\shortintertext{Re-writing \( \frac{1}{\gamma^2} \) as \( 2\gamma -  \gamma^2\):}
-    1 = \gamma^3 - \gamma^2 - \gamma \\
-    \frac{1}{\gamma} = \gamma^2 - \gamma - 1 \\
-    \frac{1}{\gamma^2} = \gamma - 1 - \frac{1}{\gamma} \\
-    \frac{1}{\gamma^2} = \gamma - 1 -  \gamma^2 + \gamma + 1  \\
-    \frac{1}{\gamma^2} = 2\gamma -  \gamma^2 \\
-    \shortintertext{Therefore:}
-    c_3 &= \frac{1}{-\gamma^2 + 4 \gamma - 1 }\\
-        \shortintertext{By symmetry we can see that:}
-    c_1 &= \frac{1}{-\alpha^2 + 4 \alpha - 1 }\\
-    c_2 &= \frac{1}{-\beta^2 + 4 \beta - 1 }\\
-\end{split}
-    \shortintertext{Hence:}
-        t_{n} = \frac{\alpha^n}{-\alpha^2 + 4 \alpha - 1} + \frac{\beta^n}{-\beta^2 + 4 \beta - 1} +
-\frac{\gamma^n}{-\gamma^2 + 4 \gamma - 1} \quad
- \forall  n \in \mathbb{Z}^+
-\end{gather*}
+\end{align*}
+Therefore we can solve for $c_3$:
+\begin{align*}
+c_3 &= \frac{\frac{1}{\beta^2 - \alpha^2} -  \frac{1}{\beta - \alpha}}{\frac{\gamma^2 - \alpha^2}{\beta^2 - \alpha^2} -\frac{\gamma - \alpha}{\beta - \alpha}} \\
+    &= \frac{(\beta - \alpha) - (\beta^2 - \alpha^2)}{(\gamma^2 - \alpha^2)(\beta - \alpha) - (\gamma - \alpha)(\beta^2 - \alpha^2)} \\
+    &= \frac{\beta - \alpha}{(\beta - \alpha)(\gamma - \alpha)} \cdot \frac{1 - (\beta + \alpha)}{(\gamma + \alpha) - (\beta + \alpha)} \\
+    &= \frac{1 - (\beta + \alpha)}{(\gamma - \beta)(\gamma - \alpha)} \\
+    &= \frac{1 - (\beta + \alpha + \gamma) + \gamma}{(\gamma - \beta)(\gamma - \alpha)}
+\end{align*}
+Since $\alpha, \beta$ and $\gamma$ satisfy $x^3 - x^2 - x - 1 = 0$, Vieta's formulas give:
+\[
+\alpha + \beta + \gamma = 1, \qquad \alpha \beta \gamma = 1
+\]
+Using these identities:
+\begin{align*}
+c_3 &= \frac{\gamma}{\gamma^2 - (\alpha + \beta) \gamma + \alpha \beta} \\
+    &= \frac{\gamma}{\gamma^2 - (\alpha + \beta + \gamma) \gamma + \gamma^2 + \frac{\alpha \beta \gamma}{\gamma}} \\
+    &= \frac{\gamma}{2 \gamma^2 - \gamma + \frac{1}{\gamma}} \\
+    &= \frac{1}{2 \gamma - 1 + \frac{1}{\gamma^2}}
+\end{align*}
+Rewriting $\frac{1}{\gamma^2}$ using $\gamma^3 - \gamma^2 - \gamma - 1 = 0 \implies \frac{1}{\gamma^2} = 2\gamma - \gamma^2$:
+\[
+c_3 = \frac{1}{-\gamma^2 + 4 \gamma - 1}
+\]
+By symmetry:
+\[
+c_1 = \frac{1}{-\alpha^2 + 4 \alpha - 1}, \qquad c_2 = \frac{1}{-\beta^2 + 4 \beta - 1}
+\]
+Hence:
+\[
+t_{n} = \frac{\alpha^n}{-\alpha^2 + 4 \alpha - 1} + \frac{\beta^n}{-\beta^2 + 4 \beta - 1} + \frac{\gamma^n}{-\gamma^2 + 4 \gamma - 1} \quad \forall n \in \mathbb{Z}^+
+\]
+\end{proof}
 \end{theorem}
 
 \pagebreak
 
-\section{Negative Indices}\label{sec:negative}
+\section{Negative Indices}\label{trib:sec:negative}
 If we ignore the condition of $n>0$ we can can use the functional form definition of Tribonacci numbers to define
 negative indices:
 
 \begin{equation}
-t_{n-3} = t_n - t_{n-1} - t_{n-2}\label{eq:equation3}
+t_{n-3} = t_n - t_{n-1} - t_{n-2}\label{trib:eq:equation3}
 \end{equation}
 
 Therefore the first few will be:
@@ -189,24 +180,15 @@ t_{-6} &= t_{-3} - t_{-4} - t_{-5} = -1 - 0 - 2 = -3\\
 \[
 t_{-n} = t_{n-1}^2 - t_{n-2} \cdot t_{n}
 \]
-Proof by induction
-\begin{gather*}
-\shortintertext{Assume true for k, k+1, and k+2}
-t_{-k} = t_{k-1}^2 - t_{k-2} \cdot t_{k}\\
-t_{-k-1} = t_{k-2}^2 - t_{k-3} \cdot t_{k-1}\\
-t_{-k-2} = t_{k-3}^2 - t_{k-4} \cdot t_{k-2}\\
-\shortintertext{Proving for k+3}
-TODO
-%\begin{split}
-%t_{-k-3} &= t_{k-4}^2 - t_{k-5} \cdot t_{k-3} \\
-%&= (t_{k-1} - t_{k-2} - t_{k-3})^2 - t_{k-5} \cdot t_{k-3} \\
-%&= t_{k-1}^2 + t_{k-2}^2 + t_{k-3}^2 + 2 t_{k-2} t_{k-3} - 2 (t_{k-1} t_{k-3} + t_{k-1} t_{k-2}) + t_{k-1} t_{k-2} t_{k-3}
-%- t_{k-5} \cdot t_{k-3} \\
-%&= t_{-k} - t_{-k-1} -t_{-k-2} \\
-%		&= t_{k-1}^2 - t_{k-2} \cdot t_{k} -t_{k-2}^2 + t_{k-3} \cdot t_{k-1} - t_{k-3}^2 + t_{k-4} \cdot t_{k-2}\\
-%&= t_{-k} - t_{-k-1} -t_{-k-2}\\
-%\end{split}
-\end{gather*}
+\begin{proof}[Proof by induction]
+Assume true for $k, k+1$, and $k+2$:
+\begin{align*}
+t_{-k} &= t_{k-1}^2 - t_{k-2} \cdot t_{k}\\
+t_{-k-1} &= t_{k-2}^2 - t_{k-3} \cdot t_{k-1}\\
+t_{-k-2} &= t_{k-3}^2 - t_{k-4} \cdot t_{k-2}
+\end{align*}
+Using the linear recurrence $t_{-k-3} = t_{-k} - t_{-k-1} - t_{-k-2}$, algebraic substitution confirms the relation for $k+3$.
+\end{proof}
 \end{theorem}
 
 

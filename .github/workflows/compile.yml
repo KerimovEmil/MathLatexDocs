@@ -1,0 +1,46 @@
+name: Compile LaTeX Documents
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install LaTeX packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-science latexmk
+
+      - name: Compile Master Document and Subfiles
+        run: |
+          mkdir -p pdfs
+          cd tex_files
+          # Compile master.tex
+          if [ -f "master.tex" ]; then
+            echo "Compiling master.tex..."
+            pdflatex -interaction=nonstopmode -output-directory=../pdfs master.tex
+            pdflatex -interaction=nonstopmode -output-directory=../pdfs master.tex
+          fi
+          # Compile all standalone .tex files
+          for f in *.tex; do
+            if [ "$f" != "preamble.tex" ] && grep -q "\\\\begin{document}" "$f"; then
+              echo "Compiling $f..."
+              pdflatex -interaction=nonstopmode -output-directory=../pdfs "$f"
+              pdflatex -interaction=nonstopmode -output-directory=../pdfs "$f"
+            fi
+          done
+          cd ..
+
+      - name: Upload Compiled PDFs as Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-math-pdfs
+          path: pdfs/*.pdf

@@ -1,12 +1,6 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{mathtools}
-\usepackage{amssymb}
+\input{preamble}
 
 \title{Simple Definition of Logs}
 \author{Emil Kerimov}
@@ -14,19 +8,16 @@
 \begin{document}
 \maketitle
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
 
 
-\section{Defining logs simple}\label{logs simple}
 
-\subsection{Exponating rules}\label{Exponating rules}
-\begin{equation}\label{a_x_times_a_b}
+\section{Defining logs simple}\label{log:logs simple}
+
+\subsection{Exponating rules}\label{log:Exponating rules}
+\begin{equation}\label{log:a_x_times_a_b}
 a^{x} \cdot a^{y}  = a^{x+y}
 \end{equation}
-\begin{equation}\label{a_0}
+\begin{equation}\label{log:a_0}
 a^{x} \cdot a^{-x} = a^{x} \cdot \frac{1}{a^{x}} = 1 = a^{x-x} = a^{0}
 \end{equation}
 

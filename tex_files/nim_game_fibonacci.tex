@@ -1,36 +1,6 @@
-\documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage{microtype}
-\usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{enumitem}
-\usepackage{xcolor}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning}
+﻿\documentclass[a4paper]{article}
 
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue!70!black,
-    urlcolor=blue!70!black,
-    citecolor=blue!70!black
-}
-
-\numberwithin{equation}{section}
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{proposition}[theorem]{Proposition}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{remark}[theorem]{Remark}
-
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\bitand}{\mathbin{\&}}
+\input{preamble}
 
 \title{\textbf{The Game of Nim, Bouton's Theorem, and Fibonacci Bit-Patterns}\\[6pt]
 \large A Complete Mathematical Derivation of Project Euler Problem 301}
@@ -145,7 +115,7 @@ The algebraic structure $(\mathbb{N}_0, \oplus)$ is an infinite elementary abeli
 \end{enumerate}
 
 \subsection{Bouton's Theorem}
-\begin{theorem}[Bouton, 1901]\label{thm:bouton}
+\begin{theorem}[Bouton, 1901]\label{thm:nim:bouton}
 In an $m$-heap game of Nim with heap sizes $(h_1, h_2, \dots, h_m) \in \mathbb{N}_0^m$, a position is a $\mathcal{P}$-position (losing for the player whose turn it is) if and only if the Nim-sum of all heap sizes is zero:
 \begin{equation}
 \bigoplus_{j=1}^m h_j = 0.
@@ -189,7 +159,7 @@ By mathematical induction, $\mathcal{Z} = \mathcal{P}$, completing the proof.
 \section{Algebraic Reduction of $X(n, 2n, 3n) = 0$}
 
 \subsection{Condition Equivalence}
-For the configuration $(n, 2n, 3n)$, Theorem~\ref{thm:bouton} states:
+For the configuration $(n, 2n, 3n)$, Theorem~\ref{thm:nim:bouton} states:
 \begin{equation}
 X(n, 2n, 3n) = 0 \iff n \oplus 2n \oplus 3n = 0.
 \end{equation}
@@ -198,15 +168,15 @@ Using the self-inverting group property of $\oplus$:
 n \oplus 2n \oplus 3n = 0 \iff n \oplus 2n = 3n.
 \end{equation}
 Observing that $3n = n + 2n$ in ordinary arithmetic, this becomes:
-\begin{equation}\label{eq:xor_sum_eq_arith_sum}
+\begin{equation}\label{eq:nim:xor_sum_eq_arith_sum}
 n \oplus 2n = n + 2n.
 \end{equation}
 
 \subsection{Arithmetic Addition vs.\ Bitwise XOR}
 
-\begin{lemma}[Arithmetic and Bitwise Addition Identity]\label{lem:add_xor_identity}
+\begin{lemma}[Arithmetic and Bitwise Addition Identity]\label{lem:nim:add_xor_identity}
 For any $a, b \in \mathbb{N}_0$,
-\begin{equation}\label{eq:add_xor_formula}
+\begin{equation}\label{eq:nim:add_xor_formula}
 a + b = (a \oplus b) + 2(a \bitand b),
 \end{equation}
 where $\bitand$ denotes the bitwise AND operator.
@@ -237,7 +207,7 @@ Multiplying by $2^i$ and summing over all $i \ge 0$:
 By linearity of summation, this yields $a + b = (a \oplus b) + 2(a \bitand b)$.
 \end{proof}
 
-\begin{corollary}[Carryless Addition Criterion]\label{cor:carryless}
+\begin{corollary}[Carryless Addition Criterion]\label{cor:nim:carryless}
 For any non-negative integers $a, b \in \mathbb{N}_0$,
 \begin{equation}
 a \oplus b = a + b \iff a \bitand b = 0.
@@ -245,12 +215,12 @@ a \oplus b = a + b \iff a \bitand b = 0.
 \end{corollary}
 
 \begin{proof}
-From Lemma~\ref{lem:add_xor_identity}, $(a + b) - (a \oplus b) = 2(a \bitand b)$.
+From Lemma~\ref{lem:nim:add_xor_identity}, $(a + b) - (a \oplus b) = 2(a \bitand b)$.
 Since $a \bitand b \ge 0$, the difference vanishes if and only if $a \bitand b = 0$.
 \end{proof}
 
-Applying Corollary~\ref{cor:carryless} to $a = n$ and $b = 2n$:
-\begin{equation}\label{eq:n_and_2n}
+Applying Corollary~\ref{cor:nim:carryless} to $a = n$ and $b = 2n$:
+\begin{equation}\label{eq:nim:n_and_2n}
 X(n, 2n, 3n) = 0 \iff n \bitand (2n) = 0.
 \end{equation}
 
@@ -280,7 +250,7 @@ Therefore, $n \bitand (2n) = 0$ if and only if every bit of the product is 0:
 n \bitand (2n) = 0 \iff n_i \cdot n_{i-1} = 0 \quad \text{for all } i \ge 1.
 \end{equation}
 
-\begin{theorem}[Bit-Pattern Characterization]\label{thm:no_consecutive_ones}
+\begin{theorem}[Bit-Pattern Characterization]\label{thm:nim:no_consecutive_ones}
 A positive integer $n$ satisfies $X(n, 2n, 3n) = 0$ if and only if the binary expansion of $n$ contains no adjacent ones (that is, $n$ contains no substring \texttt{11} in base 2).
 \end{theorem}
 
@@ -307,7 +277,7 @@ Let $a_k = |\mathcal{B}_k|$.
         \item \textbf{Words starting with \texttt{1}:} Since \texttt{11} is forbidden, the second character must be \texttt{0}. Any such word is of the form \texttt{10}$v$, where $v \in \mathcal{B}_{k-2}$. There are $a_{k-2}$ such words.
     \end{enumerate}
     Since these two subsets are disjoint and partition $\mathcal{B}_k$:
-    \begin{equation}\label{eq:fib_recurrence}
+    \begin{equation}\label{eq:nim:fib_recurrence}
     a_k = a_{k-1} + a_{k-2} \quad \text{for all } k \ge 2.
     \end{equation}
 \end{itemize}
@@ -318,7 +288,7 @@ Recall the standard Fibonacci sequence $(F_m)_{m \ge 1}$:
 F_1 = 1, \quad F_2 = 1, \quad F_m = F_{m-1} + F_{m-2} \quad (m \ge 3).
 \end{equation}
 
-\begin{lemma}\label{lem:ak_fib}
+\begin{lemma}\label{lem:nim:ak_fib}
 For every integer $k \ge 0$,
 \begin{equation}
 a_k = F_{k+2}.
@@ -343,7 +313,7 @@ By mathematical induction, $a_k = F_{k+2}$ for all $k \ge 0$.
 
 \subsection{Integers in the Half-Open Interval $[0, 2^K)$}
 Every integer $n$ in the range $0 \le n < 2^K$ can be represented as a binary string of length exactly $K$ (by prepending leading zeros if necessary). Since leading zeros do not introduce \texttt{11} substrings, there is a natural bijection between $\{ n \in \mathbb{N}_0 : 0 \le n < 2^K \text{ and } n \bitand 2n = 0 \}$ and $\mathcal{B}_K$.
-By Lemma~\ref{lem:ak_fib}:
+By Lemma~\ref{lem:nim:ak_fib}:
 \begin{equation}
 \#\{ n \in \mathbb{N}_0 : 0 \le n < 2^K \text{ and } n \bitand 2n = 0 \} = a_K = F_{K+2}.
 \end{equation}
@@ -369,7 +339,7 @@ Summing the contributions:
 \mathcal{N}(2^K) = (F_{K+2} - 1) + 1 = F_{K+2}.
 \end{equation}
 
-\begin{theorem}[Closed-Form Solution]\label{thm:final_count}
+\begin{theorem}[Closed-Form Solution]\label{thm:nim:final_count}
 For any integer $K \ge 1$, the number of positive integers $n \le 2^K$ such that $X(n, 2n, 3n) = 0$ is given by the $(K+2)$-th Fibonacci number:
 \begin{equation}
 \mathcal{N}(2^K) = F_{K+2}.
@@ -379,7 +349,7 @@ For any integer $K \ge 1$, the number of positive integers $n \le 2^K$ such that
 
 \section{Exact Numerical Evaluation for $K = 30$}
 
-Setting $K = 30$ in Theorem~\ref{thm:final_count}, the total number of solutions is:
+Setting $K = 30$ in Theorem~\ref{thm:nim:final_count}, the total number of solutions is:
 \begin{equation}
 \mathcal{N}(2^{30}) = F_{30+2} = F_{32}.
 \end{equation}

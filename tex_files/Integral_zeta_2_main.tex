@@ -1,37 +1,16 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{cleveref}
-\usepackage{mathtools}
-\usepackage{fancyhdr}
-\numberwithin{equation}{subsection}
+\input{preamble}
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}{Definition}[section]
-
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[CE]{\Author}
-\fancyhead[CO]{\Title}
-\renewcommand\headrulewidth{0pt}
-\pagestyle{fancy}
-
+\title{Integral Representation of Zeta(2)}
 \author{Emil Kerimov}
-%\title{Basic Trig Functions}
-
-\makeatletter
-\let\Title\@author
-
+\date{\today}
 
 \begin{document}
+\maketitle
 
 
-\section{Integral Representation of Zeta(2)}\label{Integral Representation of Zeta(2)} 
+\section{Integral Representation of Zeta(2)}\label{iz2:Integral Representation of Zeta(2)} 
 
 $$
 \int_{0}^{\infty}\frac{t}{e^{\alpha t}-1}dt

@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+﻿\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -10,7 +10,7 @@
 \begin{document}
 \maketitle
 
-\section{History}\label{sec:history}
+\section{History}\label{eps:sec:history}
 
 Scipione del Ferro is thought to have been the first to discover the general solution to the cubic equation, but did not publish it, and kept it a secret until his deathbed, telling his student Antonio Fior.
 Fior then challenged Niccolo Fontana, also known as Tartaglia, in 1535 to solve a list of 30 depressed cubics.
@@ -59,9 +59,9 @@ Abel is credited for finally putting this question to rest.
 Evariste Galois, who died at the age of 20 in 1832 in a duel, studied attempted to generalize how to determine when the roots could be solved in terms of radicals.
 He became the first mathematician to use the word 'group' and defined the normal subgroup.
 
-\section{Quadratic}\label{sec:quadratic}
+\section{Quadratic}\label{eps:sec:quadratic}
 
-\begin{definition}\label{quad def}
+\begin{definition}\label{eps:quad def}
   A quadratic polynomial
   \[
     ax^2 + bx + c = 0
@@ -72,12 +72,12 @@ Given a quadratic polynomial, the two solutions of $x$ that satisfy this equatio
 \begin{equation}
   \boxed{
     x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-  }\label{eq:equation}
+  }\label{eps:eq:equation}
 \end{equation}
 
 This one equation has three solutions due to the cube root of complex numbers.
 
-\subsection{Algebraic Proof}\label{subsec:algebraic-proof}
+\subsection{Algebraic Proof}\label{eps:subsec:algebraic-proof}
 The most straight-forward proof is given by a technique referred to as 'Completing the Square'.
 
 \begin{gather*}
@@ -97,16 +97,16 @@ The most straight-forward proof is given by a technique referred to as 'Completi
   \end{alignedat}
 \end{gather*}
 
-\subsection{Discriminant}\label{subsec:discriminant}
+\subsection{Discriminant}\label{eps:subsec:discriminant}
 
 The discriminant of a quadratic equation is defined to be
 \begin{equation}
-  \Delta = b^2 - 4ac\label{eq:equation2}
+  \Delta = b^2 - 4ac\label{eps:eq:equation2}
 \end{equation}
 
-\section{Cubic}\label{sec:cubic}
+\section{Cubic}\label{eps:sec:cubic}
 
-\begin{definition}\label{cubic def}
+\begin{definition}\label{eps:cubic def}
   A cubic polynomial
   \[
     ax^3 + bx^2 + cx + d = 0
@@ -115,7 +115,7 @@ The discriminant of a quadratic equation is defined to be
 
 Given a cubic polynomial the three solutions of $x$ that satisfy this equation are given by
 
-\begin{equation} \label{eq:cubic-solution}
+\begin{equation} \label{eps:eq:cubic-solution}
   \boxed{
     \begin{split}
       x = - \frac{b}{3a} +
@@ -141,8 +141,8 @@ Given a cubic polynomial the three solutions of $x$ that satisfy this equation a
 
 This was first shown by Gerolamo Cardano in 1545
 
-\subsection{Depressed Cubic}\label{subsec:depressed-cubic}
-\begin{definition}\label{depressed cubic def}
+\subsection{Depressed Cubic}\label{eps:subsec:depressed-cubic}
+\begin{definition}\label{eps:depressed cubic def}
   A depressed cubic is a polynomial in the form of
   \[
     x^3 + cx + d = 0
@@ -155,7 +155,7 @@ This was first shown by Gerolamo Cardano in 1545
 
   Proof
   \begin{gather*}
-    \intertext{Starting from definition~\ref{cubic def}}
+    \intertext{Starting from definition~\ref{eps:cubic def}}
     ax^3 + bx^2 + cx + d = 0
     \\
     \intertext{Dividing by a, we define}
@@ -199,7 +199,7 @@ This was first shown by Gerolamo Cardano in 1545
 
   Proof
   \begin{gather*}
-    \intertext{Starting from definition~\ref{depressed cubic def}}
+    \intertext{Starting from definition~\ref{eps:depressed cubic def}}
     z^3 + cz + d = 0
     \\
     \intertext{Define $p=-\frac{c}{3}$ and $q=-\frac{d}{2} $}
@@ -238,7 +238,7 @@ This was first shown by Gerolamo Cardano in 1545
 
 
 
-\subsection{General Cubic}\label{subsec:general-cubic}
+\subsection{General Cubic}\label{eps:subsec:general-cubic}
 Combining all of these results to back out the solution for a general cubic equation in terms of the original variables, $ax^3 + bx^2 + cx + d = 0$,
 we first summarize the steps taken.
 
@@ -356,29 +356,177 @@ Undoing these substitutions backwards
   \Bigg)
 \end{gather*}
 
-\subsection{Discriminant}\label{subsec:discriminant2}
-The discriminant of a cubic equation is defined to be
+\subsection{Discriminant}\label{eps:subsec:discriminant2}
+The discriminant of a cubic equation $a x^3 + b x^2 + c x + d = 0$ is defined to be
 \begin{equation}
-  \Delta = b^2 c^2 - 27a^2 d^2 + 18a b c d - 4ac^3 - 4b^{3}d\label{eq:equation3}
+  \Delta = 18a b c d - 4b^{3}d + b^2 c^2 - 4ac^3 - 27a^2 d^2 \label{eps:eq:cubic-discriminant}
 \end{equation}
 
-\subsection{Elliptical Curves}\label{subsec:elliptical-curves}
+\begin{enumerate}
+  \item If $\Delta > 0$, the cubic has 3 distinct real roots.
+  \item If $\Delta = 0$, the cubic has multiple roots (and all roots are real).
+  \item If $\Delta < 0$, the cubic has 1 real root and 2 complex conjugate roots.
+\end{enumerate}
 
-\section{Quartic}\label{sec:quartic}
-\url{https://en.wikipedia.org/wiki/Quartic_function}
 
-\section{Appendix}\label{sec:appendix}
+\section{Quartic Equations}\label{eps:sec:quartic}
 
-\subsection{General Discriminant}\label{subsec:general-discriminant}
+A general quartic polynomial has the form:
+\begin{equation}
+    a x^4 + b x^3 + c x^2 + d x + e = 0, \qquad (a \ne 0)
+\end{equation}
 
-\begin{gather*}
-  A(x) = a_{n}x^n+a_{n-1}x^{n-1}+\cdots+a_{1}x+a_0\\
-  \operatorname{Disc}_x(A) = \frac{(-1)^{\frac{n(n-1)}{2}}} {a_n}\operatorname{Res}_x(A,A')\\
-\end{gather*}
+\subsection{Depressing the Quartic}
+Dividing by $a$ and applying the Tschirnhaus transformation $x = y - \frac{b}{4a}$ eliminates the cubic term, yielding the \emph{depressed quartic}:
+\begin{equation}
+    y^4 + p y^2 + q y + r = 0 \label{eps:eq:depressed-quartic}
+\end{equation}
+where
+\begin{align*}
+    p &= \frac{8ac - 3b^2}{8a^2}, \\
+    q &= \frac{b^3 - 4abc + 8a^2d}{8a^3}, \\
+    r &= \frac{-3b^4 + 256a^3e - 64a^2bd + 16ab^2c}{256a^4}
+\end{align*}
 
-The resultant of A and its derivative A'(x) is the determinant of the Sylvester matrix of A and A'.
-\\
-This sign has been historically chosen, in order that, over the reals, the discriminant is positive if all the roots of the polynomial are real.
-\\
-TODO, prove this and define the Sylvester matrix.
+\subsection{Ferrari's Method of Solution}
+Rewrite equation~\eqref{eps:eq:depressed-quartic} by moving the linear and constant terms to the right-hand side:
+\[
+    y^4 + p y^2 = -q y - r
+\]
+Complete the square on the left-hand side by adding $\left(\frac{p}{2}\right)^2$:
+\[
+    \left(y^2 + \frac{p}{2}\right)^2 = -q y - r + \frac{p^2}{4}
+\]
+Now introduce an auxiliary parameter $m$. Adding $2m\left(y^2 + \frac{p}{2}\right) + m^2$ to both sides yields:
+\begin{equation}
+    \left(y^2 + \frac{p}{2} + m\right)^2 = 2m y^2 - q y + \left(m^2 + pm + \frac{p^2}{4} - r\right) \label{eps:eq:ferrari-identity}
+\end{equation}
+The right-hand side is a quadratic in $y$: $A y^2 + B y + C$ where $A = 2m$, $B = -q$, and $C = m^2 + pm + \frac{p^2}{4} - r$.
+
+For the right-hand side to be a perfect square $(k y + l)^2$, its discriminant with respect to $y$ must vanish ($B^2 - 4AC = 0$):
+\[
+    (-q)^2 - 4(2m)\left(m^2 + pm + \frac{p^2}{4} - r\right) = 0
+\]
+Expanding this condition gives \textbf{Ferrari's Resolvent Cubic}:
+\begin{equation}
+    \boxed{8m^3 + 8pm^2 + (2p^2 - 8r)m - q^2 = 0} \label{eps:eq:resolvent-cubic}
+\end{equation}
+This is a cubic equation in $m$, which can be solved explicitly in radicals using Cardano's formula.
+
+Let $m_0 \ne 0$ be any real (or complex) root of the resolvent cubic. Then the right-hand side of equation~\eqref{eps:eq:ferrari-identity} factors as:
+\[
+    2m_0 y^2 - q y + \left(m_0^2 + pm_0 + \frac{p^2}{4} - r\right) = \left( \sqrt{2m_0} y - \frac{q}{2\sqrt{2m_0}} \right)^2
+\]
+Taking square roots on both sides gives two quadratic equations:
+\begin{equation}
+    y^2 + \frac{p}{2} + m_0 = \pm \left( \sqrt{2m_0} y - \frac{q}{2\sqrt{2m_0}} \right)
+\end{equation}
+Rearranging into standard quadratic form:
+\begin{align}
+    y^2 - \sqrt{2m_0} y + \left(\frac{p}{2} + m_0 + \frac{q}{2\sqrt{2m_0}}\right) &= 0 \\
+    y^2 + \sqrt{2m_0} y + \left(\frac{p}{2} + m_0 - \frac{q}{2\sqrt{2m_0}}\right) &= 0
+\end{align}
+Solving each quadratic with the standard quadratic formula yields the four roots $y_1, y_2, y_3, y_4$, and substituting back $x_k = y_k - \frac{b}{4a}$ provides the exact solutions to the original quartic equation.
+
+\begin{remark}[The Abel-Ruffini Theorem]
+By the Abel-Ruffini Theorem (1799/1824) and Galois Theory, the quartic is the highest-degree general polynomial equation solvable in radicals; general polynomials of degree $n \ge 5$ cannot be solved in terms of radicals.
+\end{remark}
+
+
+\section{Sylvester Matrices, Resultants, and General Discriminants}\label{eps:sec:sylvester-resultants}
+
+\subsection{The Sylvester Matrix}
+
+Let $P(x)$ and $Q(x)$ be polynomials with degrees $n \ge 1$ and $m \ge 1$:
+\begin{align}
+    P(x) &= a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0, \qquad (a_n \ne 0) \\
+    Q(x) &= b_m x^m + b_{m-1} x^{m-1} + \dots + b_1 x + b_0, \qquad (b_m \ne 0)
+\end{align}
+
+\begin{definition}[Sylvester Matrix]\label{eps:def:sylvester-matrix}
+The \textbf{Sylvester matrix} $S(P, Q)$ is the $(n+m) \times (n+m)$ matrix formed by filling $m$ rows with the coefficients of $P(x)$ and $n$ rows with the coefficients of $Q(x)$, shifted successively:
+\begin{equation}
+    S(P, Q) = 
+    \begin{pmatrix}
+        a_n & a_{n-1} & \cdots & a_1 & a_0 & 0 & \cdots & 0 \\
+        0 & a_n & a_{n-1} & \cdots & a_1 & a_0 & \cdots & 0 \\
+        \vdots & & \ddots & & & & \ddots & \vdots \\
+        0 & \cdots & 0 & a_n & a_{n-1} & \cdots & a_1 & a_0 \\
+        b_m & b_{m-1} & \cdots & b_1 & b_0 & 0 & \cdots & 0 \\
+        0 & b_m & b_{m-1} & \cdots & b_1 & b_0 & \cdots & 0 \\
+        \vdots & & \ddots & & & & \ddots & \vdots \\
+        0 & \cdots & 0 & b_m & b_{m-1} & \cdots & b_1 & b_0
+    \end{pmatrix}
+\end{equation}
+\end{definition}
+
+\subsection{The Resultant}
+
+\begin{definition}[Resultant]\label{eps:def:resultant}
+The \textbf{resultant} of polynomials $P$ and $Q$, denoted $\operatorname{Res}(P, Q)$, is the determinant of their Sylvester matrix:
+\begin{equation}
+    \operatorname{Res}(P, Q) = \det S(P, Q)
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Fundamental Property of Resultants]\label{eps:thm:resultant-roots}
+Let $P(x) = a_n \prod_{i=1}^n (x - \alpha_i)$ and $Q(x) = b_m \prod_{j=1}^m (x - \beta_j)$. Then:
+\begin{equation}
+    \operatorname{Res}(P, Q) = a_n^m b_m^n \prod_{i=1}^n \prod_{j=1}^m (\alpha_i - \beta_j) = a_n^m \prod_{i=1}^n Q(\alpha_i) = (-1)^{nm} b_m^n \prod_{j=1}^m P(\beta_j)
+\end{equation}
+In particular, $\operatorname{Res}(P, Q) = 0$ if and only if $P(x)$ and $Q(x)$ share a common root in $\mathbb{C}$.
+\end{theorem}
+
+\subsection{The General Polynomial Discriminant}
+
+A polynomial $P(x)$ has a multiple root if and only if $P(x)$ and its derivative $P'(x)$ share a root, which occurs precisely when $\operatorname{Res}(P, P') = 0$.
+
+\begin{definition}[Polynomial Discriminant]\label{eps:def:polynomial-discriminant}
+For a polynomial $P(x) = a_n \prod_{i=1}^n (x - \alpha_i)$, the \textbf{discriminant} $\Delta(P)$ is defined as:
+\begin{equation}
+    \Delta(P) = a_n^{2n-2} \prod_{1 \le i < j \le n} (\alpha_i - \alpha_j)^2
+\end{equation}
+In terms of the resultant with its derivative $P'(x)$:
+\begin{equation}
+    \boxed{\Delta(P) = \frac{(-1)^{\frac{n(n-1)}{2}}}{a_n} \operatorname{Res}(P, P')}
+\end{equation}
+\end{definition}
+
+\subsubsection{Example 1: Quadratic Discriminant}
+For $P(x) = a x^2 + b x + c$, $P'(x) = 2a x + b$. The Sylvester matrix is $3 \times 3$:
+\[
+    S(P, P') = 
+    \begin{pmatrix}
+        a & b & c \\
+        2a & b & 0 \\
+        0 & 2a & b
+    \end{pmatrix}
+\]
+Evaluating the determinant:
+\[
+    \det S(P, P') = a(b^2) - b(2ab) + c(4a^2) = a b^2 - 2a b^2 + 4a^2 c = -a(b^2 - 4ac)
+\]
+Since $n=2$, $(-1)^{n(n-1)/2} = (-1)^1 = -1$, yielding:
+\[
+    \Delta(P) = \frac{-1}{a} \left[ -a(b^2 - 4ac) \right] = b^2 - 4ac
+\]
+
+\subsubsection{Example 2: Cubic Discriminant}
+For $P(x) = a x^3 + b x^2 + c x + d$, $P'(x) = 3a x^2 + 2b x + c$. The Sylvester matrix is $5 \times 5$:
+\[
+    S(P, P') = 
+    \begin{pmatrix}
+        a & b & c & d & 0 \\
+        0 & a & b & c & d \\
+        3a & 2b & c & 0 & 0 \\
+        0 & 3a & 2b & c & 0 \\
+        0 & 0 & 3a & 2b & c
+    \end{pmatrix}
+\]
+Since $n=3$, $(-1)^{n(n-1)/2} = (-1)^3 = -1$. Evaluating $\det S(P, P')$ directly gives:
+\[
+    \Delta(P) = -\frac{1}{a} \det S(P, P') = 18abcd - 4b^3d + b^2c^2 - 4ac^3 - 27a^2d^2
+\]
+matching exactly the formula in equation~\eqref{eps:eq:cubic-discriminant}.
+
 \end{document}

@@ -1,28 +1,7 @@
-\documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
-\usepackage{microtype}
-\usepackage{hyperref}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{mathrsfs}
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning}
-\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black}
-\numberwithin{equation}{section}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{definition}[theorem]{Definition}
-\newcommand{\R}{\mathbb R}
-\newcommand{\N}{\mathbb N}
-\newcommand{\G}{\mathcal G}
-\newcommand{\Lop}{\mathcal L}
-\newcommand{\PP}{\mathcal P}
-\newcommand{\dd}{\,\mathrm d}
+﻿\documentclass[a4paper]{article}
+
+\input{preamble}
+
 \title{\textbf{From Khinchin's Constant to the Gauss--Kuzmin--Wirsing Constant}\\[4pt]\large Continued Fractions, the Gauss Map, Invariant Measure, and Transfer-Operator Spectral Theory}
 \author{Emil Kerimov}
 \date{September 2026}
@@ -121,14 +100,14 @@ Hence
 Let $f$ be an arbitrary density and let $Y=T(X)$. For a fixed $y$, every inverse branch contributes probability from $x_k=\phi_k(y)=1/(k+y)$. The change-of-variables formula therefore gives
 \begin{equation}
  (\PP f)(y)=\sum_{k=1}^{\infty}f\!\left(\frac1{k+y}\right)\frac1{(k+y)^2}.
- \label{eq:PF}
+ \label{gkw:eq:PF}
 \end{equation}
 The operator $\PP$ is the Frobenius--Perron, or transfer, operator of the Gauss map.
 
 An invariant density is a fixed point:
 \begin{equation}
  \PP f=f.
- \label{eq:fixed}
+ \label{gkw:eq:fixed}
 \end{equation}
 
 \subsection{Why $1/(1+x)$ appears}
