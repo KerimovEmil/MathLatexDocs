@@ -1,0 +1,412 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bitand}{\mathbin{\&}}
+
+\title{\textbf{The Game of Nim, Bouton's Theorem, and Fibonacci Bit-Patterns}\\[6pt]
+\large A Complete Mathematical Derivation of Project Euler Problem 301}
+\author{Emil Kerimov}
+\date{September 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a rigorous, self-contained mathematical analysis and derivation of Project Euler Problem 301. By employing Bouton's classic theorem from Combinatorial Game Theory, we express the winning/losing positions of three-heap Nim via the bitwise XOR sum (Nim-sum). We analyze the specific family of configurations $(n, 2n, 3n)$ and establish an exact algebraic bridge between bitwise addition and standard arithmetic, reducing the condition $X(n, 2n, 3n) = 0$ to carryless addition $n \bitand 2n = 0$. We prove that this condition is equivalent to the absence of consecutive ones in the binary representation of $n$, and we enumerate such integers on the interval $[1, 2^{30}]$ via a combinatorial bijection with the Fibonacci sequence, arriving at the exact count $\mathcal{N}(2^{30}) = F_{32} = 2\,178\,309$.
+\end{abstract}
+
+\tableofcontents
+\vspace{1em}
+
+\section{Introduction and Problem Formulation}
+
+\subsection{Rules of Impartial Normal-Play Nim}
+Nim is a classic impartial game played by two players with a finite collection of heaps containing discrete tokens (or stones). The game operates under the \textbf{normal play convention}:
+\begin{enumerate}[label=(\roman*)]
+    \item Players alternate turns.
+    \item On each turn, the active player chooses a single non-empty heap and removes any positive integer number of stones from it (up to the entire heap).
+    \item The game ends when no stones remain in any heap.
+    \item The first player unable to make a valid move (because all heaps are empty) loses; equivalently, the player who makes the final move wins.
+\end{enumerate}
+
+A game state with three heaps is denoted by the triple $(n_1, n_2, n_3) \in \mathbb{N}_0^3$, where $n_i$ represents the number of stones in the $i$-th heap.
+
+\subsection{Combinatorial Game States: $\mathcal{P}$-Positions and $\mathcal{N}$-Positions}
+In Combinatorial Game Theory (CGT), every position in a finite impartial game without cycles belongs to one of two mutually exclusive classes:
+\begin{itemize}
+    \item \textbf{$\mathcal{P}$-positions (Previous-player winning / Losing for the next player):} Any valid move from a state in $\mathcal{P}$ leads to a state in $\mathcal{N}$. The terminal state $(0, 0, 0)$ is in $\mathcal{P}$.
+    \item \textbf{$\mathcal{N}$-positions (Next-player winning / Winning for the next player):} There exists at least one legal move from any state in $\mathcal{N}$ to some state in $\mathcal{P}$.
+\end{itemize}
+
+The characteristic evaluation function $X(n_1, n_2, n_3)$ is defined as:
+\begin{equation}
+X(n_1, n_2, n_3) = 
+\begin{cases}
+0, & \text{if } (n_1, n_2, n_3) \in \mathcal{P} \quad (\text{second player can force a win}), \\
+\ne 0, & \text{if } (n_1, n_2, n_3) \in \mathcal{N} \quad (\text{first player can force a win}).
+\end{cases}
+\end{equation}
+
+\subsection{Example: The Winning Strategy from Starting Position $(1, 2, 3)$}
+To illustrate the mechanism of $\mathcal{P}$-positions and the winning strategy, consider the starting state $(1, 2, 3)$. We will show that $(1, 2, 3) \in \mathcal{P}$, meaning that the second player can always force a win regardless of the first player's initial move.
+
+The first player has six possible opening moves from $(1, 2, 3)$:
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Reduce Heap 1 ($1 \to 0$):} The state becomes $(0, 2, 3)$. 
+    
+    \textit{Winning Response by Player 2:} Player 2 reduces Heap 3 from $3 \to 2$, leaving $(0, 2, 2)$. This is a two-heap symmetric position. Whatever Player 1 takes from one heap of size 2, Player 2 mirrors by taking the exact same amount from the other heap, guaranteeing the last move.
+    
+    \item \textbf{Reduce Heap 2 ($2 \to 1$):} The state becomes $(1, 1, 3)$.
+    
+    \textit{Winning Response by Player 2:} Player 2 removes all stones from Heap 3 ($3 \to 0$), leaving $(1, 1, 0)$. Again, Player 2 adopts the mirror strategy on the two equal heaps of size 1.
+    
+    \item \textbf{Reduce Heap 2 ($2 \to 0$):} The state becomes $(1, 0, 3)$.
+    
+    \textit{Winning Response by Player 2:} Player 2 reduces Heap 3 from $3 \to 1$, leaving $(1, 0, 1)$, securing the symmetric mirror state.
+    
+    \item \textbf{Reduce Heap 3 ($3 \to 2$):} The state becomes $(1, 2, 2)$.
+    
+    \textit{Winning Response by Player 2:} Player 2 takes the single stone from Heap 1 ($1 \to 0$), leaving $(0, 2, 2)$.
+    
+    \item \textbf{Reduce Heap 3 ($3 \to 1$):} The state becomes $(1, 2, 1)$.
+    
+    \textit{Winning Response by Player 2:} Player 2 removes all stones from Heap 2 ($2 \to 0$), leaving $(1, 0, 1)$.
+    
+    \item \textbf{Reduce Heap 3 ($3 \to 0$):} The state becomes $(1, 2, 0)$.
+    
+    \textit{Winning Response by Player 2:} Player 2 reduces Heap 2 from $2 \to 1$, leaving $(1, 1, 0)$.
+\end{enumerate}
+
+In every single branch, Player 2 transitions the game to a state of two equal non-empty heaps $(k, k, 0)$, from which any move by Player 1 allows Player 2 to maintain equality or win immediately. An example sequence of optimal play is:
+\begin{align*}
+\text{Player 1 moves:} \quad &(1, 2, 3) \longrightarrow (1, 2, 1) \\
+\text{Player 2 responds:} \quad &(1, 2, 1) \longrightarrow (1, 0, 1) \\
+\text{Player 1 moves:} \quad &(1, 0, 1) \longrightarrow (0, 0, 1) \\
+\text{Player 2 responds:} \quad &(0, 0, 1) \longrightarrow (0, 0, 0) \quad \text{(Player 2 wins!)}
+\end{align*}
+Hence, $X(1, 2, 3) = 0$.
+
+\subsection{The Target Question}
+Project Euler Problem 301 asks:
+\begin{equation}
+\text{For how many positive integers } n \le 2^{30} \text{ does } X(n, 2n, 3n) = 0?
+\end{equation}
+
+
+\section{Bouton's Theorem and the Nim-Sum}
+
+\subsection{Definition: The Nim-Sum}
+\begin{definition}[Nim-Sum]
+Let $a, b \in \mathbb{N}_0$ have binary expansions:
+\begin{equation}
+a = \sum_{i=0}^\infty a_i 2^i, \quad b = \sum_{i=0}^\infty b_i 2^i \qquad (a_i, b_i \in \{0, 1\}).
+\end{equation}
+The \textbf{Nim-sum} of $a$ and $b$, denoted $a \oplus b$, is defined by bitwise addition modulo 2:
+\begin{equation}
+a \oplus b = \sum_{i=0}^\infty (a_i \oplus b_i) 2^i, \quad \text{where } a_i \oplus b_i = (a_i + b_i) \bmod 2.
+\end{equation}
+\end{definition}
+
+The algebraic structure $(\mathbb{N}_0, \oplus)$ is an infinite elementary abelian 2-group:
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Associativity and Commutativity:} $(a \oplus b) \oplus c = a \oplus (b \oplus c)$ and $a \oplus b = b \oplus a$.
+    \item \textbf{Identity Element:} $a \oplus 0 = a$ for all $a \in \mathbb{N}_0$.
+    \item \textbf{Self-Inversion:} $a \oplus a = 0$ for all $a \in \mathbb{N}_0$.
+\end{enumerate}
+
+\subsection{Bouton's Theorem}
+\begin{theorem}[Bouton, 1901]\label{thm:bouton}
+In an $m$-heap game of Nim with heap sizes $(h_1, h_2, \dots, h_m) \in \mathbb{N}_0^m$, a position is a $\mathcal{P}$-position (losing for the player whose turn it is) if and only if the Nim-sum of all heap sizes is zero:
+\begin{equation}
+\bigoplus_{j=1}^m h_j = 0.
+\end{equation}
+Equivalently, $X(h_1, h_2, \dots, h_m) = \bigoplus_{j=1}^m h_j$.
+\end{theorem}
+
+\begin{proof}
+Let $\mathcal{Z} = \left\{ (h_1, \dots, h_m) \in \mathbb{N}_0^m : \bigoplus_{j=1}^m h_j = 0 \right\}$. We prove by complete induction on the total stone count $S = \sum_{j=1}^m h_j$ that $\mathcal{Z}$ satisfies the axiomatic properties of $\mathcal{P}$-positions:
+
+\begin{enumerate}
+    \item \textbf{Base Case ($S = 0$):} The only state is $(0, \dots, 0)$. Its Nim-sum is $0 \oplus \dots \oplus 0 = 0 \in \mathcal{Z}$. The active player has no moves and loses, so $(0, \dots, 0) \in \mathcal{P}$.
+
+    \item \textbf{Every move from $\mathcal{Z}$ leads outside $\mathcal{Z}$ ($\mathcal{P} \to \mathcal{N}$):}
+    Let $(h_1, \dots, h_m) \in \mathcal{Z}$, so $\bigoplus_{j=1}^m h_j = 0$. A legal move strictly decreases one heap, say $h_k \to h'_k$ with $0 \le h'_k < h_k$. The new Nim-sum $V'$ is:
+    \begin{equation}
+    V' = \left( \bigoplus_{j \ne k} h_j \right) \oplus h'_k = \left( \bigoplus_{j=1}^m h_j \right) \oplus h_k \oplus h'_k = 0 \oplus h_k \oplus h'_k = h_k \oplus h'_k.
+    \end{equation}
+    Since $h'_k \ne h_k$, $h_k \oplus h'_k \ne 0$. Thus, $V' \ne 0$, meaning the new state is not in $\mathcal{Z}$.
+
+    \item \textbf{From any state not in $\mathcal{Z}$, there exists a move into $\mathcal{Z}$ ($\mathcal{N} \to \mathcal{P}$):}
+    Suppose $(h_1, \dots, h_m) \notin \mathcal{Z}$, so $V = \bigoplus_{j=1}^m h_j \ne 0$. Let $d = \lfloor \log_2 V \rfloor$ denote the most significant bit (MSB) of $V$, so bit $d$ of $V$ is 1.
+    Since bit $d$ of $V$ is the parity of the $d$-th bits of all $h_j$, there exists at least one heap $h_k$ whose $d$-th bit is 1.
+    
+    We choose the replacement size $h'_k = h_k \oplus V$.
+    \begin{itemize}
+        \item For all bit indices $i > d$, the $i$-th bit of $V$ is 0, so bit $i$ of $h'_k$ matches bit $i$ of $h_k$.
+        \item At bit index $d$, bit $d$ of $h_k$ is 1 and bit $d$ of $V$ is 1, so bit $d$ of $h'_k$ is $1 \oplus 1 = 0$.
+    \end{itemize}
+    Consequently, $h'_k < h_k$, so reducing heap $k$ to $h'_k$ is a valid Nim move. The new Nim-sum is:
+    \begin{equation}
+    V' = V \oplus h_k \oplus h'_k = V \oplus h_k \oplus (h_k \oplus V) = 0.
+    \end{equation}
+    Thus the resulting state is in $\mathcal{Z}$.
+\end{enumerate}
+
+By mathematical induction, $\mathcal{Z} = \mathcal{P}$, completing the proof.
+\end{proof}
+
+
+\section{Algebraic Reduction of $X(n, 2n, 3n) = 0$}
+
+\subsection{Condition Equivalence}
+For the configuration $(n, 2n, 3n)$, Theorem~\ref{thm:bouton} states:
+\begin{equation}
+X(n, 2n, 3n) = 0 \iff n \oplus 2n \oplus 3n = 0.
+\end{equation}
+Using the self-inverting group property of $\oplus$:
+\begin{equation}
+n \oplus 2n \oplus 3n = 0 \iff n \oplus 2n = 3n.
+\end{equation}
+Observing that $3n = n + 2n$ in ordinary arithmetic, this becomes:
+\begin{equation}\label{eq:xor_sum_eq_arith_sum}
+n \oplus 2n = n + 2n.
+\end{equation}
+
+\subsection{Arithmetic Addition vs.\ Bitwise XOR}
+
+\begin{lemma}[Arithmetic and Bitwise Addition Identity]\label{lem:add_xor_identity}
+For any $a, b \in \mathbb{N}_0$,
+\begin{equation}\label{eq:add_xor_formula}
+a + b = (a \oplus b) + 2(a \bitand b),
+\end{equation}
+where $\bitand$ denotes the bitwise AND operator.
+\end{lemma}
+
+\begin{proof}
+Let $a = \sum_{i=0}^\infty a_i 2^i$ and $b = \sum_{i=0}^\infty b_i 2^i$ be the binary representations of $a$ and $b$, with $a_i, b_i \in \{0, 1\}$.
+For each single bit position $i \ge 0$, we test all four possible binary assignments for $(a_i, b_i)$:
+
+\begin{center}
+\begin{tabular}{cccccc}
+\toprule
+$a_i$ & $b_i$ & $a_i + b_i$ & $a_i \oplus b_i$ & $a_i \bitand b_i$ & $(a_i \oplus b_i) + 2(a_i \bitand b_i)$ \\
+\midrule
+0 & 0 & 0 & 0 & 0 & $0 + 2(0) = 0$ \\
+0 & 1 & 1 & 1 & 0 & $1 + 2(0) = 1$ \\
+1 & 0 & 1 & 1 & 0 & $1 + 2(0) = 1$ \\
+1 & 1 & 2 & 0 & 1 & $0 + 2(1) = 2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+In every case, $a_i + b_i = (a_i \oplus b_i) + 2(a_i \bitand b_i)$ holds identically.
+Multiplying by $2^i$ and summing over all $i \ge 0$:
+\begin{equation}
+\sum_{i=0}^\infty (a_i + b_i) 2^i = \sum_{i=0}^\infty (a_i \oplus b_i) 2^i + 2 \sum_{i=0}^\infty (a_i \bitand b_i) 2^i.
+\end{equation}
+By linearity of summation, this yields $a + b = (a \oplus b) + 2(a \bitand b)$.
+\end{proof}
+
+\begin{corollary}[Carryless Addition Criterion]\label{cor:carryless}
+For any non-negative integers $a, b \in \mathbb{N}_0$,
+\begin{equation}
+a \oplus b = a + b \iff a \bitand b = 0.
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+From Lemma~\ref{lem:add_xor_identity}, $(a + b) - (a \oplus b) = 2(a \bitand b)$.
+Since $a \bitand b \ge 0$, the difference vanishes if and only if $a \bitand b = 0$.
+\end{proof}
+
+Applying Corollary~\ref{cor:carryless} to $a = n$ and $b = 2n$:
+\begin{equation}\label{eq:n_and_2n}
+X(n, 2n, 3n) = 0 \iff n \bitand (2n) = 0.
+\end{equation}
+
+
+\section{The "No Consecutive Ones" Bitwise Characterization}
+
+\subsection{Bit-Shift Analysis}
+Let $n \in \mathbb{N}$ have binary representation $n = \sum_{i=0}^\infty n_i 2^i$ with $n_i \in \{0, 1\}$.
+Multiplying $n$ by 2 corresponds to an arithmetic left-shift by 1 bit:
+\begin{equation}
+2n = \sum_{i=0}^\infty n_i 2^{i+1} = \sum_{j=1}^\infty n_{j-1} 2^j.
+\end{equation}
+Thus, the $i$-th bit of $2n$ is:
+\begin{equation}
+(2n)_0 = 0, \qquad (2n)_i = n_{i-1} \quad \text{for all } i \ge 1.
+\end{equation}
+
+\subsection{Bitwise AND Evaluation}
+The $i$-th bit of the bitwise AND product $n \bitand (2n)$ is:
+\begin{align}
+(n \bitand 2n)_0 &= n_0 \cdot (2n)_0 = n_0 \cdot 0 = 0, \\
+(n \bitand 2n)_i &= n_i \cdot (2n)_i = n_i \cdot n_{i-1} \quad \text{for all } i \ge 1.
+\end{align}
+
+Therefore, $n \bitand (2n) = 0$ if and only if every bit of the product is 0:
+\begin{equation}
+n \bitand (2n) = 0 \iff n_i \cdot n_{i-1} = 0 \quad \text{for all } i \ge 1.
+\end{equation}
+
+\begin{theorem}[Bit-Pattern Characterization]\label{thm:no_consecutive_ones}
+A positive integer $n$ satisfies $X(n, 2n, 3n) = 0$ if and only if the binary expansion of $n$ contains no adjacent ones (that is, $n$ contains no substring \texttt{11} in base 2).
+\end{theorem}
+
+\section{Combinatorial Enumeration via Fibonacci Numbers}
+
+\subsection{Binary Strings Without Consecutive Ones}
+Let $\mathcal{B}_k$ denote the set of binary words of length $k \ge 0$ over $\{0, 1\}$ containing no adjacent ones:
+\begin{equation}
+\mathcal{B}_k = \{ w \in \{0, 1\}^k : w \text{ does not contain the substring \texttt{11}} \}.
+\end{equation}
+Let $a_k = |\mathcal{B}_k|$.
+
+\begin{itemize}
+    \item \textbf{Base Cases:}
+    \begin{itemize}
+        \item $k = 0$: The empty word $\varepsilon$ contains no \texttt{11} $\implies a_0 = 1$.
+        \item $k = 1$: The words \texttt{"0"} and \texttt{"1"} both contain no \texttt{11} $\implies a_1 = 2$.
+    \end{itemize}
+    
+    \item \textbf{Recurrence for $k \ge 2$:}
+    We partition $\mathcal{B}_k$ according to the prefix of each word $w \in \mathcal{B}_k$:
+    \begin{enumerate}
+        \item \textbf{Words starting with \texttt{0}:} Any such word is of the form \texttt{0}$u$, where $u \in \mathcal{B}_{k-1}$. There are $a_{k-1}$ such words.
+        \item \textbf{Words starting with \texttt{1}:} Since \texttt{11} is forbidden, the second character must be \texttt{0}. Any such word is of the form \texttt{10}$v$, where $v \in \mathcal{B}_{k-2}$. There are $a_{k-2}$ such words.
+    \end{enumerate}
+    Since these two subsets are disjoint and partition $\mathcal{B}_k$:
+    \begin{equation}\label{eq:fib_recurrence}
+    a_k = a_{k-1} + a_{k-2} \quad \text{for all } k \ge 2.
+    \end{equation}
+\end{itemize}
+
+\subsection{Connection to the Fibonacci Sequence}
+Recall the standard Fibonacci sequence $(F_m)_{m \ge 1}$:
+\begin{equation}
+F_1 = 1, \quad F_2 = 1, \quad F_m = F_{m-1} + F_{m-2} \quad (m \ge 3).
+\end{equation}
+
+\begin{lemma}\label{lem:ak_fib}
+For every integer $k \ge 0$,
+\begin{equation}
+a_k = F_{k+2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We proceed by induction on $k$:
+\begin{itemize}
+    \item For $k = 0$: $a_0 = 1 = F_2 = F_{0+2}$.
+    \item For $k = 1$: $a_1 = 2 = F_3 = F_{1+2}$.
+    \item Inductive step: Assume $a_j = F_{j+2}$ holds for all $j < k$ ($k \ge 2$). Then:
+    \begin{equation}
+    a_k = a_{k-1} + a_{k-2} = F_{k+1} + F_k = F_{k+2}.
+    \end{equation}
+\end{itemize}
+By mathematical induction, $a_k = F_{k+2}$ for all $k \ge 0$.
+\end{proof}
+
+
+\section{Counting Solutions on $[1, 2^K]$}
+
+\subsection{Integers in the Half-Open Interval $[0, 2^K)$}
+Every integer $n$ in the range $0 \le n < 2^K$ can be represented as a binary string of length exactly $K$ (by prepending leading zeros if necessary). Since leading zeros do not introduce \texttt{11} substrings, there is a natural bijection between $\{ n \in \mathbb{N}_0 : 0 \le n < 2^K \text{ and } n \bitand 2n = 0 \}$ and $\mathcal{B}_K$.
+By Lemma~\ref{lem:ak_fib}:
+\begin{equation}
+\#\{ n \in \mathbb{N}_0 : 0 \le n < 2^K \text{ and } n \bitand 2n = 0 \} = a_K = F_{K+2}.
+\end{equation}
+
+\subsection{Exclusion of $n = 0$}
+The set above includes $n = 0$ ($0 \bitand 0 = 0$). Removing $n = 0$ leaves:
+\begin{equation}
+\#\{ n \in \mathbb{N} : 1 \le n < 2^K \text{ and } n \bitand 2n = 0 \} = F_{K+2} - 1.
+\end{equation}
+
+\subsection{Inclusion of the Upper Endpoint $n = 2^K$}
+Consider the boundary integer $n = 2^K$:
+\begin{itemize}
+    \item The binary expansion of $2^K$ is $1\underbrace{00\dots00}_{K \text{ zeros}}$.
+    \item This representation contains only a single 1-bit, and thus contains no adjacent ones.
+    \item Directly checking: $2^K \bitand (2 \cdot 2^K) = 2^K \bitand 2^{K+1} = 0$.
+\end{itemize}
+Hence, $n = 2^K$ is always a valid solution.
+
+\subsection{Total Solution Count $\mathcal{N}(2^K)$}
+Summing the contributions:
+\begin{equation}
+\mathcal{N}(2^K) = (F_{K+2} - 1) + 1 = F_{K+2}.
+\end{equation}
+
+\begin{theorem}[Closed-Form Solution]\label{thm:final_count}
+For any integer $K \ge 1$, the number of positive integers $n \le 2^K$ such that $X(n, 2n, 3n) = 0$ is given by the $(K+2)$-th Fibonacci number:
+\begin{equation}
+\mathcal{N}(2^K) = F_{K+2}.
+\end{equation}
+\end{theorem}
+
+
+\section{Exact Numerical Evaluation for $K = 30$}
+
+Setting $K = 30$ in Theorem~\ref{thm:final_count}, the total number of solutions is:
+\begin{equation}
+\mathcal{N}(2^{30}) = F_{30+2} = F_{32}.
+\end{equation}
+
+\subsection{Table of Fibonacci Numbers ($F_1$ to $F_{32}$)}
+
+\begin{center}
+\begin{tabular}{rr||rr||rr||rr}
+\toprule
+$m$ & $F_m$ & $m$ & $F_m$ & $m$ & $F_m$ & $m$ & $F_m$ \\
+\midrule
+1 & 1 & 9 & 34 & 17 & 1\,597 & 25 & 75\,025 \\
+2 & 1 & 10 & 55 & 18 & 2\,584 & 26 & 121\,393 \\
+3 & 2 & 11 & 89 & 19 & 4\,181 & 27 & 196\,418 \\
+4 & 3 & 12 & 144 & 20 & 6\,765 & 28 & 317\,811 \\
+5 & 5 & 13 & 233 & 21 & 10\,946 & 29 & 514\,229 \\
+6 & 8 & 14 & 377 & 22 & 17\,711 & 30 & 832\,040 \\
+7 & 13 & 15 & 610 & 23 & 28\,657 & 31 & 1\,346\,269 \\
+8 & 21 & 16 & 987 & 24 & 46\,368 & \textbf{32} & \textbf{2\,178\,309} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Final Conclusion}
+The number of positive integers $n \le 2^{30}$ for which $X(n, 2n, 3n) = 0$ is:
+\begin{equation*}
+\boxed{\mathbf{2\,178\,309}}
+\end{equation*}
+
+\end{document}

@@ -34,7 +34,9 @@ A repo to keep track of various math PDFs I've created
 * First and Second Functional Form of Riemann Zeta function
 * TODO add statement of Riemann Zeta Hypothesis
 
-### Fibonacci Numbers
+### Fibonacci Numbers & Combinatorial Games
+* Fibonacci Numbers
+* The Game of Nim, Bouton's Theorem, and Fibonacci Bit-Patterns (Project Euler 301)
 
 ### Fourier Series
 
