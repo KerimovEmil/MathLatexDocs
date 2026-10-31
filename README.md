@@ -68,8 +68,8 @@ All documents are aggregated into a single book/compendium:
 * **Exact Polynomial Equation Solutions** ([`Exact_Polynomial_solutions_equations_main.tex`](tex_files/Exact_Polynomial_solutions_equations_main.tex))
   * Quadratic and Cardano/Tartaglia cubic solutions
   * Ferrari's method for depressed and general quartic equations via the resolvent cubic
-  * Sylvester matrix $S(P, Q)$ and polynomial Resultant $\operatorname{Res}(P, Q)$
-  * General discriminant $\Delta(P) = \frac{(-1)^{n(n-1)/2}}{a_n}\operatorname{Res}(P, P')$
+  * Sylvester matrix $S(P, Q)$ and polynomial Resultant $\mathrm{Res}(P, Q)$
+  * General discriminant $\Delta(P) = \frac{(-1)^{n(n-1)/2}}{a_n}\mathrm{Res}(P, P')$
 * **Eigenvalues as Lagrange Multipliers** ([`proof_eigenvalue_are_lagrange_mult.tex`](tex_files/proof_eigenvalue_are_lagrange_mult.tex))
   * Rayleigh quotient optimization on the unit sphere
 * **Symmetric Positive Definite Matrix Bounds** ([`Symmetric_Positive_Definite_matrix_bounds_main.tex`](tex_files/Symmetric_Positive_Definite_matrix_bounds_main.tex))
