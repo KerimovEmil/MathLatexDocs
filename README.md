@@ -58,7 +58,7 @@ All documents are aggregated into a single book/compendium:
   * Characteristic equation roots, closed form, and negative index identities
 * **Game of Nim, Bouton's Theorem & Fibonacci Bit-Patterns** ([`nim_game_fibonacci.tex`](tex_files/nim_game_fibonacci.tex))
   * Bouton's nim-sum theorem (P-positions and N-positions)
-  * Carryless addition identity: $(a+b) - (a \oplus b) = 2(a \ \& \ b)$
+  * Carryless addition identity: $(a+b) - (a \oplus b) = 2(a \text{ AND } b)$
   * Counting $n \le 2^K$ with $n \oplus 2n \oplus 3n = 0$ via Zeckendorf/Fibonacci recurrence (Project Euler 301)
 * **Pascal's Row Sum** ([`Pascal_s_row_sum_main.tex`](tex_files/Pascal_s_row_sum_main.tex))
 * **Geometric & Arithmetic Series** ([`Geometric_Series_main.tex`](tex_files/Geometric_Series_main.tex), [`Sum_of_Arithmetic_sequence_main.tex`](tex_files/Sum_of_Arithmetic_sequence_main.tex))
