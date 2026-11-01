@@ -602,8 +602,298 @@ todo
 
 
 \section{Gauss's continued fraction}\label{cf:sec:gauss's-continued-fraction}
-todo \\
-\url{https://en.wikipedia.org/wiki/Gauss%27s_continued_fraction}
+In 1813, Carl Friedrich Gauss published a celebrated paper~\cite{gauss1813} introducing what is now known as \textbf{Gauss's continued fraction}.
+Gauss established that the ratio of two contiguous hypergeometric functions can be expressed as an infinite continued fraction.
+Because the hypergeometric function encompasses a remarkably vast array of elementary and transcendental functions as special or limiting cases, Gauss's continued fraction serves as a master generating machine for continued fraction representations of logarithms, trigonometric and inverse trigonometric functions, exponentials, and powers.
+
+\subsection{Hypergeometric Functions and Contiguous Relations}\label{cf:subsec:hypergeometric-and-contiguous-relations}
+
+\begin{mydefinition}{Gaussian Hypergeometric Function}{gauss_hypergeometric_func}
+  For complex parameters $a, b, c$ with $c \notin \{0, -1, -2, \dots\}$, the \textbf{Gaussian hypergeometric function} ${_2F_1}(a, b; c; z)$ is defined for $|z| < 1$ by the power series:
+  \[
+    {_2F_1}(a, b; c; z) = \sum_{n=0}^{\infty} \frac{(a)_n (b)_n}{(c)_n} \frac{z^n}{n!}
+  \]
+  where $(q)_n$ denotes the rising factorial (or Pochhammer symbol):
+  \[
+    (q)_0 = 1, \qquad (q)_n = q(q+1)(q+2)\cdots(q+n-1) = \frac{\Gamma(q+n)}{\Gamma(q)} \quad (n \ge 1)
+  \]
+  For $|z| \ge 1$, the function is defined by analytic continuation along the cut plane $\C \setminus [1, \infty)$.
+\end{mydefinition}
+
+Two hypergeometric functions are said to be \textbf{contiguous} if their parameters differ by integers of magnitude $\pm 1$.
+Gauss discovered that any hypergeometric function can be linearly expressed in terms of any two functions contiguous to it.
+To construct the continued fraction, two fundamental contiguous relations are required.
+
+\begin{mylemma}{Gauss's Contiguous Relations}{gauss_contiguous_relations}
+  Let $f(a, b; c; z) = {_2F_1}(a, b; c; z)$. Then the following two recurrence identities hold:
+  \begin{align}
+    f(a, b; c; z) - f(a, b+1; c+1; z) & = -\frac{a(c-b)}{c(c+1)} z \cdot f(a+1, b+1; c+2; z) \label{cf:eq:gauss-contig-1} \\
+    f(a, b+1; c+1; z) - f(a+1, b+1; c+2; z) & = -\frac{(b+1)(c-a+1)}{(c+1)(c+2)} z \cdot f(a+1, b+2; c+3; z) \label{cf:eq:gauss-contig-2}
+  \end{align}
+
+  \begin{proof}
+    We prove identity~\eqref{cf:eq:gauss-contig-1} by comparing the coefficients of $z^n$ on both sides.
+    
+    Let the series expansion of the left-hand side of~\eqref{cf:eq:gauss-contig-1} be written as $\sum_{n=0}^\infty C_n z^n$.
+    For $n = 0$:
+    \[
+      C_0 = 1 - 1 = 0
+    \]
+    For $n \ge 1$, the coefficient of $z^n$ is:
+    \[
+      C_n = \frac{(a)_n (b)_n}{(c)_n n!} - \frac{(a)_n (b+1)_n}{(c+1)_n n!}
+    \]
+    Factoring out $\frac{(a)_n}{n!}$:
+    \[
+      C_n = \frac{(a)_n}{n!} \left[ \frac{(b)_n}{(c)_n} - \frac{(b+1)_n}{(c+1)_n} \right]
+    \]
+    Recall that $(x+1)_n = \frac{x+n}{x}(x)_n$ for any $x \ne 0$.
+    Applying this to $(b+1)_n$ and $(c+1)_n$, we have:
+    \[
+      (b+1)_n = \frac{b+n}{b} (b)_n, \qquad (c+1)_n = \frac{c+n}{c} (c)_n
+    \]
+    Substituting these into the bracketed term:
+    \begin{align*}
+      \frac{(b)_n}{(c)_n} - \frac{(b+1)_n}{(c+1)_n} & = \frac{(b)_n}{(c)_n} \left[ 1 - \frac{c(b+n)}{b(c+n)} \right] \\
+      & = \frac{(b)_n}{(c)_n} \left[ \frac{b(c+n) - c(b+n)}{b(c+n)} \right] \\
+      & = \frac{(b)_n}{(c)_n} \left[ \frac{bc + bn - bc - cn}{b(c+n)} \right] \\
+      & = \frac{(b)_n}{(c)_n} \cdot \frac{n(b-c)}{b(c+n)} \\
+      & = -\frac{(c-b)}{c+n} \cdot \frac{n(b)_n}{b(c)_n}
+    \end{align*}
+    Notice that:
+    \[
+      \frac{(b)_n}{b} = (b+1)_{n-1}, \qquad (a)_n = a (a+1)_{n-1}, \qquad \frac{n}{n!} = \frac{1}{(n-1)!}
+    \]
+    and
+    \[
+      (c)_n (c+n) = (c)_{n+1} = c(c+1)_n = c(c+1)(c+2)_{n-1}
+    \]
+    Multiplying these terms together yields:
+    \begin{align*}
+      C_n & = -\frac{a(c-b)}{c(c+1)} \cdot \frac{(a+1)_{n-1} (b+1)_{n-1}}{(c+2)_{n-1} (n-1)!}
+    \end{align*}
+    Therefore, summing over all $n \ge 1$:
+    \begin{align*}
+      \sum_{n=1}^\infty C_n z^n & = -\frac{a(c-b)}{c(c+1)} z \sum_{n=1}^\infty \frac{(a+1)_{n-1} (b+1)_{n-1}}{(c+2)_{n-1} (n-1)!} z^{n-1} \\
+      & = -\frac{a(c-b)}{c(c+1)} z \sum_{m=0}^\infty \frac{(a+1)_m (b+1)_m}{(c+2)_m m!} z^m \\
+      & = -\frac{a(c-b)}{c(c+1)} z \cdot f(a+1, b+1; c+2; z)
+    \end{align*}
+    which establishes identity~\eqref{cf:eq:gauss-contig-1}.
+
+    To prove identity~\eqref{cf:eq:gauss-contig-2}, we use the symmetry of the hypergeometric function with respect to its first two parameters:
+    \[
+      f(a, b+1; c+1; z) = f(b+1, a; c+1; z)
+    \]
+    Applying identity~\eqref{cf:eq:gauss-contig-1} with parameters $(A, B, C) = (b+1, a, c+1)$, we obtain:
+    \begin{align*}
+      f(b+1, a; c+1; z) - f(b+1, a+1; c+2; z) & = -\frac{A(C-B)}{C(C+1)} z \cdot f(A+1, B+1; C+2; z) \\
+      & = -\frac{(b+1)(c+1-a)}{(c+1)(c+2)} z \cdot f(b+2, a+1; c+3; z)
+    \end{align*}
+    Using symmetry once more on the functions, $f(b+1, a+1; c+2; z) = f(a+1, b+1; c+2; z)$ and $f(b+2, a+1; c+3; z) = f(a+1, b+2; c+3; z)$, which directly produces identity~\eqref{cf:eq:gauss-contig-2}.
+  \end{proof}
+\end{mylemma}
+
+\subsection{Derivation of Gauss's Continued Fraction}\label{cf:subsec:derivation-of-gauss's-continued-fraction}
+
+We now assemble the contiguous relations into an alternating sequence of hypergeometric functions.
+Define the sequence of functions $\{f_n(z)\}_{n=0}^\infty$ by:
+\begin{align*}
+  f_{2k}(z)   & = {_2F_1}(a+k, b+k; c+2k; z) \qquad (k \ge 0) \\
+  f_{2k+1}(z) & = {_2F_1}(a+k, b+k+1; c+2k+1; z) \qquad (k \ge 0)
+\end{align*}
+Thus the first few terms of the sequence are:
+\begin{align*}
+  f_0(z) & = {_2F_1}(a, b; c; z) \\
+  f_1(z) & = {_2F_1}(a, b+1; c+1; z) \\
+  f_2(z) & = {_2F_1}(a+1, b+1; c+2; z) \\
+  f_3(z) & = {_2F_1}(a+1, b+2; c+3; z) \\
+  f_4(z) & = {_2F_1}(a+2, b+2; c+4; z)
+\end{align*}
+
+Observe that applying Lemma~\ref{lem:gauss_contiguous_relations} to $(a+k, b+k, c+2k)$ gives:
+\[
+  f_{2k}(z) - f_{2k+1}(z) = - d_{2k+1} z \cdot f_{2k+2}(z)
+\]
+where
+\[
+  d_{2k+1} = \frac{(a+k)(c-b+k)}{(c+2k)(c+2k+1)} \qquad (k \ge 0)
+\]
+Similarly, applying identity~\eqref{cf:eq:gauss-contig-2} with shifted parameters gives:
+\[
+  f_{2k-1}(z) - f_{2k}(z) = - d_{2k} z \cdot f_{2k+1}(z)
+\]
+where
+\[
+  d_{2k} = \frac{(b+k)(c-a+k)}{(c+2k-1)(c+2k)} \qquad (k \ge 1)
+\]
+
+In general, for all $n \ge 0$, the sequence satisfies the uniform three-term recurrence relation:
+\begin{equation}\label{cf:eq:gauss-uniform-recurrence}
+  f_n(z) - f_{n+1}(z) = - d_{n+1} z \cdot f_{n+2}(z)
+\end{equation}
+
+\begin{mytheorem}{Gauss's Continued Fraction}{gauss_continued_fraction}
+  Let $a, b, c \in \C$ with $c \notin \{0, -1, -2, \dots\}$. Then the ratio of contiguous hypergeometric functions admits the continued fraction expansion:
+  \[
+    \frac{{_2F_1}(a, b+1; c+1; z)}{{_2F_1}(a, b; c; z)} = \cfrac{1}{1 - \cfrac{d_1 z}{1 - \cfrac{d_2 z}{1 - \cfrac{d_3 z}{1 - \CFDots}}}}
+  \]
+  where the coefficients $\{d_n\}_{n=1}^\infty$ are given by:
+  \begin{align*}
+    d_{2k+1} & = \frac{(a+k)(c-b+k)}{(c+2k)(c+2k+1)} \qquad (k \ge 0) \\
+    d_{2k}   & = \frac{(b+k)(c-a+k)}{(c+2k-1)(c+2k)} \qquad (k \ge 1)
+  \end{align*}
+
+  \begin{proof}
+    Dividing the uniform three-term recurrence~\eqref{cf:eq:gauss-uniform-recurrence} by $f_{n+1}(z)$ (assuming $f_{n+1}(z) \ne 0$), we obtain:
+    \[
+      \frac{f_n(z)}{f_{n+1}(z)} - 1 = - d_{n+1} z \cdot \frac{f_{n+2}(z)}{f_{n+1}(z)}
+    \]
+    which can be rearranged as:
+    \[
+      \frac{f_n(z)}{f_{n+1}(z)} = 1 - \cfrac{d_{n+1} z}{\cfrac{f_{n+1}(z)}{f_{n+2}(z)}}
+    \]
+    Taking the reciprocal of both sides yields:
+    \begin{equation}\label{cf:eq:gauss-step-ratio}
+      \frac{f_{n+1}(z)}{f_n(z)} = \cfrac{1}{1 - \cfrac{d_{n+1} z}{\cfrac{f_{n+1}(z)}{f_{n+2}(z)}}}
+    \end{equation}
+    We now proceed by repeatedly substituting~\eqref{cf:eq:gauss-step-ratio} into itself for successive values of $n$.
+    For $n=0$:
+    \[
+      \frac{f_1(z)}{f_0(z)} = \cfrac{1}{1 - \cfrac{d_1 z}{\cfrac{f_1(z)}{f_2(z)}}}
+    \]
+    Substituting the expression for $\frac{f_1(z)}{f_2(z)}$ from $n=1$:
+    \[
+      \frac{f_1(z)}{f_0(z)} = \cfrac{1}{1 - \cfrac{d_1 z}{1 - \cfrac{d_2 z}{\cfrac{f_2(z)}{f_3(z)}}}}
+    \]
+    Continuing this process inductively for $N$ steps:
+    \[
+      \frac{f_1(z)}{f_0(z)} = \cfrac{1}{1 - \cfrac{d_1 z}{1 - \cfrac{d_2 z}{\ddots - \cfrac{d_N z}{\cfrac{f_N(z)}{f_{N+1}(z)}}}}}
+    \]
+    In the cut complex plane $\C \setminus [1, \infty)$, the remainder term satisfies
+    $\lim_{N \to \infty} \frac{f_{N+1}(z)}{f_N(z)} = 1$ for $|z| < 1$,
+    ensuring convergence of the continued fraction to the meromorphic function $\frac{f_1(z)}{f_0(z)}$~\cite{wall1948}.
+    Substituting the explicit formulas for $d_{2k+1}$ and $d_{2k}$ completes the proof.
+  \end{proof}
+\end{mytheorem}
+
+\subsection{Special Cases and Applications}\label{cf:subsec:gauss-applications}
+Gauss's continued fraction is remarkable because specializing the parameters $a, b, c$ and the variable $z$ yields continued fraction expansions for a large catalog of classical functions.
+Below we examine several key applications.
+
+\subsubsection{The Natural Logarithm}
+Recall that the Taylor series of $\ln(1+z)$ around $z=0$ is:
+\[
+  \ln(1+z) = \sum_{k=1}^\infty \frac{(-1)^{k-1} z^k}{k} = z - \frac{z^2}{2} + \frac{z^3}{3} - \dots
+\]
+Notice that the hypergeometric function with parameters $a=1, b=1, c=2$ evaluated at $-z$ is:
+\begin{align*}
+  {_2F_1}(1, 1; 2; -z) & = \sum_{n=0}^\infty \frac{(1)_n (1)_n}{(2)_n n!} (-z)^n = \sum_{n=0}^\infty \frac{n! \, n!}{(n+1)! \, n!} (-1)^n z^n \\
+  & = \sum_{n=0}^\infty \frac{(-1)^n z^n}{n+1} = \frac{\ln(1+z)}{z}
+\end{align*}
+Now set $a=1, b=0, c=1$ in Theorem~\ref{thm:gauss_continued_fraction}.
+Since $(0)_0 = 1$ and $(0)_n = 0$ for $n \ge 1$, we have:
+\[
+  {_2F_1}(1, 0; 1; -z) = 1, \qquad {_2F_1}(1, 1; 2; -z) = \frac{\ln(1+z)}{z}
+\]
+Hence the ratio is:
+\[
+  \frac{{_2F_1}(1, 1; 2; -z)}{{_2F_1}(1, 0; 1; -z)} = \frac{\ln(1+z)}{z}
+\]
+Evaluating the coefficients $d_n$ from Theorem~\ref{thm:gauss_continued_fraction} with $a=1, b=0, c=1$ and argument $-z$ (so $-d_n(-z) = + d_n z$):
+\begin{align*}
+  d_{2k+1} & = \frac{(1+k)(1-0+k)}{(1+2k)(1+2k+1)} = \frac{(k+1)^2}{(2k+1)(2k+2)} = \frac{k+1}{2(2k+1)} \qquad (k \ge 0) \\
+  d_{2k}   & = \frac{(0+k)(1-1+k)}{(1+2k-1)(1+2k)} = \frac{k^2}{2k(2k+1)} = \frac{k}{2(2k+1)} \qquad (k \ge 1)
+\end{align*}
+The first few coefficients are:
+\[
+  d_1 = \frac{1}{2}, \quad d_2 = \frac{1}{6}, \quad d_3 = \frac{1}{3}, \quad d_4 = \frac{1}{5}, \quad d_5 = \frac{3}{10}, \quad d_6 = \frac{3}{14}
+\]
+Clearing the internal denominators level-by-level (by applying equivalence transformations that multiply the numerator and denominator of the $n^{\text{th}}$ level by $n$), we obtain:
+
+\begin{mylemma}{Gauss Continued Fraction for \texorpdfstring{$\ln(1+z)$}{ln(1+z)}}{gauss_logarithm}
+  For any $z \in \C \setminus (-\infty, -1]$:
+  \[
+    \ln(1+z) = \cfrac{z}{1 + \cfrac{1^2 z}{2 + \cfrac{1^2 z}{3 + \cfrac{2^2 z}{4 + \cfrac{2^2 z}{5 + \cfrac{3^2 z}{6 + \CFDots}}}}}}
+  \]
+  In particular, setting $z=1$ gives an accelerated continued fraction for $\ln(2)$:
+  \[
+    \ln(2) = \cfrac{1}{1 + \cfrac{1^2}{2 + \cfrac{1^2}{3 + \cfrac{2^2}{4 + \cfrac{2^2}{5 + \cfrac{3^2}{6 + \CFDots}}}}}}
+  \]
+\end{mylemma}
+
+\begin{remark}
+  Compare this expansion for $\ln(2)$ with the one obtained in Section~\ref{cf:subsec:example-ln(2)}, Lemma~\ref{lem:ln2_cf}:
+  \[
+    \ln(2) = \cfrac{1}{1+\cfrac{1^{2}}{1 +\cfrac{2^2}{1 + \cfrac{3^2}{1 + \CFDots}}}}
+  \]
+  While the expansion in Lemma~\ref{lem:ln2_cf} was derived from the slowly alternating harmonic series $\sum \frac{(-1)^{k+1}}{k}$ and has linear partial denominators $1$, Gauss's expansion features growing partial denominators $1, 2, 3, 4, 5, \dots$, leading to dramatically faster numerical convergence.
+\end{remark}
+
+\subsubsection{The Arctangent Function and \texorpdfstring{$\pi$}{pi}}
+Consider the series expansion of $\arctan(z)$:
+\[
+  \arctan(z) = \sum_{k=0}^\infty \frac{(-1)^k z^{2k+1}}{2k+1} = z - \frac{z^3}{3} + \frac{z^5}{5} - \frac{z^7}{7} + \dots
+\]
+Dividing by $z$:
+\[
+  \frac{\arctan(z)}{z} = \sum_{k=0}^\infty \frac{(-1)^k (z^2)^k}{2k+1} = \sum_{k=0}^\infty \frac{(1/2)_k (1)_k}{(3/2)_k k!} (-z^2)^k = {_2F_1}\left(\frac{1}{2}, 1; \frac{3}{2}; -z^2\right)
+\]
+We set $a = 1/2, b = 0, c = 1/2$ and replace $z$ with $-z^2$ in Theorem~\ref{thm:gauss_continued_fraction}.
+Then:
+\[
+  {_2F_1}\left(\frac{1}{2}, 0; \frac{1}{2}; -z^2\right) = 1, \qquad {_2F_1}\left(\frac{1}{2}, 1; \frac{3}{2}; -z^2\right) = \frac{\arctan(z)}{z}
+\]
+The coefficients $d_n$ are given by:
+\begin{align*}
+  d_{2k+1} & = \frac{(1/2+k)(1/2-0+k)}{(1/2+2k)(1/2+2k+1)} = \frac{(2k+1)^2}{(4k+1)(4k+3)} \qquad (k \ge 0) \\
+  d_{2k}   & = \frac{(0+k)(1/2-1/2+k)}{(1/2+2k-1)(1/2+2k)} = \frac{(2k)^2}{(4k-1)(4k+1)} \qquad (k \ge 1)
+\end{align*}
+Clearing internal denominators yields:
+
+\begin{mylemma}{Gauss Continued Fraction for \texorpdfstring{$\arctan(z)$}{arctan(z)}}{gauss_arctan}
+  For $z \in \C \setminus \{i y : |y| \ge 1\}$:
+  \[
+    \arctan(z) = \cfrac{z}{1 + \cfrac{1^2 z^2}{3 + \cfrac{2^2 z^2}{5 + \cfrac{3^2 z^2}{7 + \cfrac{4^2 z^2}{9 + \CFDots}}}}}
+  \]
+  Evaluating at $z = 1$, since $\arctan(1) = \frac{\pi}{4}$, we obtain:
+  \[
+    \frac{\pi}{4} = \cfrac{1}{1 + \cfrac{1^2}{3 + \cfrac{2^2}{5 + \cfrac{3^2}{7 + \cfrac{4^2}{9 + \CFDots}}}}}
+  \]
+\end{mylemma}
+
+\begin{remark}
+  This formula for $\pi/4$ offers an instructive contrast with the continued fraction obtained in Lemma~\ref{lem:pi4_cf}:
+  \[
+    \frac{\pi}{4} = \cfrac{1}{1+\cfrac{1^2}{2 +\cfrac{3^2}{2 + \cfrac{5^2}{2 + \CFDots}}}}
+  \]
+  In Gauss's formula, the partial numerators are the squares of consecutive integers $1^2, 2^2, 3^2, 4^2, \dots$ and the partial denominators are the odd integers $3, 5, 7, 9, \dots$, whereas the alternating series conversion of Section~\ref{cf:subsec:example-pi4} features the odd squares in the numerators and constant $2$ in the denominators.
+\end{remark}
+
+\subsubsection{Confluent Limits: The Exponential and Tangent Functions}
+Gauss's continued fraction also extends to confluent hypergeometric functions by taking suitable limits as parameters grow without bound.
+Replacing $z$ by $z/b$ and taking the limit as $b \to \infty$, the hypergeometric function ${_2F_1}(a, b; c; z/b)$ tends to Kummer's confluent hypergeometric function ${_1F_1}(a; c; z)$.
+Applying this limit to Gauss's continued fraction produces corresponding continued fractions for ${_1F_1}(a; c; z)$.
+
+An immediate and famous consequence is Lambert's continued fraction for the tangent function.
+Using the relation $\tan(z) = \frac{1}{i} \tanh(i z)$ and the continued fraction for the ratio of confluent hypergeometric functions (or directly from the hypergeometric form of $\tan(z)$), one arrives at:
+
+\begin{mylemma}{Lambert's Continued Fraction for \texorpdfstring{$\tan(z)$}{tan(z)}}{lambert_tan}
+  For any $z \in \C$ where $\tan(z)$ is defined:
+  \[
+    \tan(z) = \cfrac{z}{1 - \cfrac{z^2}{3 - \cfrac{z^2}{5 - \cfrac{z^2}{7 - \CFDots}}}}
+  \]
+  Equivalently, for the hyperbolic tangent:
+  \[
+    \tanh(z) = \cfrac{z}{1 + \cfrac{z^2}{3 + \cfrac{z^2}{5 + \cfrac{z^2}{7 + \CFDots}}}}
+  \]
+\end{mylemma}
+
+\begin{remark}
+  As mentioned in Section~\ref{cf:sec:history}, Johann Heinrich Lambert used this very continued fraction in 1761 to provide the first rigorous proof that $\pi$ is irrational.
+  Lambert proved that if $x$ is a non-zero rational number, then $\tan(x)$ cannot be rational.
+  Since $\tan(\pi/4) = 1$ is rational, $\pi/4$ (and hence $\pi$) must be irrational.
+  Gauss's continued fraction provides the unified analytic framework from which Lambert's continued fraction naturally descends.
+\end{remark}
 
 
 \section{General continued fraction examples}
@@ -618,6 +908,16 @@ todo
   \\
   \url{http://archives.math.utk.edu/articles/atuyl/confrac/history.html}
   Addison-Wesley, Reading, Massachusetts, 1993.
+
+  \bibitem{gauss1813}
+  Carl Friedrich Gauss.
+  \textit{Disquisitiones generales circa seriem infinitam $1 + \frac{\alpha\beta}{1\cdot\gamma}x + \frac{\alpha(\alpha+1)\beta(\beta+1)}{1\cdot 2\cdot\gamma(\gamma+1)}xx + \dots$}.
+  Commentationes Societatis Regiae Scientiarum Gottingensis Recentiores, Vol.~II, 1813.
+
+  \bibitem{wall1948}
+  Hubert Stanley Wall.
+  \textit{Analytic Theory of Continued Fractions}.
+  D. Van Nostrand Company, Inc., New York, 1948.
 
 \end{thebibliography}
 
