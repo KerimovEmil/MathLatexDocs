@@ -518,70 +518,306 @@ Multiplying by $\pi^{s - 1/2} \zeta(1-s)$ yields:
 \end{proof}
 
 
-\section{Zeros of the Riemann Zeta Function and the Riemann Hypothesis}\label{zf:sec:riemann-hypothesis}
+\section{Zeros of the Riemann Zeta Function and the Prime Numbers}\label{zf:sec:riemann-hypothesis}
 
-\subsection{Trivial Zeros}\label{zf:subsec:trivial-zeros}
-Using the reflection functional equation:
-\[
-    \zeta(s) = 2^s \pi^{s-1} \sin\left(\frac{\pi s}{2}\right) \Gamma (1-s) \zeta(1-s)
-\]
-Consider negative even integers $s = -2m$ for $m \in \{1, 2, 3, \dots\}$:
-\begin{enumerate}
-    \item The factor $\sin\left(\frac{\pi (-2m)}{2}\right) = \sin(-\pi m) = 0$.
-    \item The factor $\Gamma(1 - (-2m)) = \Gamma(1 + 2m) = (2m)!$ is a positive real number (finite and non-zero).
-    \item The factor $\zeta(1 - (-2m)) = \zeta(2m + 1)$ is evaluated in the region of absolute convergence $\operatorname{Re}(s) > 1$, where the Euler product guarantees $\zeta(2m+1) > 1 \ne 0$.
-\end{enumerate}
-Therefore:
+\subsection{The Euler Product: The Bridge to Prime Numbers}\label{zf:subsec:euler-product}
+
+The profound connection between the Riemann zeta function and prime numbers was discovered by Leonhard Euler in 1737. It shows that the analytical behavior of $\zeta(s)$ directly encodes the distribution of prime numbers.
+
+\begin{theorem}[Euler Product Formula]\label{zf:thm:euler-product}
+For any complex number $s$ with $\operatorname{Re}(s) > 1$, the zeta function can be expressed as an absolutely convergent infinite product over all prime numbers:
 \begin{equation}
+    \label{zf:eq:euler-product}
+    \boxed{
+        \zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} = \prod_{p \text{ prime}} \frac{1}{1 - p^{-s}}
+    }
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Consider the series definition $\zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s}$ for $\operatorname{Re}(s) > 1$. For each prime $p$, the term $p^{-s}$ satisfies $|p^{-s}| = p^{-\operatorname{Re}(s)} < 1$. Expanding each geometric factor:
+\begin{equation*}
+    \frac{1}{1 - p^{-s}} = 1 + \frac{1}{p^s} + \frac{1}{p^{2s}} + \frac{1}{p^{3s}} + \cdots = \sum_{k=0}^{\infty} \frac{1}{p^{ks}}
+\end{equation*}
+Now consider the finite product over the first $N$ primes $p_1, p_2, \dots, p_N$:
+\begin{align*}
+    \prod_{j=1}^N \frac{1}{1 - p_j^{-s}} &= \left( \sum_{k_1=0}^\infty \frac{1}{p_1^{k_1 s}} \right) \left( \sum_{k_2=0}^\infty \frac{1}{p_2^{k_2 s}} \right) \cdots \left( \sum_{k_N=0}^\infty \frac{1}{p_N^{k_N s}} \right) \\
+    &= \sum_{k_1=0}^\infty \sum_{k_2=0}^\infty \cdots \sum_{k_N=0}^\infty \frac{1}{(p_1^{k_1} p_2^{k_2} \cdots p_N^{k_N})^s}
+\end{align*}
+By the \textbf{Fundamental Theorem of Arithmetic}, every positive integer $n \ge 1$ has a unique factorization as a product of prime powers $n = p_1^{k_1} p_2^{k_2} \cdots$. Therefore, multiplying out the terms produces the sum $\sum \frac{1}{n^s}$ over all positive integers $n$ whose prime factors are all among $\{p_1, \dots, p_N\}$:
+\begin{equation*}
+    \zeta(s) - \prod_{j=1}^N \frac{1}{1 - p_j^{-s}} = \sum_{\substack{n > p_N \\ \exists q > p_N \text{ s.t. } q \mid n}} \frac{1}{n^s}
+\end{equation*}
+Because $\sum_{n=1}^\infty |n^{-s}| = \sum_{n=1}^\infty n^{-\operatorname{Re}(s)} < \infty$, the tail of the series vanishes as $N \to \infty$:
+\begin{equation*}
+    \left| \zeta(s) - \prod_{j=1}^N \frac{1}{1 - p_j^{-s}} \right| \le \sum_{n = p_N + 1}^{\infty} \frac{1}{n^{\operatorname{Re}(s)}} \xrightarrow[N \to \infty]{} 0
+\end{equation*}
+which completes the proof.
+\end{proof}
+
+\begin{corollary}[No Zeros in the Half-Plane $\operatorname{Re}(s) > 1$]\label{zf:cor:no-zeros-right}
+The Riemann zeta function has no zeros in the region $\operatorname{Re}(s) > 1$.
+\end{corollary}
+
+\begin{proof}
+Taking the complex logarithm of the Euler product for $\operatorname{Re}(s) > 1$:
+\begin{equation*}
+    \ln \zeta(s) = - \sum_{p} \ln(1 - p^{-s}) = \sum_{p} \sum_{m=1}^{\infty} \frac{1}{m \, p^{ms}}
+\end{equation*}
+Since $\sum_{p} \sum_{m=1}^\infty \frac{1}{m p^{m \operatorname{Re}(s)}} \le \sum_{p} \frac{2}{p^{\operatorname{Re}(s)}} < \infty$, this series converges absolutely. Consequently, $\ln \zeta(s)$ is finite everywhere on $\operatorname{Re}(s) > 1$. Therefore:
+\begin{equation*}
+    |\zeta(s)| = \exp(\operatorname{Re}(\ln \zeta(s))) > 0
+\end{equation*}
+meaning $\zeta(s) \ne 0$ for all $\operatorname{Re}(s) > 1$.
+\end{proof}
+
+\subsection{Trivial Zeros and the Critical Strip}\label{zf:subsec:trivial-zeros}
+
+With the half-plane $\operatorname{Re}(s) > 1$ established as zero-free, we examine the remaining regions using the reflection functional equation (Theorem~\ref{zf:thm:reflection-functional-equation}):
+\begin{equation}
+    \label{zf:eq:reflection-functional}
+    \zeta(s) = 2^s \pi^{s-1} \sin\left(\frac{\pi s}{2}\right) \Gamma(1-s) \zeta(1-s)
+\end{equation}
+
+\subsubsection{Trivial Zeros}
+Consider negative even integers $s = -2m$ for $m \in \{1, 2, 3, \dots\}$:
+\begin{enumerate}[label=(\roman*)]
+    \item The trigonometric factor vanishes: $\sin\left(\frac{\pi (-2m)}{2}\right) = \sin(-\pi m) = 0$.
+    \item The gamma factor $\Gamma(1 - (-2m)) = \Gamma(1 + 2m) = (2m)!$ is a positive real number, hence finite and non-zero.
+    \item The zeta factor $\zeta(1 - (-2m)) = \zeta(2m + 1)$ is evaluated at an odd integer $2m+1 \ge 3 > 1$, where the Euler product guarantees $\zeta(2m+1) > 1 \ne 0$.
+\end{enumerate}
+Therefore, every negative even integer is a zero of $\zeta(s)$:
+\begin{equation}
+    \label{zf:eq:trivial-zeros}
     \boxed{\zeta(-2m) = 0 \quad \text{for all } m \in \{1, 2, 3, \dots\}}
 \end{equation}
-These are called the \textbf{trivial zeros} of the Riemann zeta function.
+These are the \textbf{trivial zeros} of the Riemann zeta function.
 
-\begin{remark}[Negative odd integers]
-For negative odd integers $s = -(2m-1)$, $\sin\left(\frac{\pi s}{2}\right) = \sin\left(-\frac{(2m-1)\pi}{2}\right) = (-1)^m \ne 0$, and using the connection to Bernoulli numbers from Theorem~\ref{zf:thm:bernoulli-even-zeta}:
-\[
+\begin{remark}[Values at Negative Odd Integers]
+At negative odd integers $s = -(2m-1)$, the sine factor does not vanish: $\sin\left(-\frac{(2m-1)\pi}{2}\right) = (-1)^m \ne 0$. Using the functional equation together with Euler's formula for $\zeta(2m)$ (Theorem~\ref{zf:thm:bernoulli-even-zeta}), we obtain:
+\begin{equation}
+    \label{zf:eq:negative-odd-zeta}
     \zeta(-(2m-1)) = -\frac{B_{2m}}{2m} \ne 0
-\]
-In particular, $\zeta(-1) = -\frac{1}{12}$, $\zeta(-3) = \frac{1}{120}$, and $\zeta(-5) = -\frac{1}{252}$.
+\end{equation}
+In particular:
+\begin{equation*}
+    \zeta(0) = -\frac{1}{2}, \quad \zeta(-1) = -\frac{1}{12}, \quad \zeta(-3) = \frac{1}{120}, \quad \zeta(-5) = -\frac{1}{252}
+\end{equation*}
 \end{remark}
 
-\subsection{The Critical Strip and Non-Trivial Zeros}\label{zf:subsec:critical-strip}
-
+\subsubsection{The Critical Strip}
+Combining our results:
 \begin{enumerate}
-    \item \textbf{Region $\operatorname{Re}(s) > 1$}: The Euler product $\zeta(s) = \prod_{p} (1 - p^{-s})^{-1}$ converges absolutely and non-zero, so $\zeta(s)$ has no zeros for $\operatorname{Re}(s) > 1$.
-    \item \textbf{Region $\operatorname{Re}(s) < 0$}: By the functional equation, the only zeros for $\operatorname{Re}(s) < 0$ are the trivial zeros at $s = -2, -4, -6, \dots$.
-    \item \textbf{The Critical Strip}: Consequently, all other zeros of $\zeta(s)$ must lie strictly in the strip:
-    \[
+    \item \textbf{Region $\operatorname{Re}(s) > 1$}: $\zeta(s) \ne 0$ by the Euler product (Corollary~\ref{zf:cor:no-zeros-right}).
+    \item \textbf{Region $\operatorname{Re}(s) < 0$}: By the functional equation~\eqref{zf:eq:reflection-functional}, the only zeros for $\operatorname{Re}(s) < 0$ are the trivial zeros at $s = -2, -4, -6, \dots$, since $\zeta(1-s) \ne 0$ for $\operatorname{Re}(1-s) > 1$.
+    \item \textbf{The Critical Strip}: All non-trivial zeros must lie strictly within the strip:
+    \begin{equation}
         \mathcal{S} = \{ s \in \mathbb{C} : 0 \le \operatorname{Re}(s) \le 1 \}
-    \]
-    These are called the \textbf{non-trivial zeros}.
-    \item \textbf{Zero-Free Boundary $\operatorname{Re}(s) = 1$}: In 1896, Jacques Hadamard and Charles Jean de la Vallée Poussin independently proved that:
-    \[
+    \end{equation}
+    \item \textbf{Zero-Free Boundary}: In 1896, Jacques Hadamard and Charles Jean de la Vallée Poussin independently proved that $\zeta(s)$ has no zeros on the line $\operatorname{Re}(s) = 1$:
+    \begin{equation*}
         \zeta(1 + it) \ne 0 \quad \text{for all } t \in \mathbb{R}
-    \]
-    By the functional symmetry $s \leftrightarrow 1-s$, $\zeta(0 + it) \ne 0$ as well. This zero-free boundary is mathematically equivalent to the \textbf{Prime Number Theorem}:
-    \[
-        \pi(x) \sim \frac{x}{\ln x} \quad \text{as } x \to \infty
-    \]
+    \end{equation*}
+    By the reflection symmetry $s \leftrightarrow 1-s$, $\zeta(0 + it) \ne 0$ as well. This zero-free boundary is mathematically equivalent to the \textbf{Prime Number Theorem} ($\pi(x) \sim \frac{x}{\ln x}$).
 \end{enumerate}
+Consequently, all non-trivial zeros lie strictly in the interior $0 < \operatorname{Re}(s) < 1$.
 
-\subsection{Statement of the Riemann Hypothesis}\label{zf:subsec:riemann-hypothesis-statement}
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.9, >=Latex]
+    % Critical strip shading
+    \fill[blue!10] (0, -4.5) rectangle (2.5, 4.5);
+    
+    % Boundaries of critical strip
+    \draw[thick, gray] (0, -4.5) -- (0, 4.5) node[below left, font=\footnotesize] {$\operatorname{Re}(s) = 0$};
+    \draw[thick, gray] (2.5, -4.5) -- (2.5, 4.5) node[below right, font=\footnotesize] {$\operatorname{Re}(s) = 1$};
+    
+    % Critical line
+    \draw[thick, blue!80!black, dashed] (1.25, -4.5) -- (1.25, 4.5) node[above, font=\footnotesize] {Critical Line $\operatorname{Re}(s) = \frac{1}{2}$};
+    
+    % Axes
+    \draw[->, thick] (-5.5, 0) -- (4.5, 0) node[right] {$\operatorname{Re}(s)$};
+    \draw[->, thick] (0, -4.5) -- (0, 4.8) node[above] {$\operatorname{Im}(s)$};
+    
+    % Simple pole at s = 1
+    \draw[red, very thick] (2.4, -0.1) -- (2.6, 0.1);
+    \draw[red, very thick] (2.4, 0.1) -- (2.6, -0.1);
+    \node[red, below right, font=\footnotesize] at (2.5, -0.1) {Pole ($s=1$)};
+    
+    % Trivial zeros on negative real axis
+    \fill[red!80!black] (-1.8, 0) circle (2.2pt);
+    \fill[red!80!black] (-3.6, 0) circle (2.2pt);
+    \fill[red!80!black] (-5.0, 0) circle (2.2pt);
+    \node[below, font=\footnotesize] at (-1.8, 0) {$-2$};
+    \node[below, font=\footnotesize] at (-3.6, 0) {$-4$};
+    \node[below, font=\footnotesize] at (-5.0, 0) {$-6$};
+    \node[above, red!80!black, font=\footnotesize] at (-3.2, 0.2) {Trivial Zeros $\zeta(-2m) = 0$};
+    
+    % Non-trivial zeros on the critical line
+    \fill[blue!90!black] (1.25, 1.4) circle (2.2pt);
+    \fill[blue!90!black] (1.25, -1.4) circle (2.2pt);
+    \fill[blue!90!black] (1.25, 2.1) circle (2.2pt);
+    \fill[blue!90!black] (1.25, -2.1) circle (2.2pt);
+    \fill[blue!90!black] (1.25, 2.6) circle (2.2pt);
+    \fill[blue!90!black] (1.25, -2.6) circle (2.2pt);
+    
+    \node[right, blue!90!black, font=\footnotesize] at (1.35, 1.4) {$\rho_1 \approx \frac{1}{2} + 14.13 i$};
+    \node[right, blue!90!black, font=\footnotesize] at (1.35, -1.4) {$\bar{\rho}_1 \approx \frac{1}{2} - 14.13 i$};
+    \node[right, blue!90!black, font=\footnotesize] at (1.35, 2.1) {$\rho_2 \approx \frac{1}{2} + 21.02 i$};
+    \node[right, blue!90!black, font=\footnotesize] at (1.35, -2.1) {$\bar{\rho}_2 \approx \frac{1}{2} - 21.02 i$};
+    \node[right, blue!90!black, font=\footnotesize] at (1.35, 2.6) {$\rho_3 \approx \frac{1}{2} + 25.01 i$};
+    \node[right, blue!90!black, font=\footnotesize] at (1.35, -2.6) {$\bar{\rho}_3 \approx \frac{1}{2} - 25.01 i$};
+    
+    % Annotations
+    \node[align=center, font=\footnotesize, fill=white, inner sep=2pt] at (3.5, 2.6) {$\operatorname{Re}(s) > 1$\\\textbf{No zeros}\\\scriptsize(Euler Product)};
+    \node[align=center, font=\footnotesize, fill=white, inner sep=2pt] at (-3.7, 2.6) {$\operatorname{Re}(s) < 0$\\\textbf{Only trivial zeros}\\\scriptsize(Functional eq.)};
+    \node[blue!70!black, font=\bfseries\footnotesize] at (1.25, -4.1) {Critical Strip};
+\end{tikzpicture}
+\caption{The complex $s$-plane: trivial zeros on the negative real axis, the pole at $s=1$, the critical strip $0 < \operatorname{Re}(s) < 1$, and non-trivial zeros lying symmetrically on the critical line $\operatorname{Re}(s) = \frac{1}{2}$.}
+\label{zf:fig:critical-strip}
+\end{figure}
+
+\subsection{The Riemann Xi Function and Critical Line Symmetry}\label{zf:subsec:xi-function}
+
+To study the non-trivial zeros on the critical line, Riemann introduced the completed function $\xi(s)$ in his 1859 paper:
+\begin{equation}
+    \label{zf:eq:xi-definition}
+    \xi(s) := \frac{1}{2} s(s-1) \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right) \zeta(s)
+\end{equation}
+The prefactor $\frac{1}{2} s(s-1)$ cancels the simple pole of $\zeta(s)$ at $s=1$ and the pole of $\Gamma(s/2)$ at $s=0$. Consequently, $\xi(s)$ is an \textbf{entire function} of order 1. 
+
+From Theorem~\ref{zf:thm:symmetric-functional-equation}, $\xi(s)$ satisfies the perfect reflection symmetry:
+\begin{equation}
+    \label{zf:eq:xi-reflection}
+    \xi(s) = \xi(1-s)
+\end{equation}
+Notice that the zeros of $\xi(s)$ are precisely the non-trivial zeros of $\zeta(s)$ (the trivial zeros are cancelled by the poles of $\Gamma(s/2)$).
+
+\begin{theorem}[The Real-Valued Function $\Xi(t)$]\label{zf:thm:xi-real}
+Parameterizing the critical line by $s = \frac{1}{2} + it$ for $t \in \mathbb{R}$, define:
+\begin{equation}
+    \label{zf:eq:xi-t-def}
+    \Xi(t) := \xi\left(\frac{1}{2} + it\right)
+\end{equation}
+Then $\Xi(t)$ is an \textbf{even}, \textbf{purely real-valued} function for all real $t$:
+\begin{equation*}
+    \Xi(-t) = \Xi(t) \quad \text{and} \quad \Xi(t) \in \mathbb{R} \quad (\forall t \in \mathbb{R})
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+Using the functional equation $\xi(s) = \xi(1-s)$ with $s = \frac{1}{2} + it$:
+\begin{equation*}
+    \Xi(-t) = \xi\left(\frac{1}{2} - it\right) = \xi\left(1 - \left(\frac{1}{2} + it\right)\right) = \xi\left(\frac{1}{2} + it\right) = \Xi(t)
+\end{equation*}
+which proves that $\Xi(t)$ is an even function.
+
+To prove that $\Xi(t)$ is real-valued, observe that for real $s$, $\zeta(s)$, $\Gamma(s/2)$, and $s(s-1)$ are all real. By the Schwarz reflection principle, $\overline{\xi(s)} = \xi(\bar{s})$ for all $s \in \mathbb{C}$. Evaluating at $s = \frac{1}{2} + it$:
+\begin{equation*}
+    \overline{\Xi(t)} = \overline{\xi\left(\frac{1}{2} + it\right)} = \xi\left(\overline{\frac{1}{2} + it}\right) = \xi\left(\frac{1}{2} - it\right) = \Xi(-t) = \Xi(t)
+\end{equation*}
+Since $\overline{\Xi(t)} = \Xi(t)$, $\Xi(t)$ must be real for all $t \in \mathbb{R}$.
+\end{proof}
+
+\begin{remark}[Significance for Zeros]
+Theorem~\ref{zf:thm:xi-real} converts the two-dimensional problem of locating complex zeros of $\zeta(s)$ on the critical line into the one-dimensional problem of finding the \textbf{real roots of a real-valued curve} $\Xi(t)$.
+
+In 1914, G. H. Hardy used this real-variable formulation to prove that $\Xi(t)$ changes sign infinitely many times, establishing:
+\begin{quote}
+\textit{\textbf{Hardy's Theorem (1914):} There are infinitely many non-trivial zeros of $\zeta(s)$ lying exactly on the critical line $\operatorname{Re}(s) = \frac{1}{2}$.}
+\end{quote}
+In 1989, J. B. Conrey proved that at least $40.77\%$ of all non-trivial zeros lie strictly on the critical line.
+\end{remark}
+
+\subsection{The Riemann Hypothesis}\label{zf:subsec:riemann-hypothesis-statement}
 
 \begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{The Riemann Hypothesis (Bernhard Riemann, 1859)}]
 All non-trivial zeros of the Riemann zeta function $\zeta(s)$ lie on the \textbf{critical line}:
 \begin{equation}
     \boxed{\operatorname{Re}(s) = \frac{1}{2}}
 \end{equation}
-That is, if $\zeta(s) = 0$ with $0 < \operatorname{Re}(s) < 1$, then $s = \frac{1}{2} + i \gamma$ for some $\gamma \in \mathbb{R}$.
+Equivalently, all roots of the Riemann $\Xi$-function $\Xi(t)$ are purely real:
+\begin{equation}
+    \Xi(t) = 0 \implies t \in \mathbb{R}
+\end{equation}
 \end{tcolorbox}
 
-The first few non-trivial zeros on the critical line have imaginary parts:
+The first five non-trivial zeros on the critical line have imaginary parts:
 \begin{align*}
-    \gamma_1 &\approx 14.134725\dots \\
-    \gamma_2 &\approx 21.022040\dots \\
-    \gamma_3 &\approx 25.010857\dots \\
-    \gamma_4 &\approx 30.424876\dots
+    \rho_1 &= \frac{1}{2} + i \cdot 14.13472514\dots \\
+    \rho_2 &= \frac{1}{2} + i \cdot 21.02203964\dots \\
+    \rho_3 &= \frac{1}{2} + i \cdot 25.01085758\dots \\
+    \rho_4 &= \frac{1}{2} + i \cdot 30.42487613\dots \\
+    \rho_5 &= \frac{1}{2} + i \cdot 32.93506159\dots
 \end{align*}
-More than $10^{13}$ zeros have been verified numerically to lie on the critical line, but a general proof remains one of the most famous open problems in mathematics (a Clay Millennium Prize problem).
+To date, more than $10^{13}$ non-trivial zeros have been checked by computer algorithms, and every single one lies precisely on the critical line $\operatorname{Re}(s) = 1/2$. A general mathematical proof remains the most celebrated open problem in mathematics and is designated as a Clay Millennium Prize Problem.
+
+\subsection{The ``Music of the Primes'': Riemann's Explicit Formula}\label{zf:subsec:music-of-primes}
+
+Riemann's ultimate goal in studying $\zeta(s)$ was to understand the distribution of prime numbers with exact precision.
+
+\subsubsection{Von Mangoldt and Chebyshev Functions}
+To link primes with analytic continuation, define the \textbf{von Mangoldt function}:
+\begin{equation}
+    \Lambda(n) = \begin{cases}
+        \ln p & \text{if } n = p^k \text{ for some prime } p \text{ and integer } k \ge 1 \\
+        0 & \text{otherwise}
+    \end{cases}
+\end{equation}
+Taking the logarithmic derivative of the Euler product (Theorem~\ref{zf:thm:euler-product}):
+\begin{align*}
+    \ln \zeta(s) &= - \sum_{p} \ln(1 - p^{-s}) \\
+    -\frac{\zeta'(s)}{\zeta(s)} &= \sum_{p} \frac{p^{-s} \ln p}{1 - p^{-s}} = \sum_{p} \sum_{k=1}^\infty (\ln p) \, p^{-k s} = \sum_{n=1}^\infty \frac{\Lambda(n)}{n^s}
+\end{align*}
+The cumulative sum $\psi(x) = \sum_{n \le x} \Lambda(n)$ is \textbf{Chebyshev's second function}. Counting primes via $\psi(x)$ is weighted by $\ln p$, giving $\psi(x) \approx \sum_{p \le x} \ln p \approx \pi(x) \ln x$.
+
+\subsubsection{Riemann's Explicit Formula}
+By applying Perron's contour inversion formula to $-\frac{\zeta'(s)}{\zeta(s)}$ and evaluating the residues at the simple pole $s=1$, the trivial zeros, and the non-trivial zeros $\rho$, Riemann derived his celebrated \textbf{Explicit Formula}:
+
+\begin{theorem}[Riemann's Explicit Formula]\label{zf:thm:explicit-formula}
+For any non-integer $x > 1$:
+\begin{equation}
+    \label{zf:eq:explicit-formula}
+    \boxed{
+        \psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \ln(2\pi) - \frac{1}{2} \ln(1 - x^{-2})
+    }
+\end{equation}
+where the sum ranges over all non-trivial zeros $\rho = \beta + i\gamma$ of $\zeta(s)$, paired as $\lim_{T \to \infty} \sum_{|\gamma| < T} \frac{x^\rho}{\rho}$.
+\end{theorem}
+
+\subsubsection{The Harmonic Interpretation}
+Writing each non-trivial zero as $\rho = \beta + i \gamma$:
+\begin{equation}
+    x^\rho = x^{\beta + i \gamma} = x^\beta e^{i \gamma \ln x} = x^\beta \left[ \cos(\gamma \ln x) + i \sin(\gamma \ln x) \right]
+\end{equation}
+Pairing conjugate zeros $\rho = \beta + i \gamma$ and $\bar{\rho} = \beta - i \gamma$ produces real oscillating harmonics:
+\begin{equation*}
+    \frac{x^\rho}{\rho} + \frac{x^{\bar{\rho}}}{\bar{\rho}} = 2 \operatorname{Re}\left( \frac{x^{\beta + i\gamma}}{\beta + i\gamma} \right) = \frac{2 x^\beta}{|\rho|} \cos\left( \gamma \ln x - \arg(\rho) \right)
+\end{equation*}
+Equation~\eqref{zf:eq:explicit-formula} decomposes the prime distribution into:
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{The Baseline Trend $x$}: Produced by the residue at the pole $s = 1$. This corresponds to the smooth asymptotic distribution of primes $\psi(x) \sim x$ (the Prime Number Theorem).
+    \item \textbf{The Harmonic Oscillations $-\sum_\rho \frac{x^\rho}{\rho}$}: Each non-trivial zero $\rho$ contributes a pure wave with frequency $\frac{\gamma}{2\pi}$ on a logarithmic scale $\ln x$. The primes are literally the \textbf{constructive interference} of these infinite waves!
+    \item \textbf{The Smooth Tail $-\ln(2\pi) - \frac{1}{2}\ln(1-x^{-2})$}: Produced by the residues at the trivial zeros $s = -2, -4, \dots$ and $s = 0$.
+\end{enumerate}
+
+\subsubsection{The Optimal Error Bound}
+The real part $\beta = \operatorname{Re}(\rho)$ controls the \textbf{amplitude} of the prime fluctuations ($x^\beta$). 
+\begin{itemize}
+    \item If any zero had $\beta > 1/2$, the fluctuations would blow up with amplitude $x^\beta$, creating massive, irregular swings in prime density.
+    \item Under the \textbf{Riemann Hypothesis}, all zeros have $\beta = 1/2$, making every oscillation have amplitude exactly $\sqrt{x}$.
+\end{itemize}
+This establishes the ultimate equivalence:
+\begin{theorem}[Equivalence with the Prime Error Bound]
+The Riemann Hypothesis is mathematically equivalent to the sharpest possible error bound for prime counting:
+\begin{equation}
+    \label{zf:eq:pnt-rh-error}
+    \boxed{
+        \pi(x) = \operatorname{Li}(x) + O\left(\sqrt{x} \ln x\right)
+    }
+\end{equation}
+where $\operatorname{Li}(x) = \int_2^x \frac{dt}{\ln t}$ is the logarithmic integral.
+\end{theorem}
+The error $O(\sqrt{x} \ln x)$ is identical to the statistical fluctuation of an unbiased random walk of size $x$. Thus, the Riemann Hypothesis asserts that prime numbers are distributed with the maximum possible regularity permitted by arithmetic.
 
 \end{document}
