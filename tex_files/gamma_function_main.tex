@@ -109,7 +109,7 @@
 
     \subsection{Taking the limit to obtain Gamma}\label{gf:subsec:taking-the-limit-to-obtain-gamma}
 
-    Using Equation~\ref{eq:relation-to-next} and assuming $\Gamma_{\infty}(x)$ converges we get:
+    Using Equation~\ref{gf:eq:relation-to-next} and assuming $\Gamma_{\infty}(x)$ converges we get:
 
     \begin{equation}
         \lim_{p \to \infty} \Gamma_{p}(x+1) =
@@ -143,10 +143,10 @@
         Proof
         \\
         Re-writing $p^x$
-%Starting from equation \ref{gf:gamma def}, and re-writing $p^x$
+%Starting from equation \ref{gf:gamma-def-1}, and re-writing $p^x$
         \begin{gather*}
             p^x = e^{x lnp} = e^{x [lnp - 1 - 1/2 - 1/3 - \dots - 1/p]} e^{x + x/2 + x/3 + \dots + x/p} \\
-            \text{Plugging $p^x$ into equation~\ref{eq:finite-gamma-def}} \\
+            \text{Plugging $p^x$ into equation~\ref{gf:eq:finite-gamma-def}} \\
             \Gamma_{p}(x) = \frac{e^{x [lnp - 1 - 1/2 - 1/3 - \dots - 1/p]} e^{x + x/2 + x/3 + \dots + x/p}}{x (\frac{x}{1} + 1)(\frac{x}{2} + 1)...(\frac{x}{p} + 1)}   \\
             \Gamma_{p}(x) = e^{x [lnp - 1 - 1/2 - 1/3 - \dots - 1/p]} \cdot \frac{1}{x} \cdot \frac{e^{x}}{x+1} \cdot \frac{e^{x/2}}{x/2+1} \cdot \frac{e^{x/3}}{x/3+1}
             \cdot \cdot \cdot \cdot \frac{e^{x/p}}{x/p+1}
@@ -209,7 +209,7 @@
     \end{equation}
 
     \begin{theorem}
-        $x = -\frac{1}{2}$ with equation~\ref{eq:gamma-half}
+        $x = -\frac{1}{2}$ with equation~\ref{gf:eq:gamma-half}
         \begin{equation}
             \label{gf:eq:negative-gamma-half}
             \Gamma(-\frac{1}{2}) = -2 \sqrt{\pi}
@@ -233,7 +233,7 @@
 
 
 
-    Note that equation~\ref{eq:gamma-half} implies that
+    Note that equation~\ref{gf:eq:gamma-half} implies that
     \begin{equation}
         \Gamma(\frac{1}{2}) = \int_{0}^{\infty} \frac{1}{e^t \sqrt{t}} dt = \sqrt{\pi} \label{gf:eq:equation9}
     \end{equation}
@@ -241,38 +241,145 @@
 
 
     \section{Other relations}\label{gf:sec:other-relations}
-    Using equation~\ref{gf:gamma-def-1} we derive the following.
+
+    \subsection{Gauss's Multiplication Formula}\label{gf:subsec:gauss-multiplication-formula}
+
+    The multiplication formula, discovered by Carl Friedrich Gauss in 1812, generalizes Legendre's duplication formula (Section~\ref{gf:subsec:proof-of-leg-dup}) to an arbitrary positive integer multiplier $n \ge 1$.
 
     \begin{theorem}
-        This is the more general multiplication equation referred to as the multiplication formula or Gauss's multiplication formula
+        For any integer $n \ge 1$ and any complex number $x \notin \{0, -1/n, -2/n, \dots\}$:
         \begin{equation}
             \label{gf:eq:legendre-mult}
             \boxed{
-                \Gamma(x) \cdot \Gamma(x+\frac{1}{n}) \cdot \Gamma(x+\frac{2}{n}) \cdot \cdot \cdot \Gamma(x+\frac{n-1}{n}) = (2 \pi)^{\frac{n-1}{2}} n^{1/2 - nx} \Gamma(nx)
+                \Gamma(x) \cdot \Gamma\left(x+\frac{1}{n}\right) \cdot \Gamma\left(x+\frac{2}{n}\right) \cdots \Gamma\left(x+\frac{n-1}{n}\right) = (2 \pi)^{\frac{n-1}{2}} n^{\frac{1}{2} - nx} \Gamma(nx)
             }
         \end{equation}
 
         Proof
         \\
-        TODO
+        We prove the multiplication formula using Euler's limit product representation of the Gamma function from Section~\ref{gf:sec:finite-gamma-expression}:
+        \begin{equation*}
+            \Gamma(z) = \lim_{p \to \infty} \frac{p! \, p^z}{z(z+1)(z+2)\cdots(z+p)} = \lim_{p \to \infty} \frac{p! \, p^z}{\prod_{j=0}^p (z+j)}
+        \end{equation*}
+        For each $k \in \{0, 1, \dots, n-1\}$, evaluating at $z = x + \frac{k}{n}$:
+        \begin{align*}
+            \Gamma\left(x + \frac{k}{n}\right) & = \lim_{p \to \infty} \frac{p! \, p^{x + k/n}}{\prod_{j=0}^p \left(x + \frac{k}{n} + j\right)} \\
+            & = \lim_{p \to \infty} \frac{p! \, p^{x + k/n}}{\prod_{j=0}^p \frac{nx + jn + k}{n}} \\
+            & = \lim_{p \to \infty} \frac{n^{p+1} p! \, p^{x + k/n}}{\prod_{j=0}^p (nx + jn + k)}
+        \end{align*}
+        Multiplying these $n$ limits together for $k = 0, 1, \dots, n-1$:
+        \begin{align*}
+            \prod_{k=0}^{n-1} \Gamma\left(x + \frac{k}{n}\right) & = \lim_{p \to \infty} \frac{\prod_{k=0}^{n-1} \left( n^{p+1} p! \, p^{x + k/n} \right)}{\prod_{k=0}^{n-1} \prod_{j=0}^p (nx + jn + k)}
+        \end{align*}
+        Notice that as $k$ ranges from $0$ to $n-1$ and $j$ ranges from $0$ to $p$, the index $jn + k$ covers every integer from $0$ to $n(p+1) - 1$ exactly once.
+        Therefore, the denominator is:
+        \begin{equation*}
+            \prod_{k=0}^{n-1} \prod_{j=0}^p (nx + jn + k) = \prod_{m=0}^{n(p+1)-1} (nx + m)
+        \end{equation*}
+        For the numerator:
+        \begin{align*}
+            \prod_{k=0}^{n-1} \left( n^{p+1} p! \, p^{x + k/n} \right) & = n^{n(p+1)} (p!)^n p^{nx + \sum_{k=0}^{n-1} \frac{k}{n}} \\
+            & = n^{n(p+1)} (p!)^n p^{nx + \frac{n-1}{2}}
+        \end{align*}
+        Now compare this with Euler's limit formula for $\Gamma(nx)$ with parameter $np$:
+        \begin{equation*}
+            \Gamma(nx) = \lim_{p \to \infty} \frac{(np)! \, (np)^{nx}}{\prod_{m=0}^{np} (nx + m)}
+        \end{equation*}
+        Taking the ratio of the two expressions:
+        \begin{align*}
+            \frac{\prod_{k=0}^{n-1} \Gamma\left(x + \frac{k}{n}\right)}{\Gamma(nx)} & = \lim_{p \to \infty} \frac{n^{n(p+1)} (p!)^n p^{nx + \frac{n-1}{2}}}{(np)! \, (np)^{nx}} \cdot \frac{\prod_{m=0}^{np} (nx + m)}{\prod_{m=0}^{n(p+1)-1} (nx + m)} \\
+            & = n^{-nx} \lim_{p \to \infty} \frac{n^{np+n} (p!)^n p^{\frac{n-1}{2}}}{(np)!} \cdot \frac{1}{\prod_{m=np+1}^{n(p+1)-1} (nx + m)}
+        \end{align*}
+        The remaining product has $(n(p+1)-1) - np = n-1$ factors:
+        \begin{equation*}
+            \prod_{m=np+1}^{n(p+1)-1} (nx + m) = (nx + np + 1)(nx + np + 2)\cdots(nx + np + n - 1)
+        \end{equation*}
+        As $p \to \infty$, this product is asymptotic to $(np)^{n-1} = n^{n-1} p^{n-1}$.
+        Substituting this asymptotic behavior:
+        \begin{align*}
+            \frac{\prod_{k=0}^{n-1} \Gamma\left(x + \frac{k}{n}\right)}{\Gamma(nx)} & = n^{-nx} \lim_{p \to \infty} \frac{n^{np+n} (p!)^n p^{\frac{n-1}{2}}}{(np)! \cdot n^{n-1} p^{n-1}} \\
+            & = n^{1-nx} \lim_{p \to \infty} \frac{n^{np} (p!)^n p^{\frac{1-n}{2}}}{(np)!}
+        \end{align*}
+        Using Stirling's asymptotic formula for factorials (Section~\ref{gf:sec:approximations}):
+        \begin{align*}
+            p! & \sim \sqrt{2\pi p} \left(\frac{p}{e}\right)^p \implies (p!)^n \sim (2\pi)^{n/2} p^{n/2} \left(\frac{p}{e}\right)^{np} \\
+            (np)! & \sim \sqrt{2\pi np} \left(\frac{np}{e}\right)^{np} = \sqrt{2\pi n} \, n^{np} p^{1/2} \left(\frac{p}{e}\right)^{np}
+        \end{align*}
+        Substituting these into the limit:
+        \begin{align*}
+            \lim_{p \to \infty} \frac{n^{np} (p!)^n p^{\frac{1-n}{2}}}{(np)!} & = \lim_{p \to \infty} \frac{n^{np} \cdot (2\pi)^{n/2} p^{n/2} (p/e)^{np} \cdot p^{\frac{1-n}{2}}}{\sqrt{2\pi n} \, n^{np} p^{1/2} (p/e)^{np}} \\
+            & = \frac{(2\pi)^{n/2}}{\sqrt{2\pi n}} \lim_{p \to \infty} \frac{p^{n/2 + (1-n)/2}}{p^{1/2}} \\
+            & = (2\pi)^{\frac{n-1}{2}} n^{-1/2}
+        \end{align*}
+        Multiplying by $n^{1-nx} \Gamma(nx)$:
+        \begin{equation*}
+            \prod_{k=0}^{n-1} \Gamma\left(x + \frac{k}{n}\right) = n^{1-nx} \cdot (2\pi)^{\frac{n-1}{2}} n^{-1/2} \Gamma(nx) = (2\pi)^{\frac{n-1}{2}} n^{\frac{1}{2} - nx} \Gamma(nx)
+        \end{equation*}
+        which completes the proof.
     \end{theorem}
 
-    Plugging in $x=0$ into Equation~\ref{eq:legendre-mult} we get
-    \begin{equation}
-        \Gamma(\frac{1}{n}) \cdot \Gamma(\frac{2}{n}) \cdot \cdot \cdot \Gamma(\frac{n-1}{n}) = \frac{(2 \pi)^{\frac{n-1}{2}}}{\sqrt{n}} \label{gf:eq:equation10}
-    \end{equation}
+    \begin{corollary}
+        Multiplying both sides of Equation~\eqref{gf:eq:legendre-mult} by $x$ and taking the limit as $x \to 0$, we have $\lim_{x \to 0} x \Gamma(x) = \Gamma(1) = 1$, and $\lim_{x \to 0} x \Gamma(nx) = \frac{1}{n} \lim_{x \to 0} (nx)\Gamma(nx) = \frac{1}{n}$.
+        Therefore:
+        \begin{equation}
+            \label{gf:eq:equation10}
+            \boxed{
+                \Gamma\left(\frac{1}{n}\right) \cdot \Gamma\left(\frac{2}{n}\right) \cdots \Gamma\left(\frac{n-1}{n}\right) = \frac{(2 \pi)^{\frac{n-1}{2}}}{\sqrt{n}}
+            }
+        \end{equation}
+    \end{corollary}
 
+    \begin{example}
+        For $n = 2$, Gauss's multiplication formula reduces directly to Legendre's duplication formula (Theorem~\ref{gf:subsec:proof-of-leg-dup}):
+        \begin{equation*}
+            \Gamma(x) \Gamma\left(x + \frac{1}{2}\right) = (2\pi)^{1/2} 2^{\frac{1}{2} - 2x} \Gamma(2x) = \frac{\sqrt{\pi}}{2^{2x-1}} \Gamma(2x)
+        \end{equation*}
+        For $n = 3$, Equation~\eqref{gf:eq:equation10} gives:
+        \begin{equation*}
+            \Gamma\left(\frac{1}{3}\right) \Gamma\left(\frac{2}{3}\right) = \frac{(2\pi)^{2/2}}{\sqrt{3}} = \frac{2\pi}{\sqrt{3}}
+        \end{equation*}
+        which perfectly agrees with Euler's reflection formula~\eqref{gf:eq:symmetric-gamma-eq}:
+        \begin{equation*}
+            \Gamma\left(\frac{1}{3}\right) \Gamma\left(1 - \frac{1}{3}\right) = \frac{\pi}{\sin(\pi/3)} = \frac{\pi}{\sqrt{3}/2} = \frac{2\pi}{\sqrt{3}}
+        \end{equation*}
+    \end{example}
+
+    \subsection{Relation to the Riemann Zeta Function}\label{gf:subsec:relation-to-zeta}
 
     \begin{theorem}
-        There is a multiplicative relation to the Zeta function.
-        Refer to the Zeta function document for the definition and properties of the Zeta function.
+        For $\mathrm{Re}(s) > 1$, the Gamma function is related to the Riemann Zeta function $\zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s}$ by:
         \begin{equation}
+            \label{gf:eq:equation11}
             \boxed{
-                \Gamma(x) \zeta(x) = \int_{0}^{\infty} \frac{u^{s-1}}{e^{u} - 1} du} \label{gf:eq:equation11}
+                \Gamma(s) \zeta(s) = \int_{0}^{\infty} \frac{u^{s-1}}{e^{u} - 1} \dd u
+            }
         \end{equation}
+
         Proof
         \\
-        See the Zeta function document.
+        Starting from the integral definition of the Gamma function (Equation~\ref{gf:gamma-def-1}):
+        \begin{equation*}
+            \Gamma(s) = \int_{0}^{\infty} t^{s-1} e^{-t} \dd t \qquad (\mathrm{Re}(s) > 0)
+        \end{equation*}
+        For any positive integer $n \ge 1$, substitute $t = n u$, so that $\dd t = n \dd u$:
+        \begin{equation*}
+            \Gamma(s) = \int_{0}^{\infty} (n u)^{s-1} e^{-n u} n \dd u = n^s \int_{0}^{\infty} u^{s-1} e^{-n u} \dd u
+        \end{equation*}
+        Dividing by $n^s$:
+        \begin{equation*}
+            \frac{\Gamma(s)}{n^s} = \int_{0}^{\infty} u^{s-1} e^{-n u} \dd u
+        \end{equation*}
+        Summing both sides over all positive integers $n \ge 1$:
+        \begin{equation*}
+            \Gamma(s) \sum_{n=1}^{\infty} \frac{1}{n^s} = \sum_{n=1}^{\infty} \int_{0}^{\infty} u^{s-1} e^{-n u} \dd u
+        \end{equation*}
+        For $\mathrm{Re}(s) > 1$, we can interchange the summation and the integral by the monotone convergence theorem (or dominated convergence):
+        \begin{align*}
+            \Gamma(s) \zeta(s) & = \int_{0}^{\infty} u^{s-1} \left( \sum_{n=1}^{\infty} e^{-n u} \right) \dd u \\
+            & = \int_{0}^{\infty} u^{s-1} \left( \frac{e^{-u}}{1 - e^{-u}} \right) \dd u \\
+            & = \int_{0}^{\infty} \frac{u^{s-1}}{e^u - 1} \dd u
+        \end{align*}
+        which proves the identity.
     \end{theorem}
 
 
@@ -301,7 +408,7 @@
         \begin{gather*}
             \Psi(x) = \frac{\partial}{\partial x}  ln(\Gamma(x))
             \\
-            \text{Using equation~\ref{eq:gamma-product}}
+            \text{Using equation~\ref{gf:eq:gamma-product}}
             \\
             \Psi(x) = -\frac{\partial}{\partial x} ln(x \cdot e^{x \gamma} \cdot \prod_{k=1}^{\infty} (1 + x/k) \cdot e^{-x/k})
             \\
@@ -326,7 +433,7 @@
         Proof
         \\
         \begin{gather*}
-            \text{Using equation~\ref{eq:psi-series}}
+            \text{Using equation~\ref{gf:eq:psi-series}}
             \\
             \Psi(x) = -\gamma - \frac{1}{x} + \sum_{k=1}^{\infty} \Big( \frac{1}{k} - \frac{1}{x+k}  \Big)
             \\
@@ -348,7 +455,7 @@
 
         Proof
         \\
-        Take repeated derivatives of equation~\ref{eq:psi-first-deriv}
+        Take repeated derivatives of equation~\ref{gf:eq:psi-first-deriv}
     \end{theorem}
 
     \subsection{Special values}\label{gf:subsec:special-values}
@@ -475,7 +582,7 @@
 
     \subsection{Examples}\label{gf:subsec:examples}
 
-    \subsubsection{Sinc Integral $\int \frac{\sin(x)}{x}$}
+    \subsubsection{Sinc Integral \texorpdfstring{$\int \frac{\sin(x)}{x}$}{}}
 
     \begin{theorem}
         \begin{equation}
@@ -486,7 +593,7 @@
 
         Proof
         \\
-        Starting from equation~\ref{eq:sin-gamma-integral}
+        Starting from equation~\ref{gf:eq:sin-gamma-integral}
         \begin{gather*}
             \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
             \\
@@ -496,7 +603,7 @@
             \\
             \lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \lim_{s \to 0} \int_{0}^{\infty} u^{s -1} sin(u) du  = \int_{0}^{\infty} \frac{sin(u)}{u} du
             \\
-            \text{To evaluate the RHS limit we use equation~\ref{eq:symmetric-gamma-eq}  } \Gamma(s) = \frac{\pi}{\Gamma(1-s)sin(\pi s)}
+            \text{To evaluate the RHS limit we use equation~\ref{gf:eq:symmetric-gamma-eq}  } \Gamma(s) = \frac{\pi}{\Gamma(1-s)sin(\pi s)}
             \\
             \lim_{s \to 0} \Gamma(s) sin(s \frac{\pi}{2})= \lim_{s \to 0} \frac{\pi}{\Gamma(1-s)sin(\pi s)} sin(s \frac{\pi}{2})
             \\
@@ -519,7 +626,7 @@
         \end{gather*}
     \end{theorem}
 
-    \subsubsection{$\int \sin(x^2)$}
+    \subsubsection{\texorpdfstring{$\int \sin(x^2)$}{Integral of sin(x^2)}}
 
     \begin{theorem}
         \begin{equation}
@@ -530,7 +637,7 @@
 
         Proof
         \\
-        Starting from equation~\ref{eq:sin-gamma-integral}
+        Starting from equation~\ref{gf:eq:sin-gamma-integral}
         \begin{gather*}
             \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
             \\
@@ -540,14 +647,14 @@
             \\
             \frac{\Gamma(\frac{1}{2}) sin(\frac{\pi}{4})}{2} = \int_{0}^{\infty} sin(u^2) du
             \\
-            \text{using equation~\ref{eq:gamma-half}: } \Gamma(\frac{1}{2}) = \sqrt{\pi}
+            \text{using equation~\ref{gf:eq:gamma-half}: } \Gamma(\frac{1}{2}) = \sqrt{\pi}
             \\
             \int_{0}^{\infty} sin(u^2) du = \frac{\sqrt{\pi} \frac{1}{\sqrt{2}}}{2}
             = \frac{\sqrt{2\pi}}{4}
         \end{gather*}
     \end{theorem}
 
-    \subsubsection{$\int \cos(x^2)$}
+    \subsubsection{\texorpdfstring{$\int \cos(x^2)$}{Integral of cos(x^2)}}
 
     \begin{theorem}
         \begin{equation}
@@ -558,7 +665,7 @@
 
         Proof
         \\
-        Starting from equation~\ref{eq:cos-gamma-integral}
+        Starting from equation~\ref{gf:eq:cos-gamma-integral}
         \begin{gather*}
             \frac{\Gamma(s)}{n |p|^s} cos(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} cos(y u^n) du
             \\
@@ -568,14 +675,14 @@
             \\
             \frac{\Gamma(\frac{1}{2}) cos(\frac{\pi}{4})}{2} = \int_{0}^{\infty} cos(u^2) du
             \\
-            \text{using equation~\ref{eq:gamma-half}: } \Gamma(\frac{1}{2}) = \sqrt{\pi}
+            \text{using equation~\ref{gf:eq:gamma-half}: } \Gamma(\frac{1}{2}) = \sqrt{\pi}
             \\
             \int_{0}^{\infty} cos(u^2) du = \frac{\sqrt{\pi} \frac{1}{\sqrt{2}}}{2}
             = \frac{\sqrt{2\pi}}{4}
         \end{gather*}
     \end{theorem}
 
-    \subsubsection{$\int \frac{\sin(x^2)}{x^2}$}
+    \subsubsection{\texorpdfstring{$\int \frac{\sin(x^2)}{x^2}$}{Integral of sin(x^2)/x^2}}
 
     \begin{theorem}
         \begin{equation}
@@ -586,7 +693,7 @@
 
         Proof
         \\
-        Starting from equation~\ref{eq:sin-gamma-integral}
+        Starting from equation~\ref{gf:eq:sin-gamma-integral}
         \begin{gather*}
             \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
             \\
@@ -596,14 +703,14 @@
             \\
             \frac{\Gamma(\frac{-1}{2}) sin(-\frac{\pi}{4})}{2} = \int_{0}^{\infty} \frac{sin(u^2)}{u^2} du
             \\
-            \text{using equation~\ref{eq:negative-gamma-half}: } \Gamma(-\frac{1}{2}) = -2\sqrt{\pi}
+            \text{using equation~\ref{gf:eq:negative-gamma-half}: } \Gamma(-\frac{1}{2}) = -2\sqrt{\pi}
             \\
             \int_{0}^{\infty} \frac{sin(u^2)}{u^2} du = -\frac{\Gamma(\frac{-1}{2})}{2\sqrt{2}} =
             \sqrt{\frac{\pi}{2}}
         \end{gather*}
     \end{theorem}
 
-    \subsubsection{$\int \frac{\sin(x^n)}{x^n}$}
+    \subsubsection{\texorpdfstring{$\int \frac{\sin(x^n)}{x^n}$}{Integral of sin(x^n)/x^n}}
 
     \begin{theorem}
         \begin{equation}
@@ -615,7 +722,7 @@
 
         Proof
         \\
-        Starting from equation~\ref{eq:sin-gamma-integral}
+        Starting from equation~\ref{gf:eq:sin-gamma-integral}
         \begin{gather*}
             \frac{\Gamma(s)}{n |p|^s} sin(\alpha s)= \int_{0}^{\infty} u^{ns -1} e^{-x u^{n}} sin(y u^n) du
             \\
@@ -838,7 +945,7 @@
             \\
             2^{2s -1} \Gamma(s) \Gamma(s)= \Gamma(2s) \frac{\Gamma(1/2) \Gamma(s)}{\Gamma(s+1/2)}
             \\
-            \text{Rearranging and using equation~\ref{eq:gamma-half}}
+            \text{Rearranging and using equation~\ref{gf:eq:gamma-half}}
             \\
             \Gamma(s) \Gamma(s+1/2)= \Gamma(2s) \frac{\sqrt{\pi}}{2^{2s -1}}
         \end{gather*}
@@ -1016,7 +1123,7 @@
             = 1 - \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)}
             + \lim_{n \to \infty} R_{n,m}
             \\
-            \intertext{Using equation~\ref{eq:stirling-limit-log}}
+            \intertext{Using equation~\ref{gf:eq:stirling-limit-log}}
             1 - \sum_{k=1}^{\lfloor m/2 \rfloor} \frac{B_{2k}}{2k \cdot (2k-1)} + \lim_{n \to \infty} R_{n,m}
             = ln(\sqrt{2\pi})
             \\
