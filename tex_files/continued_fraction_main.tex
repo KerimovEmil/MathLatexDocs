@@ -586,19 +586,539 @@ For reasons that will become apparent later we define $p_{-1} = 1, p_{-2} = 0$ a
 
 
 \section{Approximation of rational numbers}\label{cf:sec:approximation-of-rational-numbers}
-todo
+A central problem in Diophantine approximation is to determine how closely a real irrational number $x$ can be approximated by rational numbers $p/q$ relative to the size of the denominator $q$.
+The convergents of the standard continued fraction expansion of $x$ provide the sequence of \emph{best rational approximations}.
+
+\subsection{Best Rational Approximations}
+\begin{mydefinition}{Best Rational Approximation}{best_rational_approx}
+  Let $x \in \R$ be an irrational number, and let $p/q$ with $q \ge 1$ and $\gcd(p, q) = 1$ be a rational number.
+  \begin{enumerate}[label=(\roman*)]
+    \item $p/q$ is called a \textbf{best rational approximation of the first kind} to $x$ if:
+      \[
+        \left| x - \frac{p}{q} \right| < \left| x - \frac{a}{b} \right|
+      \]
+      for all rational numbers $a/b \ne p/q$ with $1 \le b \le q$.
+    \item $p/q$ is called a \textbf{best rational approximation of the second kind} to $x$ if:
+      \[
+        |q x - p| < |b x - a|
+      \]
+      for all rational numbers $a/b \ne p/q$ with $1 \le b \le q$.
+  \end{enumerate}
+\end{mydefinition}
+
+\begin{remark}
+  Every best approximation of the second kind is automatically a best approximation of the first kind, since:
+  \[
+    \left| x - \frac{p}{q} \right| = \frac{|q x - p|}{q} \le \frac{|b x - a|}{q} \le \frac{|b x - a|}{b} = \left| x - \frac{a}{b} \right|
+  \]
+  whenever $1 \le b \le q$.
+\end{remark}
+
+\subsection{Confinement and Error Bounds of Convergents}
+
+\begin{mylemma}{Alternating Confinement of Convergents}{alternating_confinement}
+  Let $x = [a_0; a_1, a_2, \dots]$ be an irrational number, and let $p_n/q_n$ denote its convergents.
+  Then the even convergents form a strictly increasing sequence, the odd convergents form a strictly decreasing sequence, and each even convergent is strictly less than $x$, while each odd convergent is strictly greater than $x$:
+  \[
+    \frac{p_0}{q_0} < \frac{p_2}{q_2} < \frac{p_4}{q_4} < \cdots < x < \cdots < \frac{p_5}{q_5} < \frac{p_3}{q_3} < \frac{p_1}{q_1}
+  \]
+
+  \begin{proof}
+    Consider the difference between convergents whose indices differ by $2$.
+    Using the difference identity $\frac{p_{n-1}}{q_{n-1}} - \frac{p_n}{q_n} = \frac{(-1)^n}{q_n q_{n-1}}$ from Lemma~\ref{lem:lemma2}:
+    \begin{align*}
+      \frac{p_n}{q_n} - \frac{p_{n-2}}{q_{n-2}} & = \left( \frac{p_n}{q_n} - \frac{p_{n-1}}{q_{n-1}} \right) + \left( \frac{p_{n-1}}{q_{n-1}} - \frac{p_{n-2}}{q_{n-2}} \right) \\
+      & = \frac{(-1)^{n-1}}{q_n q_{n-1}} + \frac{(-1)^{n-1}}{q_{n-1} q_{n-2}} \\
+      & = \frac{(-1)^{n-1}(q_n - q_{n-2})}{q_n q_{n-1} q_{n-2}}
+    \end{align*}
+    By the recurrence relation $q_n = a_n q_{n-1} + q_{n-2}$ from Lemma~\ref{lem:lemma1}, we have $q_n - q_{n-2} = a_n q_{n-1}$.
+    Substituting this gives:
+    \[
+      \frac{p_n}{q_n} - \frac{p_{n-2}}{q_{n-2}} = \frac{(-1)^{n-1} a_n}{q_n q_{n-2}}
+    \]
+    Since $a_n \ge 1$ and all denominators $q_k > 0$, the sign of the difference is governed entirely by $(-1)^{n-1}$:
+    \begin{itemize}
+      \item For $n = 2k$ even: $(-1)^{2k-1} = -1 \implies \frac{p_{2k}}{q_{2k}} > \frac{p_{2k-2}}{q_{2k-2}}$, so the even convergents strictly increase.
+      \item For $n = 2k+1$ odd: $(-1)^{2k} = 1 \implies \frac{p_{2k+1}}{q_{2k+1}} < \frac{p_{2k-1}}{q_{2k-1}}$, so the odd convergents strictly decrease.
+    \end{itemize}
+    Moreover, by Lemma~\ref{lem:lemma2}, $\frac{p_{2k+1}}{q_{2k+1}} - \frac{p_{2k}}{q_{2k}} = \frac{1}{q_{2k+1} q_{2k}} > 0$, so every odd convergent exceeds the preceding even convergent.
+    Since $x = \lim_{n \to \infty} \frac{p_n}{q_n}$, $x$ lies strictly between any two consecutive convergents $\frac{p_n}{q_n}$ and $\frac{p_{n+1}}{q_{n+1}}$, completing the proof.
+  \end{proof}
+\end{mylemma}
+
+\begin{mytheorem}{Fundamental Error Bounds}{cf_error_bounds}
+  For any convergent $p_n/q_n$ ($n \ge 0$) of an irrational number $x$:
+  \[
+    \frac{1}{q_n (q_{n+1} + q_n)} < \left| x - \frac{p_n}{q_n} \right| < \frac{1}{q_n q_{n+1}} \le \frac{1}{q_n^2}
+  \]
+
+  \begin{proof}
+    Let $\alpha_{n+1} = [a_{n+1}; a_{n+2}, a_{n+3}, \dots]$ denote the $(n+1)^{\text{th}}$ complete quotient of $x$, so that:
+    \[
+      x = [a_0; a_1, \dots, a_n, \alpha_{n+1}] = \frac{\alpha_{n+1} p_n + p_{n-1}}{\alpha_{n+1} q_n + q_{n-1}}
+    \]
+    Subtracting $\frac{p_n}{q_n}$ from both sides:
+    \begin{align*}
+      x - \frac{p_n}{q_n} & = \frac{\alpha_{n+1} p_n + p_{n-1}}{\alpha_{n+1} q_n + q_{n-1}} - \frac{p_n}{q_n} \\
+      & = \frac{q_n (\alpha_{n+1} p_n + p_{n-1}) - p_n (\alpha_{n+1} q_n + q_{n-1})}{q_n (\alpha_{n+1} q_n + q_{n-1})} \\
+      & = \frac{p_{n-1} q_n - p_n q_{n-1}}{q_n (\alpha_{n+1} q_n + q_{n-1})}
+    \end{align*}
+    By the Determinant Identity (Lemma~\ref{lem:lemma3}), $p_{n-1} q_n - p_n q_{n-1} = (-1)^n$.
+    Taking absolute values:
+    \begin{equation}\label{cf:eq:exact-error}
+      \left| x - \frac{p_n}{q_n} \right| = \frac{1}{q_n (\alpha_{n+1} q_n + q_{n-1})}
+    \end{equation}
+    Since $\alpha_{n+1} = a_{n+1} + \frac{1}{\alpha_{n+2}}$ and $\alpha_{n+2} > 1$, we have:
+    \[
+      a_{n+1} < \alpha_{n+1} < a_{n+1} + 1
+    \]
+    Substituting the lower bound $\alpha_{n+1} > a_{n+1}$ into~\eqref{cf:eq:exact-error} and using $q_{n+1} = a_{n+1} q_n + q_{n-1}$:
+    \[
+      \alpha_{n+1} q_n + q_{n-1} > a_{n+1} q_n + q_{n-1} = q_{n+1}
+    \]
+    which yields the upper bound:
+    \[
+      \left| x - \frac{p_n}{q_n} \right| < \frac{1}{q_n q_{n+1}}
+    \]
+    Since $q_{n+1} \ge q_n$, we also have $\frac{1}{q_n q_{n+1}} \le \frac{1}{q_n^2}$.
+
+    Similarly, substituting the upper bound $\alpha_{n+1} < a_{n+1} + 1$ into~\eqref{cf:eq:exact-error}:
+    \[
+      \alpha_{n+1} q_n + q_{n-1} < (a_{n+1} + 1) q_n + q_{n-1} = q_{n+1} + q_n
+    \]
+    which establishes the lower bound:
+    \[
+      \left| x - \frac{p_n}{q_n} \right| > \frac{1}{q_n (q_{n+1} + q_n)}
+    \]
+  \end{proof}
+\end{mytheorem}
+
+\subsection{Legendre's Approximation Theorem}
+A famous converse question asks: if a rational number $p/q$ is exceptionally close to $x$, must it be a convergent?
+Adrien-Marie Legendre answered this affirmatively.
+
+\begin{mytheorem}{Legendre's Approximation Theorem}{legendre_approx}
+  Let $x \in \R$. If $p, q$ are integers with $q \ge 1$ such that:
+  \[
+    \left| x - \frac{p}{q} \right| < \frac{1}{2 q^2}
+  \]
+  then $\frac{p}{q}$ is a convergent of the continued fraction expansion of $x$.
+
+  \begin{proof}
+    Write:
+    \[
+      x - \frac{p}{q} = \frac{\epsilon \theta}{q^2}
+    \]
+    where $\epsilon = \pm 1$ and $0 < \theta < \frac{1}{2}$.
+    Expand the rational number $p/q$ into a finite continued fraction $[a_0; a_1, \dots, a_n]$.
+    Since any finite continued fraction can be expressed with either an odd or an even number of terms (via $[a_0; \dots, a_n] = [a_0; \dots, a_n - 1, 1]$ if $a_n > 1$), we may choose the parity of $n$ so that:
+    \[
+      (-1)^{n-1} = -\epsilon \quad \Longleftrightarrow \quad (-1)^n = \epsilon
+    \]
+    Let $p_n/q_n = p/q$, and let $p_{n-1}/q_{n-1}$ be the $(n-1)^{\text{th}}$ convergent of $p/q$.
+    Define $\alpha \in \R$ by:
+    \[
+      x = \frac{\alpha p_n + p_{n-1}}{\alpha q_n + q_{n-1}}
+    \]
+    Solving for $\alpha$:
+    \begin{align*}
+      \alpha & = \frac{p_{n-1} - x q_{n-1}}{x q_n - p_n} = \frac{-(q_{n-1} x - p_{n-1})}{q_n x - p_n}
+    \end{align*}
+    From $x - \frac{p_n}{q_n} = \frac{\epsilon \theta}{q_n^2}$, the denominator is:
+    \[
+      q_n x - p_n = \frac{\epsilon \theta}{q_n}
+    \]
+    For the numerator, write:
+    \begin{align*}
+      x - \frac{p_{n-1}}{q_{n-1}} & = \left( x - \frac{p_n}{q_n} \right) + \left( \frac{p_n}{q_n} - \frac{p_{n-1}}{q_{n-1}} \right) \\
+      & = \frac{\epsilon \theta}{q_n^2} + \frac{(-1)^{n-1}}{q_n q_{n-1}} \\
+      & = \frac{\epsilon \theta}{q_n^2} - \frac{\epsilon}{q_n q_{n-1}} \\
+      & = -\frac{\epsilon}{q_n q_{n-1}} \left( 1 - \frac{\theta q_{n-1}}{q_n} \right)
+    \end{align*}
+    where we used $(-1)^{n-1} = -\epsilon$.
+    Multiplying by $q_{n-1}$:
+    \[
+      q_{n-1} x - p_{n-1} = -\frac{\epsilon}{q_n} \left( 1 - \frac{\theta q_{n-1}}{q_n} \right)
+    \]
+    Substituting both into the expression for $\alpha$:
+    \[
+      \alpha = \frac{\frac{\epsilon}{q_n} \left( 1 - \frac{\theta q_{n-1}}{q_n} \right)}{\frac{\epsilon \theta}{q_n}} = \frac{1 - \frac{\theta q_{n-1}}{q_n}}{\theta} = \frac{1}{\theta} - \frac{q_{n-1}}{q_n}
+    \]
+    Since $0 < \theta < \frac{1}{2}$, we have $\frac{1}{\theta} > 2$.
+    Furthermore, $0 \le q_{n-1} \le q_n$, so $0 \le \frac{q_{n-1}}{q_n} \le 1$.
+    Therefore:
+    \[
+      \alpha = \frac{1}{\theta} - \frac{q_{n-1}}{q_n} > 2 - 1 = 1
+    \]
+    Since $\alpha > 1$, it has a continued fraction expansion with initial integer part $\lfloor\alpha\rfloor \ge 1$.
+    It follows that:
+    \[
+      x = [a_0; a_1, \dots, a_n, \alpha] = [a_0; a_1, \dots, a_n, b_0, b_1, \dots]
+    \]
+    is the continued fraction expansion of $x$.
+    Thus $p/q = p_n/q_n$ is indeed a convergent of $x$.
+  \end{proof}
+\end{mytheorem}
+
+\subsection{Examples and Applications}
+\subsubsection{Approximations of \texorpdfstring{$\pi$}{pi}}
+The continued fraction expansion of $\pi$ begins:
+\[
+  \pi = [3; 7, 15, 1, 292, 1, 1, 1, 2, 1, 3, 1, 14, 2, \dots]
+\]
+Computing the first several convergents:
+\begin{align*}
+  \frac{p_0}{q_0} & = 3 = 3.000000, & \left|\pi - 3\right| & \approx 0.141593 \\
+  \frac{p_1}{q_1} & = 3 + \frac{1}{7} = \frac{22}{7} \approx 3.142857, & \left|\pi - \frac{22}{7}\right| & \approx 0.001264 < \frac{1}{7^2} \approx 0.0204 \\
+  \frac{p_2}{q_2} & = \frac{333}{106} \approx 3.141509, & \left|\pi - \frac{333}{106}\right| & \approx 8.32 \times 10^{-5} \\
+  \frac{p_3}{q_3} & = \frac{355}{113} \approx 3.14159292, & \left|\pi - \frac{355}{113}\right| & \approx 2.67 \times 10^{-7}
+\end{align*}
+The third convergent, $\frac{355}{113}$ (discovered by the Chinese astronomer Zu Chongzhi in the 5th century and known as \emph{Milü}), achieves an extraordinary level of precision for a denominator of only $113$.
+The theoretical reason is evident from Theorem~\ref{thm:cf_error_bounds}: the next partial quotient $a_4 = 292$ is remarkably large, giving:
+\[
+  q_4 = a_4 q_3 + q_2 = 292 \times 113 + 106 = 33102
+\]
+Hence the error is bounded by:
+\[
+  \left|\pi - \frac{355}{113}\right| < \frac{1}{q_3 q_4} = \frac{1}{113 \times 33102} \approx 2.673 \times 10^{-7}
+\]
+
+\subsubsection{The Golden Ratio: The Most Irrational Number}
+The golden ratio $\phi = \frac{1+\sqrt{5}}{2}$ has the continued fraction expansion:
+\[
+  \phi = [1; 1, 1, 1, \dots]
+\]
+Its convergents are ratios of consecutive Fibonacci numbers $\frac{F_{n+1}}{F_n}$:
+\[
+  1, \quad 2, \quad \frac{3}{2}, \quad \frac{5}{3}, \quad \frac{8}{5}, \quad \frac{13}{8}, \quad \frac{21}{13}, \quad \dots
+\]
+Because every partial quotient attains the minimal possible positive integer value $a_k = 1$, the denominators grow at the slowest possible rate ($q_{n+1} = q_n + q_{n-1}$), and the approximation error $\left|\phi - \frac{p_n}{q_n}\right|$ converges to $0$ slower than for any other irrational number.
+For this reason, $\phi$ is often described as the ``most irrational'' real number.
 
 
 \section{Relation to Pell's Equation}\label{cf:sec:relation-to-pell's-equation}
-todo
+Pell's equation is one of the oldest and most celebrated Diophantine equations in number theory.
+Let $n$ be a positive integer that is not a perfect square.
+The equations:
+\begin{align}
+  x^2 - n y^2 & = 1 \label{cf:eq:pell-pos} \\
+  x^2 - n y^2 & = -1 \label{cf:eq:pell-neg}
+\end{align}
+are known as the \textbf{Pell equation} and \textbf{negative Pell equation}, respectively.
+Continued fractions provide the complete and constructive algorithmic solution to both equations.
+
+\subsection{Convergents and Solutions}
+The fundamental connection between continued fractions and Pell's equation is that every non-trivial integer solution must be a convergent of $\sqrt{n}$.
 
 \begin{mytheorem}{Pell's Equation Relation}{pell_relation}
-  If $p,q$ are integers such that $ p^2 - n \cdot q^2 =  \pm 1 $, Then $p,q$ are convergents of $\sqrt{n}$.
+  If $p, q$ are positive integers such that $p^2 - n q^2 = \pm 1$, then $p/q$ is a convergent of $\sqrt{n}$.
+
+  \begin{proof}
+    Suppose $p, q \in \N$ satisfy $p^2 - n q^2 = \pm 1$.
+    Factoring the left-hand side:
+    \[
+      (p - q\sqrt{n})(p + q\sqrt{n}) = \pm 1 \implies |p - q\sqrt{n}| = \frac{1}{p + q\sqrt{n}}
+    \]
+    Dividing by $q$:
+    \[
+      \left| \sqrt{n} - \frac{p}{q} \right| = \frac{1}{q(p + q\sqrt{n})}
+    \]
+    Since $n \ge 2$ is not a square, we have $\sqrt{n} > 1$.
+    If $p^2 - n q^2 = 1$, then $p^2 = n q^2 + 1 > n q^2 \ge 2 q^2$, which implies $p > \sqrt{2} q > q$.
+    If $p^2 - n q^2 = -1$, then $p^2 = n q^2 - 1 \ge 2 q^2 - 1 \ge q^2$ (since $q \ge 1$), which implies $p \ge q$.
+    In either case:
+    \[
+      p + q\sqrt{n} > q + q\sqrt{2} > 2q
+    \]
+    Therefore:
+    \[
+      \left| \sqrt{n} - \frac{p}{q} \right| = \frac{1}{q(p + q\sqrt{n})} < \frac{1}{2 q^2}
+    \]
+    By Legendre's Approximation Theorem (Theorem~\ref{thm:legendre_approx}), $\frac{p}{q}$ must be a convergent of the continued fraction expansion of $\sqrt{n}$.
+  \end{proof}
 \end{mytheorem}
+
+\subsection{The Periodic Continued Fraction of \texorpdfstring{$\sqrt{n}$}{sqrt(n)}}
+As shown in Section~\ref{cf:sec:square-root-numbers}, the continued fraction expansion of $\sqrt{n}$ is periodic.
+In standard canonical form:
+\[
+  \sqrt{n} = [a_0; \overline{a_1, a_2, \dots, a_{r-1}, 2a_0}]
+\]
+where $a_0 = \lfloor\sqrt{n}\rfloor$ and $r$ is the length of the minimal period.
+The partial quotients can be computed via the standard recurrence:
+\[
+  P_0 = 0, \quad Q_0 = 1, \quad a_0 = \lfloor\sqrt{n}\rfloor
+\]
+and for $k \ge 0$:
+\[
+  P_{k+1} = a_k Q_k - P_k, \qquad Q_{k+1} = \frac{n - P_{k+1}^2}{Q_k}, \qquad a_{k+1} = \left\lfloor \frac{\sqrt{n} + P_{k+1}}{Q_{k+1}} \right\rfloor
+\]
+The convergents $p_k/q_k$ satisfy the key identity:
+\begin{equation}\label{cf:eq:pell-convergent-norm}
+  p_k^2 - n q_k^2 = (-1)^{k-1} Q_{k+1}
+\end{equation}
+
+\subsection{Finding the Fundamental Solution}
+At the end of the period, when $k = r - 1$, the complete quotient satisfies $Q_r = 1$.
+Substituting $k = r - 1$ and $Q_r = 1$ into~\eqref{cf:eq:pell-convergent-norm}:
+\[
+  p_{r-1}^2 - n q_{r-1}^2 = (-1)^r
+\]
+This yields two cases depending on the parity of the period length $r$:
+
+\begin{enumerate}
+  \item \textbf{Even Period ($r$ is even):}
+    Then $(-1)^r = 1$, so:
+    \[
+      p_{r-1}^2 - n q_{r-1}^2 = 1
+    \]
+    The \textbf{fundamental solution} to $x^2 - n y^2 = 1$ is:
+    \[
+      (x_1, y_1) = (p_{r-1}, q_{r-1})
+    \]
+    In this case, the negative Pell equation $x^2 - n y^2 = -1$ has no integer solutions.
+
+  \item \textbf{Odd Period ($r$ is odd):}
+    Then $(-1)^r = -1$, so:
+    \[
+      p_{r-1}^2 - n q_{r-1}^2 = -1
+    \]
+    Thus $(p_{r-1}, q_{r-1})$ is the fundamental solution to the \textbf{negative Pell equation} $x^2 - n y^2 = -1$.
+    To solve the positive equation $x^2 - n y^2 = 1$, we take the convergent at the end of the second period, $k = 2r - 1$.
+    Since $2r$ is even:
+    \[
+      p_{2r-1}^2 - n q_{2r-1}^2 = (-1)^{2r} = 1
+    \]
+    So the fundamental solution to $x^2 - n y^2 = 1$ is:
+    \[
+      (x_1, y_1) = (p_{2r-1}, q_{2r-1})
+    \]
+\end{enumerate}
+
+\subsection{Generating All Solutions}
+Once the fundamental solution $(x_1, y_1)$ to $x^2 - n y^2 = 1$ is found, all positive integer solutions $(x_k, y_k)$ are generated by powers of the fundamental unit $x_1 + y_1\sqrt{n}$:
+\[
+  x_k + y_k\sqrt{n} = (x_1 + y_1\sqrt{n})^k \qquad (k \ge 1)
+\]
+Equivalently, the solutions can be computed recursively:
+\begin{align*}
+  x_{k+1} & = x_1 x_k + n y_1 y_k \\
+  y_{k+1} & = y_1 x_k + x_1 y_k
+\end{align*}
+
+\subsection{Worked Examples}
+\subsubsection{Example: Even Period (\texorpdfstring{$n = 7$}{n = 7})}
+Consider $x^2 - 7y^2 = 1$.
+The continued fraction expansion of $\sqrt{7}$ is:
+\[
+  \sqrt{7} = [2; \overline{1, 1, 1, 4}]
+\]
+Here $a_0 = 2, a_1 = 1, a_2 = 1, a_3 = 1, a_4 = 4$, so the period length is $r = 4$ (even).
+Computing the convergents $p_k/q_k$:
+\begin{align*}
+  k = 0: \quad & \frac{p_0}{q_0} = 2, & p_0^2 - 7q_0^2 & = 4 - 7 = -3 \\
+  k = 1: \quad & \frac{p_1}{q_1} = 2 + \frac{1}{1} = 3, & p_1^2 - 7q_1^2 & = 9 - 7 = +2 \\
+  k = 2: \quad & \frac{p_2}{q_2} = \frac{1 \times 3 + 2}{1 \times 1 + 1} = \frac{5}{2}, & p_2^2 - 7q_2^2 & = 25 - 28 = -3 \\
+  k = 3: \quad & \frac{p_3}{q_3} = \frac{1 \times 5 + 3}{1 \times 2 + 1} = \frac{8}{3}, & p_3^2 - 7q_3^2 & = 64 - 7(9) = 64 - 63 = 1
+\end{align*}
+Since $r = 4$ is even, the fundamental solution occurs at $k = r - 1 = 3$:
+\[
+  (x_1, y_1) = (8, 3)
+\]
+The next positive solution is given by:
+\[
+  x_2 + y_2\sqrt{7} = (8 + 3\sqrt{7})^2 = 64 + 63 + 48\sqrt{7} = 127 + 48\sqrt{7}
+\]
+Checking: $127^2 - 7(48^2) = 16129 - 7(2304) = 16129 - 16128 = 1$.
+
+\subsubsection{Example: Odd Period (\texorpdfstring{$n = 13$}{n = 13})}
+Consider $x^2 - 13y^2 = \pm 1$.
+The continued fraction expansion of $\sqrt{13}$ is:
+\[
+  \sqrt{13} = [3; \overline{1, 1, 1, 1, 6}]
+\]
+The period length is $r = 5$ (odd).
+Computing convergents up to $k = r - 1 = 4$:
+\[
+  \frac{p_0}{q_0} = \frac{3}{1}, \quad \frac{p_1}{q_1} = \frac{4}{1}, \quad \frac{p_2}{q_2} = \frac{7}{2}, \quad \frac{p_3}{q_3} = \frac{11}{3}, \quad \frac{p_4}{q_4} = \frac{18}{5}
+\]
+Testing $p_4/q_4$:
+\[
+  p_4^2 - 13q_4^2 = 18^2 - 13(5^2) = 324 - 325 = -1
+\]
+Thus $(18, 5)$ is the fundamental solution to the negative Pell equation $x^2 - 13y^2 = -1$.
+Squaring the unit $(18 + 5\sqrt{13})$ yields the fundamental solution to $x^2 - 13y^2 = 1$:
+\[
+  (18 + 5\sqrt{13})^2 = 324 + 325 + 180\sqrt{13} = 649 + 180\sqrt{13}
+\]
+So $(x_1, y_1) = (649, 180)$, which corresponds to the convergent $p_9/q_9$ at the end of the second period ($2r - 1 = 9$).
+Indeed:
+\[
+  649^2 - 13(180^2) = 421201 - 421200 = 1
+\]
 
 
 \section{Solving linear Diophantine Equations}\label{cf:sec:solving-linear-diophantine-equations}
-todo
+A linear Diophantine equation in two variables has the general form:
+\begin{equation}\label{cf:eq:linear-diophantine}
+  a x + b y = c
+\end{equation}
+where $a, b, c \in \Z$ are given integers with $a, b \ne 0$, and we seek all integer solutions $(x, y) \in \Z^2$.
+Continued fractions provide an elegant, constructive method to find both a particular solution and the full parametric family of solutions.
+
+\subsection{Solvability Criterion}
+\begin{mylemma}{B\'ezout's Solvability Condition}{diophantine_solvability}
+  Let $a, b, c \in \Z$ with $d = \gcd(a, b)$.
+  The equation $a x + b y = c$ has an integer solution if and only if $d$ divides $c$ ($d \mid c$).
+
+  \begin{proof}
+    If $(x, y)$ is an integer solution, then $d \mid a$ and $d \mid b$, so $d \mid (ax + by) = c$.
+    Conversely, if $d \mid c$, we divide through by $d$ to obtain:
+    \[
+      a' x + b' y = c'
+    \]
+    where $a' = a/d, b' = b/d, c' = c/d$, and $\gcd(a', b') = 1$.
+    By B\'ezout's identity, there exist integers $u, v$ such that $a' u + b' v = 1$.
+    Multiplying by $c'$ gives $a'(c' u) + b'(c' v) = c'$, yielding the integer solution $(x_0, y_0) = (c' u, c' v)$.
+  \end{proof}
+\end{mylemma}
+
+\subsection{Constructing Particular Solutions via Continued Fractions}
+Assume $d \mid c$, and reduce the equation to coprime coefficients:
+\[
+  a' x + b' y = c' \qquad \text{with } \gcd(a', b') = 1
+\]
+Assuming without loss of generality that $b' > 0$ and $a' > 0$ (handling signs by setting $x = -x'$ or $y = -y'$ as needed), express the rational number $a'/b'$ as a finite simple continued fraction:
+\[
+  \frac{a'}{b'} = [a_0; a_1, a_2, \dots, a_n]
+\]
+Let $p_k/q_k$ denote the convergents.
+The final convergent is:
+\[
+  \frac{p_n}{q_n} = \frac{a'}{b'}
+\]
+Since $\gcd(p_n, q_n) = 1$ and $\gcd(a', b') = 1$ with $q_n, b' > 0$, we have:
+\[
+  p_n = a', \qquad q_n = b'
+\]
+Now consider the penultimate convergent $\frac{p_{n-1}}{q_{n-1}}$.
+By the Determinant Identity (Lemma~\ref{lem:lemma3}):
+\[
+  p_{n-1} q_n - p_n q_{n-1} = (-1)^n
+\]
+Negating both sides:
+\[
+  p_n q_{n-1} - p_{n-1} q_n = (-1)^{n-1}
+\]
+Substituting $p_n = a'$ and $q_n = b'$:
+\[
+  a' q_{n-1} - b' p_{n-1} = (-1)^{n-1}
+\]
+Multiplying both sides by $(-1)^{n-1} c'$:
+\[
+  a' \cdot \left[ (-1)^{n-1} c' q_{n-1} \right] + b' \cdot \left[ (-1)^n c' p_{n-1} \right] = c'
+\]
+This produces an explicit particular solution:
+\begin{equation}\label{cf:eq:particular-solution}
+  x_0 = (-1)^{n-1} c' q_{n-1} = (-1)^{n-1} \frac{c}{d} q_{n-1}, \qquad y_0 = (-1)^n c' p_{n-1} = (-1)^n \frac{c}{d} p_{n-1}
+\end{equation}
+
+\subsection{The General Solution}
+\begin{mytheorem}{General Solution of Linear Diophantine Equation}{diophantine_general}
+  Let $a, b, c \in \Z$ with $d = \gcd(a, b) \mid c$.
+  If $(x_0, y_0)$ is any particular integer solution to $a x + b y = c$, then the complete set of integer solutions is given by:
+  \[
+    x = x_0 + \frac{b}{d} t, \qquad y = y_0 - \frac{a}{d} t \qquad (t \in \Z)
+  \]
+
+  \begin{proof}
+    First, we verify that any pair of this form is indeed a solution:
+    \begin{align*}
+      a x + b y & = a\left( x_0 + \frac{b}{d} t \right) + b\left( y_0 - \frac{a}{d} t \right) \\
+      & = (a x_0 + b y_0) + \left( \frac{a b}{d} - \frac{a b}{d} \right) t \\
+      & = c + 0 = c
+    \end{align*}
+    Conversely, let $(x, y)$ be an arbitrary integer solution.
+    Then:
+    \[
+      a x + b y = c = a x_0 + b y_0
+    \]
+    Rearranging:
+    \[
+      a(x - x_0) = b(y_0 - y)
+    \]
+    Dividing by $d$:
+    \[
+      \frac{a}{d} (x - x_0) = \frac{b}{d} (y_0 - y)
+    \]
+    Since $\gcd\left(\frac{a}{d}, \frac{b}{d}\right) = 1$, by Euclid's lemma $\frac{b}{d}$ must divide $(x - x_0)$.
+    Thus there exists an integer $t \in \Z$ such that:
+    \[
+      x - x_0 = \frac{b}{d} t \implies x = x_0 + \frac{b}{d} t
+    \]
+    Substituting this back into the equation:
+    \[
+      \frac{a}{d} \left(\frac{b}{d} t\right) = \frac{b}{d} (y_0 - y) \implies y_0 - y = \frac{a}{d} t \implies y = y_0 - \frac{a}{d} t
+    \]
+    This proves that every integer solution is of the stated form.
+  \end{proof}
+\end{mytheorem}
+
+\subsection{Worked Examples}
+\subsubsection{Example 1: Coprime Coefficients}
+Solve the Diophantine equation:
+\[
+  17 x + 5 y = 1
+\]
+Here $a = 17, b = 5, c = 1$, and $\gcd(17, 5) = 1$, so solutions exist.
+We compute the continued fraction expansion of $\frac{17}{5}$:
+\[
+  \frac{17}{5} = 3 + \frac{2}{5} = 3 + \cfrac{1}{2 + \frac{1}{2}} = [3; 2, 2]
+\]
+Here the length is $n = 2$ (even).
+The convergents are:
+\begin{align*}
+  \frac{p_0}{q_0} & = \frac{3}{1} \\
+  \frac{p_1}{q_1} & = 3 + \frac{1}{2} = \frac{7}{2} \\
+  \frac{p_2}{q_2} & = \frac{2 \times 7 + 3}{2 \times 2 + 1} = \frac{17}{5}
+\end{align*}
+The penultimate convergent is $\frac{p_1}{q_1} = \frac{7}{2}$.
+By the Determinant Identity:
+\[
+  p_2 q_1 - p_1 q_2 = 17 \times 2 - 7 \times 5 = 34 - 35 = -1
+\]
+Multiplying by $-1$:
+\[
+  17(-2) + 5(7) = 1
+\]
+Hence a particular solution is $(x_0, y_0) = (-2, 7)$.
+By Theorem~\ref{thm:diophantine_general}, the general solution is:
+\[
+  x = -2 + 5t, \qquad y = 7 - 17t \qquad (t \in \Z)
+\]
+
+\subsubsection{Example 2: Non-Coprime Coefficients}
+Solve the Diophantine equation:
+\[
+  68 x + 20 y = 12
+\]
+Here $a = 68, b = 20, c = 12$.
+The greatest common divisor is $d = \gcd(68, 20) = 4$.
+Since $4 \mid 12$, solutions exist.
+Dividing the entire equation by $4$:
+\[
+  17 x + 5 y = 3
+\]
+From Example 1, the particular solution to $17 x + 5 y = 1$ is $(-2, 7)$.
+Multiplying this solution by $c' = 3$:
+\[
+  x_0 = 3 \times (-2) = -6, \qquad y_0 = 3 \times 7 = 21
+\]
+Checking: $68(-6) + 20(21) = -408 + 420 = 12$.
+By Theorem~\ref{thm:diophantine_general}, the complete family of solutions is:
+\[
+  x = -6 + 5t, \qquad y = 21 - 17t \qquad (t \in \Z)
+\]
 
 
 \section{Gauss's continued fraction}\label{cf:sec:gauss's-continued-fraction}
@@ -918,6 +1438,16 @@ todo
   Hubert Stanley Wall.
   \textit{Analytic Theory of Continued Fractions}.
   D. Van Nostrand Company, Inc., New York, 1948.
+
+  \bibitem{hardywright}
+  G. H. Hardy and E. M. Wright.
+  \textit{An Introduction to the Theory of Numbers}.
+  Fifth Edition, Oxford University Press, 1979.
+
+  \bibitem{khinchin1964}
+  A. Ya. Khinchin.
+  \textit{Continued Fractions}.
+  University of Chicago Press, 1964.
 
 \end{thebibliography}
 
