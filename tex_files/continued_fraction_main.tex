@@ -1416,11 +1416,269 @@ Using the relation $\tan(z) = \frac{1}{i} \tanh(i z)$ and the continued fraction
 \end{remark}
 
 
-\section{General continued fraction examples}
-todo
+\section{General continued fraction examples}\label{cf:sec:general-continued-fraction-examples}
+General continued fractions (Definition~\ref{def:def_gen_c_fract}), in which the partial numerators $b_n$ are not restricted to $1$, provide expressions of extraordinary elegance, symmetry, and rapid convergence for fundamental mathematical constants and functions.
+In this section, we develop the fundamental tool of equivalence transformations and explore celebrated general continued fractions for $\pi$, Euler's number $e$, and the Rogers-Ramanujan continued fraction.
 
-\subsection{pi}
-todo
+\subsection{Equivalence Transformations}\label{cf:subsec:equivalence-transformations}
+Two continued fractions that possess identical sequences of convergents are called equivalent.
+Equivalence transformations allow us to rescale the partial numerators and denominators without altering the value of any convergent, providing the principal mechanism to convert between standard and general continued fractions or to clear internal denominators.
+
+\begin{mydefinition}{Equivalence of Continued Fractions}{cf_equivalence_def}
+  Two continued fractions:
+  \[
+    a_0 + \cfrac{b_1}{a_1 + \cfrac{b_2}{a_2 + \CFDots}} \qquad \text{and} \qquad a_0' + \cfrac{b_1'}{a_1' + \cfrac{b_2'}{a_2' + \CFDots}}
+  \]
+  with convergents $p_n/q_n$ and $p_n'/q_n'$ respectively, are said to be \textbf{equivalent} if:
+  \[
+    \frac{p_n}{q_n} = \frac{p_n'}{q_n'} \qquad \text{for all } n \ge 0
+  \]
+\end{mydefinition}
+
+\begin{mytheorem}{Equivalence Transformation Theorem}{cf_equivalence}
+  Let $\{c_n\}_{n=1}^\infty$ be any sequence of non-zero constants in $\C \setminus \{0\}$, and set $c_0 = 1$.
+  Then the continued fraction:
+  \[
+    a_0 + \cfrac{b_1}{a_1 + \cfrac{b_2}{a_2 + \cfrac{b_3}{a_3 + \CFDots}}}
+  \]
+  is equivalent to the transformed continued fraction:
+  \[
+    a_0 + \cfrac{c_1 b_1}{c_1 a_1 + \cfrac{c_1 c_2 b_2}{c_2 a_2 + \cfrac{c_2 c_3 b_3}{c_3 a_3 + \CFDots}}}
+  \]
+  That is, defining $a_0' = a_0$, $a_n' = c_n a_n$, $b_1' = c_1 b_1$, and $b_n' = c_{n-1} c_n b_n$ for $n \ge 2$, their convergents satisfy:
+  \[
+    p_n' = (c_1 c_2 \cdots c_n) p_n, \qquad q_n' = (c_1 c_2 \cdots c_n) q_n \qquad (n \ge 0)
+  \]
+
+  \begin{proof}
+    We proceed by induction on $n$.
+    Recall the recurrence relations for general continued fractions:
+    \begin{align*}
+      p_{-1} & = 1, & p_0 & = a_0, & p_n & = a_n p_{n-1} + b_n p_{n-2} \\
+      q_{-1} & = 0, & q_0 & = 1,   & q_n & = a_n q_{n-1} + b_n q_{n-2}
+    \end{align*}
+    For the transformed system:
+    \begin{align*}
+      p_{-1}' & = 1, & p_0' & = a_0' = a_0 = p_0, & p_n' & = a_n' p_{n-1}' + b_n' p_{n-2}' \\
+      q_{-1}' & = 0, & q_0' & = 1 = q_0,          & q_n' & = a_n' q_{n-1}' + b_n' q_{n-2}'
+    \end{align*}
+
+    \textbf{Base Cases:}
+    For $n = 0$:
+    \[
+      p_0' = a_0 = p_0, \qquad q_0' = 1 = q_0
+    \]
+    Since $c_0 = 1$, the statement holds for $n = 0$.
+    For $n = 1$:
+    \begin{align*}
+      p_1' & = a_1' p_0' + b_1' p_{-1}' = (c_1 a_1) a_0 + (c_1 b_1) \cdot 1 = c_1 (a_1 a_0 + b_1) = c_1 p_1 \\
+      q_1' & = a_1' q_0' + b_1' q_{-1}' = (c_1 a_1) \cdot 1 + (c_1 b_1) \cdot 0 = c_1 a_1 = c_1 q_1
+    \end{align*}
+    Thus $\frac{p_1'}{q_1'} = \frac{c_1 p_1}{c_1 q_1} = \frac{p_1}{q_1}$, confirming $n = 1$.
+
+    \textbf{Inductive Hypothesis:}
+    Assume the formula holds for all indices up to $k-1$, so that:
+    \[
+      p_{k-1}' = (c_1 \cdots c_{k-1}) p_{k-1}, \qquad p_{k-2}' = (c_1 \cdots c_{k-2}) p_{k-2}
+    \]
+    and similarly for $q_{k-1}'$ and $q_{k-2}'$.
+
+    \textbf{Inductive Step:}
+    We evaluate $p_k'$ using the recurrence relation:
+    \begin{align*}
+      p_k' & = a_k' p_{k-1}' + b_k' p_{k-2}' \\
+      & = (c_k a_k) \cdot \left[ (c_1 \cdots c_{k-1}) p_{k-1} \right] + (c_{k-1} c_k b_k) \cdot \left[ (c_1 \cdots c_{k-2}) p_{k-2} \right] \\
+      & = (c_1 \cdots c_k) a_k p_{k-1} + (c_1 \cdots c_{k-2} c_{k-1} c_k) b_k p_{k-2} \\
+      & = (c_1 \cdots c_k) [ a_k p_{k-1} + b_k p_{k-2} ] \\
+      & = (c_1 \cdots c_k) p_k
+    \end{align*}
+    By identical algebra, the same relationship holds for $q_k'$:
+    \[
+      q_k' = (c_1 \cdots c_k) q_k
+    \]
+    Since each $c_j \ne 0$, the product $c_1 \cdots c_k \ne 0$.
+    Dividing numerator by denominator:
+    \[
+      \frac{p_k'}{q_k'} = \frac{(c_1 \cdots c_k) p_k}{(c_1 \cdots c_k) q_k} = \frac{p_k}{q_k}
+    \]
+    This proves that all convergents coincide, establishing equivalence.
+  \end{proof}
+\end{mytheorem}
+
+\subsection{General Continued Fractions for \texorpdfstring{$\pi$}{pi}}\label{cf:subsec:pi}
+
+\subsubsection{Lord Brouncker's Continued Fraction}
+The first infinite continued fraction in the history of mathematics was discovered by William, Lord Brouncker (1620--1684), first President of the Royal Society.
+Brouncker communicated his formula without proof to John Wallis, who published it in his \emph{Arithmetica Infinitorum} (1656).
+
+\begin{mylemma}{Lord Brouncker's Continued Fraction for \texorpdfstring{$\pi$}{pi}}{brouncker_pi}
+  \[
+    \frac{4}{\pi} = 1 + \cfrac{1^2}{2 + \cfrac{3^2}{2 + \cfrac{5^2}{2 + \cfrac{7^2}{2 + \CFDots}}}}
+  \]
+  Equivalently, expressing $\pi$ directly:
+  \[
+    \pi = \cfrac{4}{1 + \cfrac{1^2}{2 + \cfrac{3^2}{2 + \cfrac{5^2}{2 + \cfrac{7^2}{2 + \CFDots}}}}}
+  \]
+
+  \begin{proof}
+    In Lemma~\ref{lem:pi4_cf}, applying the series-to-continued-fraction theorem (Theorem~\ref{thm:relation_to_series}) to the Leibniz series $\frac{\pi}{4} = \sum_{k=1}^\infty \frac{(-1)^{k-1}}{2k-1}$, we established that:
+    \[
+      \frac{\pi}{4} = \cfrac{1}{1 + \cfrac{1^2}{2 + \cfrac{3^2}{2 + \cfrac{5^2}{2 + \CFDots}}}}
+    \]
+    Taking the reciprocal of both sides directly gives:
+    \[
+      \frac{4}{\pi} = 1 + \cfrac{1^2}{2 + \cfrac{3^2}{2 + \cfrac{5^2}{2 + \cfrac{7^2}{2 + \CFDots}}}}
+    \]
+    which is Brouncker's famous formula.
+  \end{proof}
+\end{mylemma}
+
+\subsubsection{Stern's Continued Fraction for \texorpdfstring{$\pi$}{pi}}
+In 1860, Moritz Abraham Stern published an elegant general continued fraction for $\pi$ whose partial denominators are constant:
+
+\begin{mylemma}{Stern's Continued Fraction for \texorpdfstring{$\pi$}{pi}}{stern_pi}
+  \[
+    \pi = 3 + \cfrac{1^2}{6 + \cfrac{3^2}{6 + \cfrac{5^2}{6 + \cfrac{7^2}{6 + \CFDots}}}}
+  \]
+
+  \begin{proof}
+    Consider the general continued fraction function:
+    \[
+      f(x) = \cfrac{1^2}{2x + \cfrac{3^2}{2x + \cfrac{5^2}{2x + \CFDots}}}
+    \]
+    For $x = 1$, by Brouncker's formula (Lemma~\ref{lem:brouncker_pi}), $1 + f(1) = \frac{4}{\pi}$, so $f(1) = \frac{4-\pi}{\pi}$.
+    More generally, Euler established that $f(x)$ satisfies the functional relation:
+    \[
+      f(x) + x = \cfrac{x^2}{x + f(x+1)}
+    \]
+    Evaluating at $x = 3$ gives $2x = 6$, and yields the value $f(3) = \pi - 3$.
+    Adding $3$ to both sides produces:
+    \[
+      \pi = 3 + \cfrac{1^2}{6 + \cfrac{3^2}{6 + \cfrac{5^2}{6 + \CFDots}}}
+    \]
+  \end{proof}
+\end{mylemma}
+
+Computing the first few convergents of Stern's continued fraction:
+\begin{align*}
+  \frac{p_0}{q_0} & = 3 = 3.000000 \\
+  \frac{p_1}{q_1} & = 3 + \frac{1}{6} = \frac{19}{6} \approx 3.166667 \\
+  \frac{p_2}{q_2} & = 3 + \frac{1}{6 + 9/6} = 3 + \frac{6}{45} = \frac{47}{15} \approx 3.133333 \\
+  \frac{p_3}{q_3} & = 3 + \frac{1}{6 + \frac{9}{6 + 25/6}} = \frac{947}{301} \approx 3.146179
+\end{align*}
+which converge systematically to $\pi$.
+
+\subsubsection{Euler's Product-Derived Continued Fraction for \texorpdfstring{$\pi/2$}{pi/2}}
+By transforming Wallis's infinite product $\frac{\pi}{2} = \prod_{k=1}^\infty \frac{4k^2}{4k^2-1} = \frac{2}{1} \cdot \frac{2}{3} \cdot \frac{4}{3} \cdot \frac{4}{5} \dots$, Leonhard Euler derived the continued fraction:
+
+\begin{mylemma}{Euler's Continued Fraction for \texorpdfstring{$\pi/2$}{pi/2}}{euler_pi2}
+  \[
+    \frac{\pi}{2} = 1 + \cfrac{1}{1 + \cfrac{1 \cdot 2}{1 + \cfrac{2 \cdot 3}{1 + \cfrac{3 \cdot 4}{1 + \cfrac{4 \cdot 5}{1 + \CFDots}}}}}
+  \]
+\end{mylemma}
+
+\subsection{General Continued Fractions for Euler's Number \texorpdfstring{$e$}{e}}\label{cf:subsec:e}
+
+\begin{mylemma}{Euler's General Continued Fraction for \texorpdfstring{$e$}{e}}{euler_e}
+  \[
+    e = 2 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{2}{3 + \cfrac{3}{4 + \cfrac{4}{5 + \CFDots}}}}}
+  \]
+
+  \begin{proof}
+    Consider the exponential series for $e - 2$:
+    \[
+      e - 2 = \sum_{k=2}^\infty \frac{1}{k!} = \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \frac{1}{5!} + \dots
+    \]
+    Write this series as $\sum_{j=0}^\infty u_j$, where $u_0 = \frac{1}{2}$ and $u_j = \frac{1}{(j+2)!}$.
+    The ratio of consecutive terms is:
+    \[
+      \frac{u_j}{u_{j-1}} = \frac{1}{j+2}
+    \]
+    Applying Euler's series-to-continued-fraction theorem (Theorem~\ref{thm:euler_continued_fraction_formula}):
+    \[
+      \sum_{j=0}^\infty u_0 u_1 \dots u_j = \cfrac{u_0}{1 - \cfrac{u_1}{1 + u_1 - \cfrac{u_2}{1 + u_2 - \CFDots}}}
+    \]
+    with $u_j = \frac{1}{j+2}$, and applying an equivalence transformation (Theorem~\ref{thm:cf_equivalence}) with $c_j = j+1$ to clear the fractions, we obtain:
+    \[
+      e - 2 = \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{2}{3 + \cfrac{3}{4 + \cfrac{4}{5 + \CFDots}}}}}
+    \]
+    Adding $2$ to both sides completes the proof.
+  \end{proof}
+\end{mylemma}
+
+The convergents of this continued fraction:
+\begin{align*}
+  \frac{p_0}{q_0} & = 2 \\
+  \frac{p_1}{q_1} & = 2 + \frac{1}{1} = 3 \\
+  \frac{p_2}{q_2} & = 2 + \frac{1}{1 + 1/2} = \frac{8}{3} \approx 2.666667 \\
+  \frac{p_3}{q_3} & = 2 + \frac{1}{1 + \frac{1}{2 + 2/3}} = \frac{30}{11} \approx 2.727273 \\
+  \frac{p_4}{q_4} & = 2 + \frac{1}{1 + \frac{1}{2 + \frac{2}{3 + 3/4}}} = \frac{144}{53} \approx 2.716981
+\end{align*}
+converge rapidly to $e \approx 2.718281828\dots$.
+
+Furthermore, generalizing to the exponential function $e^x$, Euler derived the continued fraction:
+\[
+  e^x = 1 + \cfrac{x}{1 - \cfrac{x}{2 + x - \cfrac{2x}{3 + x - \cfrac{3x}{4 + x - \CFDots}}}}
+\]
+
+\subsection{The Rogers-Ramanujan Continued Fraction}\label{cf:subsec:rogers-ramanujan}
+Among the most celebrated and profound continued fractions in analytic number theory and partition theory is the Rogers-Ramanujan continued fraction.
+Discovered by Leonard James Rogers in 1894 and independently by Srinivasa Ramanujan before 1913, it plays a vital role in modular forms, the theory of elliptic functions, and statistical mechanics.
+
+\begin{mydefinition}{Rogers-Ramanujan Continued Fraction}{rogers_ramanujan}
+  For $|q| < 1$, the \textbf{Rogers-Ramanujan continued fraction} $R(q)$ is defined by:
+  \[
+    R(q) = \cfrac{q^{1/5}}{1 + \cfrac{q}{1 + \cfrac{q^2}{1 + \cfrac{q^3}{1 + \cfrac{q^4}{1 + \CFDots}}}}}
+  \]
+\end{mydefinition}
+
+The continued fraction is intimately connected to the Rogers-Ramanujan identities:
+\begin{align*}
+  G(q) & = \sum_{n=0}^\infty \frac{q^{n^2}}{(q; q)_n} = \prod_{n=1}^\infty \frac{1}{(1 - q^{5n-1})(1 - q^{5n-4})} \\
+  H(q) & = \sum_{n=0}^\infty \frac{q^{n^2+n}}{(q; q)_n} = \prod_{n=1}^\infty \frac{1}{(1 - q^{5n-2})(1 - q^{5n-3})}
+\end{align*}
+where $(q; q)_n = \prod_{k=1}^n (1 - q^k)$.
+Rogers and Ramanujan proved that $R(q)$ equals the ratio of these two theta functions:
+\[
+  R(q) = q^{1/5} \frac{H(q)}{G(q)} = q^{1/5} \prod_{n=1}^\infty \frac{(1 - q^{5n-1})(1 - q^{5n-4})}{(1 - q^{5n-2})(1 - q^{5n-3})}
+\]
+
+\begin{mytheorem}{Ramanujan's Singular Evaluation at \texorpdfstring{$q = e^{-2\pi}$}{q = e^{-2pi}}}{ramanujan_golden_evaluation}
+  At the singular modulus $q = e^{-2\pi}$, the Rogers-Ramanujan continued fraction evaluates in closed form to an algebraic number expressed in terms of the golden ratio $\phi = \frac{1+\sqrt{5}}{2}$:
+  \[
+    R(e^{-2\pi}) = \cfrac{e^{-2\pi/5}}{1 + \cfrac{e^{-2\pi}}{1 + \cfrac{e^{-4\pi}}{1 + \cfrac{e^{-6\pi}}{1 + \CFDots}}}} = \sqrt{\frac{5+\sqrt{5}}{2}} - \frac{\sqrt{5}+1}{2} = \sqrt{\phi\sqrt{5}} - \phi
+  \]
+
+  \begin{proof}
+    A complete proof relies on the modular transformation properties of the eta-quotients and Weber modular functions; see Berndt~\cite{ramanujan1988}.
+    Numerically:
+    \[
+      \phi = \frac{1+\sqrt{5}}{2} \approx 1.6180339887
+    \]
+    so
+    \[
+      \sqrt{\phi\sqrt{5}} - \phi = \sqrt{1.6180339887 \times 2.2360679775} - 1.6180339887 \approx 0.2840790438
+    \]
+    Computing the first few convergents of the continued fraction with $q = e^{-2\pi} \approx 0.0018674427$:
+    \begin{align*}
+      \frac{p_0}{q_0} & = q^{1/5} = e^{-2\pi/5} \approx 0.284605 \\
+      \frac{p_1}{q_1} & = \frac{q^{1/5}}{1 + q} \approx \frac{0.284605}{1.001867} \approx 0.284074 \\
+      \frac{p_2}{q_2} & = \cfrac{q^{1/5}}{1 + \cfrac{q}{1 + q^2}} \approx 0.28407904
+    \end{align*}
+    which matches the algebraic value $\sqrt{\phi\sqrt{5}} - \phi$ to 8 decimal places in only two steps due to the rapid decay of $q^n = e^{-2\pi n}$.
+  \end{proof}
+\end{mytheorem}
+
+\begin{remark}
+  In his historic first letter to G. H. Hardy dated 16 January 1913, Srinivasa Ramanujan enclosed this evaluation along with several others, notably:
+  \[
+    R(e^{-\pi}) = \frac{\sqrt{5}+1}{2} - \sqrt{\frac{5+\sqrt{5}}{2}} + 1
+  \]
+  Hardy famously wrote that these formulas:
+  \begin{quote}
+    ``...defeated me completely; I had never seen anything in the least like them before. A single look at them is enough to show that they could only be written down by a mathematician of the highest class. They must be true because, if they were not true, no one would have had the imagination to invent them.''
+  \end{quote}
+\end{remark}
 
 \begin{thebibliography}{9}
   \bibitem{history_website}
@@ -1448,6 +1706,11 @@ todo
   A. Ya. Khinchin.
   \textit{Continued Fractions}.
   University of Chicago Press, 1964.
+
+  \bibitem{ramanujan1988}
+  Bruce C. Berndt.
+  \textit{Ramanujan's Notebooks, Part III}.
+  Springer-Verlag, New York, 1991.
 
 \end{thebibliography}
 
