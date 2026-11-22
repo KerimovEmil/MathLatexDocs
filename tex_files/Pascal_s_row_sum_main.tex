@@ -1,4 +1,4 @@
-﻿\documentclass[a4paper]{article}
+\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -8,7 +8,7 @@
 
 \begin{document}
 \maketitle
-\section{PascalRowSum}\label{pas:PascalRowSum}
+\section{Pascal's Row Sum}\label{pas:PascalRowSum}
 
 
 Prove that:
@@ -30,18 +30,18 @@ Draw Pascal's Triangle.
 Notice, the sum of the nth row seems to be $2^n$.
 
 
-\subsubsection{Sidenote 1}\label{pas:pascal_sidenote1}
+\subsection{Sidenote 1: Left Boundary}\label{pas:pascal_sidenote1}
 Prove that $${p \choose 0}={p+1 \choose 0}$$
 Proof:
 $${p \choose 0}=\frac{p!}{0! \cdot (p-0)!}=\frac{p!}{p!}=1=\frac{(p+1)!}{0! \cdot (p+1-0)!}={p+1 \choose 0}$$
 
-\subsubsection{Sidenote 2 }\label{pas:pascal_sidenote2}
+\subsection{Sidenote 2: Right Boundary}\label{pas:pascal_sidenote2}
 Prove that $${p \choose p}={p+1 \choose p+1}$$
 
 Proof:
 $${p \choose p}=\frac{p!}{0! \cdot (p-0)!}=\frac{p!}{p!}=1=\frac{(p+1)!}{0! \cdot (p+1-0)!}={p+1 \choose p+1}$$
 
-\subsubsection{Sidenote 3 }\label{pas:pascal_sidenote3}
+\subsection{Sidenote 3: Pascal's Recurrence}\label{pas:pascal_sidenote3}
 Prove that $${p \choose q} +{p \choose q+1}={p+1 \choose q+1}$$
 
 Proof:
@@ -51,7 +51,7 @@ $$= \frac{p! \cdot (q+1+p-q)}{(q+1)! \cdot (p-q)!} = \frac{p! \cdot (p+1)}{(q+1)
 $$=\frac{(p+1)!}{(q+1)! \cdot (p-q)!}={p+1 \choose q+1} $$
 
 
-Using induction: 
+\subsection{Proof by Induction}\label{pas:proof_by_induction} 
 
 for n=0:
 $${0 \choose 0} = \frac{0!}{0! \cdot 0!}=1=2^0$$

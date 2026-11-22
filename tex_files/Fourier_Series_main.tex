@@ -1,4 +1,4 @@
-﻿\documentclass[a4paper]{article}
+\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -17,7 +17,7 @@ f(x) = a_0 + \sum\limits_{n=1}^{\infty} a_n cos(n x) + b_n sin(n x)
 \end{equation}
 
 
-\subsubsection{Side Note: Trigonometric Identities of addition}\label{fs:trig_identities_addittion}
+\subsection{Trigonometric Addition Identities}\label{fs:trig_identities_addittion}
 Recall equations~\cref{cos_a_plus_b,cos_a_minus_b,sin_a_plus_b,sin_a_minus_b}
 
 \begin{equation}\label{fs:cos_a_plus_b}
@@ -45,7 +45,7 @@ sin(a) cos(b)  = \frac{1}{2}(sin(a+b) + sin(a-b))
 sin(a) sin(b)  = \frac{1}{2}(cos(a-b) - cos(a+b))
 \end{equation}
 
-\subsubsection{Integrals}
+\subsection{Orthogonality Integrals}\label{fs:integrals}
 Since $sin(n x)$ is an odd function, its integral  over a symmetric region is zero.
 \begin{equation}\label{fs:int_sin_nx}
 \int \limits_{-\pi}^{\pi} sin(n x) dx = 0
@@ -78,7 +78,7 @@ cos((n+m) x) dx \\
 \end{multline}
 
 
-\subsubsection{$a_0$ coefficient}\label{fs:a0_coefficient}
+\subsection{$a_0$ Coefficient}\label{fs:a0_coefficient}
 Integrate both sides of~\cref{fourier_series} to obtain:
 $$\int \limits_{-\pi}^{\pi} f(x) dx = \int \limits_{-\pi}^{\pi} a_0 dx + \sum \limits_{n=1}^{\infty} (a_n \int \limits_{-\pi}^{\pi} cos(n x) dx + b_n \int \limits_{-\pi}^{\pi} sin(n x) dx)$$
 Using \cref{int_sin_nx,int_cos_nx} the sum terms become zero.
@@ -88,7 +88,7 @@ And thus we obtain
 a_0 = \frac{\int \limits_{-\pi}^{\pi} f(x) dx}{2\pi}
 \end{equation}
 
-\subsubsection{$a_n$ coefficients}\label{fs:an_coefficient}
+\subsection{$a_n$ Coefficients}\label{fs:an_coefficient}
 Multiply both sides of~\cref{fourier_series} by $cos(m x)$ to obtain:
 $$f(x) cos(m x)= a_0 cos(m x) + \sum\limits_{n=1}^{\infty} a_n cos(n x) cos(m x) + b_n sin(n x) cos(m x)$$
 Integrate both sides.
@@ -110,7 +110,7 @@ Which, by changing the index from $m$ to $n$ gives:
 a_n = \frac{\int \limits_{-\pi}^{\pi} f(x) cos(n x) dx}{\pi}
 \end{equation}
 
-\subsubsection{$b_n$ coefficients}\label{fs:bn_coefficient}
+\subsection{$b_n$ Coefficients}\label{fs:bn_coefficient}
 Using similar arguments to~\cref{an_coefficient} we obtain:
 \begin{equation}\label{fs:bn}
 b_n = \frac{\int \limits_{-\pi}^{\pi} f(x) sin(n x) dx}{\pi}

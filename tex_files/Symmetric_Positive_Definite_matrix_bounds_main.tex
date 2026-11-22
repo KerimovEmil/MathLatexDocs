@@ -1,4 +1,4 @@
-﻿\documentclass[a4paper]{article}
+\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -10,12 +10,12 @@
 
 
 
-\section{Motivating Example}
+\section{Motivating Problem: Correlation Bounds}
 Suppose there are three assets, $a,b,c$ , by knowing the volatility of each of the assets, and the correlation between assets $a$ and $b$, as well as the correlation between assets $b$ and $c$, what is the interval of valid correlations between and assets $a$ and $c$?
 
 This document presents one general method of addressing this problem, and solves the case of three assets analytically.
 
-\section{Definition}
+\section{Definitions and Positive-Definite Properties}
 
 \begin{definition}\label{spd:PD}
 A positive-definite matrix is defined as TODO.
@@ -29,7 +29,7 @@ A semi-positive-definite matrix is defined as TODO.
 A principle minor is defined as TODO.
 \end{definition}
 
-\section{Background Theory}
+\section{Background Matrix Theory}
 We make use of some known properties of positive-definite (PD) and positive-semi-definite (PSD) matrices. 
 
 \begin{theorem} \label{spd:PD implies positive eigenvalues} 
@@ -52,11 +52,11 @@ TODO
 \end{gather*}
 \end{theorem}
 
-\section{Main Idea}\label{spd:sec:main-idea}
+\section{Principal Minors Method}\label{spd:sec:main-idea}
 All principle majors of a PD matrix, must be positive.
 Therefore, compute them all, and figure out bounds on the unknown quantities.
 
-\subsection{Two Asset}\label{spd:subsec:two-asset}
+\subsection{Two Assets (\texorpdfstring{$2 \times 2$}{2x2} Case)}\label{spd:subsec:two-asset}
 The case $n=2$ is trivial, due to the definition of correlation being bounded by $-1$ and $1$.
 
 \begin{gather*}
@@ -76,7 +76,7 @@ C = \begin{pmatrix}
 \end{pmatrix}\label{spd:eq:equation}
 \end{equation}
 
-\subsection{3x3}
+\subsection{Three Assets (\texorpdfstring{$3 \times 3$}{3x3} Case)}
 We can  
 
 \begin{equation}
@@ -101,7 +101,7 @@ TODO
 \end{gather*}
 \end{theorem}
 
-\subsection{4x4}
+\subsection{Four Assets (\texorpdfstring{$4 \times 4$}{4x4} Case)}
 We can  
 
 \begin{equation}

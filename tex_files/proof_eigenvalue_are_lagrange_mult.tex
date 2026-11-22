@@ -1,4 +1,4 @@
-﻿\documentclass[a4paper]{article}
+\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -8,7 +8,7 @@
 \begin{document}
 \maketitle
 
-\section{Overview of matrix derivatives}
+\section{Matrix Derivatives}\label{elm:sec:matrix-derivatives}
 
 \begin{equation}
 \frac{\partial x^T A x}{\partial x} = x^T(A^T + A)
@@ -18,7 +18,7 @@
 \frac{\partial x^T a}{\partial x} = a^T
 \end{equation}
 
-\section{Overview of LaGrange Multipliers}
+\section{Lagrange Multipliers}\label{elm:sec:lagrange-multipliers}
 For our purposes we only need the simplified version of LaGrange Multipliers
 \begin{gather*}
 \shortintertext{If}
@@ -33,7 +33,7 @@ g(\vec{x}) = \vec{c}\\
 \end{alignedat}
 \end{gather*}
 
-\section{Proof}
+\section{Eigenvalues as Lagrange Multipliers: Proof}\label{elm:sec:proof}
 
 Consider the problem of finding a vector on the unit sphere that maximizes the quadratic form of a \textbf{symmetric} square matrix $A$. Written as an optimization problem we get:
 
