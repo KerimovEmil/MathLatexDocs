@@ -1,0 +1,740 @@
+\documentclass[a4paper]{article}
+
+\input{preamble}
+
+\title{\textbf{An Introduction to Class Numbers}\\[4pt]\large Failure of Unique Factorization, Ideals, Binary Quadratic Forms, and Concrete Computations}
+\author{Emil Kerimov}
+\date{November 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document provides an intuitive, step-by-step introduction to class numbers in algebraic number theory. We begin by examining the failure of unique prime factorization in quadratic integer rings, focusing concretely on the classic counterexample $\Z[\sqrt{-5}]$. We then introduce Dedekind's resolution through fractional ideals, giving detailed algebraic calculations showing how non-principal ideals multiply to recover principal elements, why $\mathfrak{p}_1 = (2, 1+\sqrt{-5})$ cannot be principal, and how its square $\mathfrak{p}_1^2 = (2)$ restores unique factorization. We explore the quotient structure $\mathrm{Cl}(K) = \mathcal{I}(K)/\mathcal{P}(K)$ and higher-order class groups via the cyclic group of order $3$ in $\mathbb{Q}(\sqrt{-23})$. We then connect the modern theory of ideals with Gauss's classical approach via binary quadratic forms, computing reduced forms directly to prove why $h(-4) = 1$ and $h(-20) = 2$. Finally, we dedicate a comprehensive investigation to the Class Number $1$ Problem for imaginary quadratic fields, explaining how the Klein $j$-invariant from complex multiplication generates Hilbert class fields, why $h_K = 1$ forces $j(\tau)$ to be an ordinary integer, and how this exact mechanism gives rise to Ramanujan's famous ``almost integer'' $e^{\pi \sqrt{163}}$.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction: The Fundamental Problem}
+In the familiar ring of integers $\Z$, the \emph{Fundamental Theorem of Arithmetic} guarantees that every integer $n > 1$ factors uniquely into a product of prime numbers, up to order and sign:
+\begin{equation}
+ n = p_1^{e_1} p_2^{e_2} \cdots p_k^{e_k}.
+\end{equation}
+This uniqueness is so ingrained in elementary arithmetic that it is easy to assume it holds in any number system resembling the integers.
+
+During the nineteenth century, mathematicians attempting to solve Diophantine equations---most famously Fermat's Last Theorem, $x^p + y^p = z^p$---broadened their study to larger number systems called \emph{algebraic number fields} $K = \mathbb{Q}(\alpha)$, and their corresponding \emph{rings of integers} $\mathcal{O}_K$. 
+
+For instance, the Gaussian integers $\Z[i] = \{a + bi : a, b \in \Z\}$ retain unique prime factorization. However, in rings like $\Z[\sqrt{-5}]$, unique factorization breaks down completely. Gabriel Lam\'e famously presented a purported proof of Fermat's Last Theorem in 1847 to the Paris Academy, only for Ernst Kummer to point out that Lam\'e had taken unique factorization in cyclotomic integer rings $\Z[\zeta_p]$ for granted.
+
+To measure this breakdown, Dedekind and Kummer introduced the concept of the \textbf{ideal class group} $\mathrm{Cl}(K)$. Its size,
+\begin{equation}
+ h_K = |\mathrm{Cl}(K)|,
+\end{equation}
+is known as the \textbf{class number}:
+\begin{itemize}[leftmargin=2em]
+ \item When $h_K = 1$, every ideal is principal, and unique factorization into elements holds true.
+ \item When $h_K > 1$, unique factorization into elements fails. The magnitude and algebraic structure of $\mathrm{Cl}(K)$ quantify precisely how that failure occurs.
+\end{itemize}
+
+\section{The Breakdown of Unique Factorization in \texorpdfstring{$\Z[\sqrt{-5}]$}{Z[sqrt(-5)]}}
+\label{sec:breakdown}
+Consider the ring $\Z[\sqrt{-5}]$, consisting of numbers of the form
+\begin{equation}
+ \alpha = a + b\sqrt{-5}, \qquad a, b \in \Z.
+\end{equation}
+The algebraic norm of $\alpha$ is defined as the product of $\alpha$ with its complex conjugate $\bar{\alpha} = a - b\sqrt{-5}$:
+\begin{equation}
+ N(\alpha) = \alpha \bar{\alpha} = a^2 + 5b^2.
+ \label{eq:norm_def}
+\end{equation}
+The norm is multiplicative: $N(\alpha \beta) = N(\alpha) N(\beta)$ for all $\alpha, \beta \in \Z[\sqrt{-5}]$. An element $u$ is a unit (invertible element) if and only if $N(u) = 1$, which implies $a^2 + 5b^2 = 1$, so the only units in $\Z[\sqrt{-5}]$ are $\pm 1$.
+
+\subsection{Two Distinct Factorizations of 6}
+In $\Z[\sqrt{-5}]$, the integer $6$ can be factored in two seemingly incompatible ways:
+\begin{equation}
+ 6 = 2 \times 3,
+ \label{eq:fact1}
+\end{equation}
+\begin{equation}
+ 6 = (1 + \sqrt{-5})(1 - \sqrt{-5}).
+ \label{eq:fact2}
+\end{equation}
+Let us check the norms of each of these four elements:
+\begin{align}
+ N(2) &= 2^2 + 5(0)^2 = 4, \\
+ N(3) &= 3^2 + 5(0)^2 = 9, \\
+ N(1 + \sqrt{-5}) &= 1^2 + 5(1)^2 = 6, \\
+ N(1 - \sqrt{-5}) &= 1^2 + 5(-1)^2 = 6.
+\end{align}
+
+\subsection{Proof of Irreducibility}
+Could $2$, $3$, or $1 \pm \sqrt{-5}$ be factored into smaller non-unit elements in $\Z[\sqrt{-5}]$?
+\begin{proposition}
+The elements $2, 3, 1+\sqrt{-5}$, and $1-\sqrt{-5}$ are all irreducible in $\Z[\sqrt{-5}]$, and none are associates of each other.
+\end{proposition}
+\begin{proof}
+Suppose $2 = \alpha \beta$ for non-units $\alpha, \beta \in \Z[\sqrt{-5}]$. Taking norms yields
+\begin{equation}
+ N(\alpha) N(\beta) = N(2) = 4.
+\end{equation}
+Since neither $\alpha$ nor $\beta$ is a unit, $N(\alpha) > 1$ and $N(\beta) > 1$, which forces
+\begin{equation}
+ N(\alpha) = 2.
+\end{equation}
+Writing $\alpha = a + b\sqrt{-5}$, this requires integer solutions to
+\begin{equation}
+ a^2 + 5b^2 = 2.
+\end{equation}
+If $b \ne 0$, then $a^2 + 5b^2 \ge 5 > 2$. If $b = 0$, then $a^2 = 2$, which has no integer solution. Thus, no element in $\Z[\sqrt{-5}]$ has norm $2$. This proves that $2$ is irreducible.
+
+Similarly, if $3 = \alpha \beta$, then $N(\alpha) = 3$, requiring $a^2 + 5b^2 = 3$, which likewise has no integer solutions. Thus $3$ is irreducible.
+
+Finally, if $1 \pm \sqrt{-5} = \alpha \beta$, then $N(\alpha) N(\beta) = 6$. A non-trivial factorization requires one factor to have norm $2$ and the other norm $3$. As shown above, neither norm is possible in $\Z[\sqrt{-5}]$. Hence $1 \pm \sqrt{-5}$ are irreducible.
+
+Since the units are only $\pm 1$, the elements $2, 3, 1+\sqrt{-5}$, and $1-\sqrt{-5}$ cannot be converted into one another by multiplication by a unit.
+\end{proof}
+
+Therefore, the two factorizations in \eqref{eq:fact1} and \eqref{eq:fact2} are genuinely distinct: the number $6$ has two irreconcilable prime-like factorizations.
+
+\section{Ideals: Restoring Unique Factorization}
+Richard Dedekind realized that the failure of unique factorization occurs because numbers themselves are too coarse. By replacing individual numbers with \emph{ideals}, unique factorization can be completely restored.
+
+\subsection{What is an Ideal?}
+\begin{definition}[Ideal]
+Let $R$ be a commutative ring. A subset $I \subseteq R$ is an \textbf{ideal} if:
+\begin{enumerate}[label=(\roman*)]
+ \item $I$ is closed under addition: if $x, y \in I$, then $x + y \in I$.
+ \item $I$ absorbs multiplication from $R$: if $x \in I$ and $r \in R$, then $r \cdot x \in I$.
+\end{enumerate}
+\end{definition}
+
+\noindent\textbf{Intuition from $\Z$:} In ordinary integers $\Z$, the set of all multiples of $5$,
+\begin{equation}
+ (5) = 5\Z = \{\dots, -10, -5, 0, 5, 10, \dots\},
+\end{equation}
+forms an ideal: adding two multiples of $5$ yields a multiple of $5$, and multiplying any multiple of $5$ by any integer $r \in \Z$ remains a multiple of $5$. Every ideal in $\Z$ has this form; it is generated by a single number.
+
+\begin{definition}[Principal Ideal]
+An ideal $I$ generated by a single element $a \in R$ is called a \textbf{principal ideal}, denoted:
+\begin{equation}
+ (a) = aR = \{r \cdot a : r \in R\}.
+\end{equation}
+\end{definition}
+
+When an ideal cannot be generated by a single element, we specify a set of generators:
+\begin{equation}
+ (a_1, a_2, \dots, a_k) = \left\{ \sum_{i=1}^k r_i a_i : r_i \in R \right\}.
+\end{equation}
+
+\noindent\textbf{Arithmetic of Ideals:}
+\begin{itemize}[leftmargin=2em]
+ \item \textbf{Multiplication:} The product of two ideals $I$ and $J$ is the ideal generated by all products of their elements:
+ \begin{equation}
+  (a, b) \cdot (c, d) = (ac, ad, bc, bd).
+ \end{equation}
+ \item \textbf{Divisibility via Inclusion:} In ideal theory, \emph{to divide is to contain}. An ideal $\mathfrak{a}$ divides $\mathfrak{b}$ (written $\mathfrak{a} \mid \mathfrak{b}$) if and only if $\mathfrak{b} \subseteq \mathfrak{a}$.
+\end{itemize}
+
+\begin{theorem}[Dedekind]
+In the ring of integers $\mathcal{O}_K$ of an algebraic number field $K$, every non-zero proper ideal factors uniquely into a product of prime ideals:
+\begin{equation}
+ I = \mathfrak{p}_1^{e_1} \mathfrak{p}_2^{e_2} \cdots \mathfrak{p}_k^{e_k}.
+\end{equation}
+\end{theorem}
+
+\subsection{Deconstructing the Ideal \texorpdfstring{$\mathfrak{p}_1 = (2, 1+\sqrt{-5})$}{p1 = (2, 1+sqrt(-5))}}
+\label{subsec:p1_deconstruct}
+In $\Z[\sqrt{-5}]$, define the ideal:
+\begin{equation}
+ \mathfrak{p}_1 = (2, \, 1 + \sqrt{-5}) = \left\{ \alpha \cdot 2 + \beta \cdot (1 + \sqrt{-5}) : \alpha, \beta \in \Z[\sqrt{-5}] \right\}.
+\end{equation}
+
+\begin{proposition}
+The ideal $\mathfrak{p}_1$ is not principal.
+\end{proposition}
+\begin{proof}
+Suppose for contradiction that $\mathfrak{p}_1 = (\gamma)$ for some $\gamma \in \Z[\sqrt{-5}]$.
+Because $2 \in \mathfrak{p}_1$ and $1 + \sqrt{-5} \in \mathfrak{p}_1$, $\gamma$ must divide both $2$ and $1 + \sqrt{-5}$. 
+Taking norms, $N(\gamma)$ must divide both $N(2) = 4$ and $N(1+\sqrt{-5}) = 6$. Hence:
+\begin{equation}
+ N(\gamma) \mid \gcd(4, 6) = 2.
+\end{equation}
+This allows two possibilities for $N(\gamma)$:
+\begin{enumerate}
+ \item If $N(\gamma) = 2$, we require $a^2 + 5b^2 = 2$ for $a, b \in \Z$. As established in Section 2, this equation has no integer solutions.
+ \item If $N(\gamma) = 1$, then $\gamma$ is a unit ($\pm 1$), which would mean $\mathfrak{p}_1 = (1) = \Z[\sqrt{-5}]$. In that case, $1 \in \mathfrak{p}_1$. 
+ Let us test whether $1 \in \mathfrak{p}_1$:
+ \begin{equation}
+  2(a + b\sqrt{-5}) + (1 + \sqrt{-5})(c + d\sqrt{-5}) = 1.
+ \end{equation}
+ Expanding both sides:
+ \begin{equation}
+  (2a + c - 5d) + (2b + c + d)\sqrt{-5} = 1 + 0\sqrt{-5}.
+ \end{equation}
+ Equating the imaginary parts:
+ \begin{equation}
+  2b + c + d = 0 \implies c \equiv -d \equiv d \pmod 2.
+ \end{equation}
+ Now examine the real part modulo $2$:
+ \begin{equation}
+  2a + c - 5d \equiv c - d \equiv 0 \pmod 2.
+ \end{equation}
+ However, the real part must equal $1$, which is odd, yielding $0 \equiv 1 \pmod 2$, a contradiction.
+\end{enumerate}
+Since neither $N(\gamma) = 1$ nor $N(\gamma) = 2$ is possible, no such generator $\gamma$ exists. Hence $\mathfrak{p}_1$ is not principal.
+\end{proof}
+
+\subsection{Why \texorpdfstring{$\mathfrak{p}_1^2 = (2)$}{p1\textasciicircum 2 = (2)}}
+\label{subsec:p1_squared}
+Now let us compute the square of $\mathfrak{p}_1$ directly using ideal multiplication:
+\begin{equation}
+ \mathfrak{p}_1^2 = (2, \, 1 + \sqrt{-5}) \cdot (2, \, 1 + \sqrt{-5}).
+\end{equation}
+We expand all pairwise products of generators:
+\begin{align}
+ 2 \times 2 &= 4, \\
+ 2 \times (1 + \sqrt{-5}) &= 2 + 2\sqrt{-5}, \\
+ (1 + \sqrt{-5})^2 &= 1 + 2\sqrt{-5} - 5 = -4 + 2\sqrt{-5}.
+\end{align}
+Thus:
+\begin{equation}
+ \mathfrak{p}_1^2 = \Big(4, \; 2 + 2\sqrt{-5}, \; -4 + 2\sqrt{-5}\Big).
+\end{equation}
+We simplify this set of generators using linear combinations:
+\begin{enumerate}
+ \item Subtract $(-4 + 2\sqrt{-5})$ from $(2 + 2\sqrt{-5})$:
+ \begin{equation}
+  (2 + 2\sqrt{-5}) - (-4 + 2\sqrt{-5}) = 6 \in \mathfrak{p}_1^2.
+ \end{equation}
+ \item Since both $4 \in \mathfrak{p}_1^2$ and $6 \in \mathfrak{p}_1^2$, their difference is also in $\mathfrak{p}_1^2$:
+ \begin{equation}
+  6 - 4 = 2 \in \mathfrak{p}_1^2.
+ \end{equation}
+ Since $2 \in \mathfrak{p}_1^2$, every multiple of $2$ belongs to $\mathfrak{p}_1^2$, which means $(2) \subseteq \mathfrak{p}_1^2$.
+ \item On the other hand, each original generator is clearly a multiple of $2$:
+ \begin{align}
+  4 &= 2 \cdot 2, \\
+  2 + 2\sqrt{-5} &= 2 \cdot (1 + \sqrt{-5}), \\
+  -4 + 2\sqrt{-5} &= 2 \cdot (-2 + \sqrt{-5}).
+ \end{align}
+ Since every generator of $\mathfrak{p}_1^2$ is divisible by $2$, we have $\mathfrak{p}_1^2 \subseteq (2)$.
+\end{enumerate}
+Combining both inclusions, we conclude:
+\begin{equation}
+ \boxed{\mathfrak{p}_1^2 = (2)}.
+\end{equation}
+This is a remarkable algebraic identity: squaring a non-principal ideal yields a principal ideal generated by the irreducible element $2$.
+
+\subsection{Why \texorpdfstring{$(1 - \sqrt{-5}) = \mathfrak{p}_1 \mathfrak{p}_3$}{(1 - sqrt(-5)) = p1 p3}}
+\label{subsec:p1_p3}
+Now consider the ideal
+\begin{equation}
+ \mathfrak{p}_3 = (3, \, 1 - \sqrt{-5}).
+\end{equation}
+Let us multiply $\mathfrak{p}_1$ and $\mathfrak{p}_3$:
+\begin{align}
+ \mathfrak{p}_1 \mathfrak{p}_3 &= (2, \, 1 + \sqrt{-5})(3, \, 1 - \sqrt{-5}) \nonumber\\
+ &= \Big(6, \; 2(1 - \sqrt{-5}), \; 3(1 + \sqrt{-5}), \; (1 + \sqrt{-5})(1 - \sqrt{-5})\Big).
+\end{align}
+Since $(1 + \sqrt{-5})(1 - \sqrt{-5}) = 1^2 - (-5) = 6$, this simplifies to
+\begin{equation}
+ \mathfrak{p}_1 \mathfrak{p}_3 = \Big(6, \; 2 - 2\sqrt{-5}, \; 3 + 3\sqrt{-5}\Big).
+\end{equation}
+Let us determine whether $1 - \sqrt{-5} \in \mathfrak{p}_1 \mathfrak{p}_3$:
+\begin{enumerate}
+ \item Sum the second and third generators:
+ \begin{equation}
+  (2 - 2\sqrt{-5}) + (3 + 3\sqrt{-5}) = 5 + \sqrt{-5}.
+ \end{equation}
+ \item Subtract this sum from the first generator $6$:
+ \begin{equation}
+  6 - (5 + \sqrt{-5}) = 1 - \sqrt{-5} \in \mathfrak{p}_1 \mathfrak{p}_3.
+ \end{equation}
+ Hence $(1 - \sqrt{-5}) \subseteq \mathfrak{p}_1 \mathfrak{p}_3$.
+ \item Next, we verify that all generators are multiples of $1 - \sqrt{-5}$:
+ \begin{itemize}
+  \item $6 = (1 + \sqrt{-5})(1 - \sqrt{-5}) \in (1 - \sqrt{-5})$.
+  \item $2(1 - \sqrt{-5}) \in (1 - \sqrt{-5})$.
+  \item For $3(1 + \sqrt{-5})$, we compute the quotient:
+  \begin{equation}
+   \frac{3(1 + \sqrt{-5})}{1 - \sqrt{-5}} = \frac{3(1 + \sqrt{-5})^2}{(1 - \sqrt{-5})(1 + \sqrt{-5})} = \frac{3(-4 + 2\sqrt{-5})}{6} = -2 + \sqrt{-5}.
+  \end{equation}
+  Since $-2 + \sqrt{-5} \in \Z[\sqrt{-5}]$, $3(1 + \sqrt{-5}) = (-2 + \sqrt{-5})(1 - \sqrt{-5}) \in (1 - \sqrt{-5})$.
+ \end{itemize}
+\end{enumerate}
+Therefore, every generator is in $(1 - \sqrt{-5})$, proving:
+\begin{equation}
+ \boxed{\mathfrak{p}_1 \mathfrak{p}_3 = (1 - \sqrt{-5})}.
+\end{equation}
+
+By an identical calculation with $\mathfrak{p}_2 = (3, 1 + \sqrt{-5})$, we find:
+\begin{equation}
+ (1 + \sqrt{-5}) = \mathfrak{p}_1 \mathfrak{p}_2, \qquad (3) = \mathfrak{p}_2 \mathfrak{p}_3.
+\end{equation}
+
+\subsection{Resolution of the Paradox}
+We can now re-examine the two conflicting factorizations of $6$:
+\begin{align}
+ (6) &= (2) \cdot (3) = \mathfrak{p}_1^2 \cdot (\mathfrak{p}_2 \mathfrak{p}_3) = \mathfrak{p}_1^2 \mathfrak{p}_2 \mathfrak{p}_3, \\
+ (6) &= (1 + \sqrt{-5}) \cdot (1 - \sqrt{-5}) = (\mathfrak{p}_1 \mathfrak{p}_2) \cdot (\mathfrak{p}_1 \mathfrak{p}_3) = \mathfrak{p}_1^2 \mathfrak{p}_2 \mathfrak{p}_3.
+\end{align}
+The contradiction disappears completely: both element-level factorizations are merely different groupings of the exact same prime ideal factorization $\mathfrak{p}_1^2 \mathfrak{p}_2 \mathfrak{p}_3$.
+
+\section{The Ideal Class Group and the Class Number}
+\label{sec:class_group}
+Having observed that some ideals are principal and some are not, we formalize the group structure of these non-principal deviations.
+
+\subsection{Why Fractional Ideals? The Group Structure}
+In the ring of integers $\mathcal{O}_K$, the non-zero ordinary (or \emph{integral}) ideals form a commutative monoid under ideal multiplication: the product of two ideals is an ideal, and the ring itself $\mathcal{O}_K = (1)$ serves as the identity element because $(1) \cdot I = I$.
+
+However, integral ideals do not form a \textbf{group} because proper ideals do not have inverses within $\mathcal{O}_K$: if $I \subsetneq \mathcal{O}_K$ is a proper ideal, then for any non-zero ideal $J \subseteq \mathcal{O}_K$,
+\begin{equation}
+ I \cdot J \subseteq I \subsetneq \mathcal{O}_K,
+\end{equation}
+meaning $I \cdot J$ can never equal the identity $(1) = \mathcal{O}_K$. 
+
+To obtain multiplicative inverses---in exact analogy to constructing the field of rational numbers $\mathbb{Q}$ from the ring of integers $\Z$---we enlarge our scope to \textbf{fractional ideals}.
+
+\begin{definition}[Fractional Ideal]
+A \textbf{fractional ideal} of $K$ is a non-zero $\mathcal{O}_K$-submodule $I \subset K$ that has a common denominator: there exists a non-zero element $d \in \mathcal{O}_K$ such that
+\begin{equation}
+ d I \subseteq \mathcal{O}_K.
+\end{equation}
+Equivalently, every fractional ideal can be written as
+\begin{equation}
+ I = \frac{1}{d} \mathfrak{a},
+\end{equation}
+where $\mathfrak{a} = dI$ is an ordinary (integral) ideal of $\mathcal{O}_K$.
+\end{definition}
+
+\subsection{Defining \texorpdfstring{$\mathcal{I}(K)$ and $\mathcal{P}(K)$}{I(K) and P(K)}}
+With fractional ideals established, we can define the two fundamental objects entering the quotient:
+
+\begin{definition}[The Ideal Group $\mathcal{I}(K)$]
+The set of all non-zero fractional ideals of $\mathcal{O}_K$ is denoted by $\mathcal{I}(K)$. Under ideal multiplication,
+\begin{equation}
+ \left(\sum_i \alpha_i \mathcal{O}_K\right) \cdot \left(\sum_j \beta_j \mathcal{O}_K\right) = \sum_{i, j} \alpha_i \beta_j \mathcal{O}_K,
+\end{equation}
+$\mathcal{I}(K)$ forms an \textbf{abelian group}.
+\begin{itemize}[leftmargin=2em]
+ \item The identity element is the maximal ring of integers itself, $\mathcal{O}_K = (1)$.
+ \item Dedekind's factorization theorem guarantees that every fractional ideal $I \in \mathcal{I}(K)$ has a unique multiplicative inverse:
+ \begin{equation}
+  I^{-1} = \{ x \in K : x I \subseteq \mathcal{O}_K \}, \qquad I \cdot I^{-1} = \mathcal{O}_K = (1).
+ \end{equation}
+ \item In fact, $\mathcal{I}(K)$ is the free abelian group generated by the non-zero prime ideals of $\mathcal{O}_K$: every fractional ideal factors uniquely as
+ \begin{equation}
+  I = \prod_{\mathfrak{p}} \mathfrak{p}^{v_{\mathfrak{p}}(I)}, \qquad v_{\mathfrak{p}}(I) \in \Z,
+ \end{equation}
+ where the exponents $v_{\mathfrak{p}}(I)$ are zero for all but finitely many prime ideals $\mathfrak{p}$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[The Principal Subgroup $\mathcal{P}(K)$]
+A fractional ideal is called \textbf{principal} if it is generated by a single non-zero element of the field $K$:
+\begin{equation}
+ (\alpha) = \alpha \mathcal{O}_K = \{ \alpha r : r \in \mathcal{O}_K \}, \qquad \alpha \in K^\times.
+\end{equation}
+The set of all principal fractional ideals is denoted by $\mathcal{P}(K)$:
+\begin{equation}
+ \mathcal{P}(K) = \{ (\alpha) : \alpha \in K^\times \}.
+\end{equation}
+Because $(\alpha)(\beta) = (\alpha\beta)$ and $(\alpha)^{-1} = (\alpha^{-1})$, the product and inverse of principal ideals are again principal. Hence $\mathcal{P}(K)$ is a \textbf{subgroup} of $\mathcal{I}(K)$. Since $\mathcal{I}(K)$ is abelian, $\mathcal{P}(K)$ is automatically a normal subgroup.
+\end{definition}
+
+\subsection{The Quotient Group \texorpdfstring{$\mathrm{Cl}(K) = \mathcal{I}(K) / \mathcal{P}(K)$}{Cl(K) = I(K) / P(K)}}
+\begin{definition}[Ideal Class Group and Class Number]
+The \textbf{ideal class group} of $K$ is the quotient group:
+\begin{equation}
+ \mathrm{Cl}(K) = \mathcal{I}(K) / \mathcal{P}(K).
+ \label{eq:class_group_quotient}
+\end{equation}
+Its elements are the cosets $[I] = I \cdot \mathcal{P}(K)$. Two fractional ideals $I, J \in \mathcal{I}(K)$ belong to the same ideal class, written $I \sim J$, if and only if
+\begin{equation}
+ I = (\alpha) J \quad \text{for some } \alpha \in K^\times.
+\end{equation}
+The \textbf{class number} of $K$, denoted $h_K$, is the order of this group:
+\begin{equation}
+ h_K = |\mathrm{Cl}(K)| = [\mathcal{I}(K) : \mathcal{P}(K)].
+\end{equation}
+\end{definition}
+
+\noindent\textbf{Connecting back to integral ideals:}
+While the formal group definition uses fractional ideals, every fractional ideal class contains ordinary integral ideals. Two integral ideals $\mathfrak{a}, \mathfrak{b} \subseteq \mathcal{O}_K$ are equivalent in $\mathrm{Cl}(K)$ if and only if they differ by principal scaling:
+\begin{equation}
+ (\alpha) \mathfrak{a} = (\beta) \mathfrak{b} \quad \text{for non-zero algebraic integers } \alpha, \beta \in \mathcal{O}_K.
+\end{equation}
+Thus, $\mathrm{Cl}(K)$ measures the size of the obstruction to every ideal being principal:
+\begin{itemize}[leftmargin=2em]
+ \item $h_K = 1 \iff \mathcal{I}(K) = \mathcal{P}(K) \iff$ every ideal is principal (a Principal Ideal Domain, hence a UFD).
+ \item $h_K > 1 \iff \mathcal{P}(K) \subsetneq \mathcal{I}(K) \iff$ non-principal ideals exist, partitioning all ideals into $h_K$ distinct algebraic classes.
+\end{itemize}
+
+A foundational theorem of algebraic number theory (proved via Minkowski's geometry of numbers) asserts that the class group is always \textbf{finite}: $h_K < \infty$.
+
+For $\mathbb{Q}(\sqrt{-5})$, every ideal is either principal or in the coset $[\mathfrak{p}_1]$. Since $\mathfrak{p}_1^2 = (2) \in \mathcal{P}(K)$, we have:
+\begin{equation}
+ \mathrm{Cl}(\mathbb{Q}(\sqrt{-5})) \cong \Z/2\Z = \{ [(1)], \; [\mathfrak{p}_1] \}, \qquad h_{\mathbb{Q}(\sqrt{-5})} = 2.
+\end{equation}
+
+\section{A Cyclic Class Group of Order 3: \texorpdfstring{$\mathbb{Q}(\sqrt{-23})$}{Q(sqrt(-23))}}
+\label{sec:q_sqrt_23}
+Not all class groups have order $2$. For quadratic fields with $d \equiv 3 \pmod 4$, the maximal ring of integers includes half-integers. For $d = 23$,
+\begin{equation}
+ \mathcal{O}_K = \Z[\omega], \qquad \omega = \frac{1 + \sqrt{-23}}{2}.
+\end{equation}
+The minimal polynomial of $\omega$ is $\omega^2 - \omega + 6 = 0$. An element $\alpha = x + y\omega$ has norm
+\begin{equation}
+ N(x + y\omega) = x^2 + xy + 6y^2.
+\end{equation}
+For this field, the class number is $h = 3$, and its class group is isomorphic to the cyclic group $\Z/3\Z$:
+\begin{equation}
+ \mathrm{Cl}(\mathbb{Q}(\sqrt{-23})) = \{ [I_0], \; [I_1], \; [I_2] \} \cong \Z/3\Z.
+\end{equation}
+
+The three ideal classes are represented by:
+\begin{enumerate}
+ \item \textbf{Class 0 (Identity): $[(1)]$} \\
+ The class of all principal ideals $(\alpha)$. A representative is the ring itself, $(1) = \mathcal{O}_K$.
+ 
+ \item \textbf{Class 1: $[\mathfrak{p}_2]$} \\
+ Consider the ideal lying over $2$:
+ \begin{equation}
+  \mathfrak{p}_2 = \left(2, \; \frac{1 + \sqrt{-23}}{2}\right).
+ \end{equation}
+ The ideal norm of $\mathfrak{p}_2$ is $2$. If $\mathfrak{p}_2 = (\gamma)$ were principal, there would exist integers $x, y$ such that
+ \begin{equation}
+  N(\gamma) = x^2 + xy + 6y^2 = 2.
+ \end{equation}
+ If $y = 0$, $x^2 = 2$ has no integer solutions. If $|y| \ge 1$, then $x^2 + xy + 6y^2 = (x + y/2)^2 + \frac{23}{4}y^2 \ge \frac{23}{4} = 5.75 > 2$. Thus, no element of norm $2$ exists in $\mathcal{O}_K$, and $\mathfrak{p}_2$ is \textbf{not principal}.
+ 
+ \item \textbf{Class 2: $[\bar{\mathfrak{p}}_2] = [\mathfrak{p}_2^2]$} \\
+ The complex conjugate ideal is
+ \begin{equation}
+  \bar{\mathfrak{p}}_2 = \left(2, \; \frac{1 - \sqrt{-23}}{2}\right).
+ \end{equation}
+ Because $\mathfrak{p}_2 \bar{\mathfrak{p}}_2 = (2)$, which is principal, $[\bar{\mathfrak{p}}_2]$ is the group inverse of $[\mathfrak{p}_2]$. In a group of order $3$, the inverse of an element of order $3$ is its square:
+ \begin{equation}
+  [\bar{\mathfrak{p}}_2] = [\mathfrak{p}_2]^{-1} = [\mathfrak{p}_2]^2.
+ \end{equation}
+ Consequently, $\mathfrak{p}_2^2$ is \textbf{also not principal}.
+\end{enumerate}
+
+\subsection{Cubing Restores Principality}
+In the cyclic group $\Z/3\Z$, every element cubed must equal the identity: $[\mathfrak{p}_2]^3 = [(1)]$. This implies that $\mathfrak{p}_2^3$ must be a principal ideal!
+Indeed:
+\begin{equation}
+ \mathfrak{p}_2^3 = \left(\frac{3 + \sqrt{-23}}{2}\right).
+\end{equation}
+Let us verify the norm of this candidate generator:
+\begin{equation}
+ N\left(\frac{3 + \sqrt{-23}}{2}\right) = \frac{3^2 + 23}{4} = \frac{32}{4} = 8 = 2^3.
+\end{equation}
+Because the single element $\frac{3 + \sqrt{-23}}{2}$ has norm $8 = N(\mathfrak{p}_2^3)$, the ideal $\mathfrak{p}_2^3$ is principal. Thus:
+\begin{itemize}
+ \item $\mathfrak{p}_2$ is non-principal ($[\mathfrak{p}_2] \ne 1$),
+ \item $\mathfrak{p}_2^2$ is non-principal ($[\mathfrak{p}_2]^2 \ne 1$),
+ \item $\mathfrak{p}_2^3$ is principal ($[\mathfrak{p}_2]^3 = 1$).
+\end{itemize}
+This provides a transparent example of an order-$3$ class group.
+
+\section{Gauss's Binary Quadratic Forms}
+Before Kummer and Dedekind introduced ideals, Carl Friedrich Gauss investigated the same phenomenon in his 1801 \emph{Disquisitiones Arithmeticae} using \textbf{binary quadratic forms}:
+\begin{equation}
+ q(x, y) = ax^2 + bxy + cy^2, \qquad a, b, c \in \Z.
+\end{equation}
+We denote such a form concisely as $(a, b, c)$. Its discriminant is
+\begin{equation}
+ D = b^2 - 4ac.
+\end{equation}
+We focus on positive-definite forms ($a > 0$ and $D < 0$).
+
+\subsection{Equivalence and Reduction Theory}
+Two forms $q$ and $q'$ are \emph{properly equivalent} if one can be transformed into the other via a substitution
+\begin{equation}
+ \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} \alpha & \beta \\ \gamma & \delta \end{pmatrix} \begin{pmatrix} x' \\ y' \end{pmatrix}, \qquad \begin{pmatrix} \alpha & \beta \\ \gamma & \delta \end{pmatrix} \in \mathrm{SL}_2(\Z) \quad (\alpha\delta - \beta\gamma = 1).
+\end{equation}
+Equivalent forms have the same discriminant and represent the exact same set of integers.
+
+Gauss established that every equivalence class contains a unique \textbf{reduced form}:
+\begin{definition}[Reduced Quadratic Form]
+A positive-definite binary quadratic form $(a, b, c)$ is \textbf{reduced} if:
+\begin{equation}
+ -a < b \le a < c \qquad \text{or} \qquad 0 \le b \le a = c.
+ \label{eq:reduced_cond}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+For a reduced form $(a, b, c)$ of discriminant $D < 0$, the coefficient $a$ satisfies:
+\begin{equation}
+ a \le \sqrt{\frac{|D|}{3}}.
+ \label{eq:gauss_bound}
+\end{equation}
+\end{theorem}
+\begin{proof}
+From the reduced conditions \eqref{eq:reduced_cond}, we have $|b| \le a \le c$. Hence:
+\begin{equation}
+ |D| = 4ac - b^2 \ge 4a^2 - a^2 = 3a^2.
+\end{equation}
+Dividing by $3$ and taking the square root gives $a \le \sqrt{|D|/3}$.
+\end{proof}
+Because $a$ is bounded by $\sqrt{|D|/3}$, finding all reduced forms of a given negative discriminant is a finite, algorithmic computation. The number of primitive reduced forms is Gauss's class number $h(D)$.
+
+\subsection{Computation 1: Proving \texorpdfstring{$h(-4) = 1$}{h(-4) = 1} (Gaussian Integers)}
+\label{subsec:comp_h4}
+Let $D = -4$, corresponding to the Gaussian integers $\Z[i]$.
+Using the bound \eqref{eq:gauss_bound}:
+\begin{equation}
+ a \le \sqrt{\frac{4}{3}} \approx 1.15 \implies a = 1.
+\end{equation}
+Now determine the permissible values of $b$ and $c$:
+\begin{itemize}
+ \item Since $-a < b \le a$, we have $-1 < b \le 1$, so $b \in \{0, 1\}$.
+ \item From $b^2 - 4ac = -4$, with $a = 1$:
+ \begin{equation}
+  4c - b^2 = 4 \implies 4c = 4 + b^2.
+ \end{equation}
+ \item If $b = 0$, then $4c = 4 \implies c = 1$. The form is $(1, 0, 1)$, corresponding to $x^2 + y^2$. Here $a = c = 1$ and $b = 0$, which satisfies the condition $0 \le b \le a = c$.
+ \item If $b = 1$, then $4c = 5$, which has no integer solution.
+\end{itemize}
+Thus, there is exactly \textbf{one} reduced form of discriminant $-4$:
+\begin{equation}
+ \boxed{q_1(x, y) = x^2 + y^2}.
+\end{equation}
+Therefore, $h(-4) = 1$. Unique factorization holds in $\Z[i]$.
+
+\subsection{Computation 2: Proving \texorpdfstring{$h(-20) = 2$}{h(-20) = 2} (\texorpdfstring{$d = 5$, $\Z[\sqrt{-5}]$}{d = 5, Z[sqrt(-5)]})}
+\label{subsec:comp_h20}
+The field $\mathbb{Q}(\sqrt{-5})$ has discriminant $D = -20$. Let us find all reduced forms of discriminant $-20$.
+Using the bound \eqref{eq:gauss_bound}:
+\begin{equation}
+ a \le \sqrt{\frac{20}{3}} \approx 2.58 \implies a \in \{1, 2\}.
+\end{equation}
+
+\noindent\textbf{Case 1: $a = 1$}
+\begin{itemize}
+ \item The condition $-a < b \le a$ means $-1 < b \le 1$, so $b \in \{0, 1\}$.
+ \item The discriminant equation gives $4(1)c - b^2 = 20 \implies 4c = 20 + b^2$.
+ \item If $b = 0$, then $4c = 20 \implies c = 5$. The form is $(1, 0, 5)$, representing:
+ \begin{equation}
+  q_1(x, y) = x^2 + 5y^2.
+ \end{equation}
+ Testing reduction: $-1 < 0 \le 1 < 5$. This form is reduced!
+ \item If $b = 1$, then $4c = 21$, impossible for integer $c$.
+\end{itemize}
+
+\noindent\textbf{Case 2: $a = 2$}
+\begin{itemize}
+ \item The condition $-a < b \le a$ gives $-2 < b \le 2$, so $b \in \{-1, 0, 1, 2\}$.
+ \item The discriminant equation gives $4(2)c - b^2 = 20 \implies 8c - b^2 = 20$.
+ \item Since $b^2 = 8c - 20 = 4(2c - 5)$, $b$ must be an even integer: $b \in \{0, 2\}$.
+ \item If $b = 0$, then $8c = 20$, impossible.
+ \item If $b = 2$, then $8c - 4 = 20 \implies 8c = 24 \implies c = 3$. The form is $(2, 2, 3)$, representing:
+ \begin{equation}
+  q_2(x, y) = 2x^2 + 2xy + 3y^2.
+ \end{equation}
+ Testing reduction: $-2 < 2 \le 2 < 3$. Since $b = a = 2 < c = 3$, this satisfies $-a < b \le a < c$. This form is reduced!
+\end{itemize}
+
+There are no other possible values of $a$. Hence, there are exactly \textbf{two} reduced forms of discriminant $-20$:
+\begin{equation}
+ \boxed{q_1(x, y) = x^2 + 5y^2, \qquad q_2(x, y) = 2x^2 + 2xy + 3y^2}.
+\end{equation}
+Therefore, $h(-20) = 2$.
+
+\subsection{The Bridge: How Forms Reflect Ideal Classes}
+Notice the direct correspondence between Gauss's quadratic forms and Dedekind's ideal classes:
+\begin{itemize}[leftmargin=2em]
+ \item The form $q_1(x, y) = x^2 + 5y^2$ corresponds to the principal ideal class $[(1)]$. It can represent $1$ (at $x=1, y=0$) and $6$ (at $x=1, y=1$), but it can \textbf{never} represent $2$ for integer $x, y$.
+ \item The form $q_2(x, y) = 2x^2 + 2xy + 3y^2$ corresponds to the non-principal ideal class $[\mathfrak{p}_1]$. It \textbf{does} represent $2$ (setting $x=1, y=0$ gives $q_2(1, 0) = 2$).
+\end{itemize}
+What Dedekind saw as an ideal of norm $2$ that cannot be generated by a single element, Gauss saw as an integer $2$ that cannot be represented by the principal form $x^2 + 5y^2$, but can be represented by the secondary form $2x^2 + 2xy + 3y^2$. Both theories describe the exact same underlying arithmetic truth.
+
+\section{The Class Number 1 Problem, Complex Multiplication, and Ramanujan's Constant}
+\label{sec:class_number_one_j_invariant}
+One of the most profound chapters in number theory connects class numbers of imaginary quadratic fields to elliptic curves, modular functions, and transcendental numbers.
+
+\subsection{The Nine Heegner Numbers}
+In his 1801 \emph{Disquisitiones Arithmeticae}, Gauss conjectured that there are only finitely many imaginary quadratic fields $\mathbb{Q}(\sqrt{-d})$ ($d > 0$ square-free) with class number $h = 1$. He identified nine such values of $d$:
+\begin{equation}
+ d \in \{1, \, 2, \, 3, \, 7, \, 11, \, 19, \, 43, \, 67, \, 163\}.
+ \label{eq:heegner_numbers}
+\end{equation}
+These values are called the \textbf{Heegner numbers}. For more than 150 years, mathematicians wondered whether a tenth such field existed with an astronomically large discriminant. 
+
+In 1952, Kurt Heegner published an essentially complete proof that no tenth field exists using modular functions. However, his work contained minor gaps and was widely doubted until Harold Stark and Alan Baker independently provided complete, universally accepted proofs in 1966--1967. Baker used his groundbreaking theory of linear forms in logarithms (for which he was awarded the Fields Medal in 1970), while Stark clarified and completed Heegner's modular function approach. The result is now known as the \textbf{Baker--Heegner--Stark theorem}.
+
+\subsection{Elliptic Curves and Complex Multiplication}
+The bridge that connects class numbers to modular functions is the theory of \textbf{Complex Multiplication (CM)}. 
+
+Every lattice $\Lambda = \Z\omega_1 + \Z\omega_2 \subset \mathbb{C}$ (with $\tau = \omega_1/\omega_2 \in \mathbb{H}$, the upper half-plane) defines a complex torus $\mathbb{C}/\Lambda$, which by the Weierstrass $\wp$-function is isomorphic to a smooth projective elliptic curve $E(\mathbb{C})$.
+
+For a generic lattice, the only $\mathbb{C}$-linear maps preserving the lattice are multiplications by integers: $\mathrm{End}(E) \cong \Z$. However, if the ratio $\tau$ lies in an imaginary quadratic field $K = \mathbb{Q}(\sqrt{-d})$, the lattice possesses extra endomorphisms:
+\begin{equation}
+ \mathrm{End}(E) \cong \mathcal{O}_K.
+\end{equation}
+Such an elliptic curve is said to have \textbf{complex multiplication} by $\mathcal{O}_K$.
+
+The isomorphism class of an elliptic curve over $\mathbb{C}$ is uniquely classified by its \textbf{Klein $j$-invariant}:
+\begin{equation}
+ j(\tau) = \frac{1728 \, g_2(\tau)^3}{g_2(\tau)^3 - 27 g_3(\tau)^2}.
+\end{equation}
+Setting $q = e^{2\pi i \tau}$, the $j$-function has the famous Fourier expansion ($q$-expansion):
+\begin{equation}
+ j(\tau) = \frac{1}{q} + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + \cdots
+ \label{eq:j_q_expansion}
+\end{equation}
+where all Fourier coefficients are positive integers.
+
+\subsection{The Deep Connection: Class Number as the Degree of \texorpdfstring{$j(\tau)$}{j(tau)}}
+A central theorem of class field theory and complex multiplication reveals a magnificent relationship between the class number $h_K$ and the arithmetic of $j(\tau)$:
+
+\begin{theorem}[First Main Theorem of Complex Multiplication]
+Let $K = \mathbb{Q}(\sqrt{-d})$ be an imaginary quadratic field with ring of integers $\mathcal{O}_K$, and let $\tau \in \mathbb{H}$ generate $\mathcal{O}_K$ as a $\Z$-module:
+\begin{equation}
+ \mathcal{O}_K = \Z + \Z\tau, \qquad \tau = \begin{cases} \sqrt{-d} & \text{if } -d \equiv 2, 3 \pmod 4, \\ \frac{1 + \sqrt{-d}}{2} & \text{if } -d \equiv 1 \pmod 4. \end{cases}
+\end{equation}
+Then:
+\begin{enumerate}[label=(\roman*)]
+ \item The special value $j(\tau)$ is an \textbf{algebraic integer}.
+ \item Adjoining $j(\tau)$ to $K$ generates the \textbf{Hilbert class field} $H$ of $K$, which is the maximal unramified abelian extension of $K$:
+ \begin{equation}
+  H = K(j(\tau)).
+ \end{equation}
+ \item The Galois group $\mathrm{Gal}(H/K)$ is canonically isomorphic to the ideal class group $\mathrm{Cl}(K)$ via the Artin reciprocity map.
+ \item In particular, the degree of the minimal polynomial of $j(\tau)$ over $K$ (and over $\mathbb{Q}$) is \textbf{equal to the class number}:
+ \begin{equation}
+  [K(j(\tau)) : K] = [\mathbb{Q}(j(\tau)) : \mathbb{Q}] = h_K.
+ \end{equation}
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+For an imaginary quadratic field $K$, the class number is $1$ if and only if $j(\tau)$ is a rational integer:
+\begin{equation}
+ h_K = 1 \iff j(\tau) \in \Z.
+\end{equation}
+\end{corollary}
+
+When $h_K = 1$, the minimal polynomial has degree $1$, forcing $j(\tau)$ to be an ordinary integer! When $h_K > 1$, $j(\tau)$ is an algebraic integer of degree $h_K$. For example:
+\begin{itemize}[leftmargin=2em]
+ \item For $\mathbb{Q}(\sqrt{-5})$ where $h = 2$, $j(\sqrt{-5})$ satisfies a quadratic polynomial over $\Z$:
+ \begin{equation}
+  x^2 - 1264000x - 681472000 = 0 \implies j(\sqrt{-5}) = 632000 + 282880\sqrt{5} \notin \Z.
+ \end{equation}
+ \item For $\mathbb{Q}(\sqrt{-23})$ where $h = 3$, $j\left(\frac{1+\sqrt{-23}}{2}\right)$ satisfies a cubic polynomial over $\Z$:
+ \begin{equation}
+  x^3 + 3491750x^2 - 5151296875x + 12771880859375 = 0.
+ \end{equation}
+\end{itemize}
+
+\subsection{Evaluation at the Nine Heegner Numbers}
+For each of the nine class-number-1 fields, $j(\tau)$ must evaluate to an exact rational integer. Remarkably, every one of these nine values is a perfect cube of an integer:
+\begin{center}
+\begin{tabular}{c c c c}
+\toprule
+$d$ & Discriminant $D$ & $\tau$ & $j(\tau)$ \\
+\midrule
+$1$ & $-4$ & $i$ & $12^3 = 1728$ \\
+$2$ & $-8$ & $\sqrt{-2}$ & $20^3 = 8000$ \\
+$3$ & $-3$ & $\frac{1+\sqrt{-3}}{2}$ & $0^3 = 0$ \\
+$7$ & $-7$ & $\frac{1+\sqrt{-7}}{2}$ & $(-15)^3 = -3375$ \\
+$11$ & $-11$ & $\frac{1+\sqrt{-11}}{2}$ & $(-32)^3 = -32768$ \\
+$19$ & $-19$ & $\frac{1+\sqrt{-19}}{2}$ & $(-96)^3 = -884736$ \\
+$43$ & $-43$ & $\frac{1+\sqrt{-43}}{2}$ & $(-960)^3 = -884736000$ \\
+$67$ & $-67$ & $\frac{1+\sqrt{-67}}{2}$ & $(-5280)^3 = -147197952000$ \\
+$163$ & $-163$ & $\frac{1+\sqrt{-163}}{2}$ & $(-640320)^3 = -262537412640768000$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Ramanujan's Famous ``Almost Integer''}
+The largest Heegner number, $d = 163$, produces one of the most stunning mathematical occurrences in history---which, upon closer inspection, is a direct consequence of class field theory.
+
+Let $\tau = \frac{1 + \sqrt{-163}}{2}$. Then the nome $q = e^{2\pi i \tau}$ is:
+\begin{equation}
+ q = \exp\left(2\pi i \cdot \frac{1 + \sqrt{-163}}{2}\right) = e^{\pi i} e^{-\pi \sqrt{163}} = - e^{-\pi \sqrt{163}}.
+\end{equation}
+Substitute this $q$ into the Fourier expansion \eqref{eq:j_q_expansion} of the $j$-function:
+\begin{equation}
+ j\left(\frac{1 + \sqrt{-163}}{2}\right) = -\frac{1}{e^{-\pi \sqrt{163}}} + 744 + 196884 \left(-e^{-\pi \sqrt{163}}\right) + O\left(e^{-2\pi \sqrt{163}}\right).
+\end{equation}
+Since $h_{\mathbb{Q}(\sqrt{-163})} = 1$, the value on the left-hand side is strictly the integer $-640320^3$:
+\begin{equation}
+ -640320^3 = -e^{\pi \sqrt{163}} + 744 - 196884 \, e^{-\pi \sqrt{163}} + \cdots
+\end{equation}
+Multiplying both sides by $-1$ and isolating $e^{\pi \sqrt{163}}$ gives:
+\begin{equation}
+ e^{\pi \sqrt{163}} = 640320^3 + 744 - 196884 \, e^{-\pi \sqrt{163}} + O\left(e^{-2\pi \sqrt{163}}\right).
+ \label{eq:ramanujan_almost_int}
+\end{equation}
+
+Now observe the magnitude of the exponent:
+\begin{equation}
+ \pi \sqrt{163} \approx \pi \times 12.767145 \approx 40.109968.
+\end{equation}
+The exponential suppression is astonishingly severe:
+\begin{equation}
+ e^{-\pi \sqrt{163}} \approx e^{-40.109968} \approx 3.7999 \times 10^{-18}.
+\end{equation}
+The first correction term is therefore:
+\begin{equation}
+ -196884 \, e^{-\pi \sqrt{163}} \approx -196884 \times (3.7999 \times 10^{-18}) \approx -7.48 \times 10^{-13}.
+\end{equation}
+All subsequent terms are bounded by $O(e^{-2\pi \sqrt{163}}) \approx 10^{-35}$, which is utterly negligible.
+
+Therefore:
+\begin{align}
+ e^{\pi \sqrt{163}} &\approx 640320^3 + 744 - 0.000000000000748 \dots \nonumber\\
+ &= 262\,537\,412\,640\,768\,000 + 744 - 0.000000000000748 \dots \nonumber\\
+ &= \mathbf{262\,537\,412\,640\,768\,743.99999999999925007\dots}
+\end{align}
+The appearance of twelve consecutive nines after the decimal point is the celebrated \textbf{Ramanujan's constant}. It is not an arbitrary numerical accident:
+\begin{enumerate}
+ \item The base value $640320^3 + 744$ is an integer because the class number of $\mathbb{Q}(\sqrt{-163})$ is $1$, forcing $j(\tau) \in \Z$.
+ \item The deviation from an integer is precisely $-196884 e^{-\pi \sqrt{163}} \approx -10^{-12}$, which is tiny because $d = 163$ is the largest of all nine class-number-1 discriminants!
+\end{enumerate}
+
+\subsection{Connection to Fast \texorpdfstring{$\pi$}{pi} Algorithms}
+This exact integer $640320$ and discriminant $d = 163$ form the foundation of the celebrated \textbf{Chudnovsky algorithm} (1988), which holds world records for computing billions and trillions of digits of $\pi$:
+\begin{equation}
+ \frac{1}{\pi} = 12 \sum_{k=0}^{\infty} \frac{(-1)^k (6k)! (545140134k + 13591409)}{(3k)! (k!)^3 \left(640320^3\right)^{k + 1/2}}.
+\end{equation}
+Each term of this hypergeometric series yields approximately
+\begin{equation}
+ \log_{10}\left(\frac{640320^3}{1728}\right) \approx 14.18
+\end{equation}
+new decimal digits of $\pi$, making it one of the most efficient algorithms known to mathematics.
+
+\section{Historical Milestones and Modern Significance}
+\label{sec:milestones}
+
+\subsection{Kummer and Fermat's Last Theorem}
+Gabriel Lam\'e's 1847 attempt to prove Fermat's Last Theorem failed because he assumed unique factorization in cyclotomic fields $\mathbb{Q}(\zeta_p)$. Ernst Kummer redeemed this line of attack by inventing ``ideal numbers'' (the predecessors of Dedekind's ideals).
+
+Kummer defined a prime $p$ to be \textbf{regular} if $p$ does not divide the class number of the cyclotomic field:
+\begin{equation}
+ p \nmid h\big(\mathbb{Q}(\zeta_p)\big).
+\end{equation}
+He proved that Fermat's Last Theorem holds for all regular primes. Kummer also gave a criterion: $p$ is regular if and only if $p$ does not divide the numerators of the Bernoulli numbers $B_2, B_4, \dots, B_{p-3}$. The only irregular primes under $100$ are $37$, $59$, and $67$, with $37 \mid h(\mathbb{Q}(\zeta_{37})) = 37$.
+
+\subsection{Dirichlet's Class Number Formula}
+In 1839, Peter Gustav Lejeune Dirichlet published a breakthrough analytic formula expressing the class number $h_K$ in terms of the residue of the Dedekind zeta function $\zeta_K(s)$ at $s = 1$:
+\begin{equation}
+ \lim_{s \to 1} (s - 1)\zeta_K(s) = \frac{2^{r_1} (2\pi)^{r_2} R_K \, h_K}{w_K \sqrt{|D_K|}},
+\end{equation}
+where $r_1, r_2$ denote the numbers of real and pairs of complex conjugate embeddings, $R_K$ is the regulator, $w_K$ is the number of roots of unity in $K$, and $D_K$ is the discriminant.
+
+For an imaginary quadratic field $K = \mathbb{Q}(\sqrt{-d})$ with fundamental discriminant $D < -4$, $r_1 = 0$, $r_2 = 1$, $R_K = 1$, and $w_K = 2$, yielding the simplified formula:
+\begin{equation}
+ h(D) = \frac{\sqrt{|D|}}{\pi} L(1, \chi_D) = -\frac{1}{|D|} \sum_{n=1}^{|D|-1} \chi_D(n) \, n,
+\end{equation}
+where $\chi_D(n) = \left(\frac{D}{n}\right)$ is the Kronecker symbol. This formula provides an explicit finite sum for computing class numbers without factoring any ideals!
+
+\subsection{The Open Real Quadratic Class Number Conjecture}
+While the Baker--Heegner--Stark theorem resolved the class number 1 problem for \emph{imaginary} quadratic fields ($d < 0$), the situation for \emph{real} quadratic fields ($d > 0$) remains wide open.
+
+Gauss conjectured that there are \textbf{infinitely many} real quadratic fields $\mathbb{Q}(\sqrt{d})$ with class number $h = 1$ (such as $\mathbb{Q}(\sqrt{2}), \mathbb{Q}(\sqrt{3}), \mathbb{Q}(\sqrt{5})$). Cohen and Lenstra (1984) formulated precise heuristics predicting that approximately $75.446\%$ of all real quadratic fields with prime discriminant have $h = 1$. Over two centuries after Gauss's conjecture, this remains one of the most famous unsolved problems in number theory.
+
+\end{document}
