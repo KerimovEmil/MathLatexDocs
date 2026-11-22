@@ -1,4 +1,4 @@
-﻿\documentclass[a4paper]{article}
+\documentclass[a4paper]{article}
 
 \input{preamble}
 
@@ -13,7 +13,7 @@ This note develops a self-contained path from the statistics of continued fracti
 \tableofcontents
 \newpage
 
-\section{Motivation: Khinchin's constant}
+\section{Motivation: Khinchin's Constant}
 A positive irrational number has a simple continued-fraction expansion
 \begin{equation}
  x=[a_0;a_1,a_2,a_3,\ldots]
@@ -34,7 +34,7 @@ The surprising part is that the answer is the same for almost every real number 
 
 The distribution behind Khinchin's theorem is the Gauss--Kuzmin distribution. Understanding it leads naturally to dynamical systems and ergodic theory.
 
-\section{Continued fractions and the Gauss map}
+\section{Continued Fractions and the Gauss Map}
 For $x\in(0,1)$ irrational, define
 \begin{equation}
  a_1=\left\lfloor\frac1x\right\rfloor,
@@ -72,7 +72,7 @@ Every branch maps bijectively onto $(0,1)$. Solving $T(x)=y$ on the $k$th branch
  \left|\phi_k'(y)\right|=\frac1{(k+y)^2}.
 \end{equation}
 
-\section{Invariant probability and the Gauss measure}
+\section{Invariant Probability and the Gauss Measure}
 \begin{definition}
 A probability measure $\mu$ on $(0,1)$ is \emph{invariant} under $T$ if
 \begin{equation}
@@ -149,7 +149,7 @@ and hence
 \end{equation}
 With $t=1/x$ this becomes exactly $f(x)=C/(1+x)$.
 
-\section{The Gauss--Kuzmin distribution}
+\section{The Gauss--Kuzmin Distribution}
 The event that the first continued-fraction digit equals $k$ is
 \begin{equation}
  \{a_1=k\}=\left(\frac1{k+1},\frac1k\right].
@@ -184,7 +184,7 @@ The tail is asymptotically
 \end{equation}
 This $k^{-2}$ tail explains why the arithmetic mean of $a_n$ diverges under the Gauss distribution, while suitable logarithmic averages remain finite.
 
-\section{Khinchin's constant from the Gauss distribution}
+\section{Khinchin's Constant from the Gauss Distribution}
 The logarithm converts the geometric mean into an ordinary average:
 \begin{equation}
  \frac1N\ln(a_1\cdots a_N)=\frac1N\sum_{n=1}^N\ln a_n.
@@ -208,7 +208,7 @@ Exponentiating gives Khinchin's constant in the equivalent product form
  K_0=\prod_{k=1}^{\infty}k^{p_k}.
 \end{equation}
 
-\section{Gauss--Kuzmin theorem: convergence to equilibrium}
+\section{Gauss--Kuzmin Theorem: Convergence to Equilibrium}
 The invariant density is a stationary distribution, but the deeper statement is that the system forgets initial conditions.
 If $f$ is an admissible initial density, then
 \begin{equation}
@@ -223,7 +223,7 @@ For continued-fraction digits, this says that for each fixed $k$,
 \end{equation}
 The theorem is a dynamical statement: iterating the map shifts the continued fraction, while the statistical law approaches the invariant law.
 
-\section{The transfer operator as an infinite-dimensional matrix}
+\section{The Transfer Operator as an Infinite-Dimensional Matrix}
 The transfer operator is linear:
 \begin{equation}
  \PP(af+bg)=a\PP f+b\PP g.
@@ -250,7 +250,7 @@ For the Gauss transfer operator, the corresponding decomposition is schematicall
 \end{equation}
 where $\lambda_1$ is the dominant nontrivial eigenvalue in the relevant spectral setting.
 
-\section{Why a negative eigenvalue can occur}
+\section{Why a Negative Eigenvalue Can Occur}
 Each inverse branch
 \begin{equation}
  \phi_k(x)=\frac1{k+x}
@@ -300,7 +300,7 @@ For scale,
 \end{equation}
 Thus the convergence is very rapid.
 
-\section{How to calculate the constant numerically}
+\section{Numerical Computation of the GKW Constant}
 There is no comparably simple closed-form expression for $\theta$. It arises as the solution of an infinite-dimensional eigenvalue problem. A practical calculation replaces $\PP$ by a finite-dimensional approximation.
 
 \subsection{Grid/collocation approximation}
@@ -348,7 +348,7 @@ The invariant density can itself be expanded around $x=0$:
 \end{equation}
 Thus the eigenvalue-$1$ eigenfunction is represented particularly simply in a power-series basis. The nontrivial eigenfunction associated with $-\theta$ is more complicated, but it can likewise be approximated by finite series or rational/analytic bases.
 
-\section{A useful computational experiment}
+\section{Spectral Collocation Experiment}
 A direct numerical experiment can be organized as follows.
 \begin{enumerate}[label=\arabic*.]
 \item Choose an initial density, for example $f_0(x)=1$.
@@ -370,7 +370,7 @@ Generically this ratio approaches $-\theta$ when the dominant nontrivial mode is
 \end{enumerate}
 This is a particularly concrete way to see both the negative sign and the numerical value of the Gauss--Kuzmin--Wirsing constant.
 
-\section{From transfer operators to deeper spectral theory}
+\section{From Transfer Operators to Deeper Spectral Theory}
 The operator can be generalized to a parameter $s$ by
 \begin{equation}
  (\Lop_s f)(x)=\sum_{n=1}^{\infty}\frac1{(n+x)^{2s}}
@@ -393,7 +393,7 @@ A standard perspective is therefore
 \text{arithmetic information}.
 \end{equation}
 
-\section{Summary of the main equations}
+\section{Summary of Principal Equations}
 For reference, the central chain of formulas is
 \begin{align}
  T(x)&=\frac1x-\left\lfloor\frac1x\right\rfloor,\\
@@ -410,7 +410,7 @@ For reference, the central chain of formulas is
  \theta&=|\lambda_1|\approx0.3036630028987327.
 \end{align}
 
-\section{Conceptual picture}
+\section{Conceptual Synthesis and Dynamical Map}
 The entire story can be summarized as follows. Continued-fraction digits are generated by repeatedly applying the Gauss map. The map has infinitely many inverse branches, and the corresponding Jacobians determine a transfer operator. The special density $(1+x)^{-1}/\ln2$ is invariant because substitution into the operator creates a telescoping series. Ergodicity converts the invariant measure into almost-sure long-run statistics, producing the Gauss--Kuzmin distribution and Khinchin's constant. Spectral theory then explains the rate at which arbitrary initial distributions approach equilibrium: the eigenvalue $1$ represents the stationary mode, while the dominant nontrivial eigenvalue near $-0.303663$ represents an alternating, exponentially decaying mode.
 
 \begin{center}
