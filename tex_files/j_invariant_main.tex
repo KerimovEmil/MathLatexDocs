@@ -1,0 +1,701 @@
+\documentclass[a4paper]{article}
+
+\input{preamble}
+
+\title{\textbf{The Klein $j$-Invariant}\\[4pt]\large Modular Functions, Complex Multiplication, Special Values, and the Chudnovsky Formula}
+\author{Emil Kerimov}
+\date{November 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document provides a comprehensive, rigorous, and self-contained exposition of Felix Klein's absolute invariant $j(\tau)$ and its role at the intersection of complex analysis, algebraic number theory, and hypergeometric series. We begin with the geometric moduli problem of classifying complex tori $\mathbb{C}/\Lambda$ and elliptic curves up to isomorphism, demonstrating why homothety of lattices forces the existence of a modular invariant on the upper half-plane $\mathbb{H}$. We construct $j(\tau)$ analytically via the Eisenstein series $g_2, g_3$ and the modular discriminant $\Delta(\tau)$, explaining the structural rationale behind the normalization factor $1728$. We explore the geometry of the modular group $\mathrm{SL}_2(\Z)$ and its fundamental domain $\mathcal{F}$, proving that $j(\tau)$ serves as a Hauptmodul establishing a biholomorphic isomorphism between the modular curve $Y(1) = \mathbb{H}/\mathrm{SL}_2(\Z)$ and the complex plane $\mathbb{C}$. 
+
+We then present the Fourier $q$-expansion, deriving its leading coefficients and discussing the unexpected bridge to the Monster sporadic group via Monstrous Moonshine. Continuing directly from our document on class numbers (\href{class_numbers_main.pdf}{\emph{An Introduction to Class Numbers}} \cite{kerimov2026class}), we show that when an elliptic curve possesses complex multiplication (CM) by the ring of integers $\mathcal{O}_K$ of an imaginary quadratic field $K = \mathbb{Q}(\sqrt{-d})$, homothety classes of lattices correspond identically to ideal classes in $\mathrm{Cl}(K)$. We prove that $j(\tau)$ is an algebraic integer whose degree over $\mathbb{Q}$ is precisely the class number $h_K$, with its minimal polynomial being the Hilbert class polynomial $H_D(X)$. We provide extensive reference tables and detailed calculations of special values of $j(\tau)$ across orbifold points, all nine Heegner class-number-1 fields, non-maximal orders of class number 1, and higher-order class groups ($h=2, 3$). Finally, we study the analytic derivation of the Chudnovsky formula for $1/\pi$, highlighting the Picard--Fuchs differential equation satisfied by periods as parameterized by $J = j/1728$ and Clausen's formula, as rigorously detailed by Lorenz Milla (arXiv:1809.00533), culminating in Ramanujan's constant $e^{\pi\sqrt{163}}$.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction: The Moduli Problem for Complex Tori}
+\label{sec:intro}
+
+In complex analysis and algebraic geometry, one of the most fundamental questions is classification: when are two geometric objects genuinely identical up to an invertible analytic map (biholomorphism)?
+
+Consider a 1-dimensional compact complex manifold, known as a \emph{complex torus}. Every such torus can be realized as the quotient of the complex plane $\mathbb{C}$ by a two-dimensional lattice:
+\begin{equation}
+ \Lambda = \Z\omega_1 + \Z\omega_2 = \{ m\omega_1 + n\omega_2 : m, n \in \Z \},
+\end{equation}
+where $\omega_1, \omega_2 \in \mathbb{C}^\times$ are linearly independent over $\R$, meaning their ratio
+\begin{equation}
+ \tau = \frac{\omega_1}{\omega_2}
+\end{equation}
+does not lie on the real line $\R$. By convention and without loss of generality (swapping $\omega_1$ and $\omega_2$ or negating one if necessary), we always choose the basis such that $\tau$ lies in the \textbf{complex upper half-plane}:
+\begin{equation}
+ \mathbb{H} = \{ \tau \in \mathbb{C} : \mathrm{Im}(\tau) > 0 \}.
+\end{equation}
+
+\subsection{Lattice Homothety and Complex Isomorphism}
+Let $T_1 = \mathbb{C}/\Lambda_1$ and $T_2 = \mathbb{C}/\Lambda_2$ be two complex tori. When is $T_1$ isomorphic (biholomorphic) to $T_2$?
+\begin{proposition}[Homothety Criterion]
+Two complex tori $\mathbb{C}/\Lambda_1$ and $\mathbb{C}/\Lambda_2$ are isomorphic as complex Lie groups if and only if their underlying lattices $\Lambda_1$ and $\Lambda_2$ are \textbf{homothetic}: that is, there exists a non-zero complex scaling factor $\lambda \in \mathbb{C}^\times$ such that
+\begin{equation}
+ \Lambda_2 = \lambda \Lambda_1 = \{ \lambda z : z \in \Lambda_1 \}.
+\end{equation}
+\end{proposition}
+
+Given any lattice $\Lambda = \Z\omega_1 + \Z\omega_2$, scaling by $\lambda = \omega_2^{-1}$ yields a homothetic lattice:
+\begin{equation}
+ \Lambda_\tau = \frac{1}{\omega_2} \Lambda = \Z\tau + \Z, \qquad \tau = \frac{\omega_1}{\omega_2} \in \mathbb{H}.
+\end{equation}
+Thus, every complex torus is isomorphic to $\mathbb{C}/\Lambda_\tau$ for some $\tau \in \mathbb{H}$.
+
+However, the parameter $\tau$ is not unique. A different choice of $\Z$-basis for the same lattice $\Lambda_\tau$ produces a different ratio $\tau'$. The change-of-basis matrix between two oriented bases of $\Lambda$ must have integer entries and determinant $+1$:
+\begin{equation}
+ \begin{pmatrix} \omega_1' \\ \omega_2' \end{pmatrix} = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \begin{pmatrix} \omega_1 \\ \omega_2 \end{pmatrix}, \qquad \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \mathrm{SL}_2(\Z),
+\end{equation}
+which acts on the ratio $\tau = \omega_1/\omega_2$ by a \textbf{Möbius transformation}:
+\begin{equation}
+ \tau \mapsto \frac{a\tau + b}{c\tau + d}.
+\end{equation}
+
+\subsection{The Need for an Absolute Invariant}
+We conclude that the set of isomorphism classes of complex tori corresponds bijectively to the quotient space
+\begin{equation}
+ Y(1) = \mathrm{SL}_2(\Z) \backslash \mathbb{H}.
+\end{equation}
+To make this space algebraically tractable, we seek a single holomorphic function $j: \mathbb{H} \to \mathbb{C}$ that assigns a complex number to each torus such that:
+\begin{enumerate}[label=(\roman*)]
+ \item \textbf{Modular Invariance:} $j\left(\frac{a\tau + b}{c\tau + d}\right) = j(\tau)$ for all $\begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \mathrm{SL}_2(\Z)$.
+ \item \textbf{Injectivity on Moduli:} $j(\tau_1) = j(\tau_2)$ if and only if $\tau_1$ and $\tau_2$ belong to the same $\mathrm{SL}_2(\Z)$-orbit (i.e., $\mathbb{C}/\Lambda_{\tau_1} \cong \mathbb{C}/\Lambda_{\tau_2}$).
+ \item \textbf{Surjectivity:} For every complex number $w \in \mathbb{C}$, there exists an elliptic curve whose invariant is $w$.
+\end{enumerate}
+This function is Felix Klein's celebrated \textbf{$j$-invariant}.
+
+\section{Analytic Construction: Eisenstein Series and the Discriminant}
+\label{sec:analytic_construction}
+
+To construct $j(\tau)$, we examine the complex analytic functions that naturally embed the torus $\mathbb{C}/\Lambda$ into the complex projective plane $\mathbb{C}\mathbb{P}^2$ as a non-singular cubic algebraic curve.
+
+\subsection{The Weierstrass \texorpdfstring{$\wp$}{P}-Function and Invariants \texorpdfstring{$g_2, g_3$}{g2, g3}}
+Given a lattice $\Lambda \subset \mathbb{C}$, the \textbf{Weierstrass $\wp$-function} is defined as
+\begin{equation}
+ \wp(z; \Lambda) = \frac{1}{z^2} + \sum_{\omega \in \Lambda \setminus \{0\}} \left( \frac{1}{(z - \omega)^2} - \frac{1}{\omega^2} \right).
+\end{equation}
+The function $\wp(z)$ is meromorphic on $\mathbb{C}$, has double poles at every lattice point $\omega \in \Lambda$, and is doubly periodic: $\wp(z + \omega) = \wp(z)$ for all $\omega \in \Lambda$.
+
+By expanding $\wp(z)$ in a Laurent series around the origin $z = 0$, we find:
+\begin{equation}
+ \wp(z) = \frac{1}{z^2} + \sum_{k=1}^\infty (2k+1) G_{2k+2}(\Lambda) \, z^{2k} = \frac{1}{z^2} + 3 G_4(\Lambda) z^2 + 5 G_6(\Lambda) z^4 + O(z^6),
+\end{equation}
+where $G_{2k}(\Lambda)$ are the \textbf{Eisenstein series} of weight $2k$:
+\begin{equation}
+ G_{2k}(\Lambda) = \sum_{\omega \in \Lambda \setminus \{0\}} \frac{1}{\omega^{2k}}, \qquad k \ge 2.
+\end{equation}
+Differentiating $\wp(z)$ with respect to $z$ yields
+\begin{equation}
+ \wp'(z) = -\frac{2}{z^3} + 6 G_4(\Lambda) z + 20 G_6(\Lambda) z^3 + O(z^5).
+\end{equation}
+We define the classical Weierstrass invariants:
+\begin{equation}
+ g_2(\Lambda) = 60 G_4(\Lambda), \qquad g_3(\Lambda) = 140 G_6(\Lambda).
+ \label{eq:g2_g3_def}
+\end{equation}
+Computing $(\wp'(z))^2$ and $4\wp(z)^3 - g_2\wp(z) - g_3$ through order $O(z^2)$ reveals that their difference is an entire, doubly periodic function that vanishes at the origin. By Liouville's theorem, this entire difference is identically zero, establishing the \textbf{Weierstrass differential equation}:
+\begin{equation}
+ \boxed{(\wp'(z))^2 = 4\wp(z)^3 - g_2 \wp(z) - g_3}.
+ \label{eq:weierstrass_ode}
+\end{equation}
+The map $z \mapsto [\wp(z) : \wp'(z) : 1]$ provides an explicit biholomorphic isomorphism from the complex torus $\mathbb{C}/\Lambda$ to the smooth projective cubic curve in $\mathbb{C}\mathbb{P}^2$ given in affine coordinates by:
+\begin{equation}
+ E: y^2 = 4x^3 - g_2 x - g_3.
+\end{equation}
+
+\subsection{The Modular Discriminant \texorpdfstring{$\Delta(\tau)$}{Delta(tau)}}
+A cubic polynomial $P(x) = 4x^3 - g_2 x - g_3$ has three roots $e_1, e_2, e_3$, representing the values of $\wp(z)$ at the three non-trivial half-period points $\omega_1/2, \omega_2/2, (\omega_1+\omega_2)/2$. The curve $E$ is non-singular (smooth) if and only if these three roots are distinct.
+
+The algebraic discriminant of the cubic $4x^3 - g_2 x - g_3$ is defined as
+\begin{equation}
+ \Delta(\Lambda) = 16 (e_1 - e_2)^2 (e_1 - e_3)^2 (e_2 - e_3)^2 = g_2(\Lambda)^3 - 27 g_3(\Lambda)^2.
+ \label{eq:delta_def}
+\end{equation}
+For any lattice $\Lambda \subset \mathbb{C}$, the three half-period values $e_1, e_2, e_3$ are strictly distinct, proving:
+\begin{proposition}
+For all $\tau \in \mathbb{H}$, the modular discriminant $\Delta(\tau) = \Delta(\Z\tau + \Z)$ satisfies:
+\begin{equation}
+ \Delta(\tau) \ne 0.
+\end{equation}
+\end{proposition}
+
+Furthermore, $\Delta(\tau)$ can be expressed via the \textbf{Dedekind eta function}:
+\begin{equation}
+ \eta(\tau) = q^{1/24} \prod_{n=1}^\infty (1 - q^n), \qquad q = e^{2\pi i \tau}.
+\end{equation}
+A profound theorem of Jacobi and Eisenstein establishes that
+\begin{equation}
+ \Delta(\tau) = (2\pi)^{12} \, \eta(\tau)^{24} = (2\pi)^{12} \, q \prod_{n=1}^\infty (1 - q^n)^{24}.
+ \label{eq:delta_eta}
+\end{equation}
+Because the infinite product $\prod (1 - q^n)$ has no zeros inside the unit disk $0 < |q| < 1$, $\Delta(\tau)$ never vanishes in $\mathbb{H}$ and possesses a simple zero only at the cusp $q = 0$ ($\tau \to i\infty$).
+
+\subsection{Definition of Klein's \texorpdfstring{$j$}{j}-Invariant and Why 1728}
+\begin{definition}[Klein $j$-Invariant]
+For $\tau \in \mathbb{H}$, the \textbf{Klein $j$-invariant} is defined by:
+\begin{equation}
+ \boxed{j(\tau) = 1728 \, \frac{g_2(\tau)^3}{\Delta(\tau)} = 1728 \, \frac{g_2(\tau)^3}{g_2(\tau)^3 - 27 g_3(\tau)^2}}.
+ \label{eq:j_def}
+\end{equation}
+\end{definition}
+
+\noindent\textbf{Why does the numerical factor $1728 = 12^3$ appear?}
+This constant is chosen for several profound reasons:
+\begin{enumerate}[leftmargin=2em]
+ \item \textbf{Residue Normalization at the Cusp:}
+ In the Fourier $q$-expansion, the leading term is normalized to have coefficient $1$:
+ \begin{equation}
+  j(\tau) = \frac{1}{q} + 744 + 196884 q + \cdots
+ \end{equation}
+ Without the factor $1728$, the leading term would be $\frac{1}{1728 q}$, producing fractional Fourier coefficients throughout the series.
+ 
+ \item \textbf{Normalized Eisenstein Series $E_4$ and $E_6$:}
+ In modern modular form theory, one normalizes the Eisenstein series so their constant term is $1$:
+ \begin{align}
+  E_4(\tau) &= \frac{1}{2\zeta(4)} G_4(\tau) = 1 + 240 \sum_{n=1}^\infty \sigma_3(n) q^n, \\
+  E_6(\tau) &= \frac{1}{2\zeta(6)} G_6(\tau) = 1 - 504 \sum_{n=1}^\infty \sigma_5(n) q^n,
+ \end{align}
+ where $\sigma_k(n) = \sum_{d \mid n} d^k$. Using the values $\zeta(4) = \pi^4/90$ and $\zeta(6) = \pi^6/945$, we have:
+ \begin{equation}
+  g_2 = \frac{4\pi^4}{3} E_4, \qquad g_3 = \frac{8\pi^6}{27} E_6.
+ \end{equation}
+ Substituting these into $\Delta = g_2^3 - 27g_3^2$:
+ \begin{equation}
+  \Delta = \left(\frac{4\pi^4}{3}\right)^3 E_4^3 - 27 \left(\frac{8\pi^6}{27}\right)^2 E_6^2 = \frac{64\pi^{12}}{27} (E_4^3 - E_6^2).
+ \end{equation}
+ Now substitute $g_2^3$ and $\Delta$ into the formula for $j$:
+ \begin{equation}
+  \frac{g_2^3}{\Delta} = \frac{\frac{64\pi^{12}}{27} E_4^3}{\frac{64\pi^{12}}{27} (E_4^3 - E_6^2)} = \frac{E_4^3}{E_4^3 - E_6^2}.
+ \end{equation}
+ Because $(E_4^3 - E_6^2) = 1728 q \prod (1-q^n)^{24} = \frac{1728}{(2\pi)^{12}} \Delta$, introducing the factor $1728$ makes the connection between $E_4, E_6$ and $\Delta$ exceptionally clean:
+ \begin{equation}
+  \boxed{j(\tau) = \frac{E_4(\tau)^3}{\eta(\tau)^{24}} = 1728 \, \frac{E_4(\tau)^3}{E_4(\tau)^3 - E_6(\tau)^2}}.
+  \label{eq:j_E4_E6}
+ \end{equation}
+ 
+ \item \textbf{Scale Invariance:}
+ If we scale the lattice by $\lambda \in \mathbb{C}^\times$, $G_{2k}(\lambda \Lambda) = \lambda^{-2k} G_{2k}(\Lambda)$. Thus:
+ \begin{equation}
+  g_2(\lambda \Lambda) = \lambda^{-4} g_2(\Lambda), \qquad g_3(\lambda \Lambda) = \lambda^{-6} g_3(\Lambda).
+ \end{equation}
+ Therefore:
+ \begin{equation}
+  g_2(\lambda \Lambda)^3 = \lambda^{-12} g_2(\Lambda)^3, \qquad \Delta(\lambda \Lambda) = \lambda^{-12} \Delta(\Lambda).
+ \end{equation}
+ The factors of $\lambda^{-12}$ cancel completely in the quotient $g_2^3/\Delta$, confirming that $j(\lambda \Lambda) = j(\Lambda)$. The invariant depends \emph{solely} on the homothety class of the lattice.
+\end{enumerate}
+
+\section{The Modular Group, Fundamental Domain, and Fourier Expansion}
+\label{sec:modular_group_fourier}
+
+\subsection{Action of \texorpdfstring{$\mathrm{SL}_2(\Z)$}{SL2(Z)}}
+The full modular group is the group of $2 \times 2$ matrices with integer entries and determinant 1:
+\begin{equation}
+ \mathrm{SL}_2(\Z) = \left\{ \begin{pmatrix} a & b \\ c & d \end{pmatrix} : a, b, c, d \in \Z, \; ad - bc = 1 \right\}.
+\end{equation}
+It is generated by two fundamental transformations:
+\begin{equation}
+ T = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}: \tau \mapsto \tau + 1, \qquad S = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}: \tau \mapsto -\frac{1}{\tau}.
+\end{equation}
+Under the action of $\gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \mathrm{SL}_2(\Z)$, the transformed lattice $\Lambda_{\gamma\tau} = \Z \frac{a\tau+b}{c\tau+d} + \Z = \frac{1}{c\tau+d} (\Z(a\tau+b) + \Z(c\tau+d)) = \frac{1}{c\tau+d} \Lambda_\tau$ is homothetic to $\Lambda_\tau$. Because $j$ is invariant under homothety:
+\begin{equation}
+ j\left(\frac{a\tau + b}{c\tau + d}\right) = j(\tau) \qquad \forall \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \mathrm{SL}_2(\Z).
+\end{equation}
+
+\subsection{The Fundamental Domain \texorpdfstring{$\mathcal{F}$}{F}}
+The standard fundamental domain for the action of $\mathrm{SL}_2(\Z)$ on $\mathbb{H}$ is:
+\begin{equation}
+ \mathcal{F} = \left\{ \tau \in \mathbb{H} : |\mathrm{Re}(\tau)| \le \frac{1}{2}, \; |\tau| \ge 1 \right\}.
+\end{equation}
+
+\begin{theorem}[$j$ as a Hauptmodul]
+The function $j: \mathbb{H} \to \mathbb{C}$ has the following properties:
+\begin{enumerate}[label=(\roman*)]
+ \item $j$ is holomorphic on $\mathbb{H}$ and meromorphic at the cusp $\tau \to i\infty$.
+ \item $j$ maps the interior of $\mathcal{F}$ biholomorphically onto $\mathbb{C} \setminus (-\infty, 1728]$.
+ \item $j$ maps the quotient $\mathrm{SL}_2(\Z) \backslash \mathbb{H}$ bijectively onto $\mathbb{C}$.
+ \item $j(\tau_1) = j(\tau_2)$ if and only if $\tau_1 = \gamma \tau_2$ for some $\gamma \in \mathrm{SL}_2(\Z)$.
+\end{enumerate}
+\end{theorem}
+
+\subsection{The Fourier \texorpdfstring{$q$}{q}-Expansion}
+Because $j(\tau + 1) = j(\tau)$, $j$ is periodic with period 1 and possesses a Fourier expansion in powers of $q = e^{2\pi i \tau}$. 
+
+We can compute this expansion directly from $E_4(\tau)$ and $\Delta(\tau)$:
+\begin{align}
+ E_4(\tau) &= 1 + 240 q + 2160 q^2 + 6720 q^3 + 17520 q^4 + \cdots \\
+ E_4(\tau)^3 &= 1 + 720 q + 179280 q^2 + 16954560 q^3 + \cdots \\
+ \eta(\tau)^{24} &= q \prod_{n=1}^\infty (1 - q^n)^{24} = q \Big(1 - 24q + 252q^2 - 1472q^3 + 4830q^4 - \cdots\Big).
+\end{align}
+Dividing $E_4^3$ by $\eta^{24}$ using polynomial series division:
+\begin{align}
+ j(\tau) &= \frac{1 + 720 q + 179280 q^2 + 16954560 q^3 + \cdots}{q (1 - 24q + 252q^2 - 1472q^3 + \cdots)} \nonumber\\
+ &= \frac{1}{q} + (720 + 24) + \Big(179280 + 24(744) - 252\Big) q + \cdots \nonumber\\
+ &= \frac{1}{q} + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + 20245856256 q^4 + \cdots
+ \label{eq:j_q_series_full}
+\end{align}
+All Fourier coefficients $c_n$ in $j(\tau) = \frac{1}{q} + \sum_{n=0}^\infty c_n q^n$ are strictly positive integers:
+\begin{center}
+\begin{tabular}{r r}
+\toprule
+$n$ & Coefficient $c_n$ \\
+\midrule
+$-1$ & $1$ \\
+$0$ & $744$ \\
+$1$ & $196\,884$ \\
+$2$ & $21\,493\,760$ \\
+$3$ & $864\,299\,970$ \\
+$4$ & $20\,245\,856\,256$ \\
+$5$ & $333\,202\,640\,600$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Monstrous Moonshine}
+In 1978, mathematician John McKay noticed an astonishing numerical coincidence:
+\begin{equation}
+ 196884 = 1 + 196883.
+\end{equation}
+Here $196883$ is the dimension of the smallest non-trivial irreducible representation of the \textbf{Monster group} $\mathbb{M}$ (the largest of the 26 sporadic finite simple groups, of order $\approx 8 \times 10^{53}$). Similarly:
+\begin{equation}
+ 21493760 = 1 + 196883 + 21296876,
+\end{equation}
+where $21296876$ is the dimension of the next irreducible representation of $\mathbb{M}$. 
+
+John Conway and Simon Norton formulated the \textbf{Monstrous Moonshine Conjectures}, asserting that the Fourier coefficients of $j(\tau) - 744$ are graded traces of elements of the Monster group acting on an infinite-dimensional graded vector space $V^\natural$. Richard Borcherds proved these conjectures in 1992 using vertex operator algebras and generalized Kac--Moody algebras, for which he was awarded the Fields Medal in 1998.
+
+\section{Special Values of the \texorpdfstring{$j$}{j}-Invariant: Theory and Extensive Tables}
+\label{sec:special_values}
+
+We now come to one of the richest aspects of the $j$-invariant: its evaluation at special algebraic points in $\mathbb{H}$. These points divide naturally into two broad mathematical classes:
+\begin{enumerate}
+ \item \textbf{Orbifold symmetry points}: fixed points of transformations in $\mathrm{SL}_2(\Z)$.
+ \item \textbf{Complex Multiplication (CM) points}: values $\tau$ lying in imaginary quadratic fields $\mathbb{Q}(\sqrt{-d})$.
+\end{enumerate}
+
+\subsection{Orbifold Symmetry Points: \texorpdfstring{$j=0$}{j=0} and \texorpdfstring{$j=1728$}{j=1728}}
+The boundary of the fundamental domain $\mathcal{F}$ contains two special points possessing extra rotational symmetries:
+
+\begin{enumerate}[leftmargin=2em]
+ \item \textbf{The Hexagonal Point $\tau = \rho = e^{2\pi i/3} = \frac{-1+i\sqrt{3}}{2}$:}
+ The lattice $\Lambda_\rho = \Z\rho + \Z$ is hexagonal, invariant under $60^\circ$ rotation ($\rho \Lambda_\rho = \Lambda_\rho$). 
+ Under this homothety, the Eisenstein series of weight 4 satisfies:
+ \begin{equation}
+  G_4(\Lambda_\rho) = G_4(\rho \Lambda_\rho) = \rho^{-4} G_4(\Lambda_\rho) = \rho^{-1} G_4(\Lambda_\rho).
+ \end{equation}
+ Since $\rho \ne 1$, this forces $G_4(\rho) = 0$, hence $g_2(\rho) = 0$.
+ Substituting $g_2 = 0$ into \eqref{eq:j_def}:
+ \begin{equation}
+  \boxed{j\left(\frac{-1+i\sqrt{3}}{2}\right) = j\left(\frac{1+i\sqrt{3}}{2}\right) = 0}.
+ \end{equation}
+ 
+ \item \textbf{The Square Point $\tau = i$:}
+ The lattice $\Lambda_i = \Z i + \Z$ is a square lattice, invariant under $90^\circ$ rotation ($i \Lambda_i = \Lambda_i$).
+ Under this homothety, the Eisenstein series of weight 6 satisfies:
+ \begin{equation}
+  G_6(\Lambda_i) = G_6(i \Lambda_i) = i^{-6} G_6(\Lambda_i) = -G_6(\Lambda_i).
+ \end{equation}
+ This forces $G_6(i) = 0$, hence $g_3(i) = 0$.
+ Substituting $g_3 = 0$ into \eqref{eq:j_def}:
+ \begin{equation}
+  \boxed{j(i) = 1728 \, \frac{g_2(i)^3}{g_2(i)^3 - 0} = 1728 = 12^3}.
+ \end{equation}
+\end{enumerate}
+
+\subsection{The Nine Heegner Numbers (Maximal Orders with \texorpdfstring{$h_K = 1$}{hK = 1})}
+When $\tau$ is chosen to generate the maximal ring of integers $\mathcal{O}_K$ of an imaginary quadratic field $K = \mathbb{Q}(\sqrt{-d})$ with class number $h_K = 1$, the minimal polynomial of $j(\tau)$ over $\mathbb{Q}$ has degree 1, forcing $j(\tau) \in \Z$.
+
+By the Baker--Heegner--Stark theorem, there are precisely nine such discriminants:
+\begin{equation}
+ -d \in \{-3, -4, -7, -8, -11, -19, -43, -67, -163\}.
+\end{equation}
+Remarkably, for every single one of these nine discriminants, $j(\tau)$ is a **perfect cube** of an integer:
+\begin{equation}
+ j(\tau) = \gamma_2(\tau)^3, \qquad \gamma_2(\tau) \in \Z.
+\end{equation}
+
+\begin{theorem}[Weber's Cube Root Theorem]
+Let $K = \mathbb{Q}(\sqrt{-d})$ be an imaginary quadratic field of discriminant $D$. If $3 \nmid D$, the Weber function
+\begin{equation}
+ \gamma_2(\tau) = \sqrt[3]{j(\tau)}
+\end{equation}
+generates the Hilbert class field of $K$, and for $h_K = 1$, $\gamma_2(\tau) \in \Z$. When $3 \mid D$, $\sqrt{j(\tau)}$ is an integer instead.
+\end{theorem}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\caption{\textbf{Special Values of $j(\tau)$ for the Nine Heegner Numbers ($h_K = 1$)}}
+\label{tab:heegner_j}
+\vspace{4pt}
+\begin{tabular}{r c c c r r}
+\toprule
+$d$ & $D$ & $\tau$ & $\gamma_2(\tau) = \sqrt[3]{j(\tau)}$ & $j(\tau)$ & $j(\tau)$ (Factored) \\
+\midrule
+$3$ & $-3$ & $\frac{1+\sqrt{-3}}{2}$ & $0$ & $0$ & $0$ \\
+$1$ & $-4$ & $i$ & $12$ & $1\,728$ & $2^6 \cdot 3^3$ \\
+$7$ & $-7$ & $\frac{1+\sqrt{-7}}{2}$ & $-15$ & $-3\,375$ & $-3^3 \cdot 5^3$ \\
+$2$ & $-8$ & $\sqrt{-2}$ & $20$ & $8\,000$ & $2^6 \cdot 5^3$ \\
+$11$ & $-11$ & $\frac{1+\sqrt{-11}}{2}$ & $-32$ & $-32\,768$ & $-2^{15}$ \\
+$19$ & $-19$ & $\frac{1+\sqrt{-19}}{2}$ & $-96$ & $-884\,736$ & $-2^{15} \cdot 3^3$ \\
+$43$ & $-43$ & $\frac{1+\sqrt{-43}}{2}$ & $-960$ & $-884\,736\,000$ & $-2^{18} \cdot 3^3 \cdot 5^3$ \\
+$67$ & $-67$ & $\frac{1+\sqrt{-67}}{2}$ & $-5\,280$ & $-147\,197\,952\,000$ & $-2^{15} \cdot 3^3 \cdot 5^3 \cdot 11^3$ \\
+$163$ & $-163$ & $\frac{1+\sqrt{-163}}{2}$ & $-640\,320$ & $-262\,537\,412\,640\,768\,000$ & $-2^{18} \cdot 3^3 \cdot 5^3 \cdot 23^3 \cdot 29^3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Non-Maximal Orders with Class Number 1}
+In an imaginary quadratic field $K$, an **order** $\mathcal{O}$ is a subring of $\mathcal{O}_K$ that is a free $\Z$-module of rank 2. Every order has the form
+\begin{equation}
+ \mathcal{O}_f = \Z + f \mathcal{O}_K,
+\end{equation}
+where $f = [\mathcal{O}_K : \mathcal{O}_f] \in \Z_{\ge 1}$ is the **conductor**. The discriminant of the order is $D = f^2 D_K$.
+Gauss and modern class field theory prove that there are exactly four non-maximal orders that also have class number $h(\mathcal{O}_f) = 1$:
+\begin{enumerate}
+ \item $D = -12$: $K = \mathbb{Q}(\sqrt{-3})$, conductor $f = 2$, generated by $\tau = \sqrt{-3}$.
+ \item $D = -16$: $K = \mathbb{Q}(i)$, conductor $f = 2$, generated by $\tau = 2i$.
+ \item $D = -27$: $K = \mathbb{Q}(\sqrt{-3})$, conductor $f = 3$, generated by $\tau = \frac{1+3\sqrt{-3}}{2}$.
+ \item $D = -28$: $K = \mathbb{Q}(\sqrt{-7})$, conductor $f = 2$, generated by $\tau = \sqrt{-7}$.
+\end{enumerate}
+Because their class number is $1$, their $j$-invariants are also **rational integers**:
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{4.5pt}
+\caption{\textbf{Special Values for Non-Maximal Orders with Ring Class Number $h(\mathcal{O}) = 1$}}
+\label{tab:non_maximal_h1}
+\vspace{4pt}
+\begin{tabular}{c c c c r r}
+\toprule
+Base Field & $f$ & Disc. $D$ & Generator $\tau$ & $j(\tau)$ & $j(\tau)$ (Factored) \\
+\midrule
+$\mathbb{Q}(\sqrt{-3})$ & $2$ & $-12$ & $\sqrt{-3}$ & $54\,000$ & $2^4 \cdot 3^3 \cdot 5^3$ \\
+$\mathbb{Q}(i)$ & $2$ & $-16$ & $2i$ & $287\,496$ & $2^3 \cdot 3^3 \cdot 11^3 = 66^3$ \\
+$\mathbb{Q}(\sqrt{-3})$ & $3$ & $-27$ & $\frac{1+3\sqrt{-3}}{2}$ & $-12\,288\,000$ & $-2^{15} \cdot 3 \cdot 5^3$ \\
+$\mathbb{Q}(\sqrt{-7})$ & $2$ & $-28$ & $\sqrt{-7}$ & $16\,581\,375$ & $3^3 \cdot 5^3 \cdot 17^3 = 255^3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Notice that $j(2i) = 66^3$ and $j(\sqrt{-7}) = 255^3$ are also perfect cubes!
+
+\subsection{Higher Class Numbers: Algebraic Values of Degree 2 and 3}
+When $h_K > 1$, $j(\tau)$ is no longer an ordinary integer, but an algebraic integer of degree $h_K$. Its minimal polynomial over $\mathbb{Q}$ is the **Hilbert class polynomial**:
+\begin{equation}
+ H_D(X) = \prod_{[\mathfrak{a}] \in \mathrm{Cl}(K)} \big( X - j(\mathfrak{a}) \big) \in \Z[X].
+\end{equation}
+
+\subsubsection{Class Number 2: \texorpdfstring{$\mathbb{Q}(\sqrt{-5})$ and $\mathbb{Q}(\sqrt{-6})$}{Q(sqrt(-5)) and Q(sqrt(-6))}}
+Recall from our Class Numbers document, \href{class_numbers_main.pdf}{\emph{An Introduction to Class Numbers}} \cite{kerimov2026class} (Section 2), that for $K = \mathbb{Q}(\sqrt{-5})$, $D = -20$ and $h_K = 2$, with the two ideal classes represented by the principal ideal $(1)$ and the non-principal ideal $\mathfrak{p}_1 = (2, 1+\sqrt{-5})$.
+The corresponding generators in $\mathbb{H}$ are:
+\begin{equation}
+ \tau_1 = \sqrt{-5}, \qquad \tau_2 = \frac{1 + \sqrt{-5}}{2}.
+\end{equation}
+The Hilbert class polynomial of discriminant $-20$ is:
+\begin{equation}
+ H_{-20}(X) = X^2 - 1\,264\,000 X - 681\,472\,000.
+ \label{eq:H_minus_20}
+\end{equation}
+Solving this quadratic equation yields the exact closed forms:
+\begin{align}
+ j(\sqrt{-5}) &= 632\,000 + 282\,880\sqrt{5} \approx 1\,264\,538.9095, \\
+ j\left(\frac{1+\sqrt{-5}}{2}\right) &= 632\,000 - 282\,880\sqrt{5} \approx -538.9095.
+\end{align}
+Notice that $j(\sqrt{-5})$ can also be factored as $(2 \sqrt{5} + 4)^3 (20 \sqrt{5} - 44)^3$.
+
+Similarly, for $K = \mathbb{Q}(\sqrt{-6})$ with $D = -24$ and $h = 2$:
+\begin{equation}
+ H_{-24}(X) = X^2 - 28\,288\,000 X - 681\,472\,000,
+\end{equation}
+yielding:
+\begin{equation}
+ j(\sqrt{-6}) = 14\,144\,000 + 19\,998\,720 \sqrt{2} \approx 42\,426\,717.84.
+\end{equation}
+
+\subsubsection{Class Number 3: \texorpdfstring{$\mathbb{Q}(\sqrt{-23})$}{Q(sqrt(-23))}}
+For $K = \mathbb{Q}(\sqrt{-23})$ with $D = -23$, as investigated in Section 4 of \href{class_numbers_main.pdf}{\emph{An Introduction to Class Numbers}} \cite{kerimov2026class}, $h_K = 3$ and the class group is cyclic: $\mathrm{Cl}(K) \cong \Z/3\Z$.
+The three ideal classes give the cubic Hilbert class polynomial:
+\begin{equation}
+ H_{-23}(X) = X^3 + 3\,491\,750 X^2 - 5\,151\,296\,875 X + 12\,771\,880\,859\,375 = 0.
+ \label{eq:H_minus_23}
+\end{equation}
+The three roots are:
+\begin{align}
+ j\left(\frac{1+\sqrt{-23}}{2}\right) &\approx -3\,493\,225.70, \\
+ j\left(\frac{1+\sqrt{-23}}{4}\right) &\approx 737.85 + 1834.78 i, \\
+ j\left(\frac{-1+\sqrt{-23}}{4}\right) &\approx 737.85 - 1834.78 i.
+\end{align}
+Adjoining this single real root $j\left(\frac{1+\sqrt{-23}}{2}\right)$ to $\mathbb{Q}(\sqrt{-23})$ generates the Hilbert class field $H$, an unramified degree-3 extension of $\mathbb{Q}(\sqrt{-23})$.
+
+\section{Complex Multiplication and Hilbert Class Fields}
+\label{sec:cm_hilbert}
+
+We can now formalize the profound algebraic mechanism that explains the table of special values.
+
+\subsection{Endomorphism Rings of Elliptic Curves}
+Let $E = \mathbb{C}/\Lambda$ be an elliptic curve. An endomorphism of $E$ is a holomorphic group homomorphism $\alpha: E \to E$. Under the identification $E \cong \mathbb{C}/\Lambda$, $\alpha$ is given by multiplication by a complex number $\alpha \in \mathbb{C}$ such that $\alpha \Lambda \subseteq \Lambda$.
+\begin{itemize}[leftmargin=2em]
+ \item For any lattice, integer multiplication $n \in \Z$ satisfies $n\Lambda \subseteq \Lambda$, so $\Z \subseteq \mathrm{End}(E)$.
+ \item For a generic lattice, there are no other scalars: $\mathrm{End}(E) \cong \Z$.
+ \item If there exists $\alpha \in \mathbb{C} \setminus \Z$ such that $\alpha \Lambda \subseteq \Lambda$, we say that $E$ has \textbf{Complex Multiplication (CM)}.
+\end{itemize}
+
+\begin{theorem}
+Let $\Lambda = \Z\tau + \Z$ with $\tau \in \mathbb{H}$. The elliptic curve $\mathbb{C}/\Lambda$ has complex multiplication if and only if $\tau$ lies in an imaginary quadratic field $K = \mathbb{Q}(\sqrt{-d})$. In that case, $\mathrm{End}(E)$ is an order $\mathcal{O} \subseteq \mathcal{O}_K$.
+\end{theorem}
+\begin{proof}
+If $\alpha \in \mathrm{End}(E) \setminus \Z$, then $\alpha \cdot 1 = c\tau + d$ and $\alpha \cdot \tau = a\tau + b$ for integers $a, b, c, d \in \Z$. Then
+\begin{equation}
+ \alpha = c\tau + d \implies (c\tau + d)\tau = a\tau + b \implies c\tau^2 + (d - a)\tau - b = 0.
+\end{equation}
+Since $\tau \notin \R$, $c \ne 0$ and the discriminant $(d-a)^2 + 4bc < 0$, which proves that $\tau$ satisfies a quadratic polynomial with negative discriminant. Thus $\tau \in \mathbb{Q}(\sqrt{-d})$.
+\end{proof}
+
+\subsection{Ideal Classes as Lattices}
+Now consider the reverse: let $K = \mathbb{Q}(\sqrt{-d})$ be an imaginary quadratic field with maximal order $\mathcal{O}_K$.
+Every non-zero fractional ideal $\mathfrak{a} \subset K$ is a projective $\mathcal{O}_K$-module of rank 1, and embedded in $\mathbb{C}$ it forms a rank-2 lattice $\Lambda_{\mathfrak{a}}$!
+Moreover, $\mathrm{End}(\mathbb{C}/\Lambda_{\mathfrak{a}}) \cong \mathcal{O}_K$.
+
+When are two such ideal lattices homothetic?
+\begin{equation}
+ \Lambda_{\mathfrak{a}} \sim \Lambda_{\mathfrak{b}} \iff \exists \lambda \in \mathbb{C}^\times \text{ such that } \mathfrak{b} = \lambda \mathfrak{a}.
+\end{equation}
+Because $\mathfrak{a}, \mathfrak{b} \subset K$, the scaling factor $\lambda$ must lie in $K^\times$. Thus $\mathfrak{b} = (\lambda)\mathfrak{a}$, meaning $\mathfrak{a}$ and $\mathfrak{b}$ define the **exact same ideal class** in the class group $\mathrm{Cl}(K) = \mathcal{I}(K)/\mathcal{P}(K)$!
+
+\begin{theorem}[First Main Theorem of Complex Multiplication]
+Let $K = \mathbb{Q}(\sqrt{-d})$ be an imaginary quadratic field with discriminant $D_K$ and class number $h_K$.
+\begin{enumerate}[label=(\roman*)]
+ \item For any ideal $\mathfrak{a} \subset \mathcal{O}_K$, $j(\mathfrak{a})$ is an **algebraic integer**.
+ \item The field $H = K(j(\mathcal{O}_K))$ is the **Hilbert class field** of $K$ (the maximal unramified abelian extension of $K$).
+ \item The Galois group $\mathrm{Gal}(H/K)$ is isomorphic to $\mathrm{Cl}(K)$ via the Artin reciprocity map:
+ \begin{equation}
+  \sigma_{[\mathfrak{b}]} \big(j(\mathfrak{a})\big) = j(\mathfrak{b}^{-1}\mathfrak{a}).
+ \end{equation}
+ \item The degree of the minimal polynomial of $j(\mathcal{O}_K)$ over $\mathbb{Q}$ equals the class number:
+ \begin{equation}
+  \boxed{[\mathbb{Q}(j(\mathcal{O}_K)) : \mathbb{Q}] = h_K}.
+ \end{equation}
+\end{enumerate}
+\end{theorem}
+
+This theorem provides the definitive algebraic answer to the question posed at the conclusion of our Class Numbers document, \href{class_numbers_main.pdf}{\emph{An Introduction to Class Numbers}} \cite{kerimov2026class} (Section 6):
+\begin{equation}
+ h_K = 1 \iff [\mathbb{Q}(j(\tau)) : \mathbb{Q}] = 1 \iff j(\tau) \in \Z.
+\end{equation}
+
+\section{The Picard--Fuchs Equation and Milla's Derivation of the Chudnovsky Formula}
+\label{sec:milla_chudnovsky}
+
+We now examine how the $j$-invariant acts as the central engine for computing the fundamental mathematical constant $\pi$ through the celebrated **Chudnovsky algorithm** (1988):
+\begin{equation}
+ \frac{1}{\pi} = 12 \sum_{k=0}^{\infty} (-1)^k \frac{(6k)!}{(3k)! (k!)^3} \frac{545140134k + 13591409}{\left(640320^3\right)^{k + 1/2}}.
+ \label{eq:chudnovsky_full}
+\end{equation}
+
+While the Chudnovsky brothers initially outlined this formula via algebraic geometry and modular equations, a brilliant and accessible proof utilizing only basic complex analysis was published by **Lorenz Milla** (\emph{A detailed proof of the Chudnovsky formula with means of basic complex analysis}, arXiv:1809.00533, 2018; published in \emph{The Ramanujan Journal}, 2021). We review the architecture of Milla's proof and its reliance on Klein's invariant.
+
+\subsection{The Parameter \texorpdfstring{$J = j/1728$}{J = j/1728}}
+Following Milla's notation, define the scaled modular invariant:
+\begin{equation}
+ J(\tau) = \frac{j(\tau)}{1728} = \frac{g_2(\tau)^3}{g_2(\tau)^3 - 27g_3(\tau)^2} = \frac{E_4(\tau)^3}{E_4(\tau)^3 - E_6(\tau)^2}.
+\end{equation}
+Notice that:
+\begin{equation}
+ 1 - \frac{1}{J(\tau)} = 1 - \frac{g_2^3 - 27g_3^2}{g_2^3} = \frac{27 g_3(\tau)^2}{g_2(\tau)^3} = \frac{E_6(\tau)^2}{E_4(\tau)^3}.
+\end{equation}
+
+\subsection{The Periods and the Picard--Fuchs Differential Equation}
+Consider the family of elliptic curves in Legendre or Weierstrass form parameterized by the modulus $J$. The period integrals $\omega(J) = \int_\gamma \frac{dx}{y}$ satisfy a second-order linear differential equation known as the **Picard--Fuchs equation**:
+\begin{equation}
+ \boxed{J(1 - J) \frac{d^2 y}{dJ^2} + \left(\frac{2}{3} - \frac{7}{6}J\right) \frac{dy}{dJ} - \frac{1}{144} y = 0}.
+ \label{eq:picard_fuchs}
+\end{equation}
+Transforming variables to $z = \frac{1}{J}$, this becomes a standard hypergeometric differential equation:
+\begin{equation}
+ z(1 - z) \frac{d^2 y}{dz^2} + \big(c - (a + b + 1)z\big) \frac{dy}{dz} - ab \, y = 0,
+\end{equation}
+with parameters:
+\begin{equation}
+ a = \frac{1}{12}, \qquad b = \frac{5}{12}, \qquad c = 1.
+\end{equation}
+Thus, a fundamental period solution around $z = 0$ ($J \to \infty$, the cusp $\tau \to i\infty$) is the Gauss hypergeometric function:
+\begin{equation}
+ y_1(z) = {_2F_1}\left(\frac{1}{12}, \frac{5}{12}; 1; z\right) = \sum_{k=0}^\infty \frac{\left(\frac{1}{12}\right)_k \left(\frac{5}{12}\right)_k}{(k!)^2} z^k,
+\end{equation}
+where $(x)_k = x(x+1)\cdots(x+k-1)$ is the Pochhammer symbol.
+
+\subsection{Clausen's Formula}
+In 1828, Thomas Clausen discovered a remarkable identity: the square of a specific ${_2F_1}$ hypergeometric series is equal to a ${_3F_2}$ hypergeometric series:
+\begin{equation}
+ \left[ {_2F_1}\left(a, b; a + b + \frac{1}{2}; z\right) \right]^2 = {_3F_2}\left(2a, 2b, a+b; 2a+2b, a+b+\frac{1}{2}; 4z(1-z)\right).
+\end{equation}
+Applying Clausen's formula to $a = 1/12, b = 5/12$ (where $a + b + 1/2 = 1$):
+\begin{equation}
+ \left[ {_2F_1}\left(\frac{1}{12}, \frac{5}{12}; 1; z\right) \right]^2 = {_3F_2}\left(\frac{1}{6}, \frac{1}{2}, \frac{5}{6}; 1, 1; 4z(1-z)\right).
+\end{equation}
+Using the duplication and reflection formulas for the Gamma function, Milla shows that the coefficients expand into factorials:
+\begin{equation}
+ \frac{\left(\frac{1}{6}\right)_k \left(\frac{1}{2}\right)_k \left(\frac{5}{6}\right)_k}{(k!)^3} = \frac{(6k)!}{(3k)! (k!)^3 \, 1728^k}.
+ \label{eq:clausen_factorials}
+\end{equation}
+This creates the exact combinatorial factor $\frac{(6k)!}{(3k)!(k!)^3}$ appearing in the Chudnovsky series!
+
+\subsection{Complex Multiplication and the Elimination of \texorpdfstring{$\pi$}{pi}}
+To relate these period functions to $1/\pi$, Milla introduces the quasi-modular Eisenstein series of weight 2:
+\begin{equation}
+ E_2(\tau) = 1 - 24 \sum_{n=1}^\infty \sigma_1(n) q^n.
+\end{equation}
+Under $\mathrm{SL}_2(\Z)$, $E_2$ is not fully modular, but transforms with an anomalous derivative term:
+\begin{equation}
+ E_2\left(-\frac{1}{\tau}\right) = \tau^2 E_2(\tau) + \frac{6\tau}{\pi i}.
+\end{equation}
+The non-holomorphic completed Eisenstein series
+\begin{equation}
+ E_2^*(\tau) = E_2(\tau) - \frac{3}{\pi \, \mathrm{Im}(\tau)}
+\end{equation}
+transforms as a true modular form of weight 2.
+At a complex multiplication point $\tau_0 \in K = \mathbb{Q}(\sqrt{-d})$, the extra endomorphism forces an algebraic relation between $E_2(\tau_0)$ and $E_2^*(\tau_0)$. The Legendre period relation:
+\begin{equation}
+ \omega_1 \eta_2 - \omega_2 \eta_1 = 2\pi i
+\end{equation}
+then allows one to isolate $\frac{1}{\pi}$ as a linear combination of period derivatives evaluated at $\tau_0$:
+\begin{equation}
+ \frac{1}{\pi} = \sqrt{-D} \left[ c_1 \, y_1(z_0)^2 + c_2 \, z_0 \frac{d}{dz}\Big(y_1(z)^2\Big)\Big|_{z = z_0} \right].
+\end{equation}
+Differentiating the ${_3F_2}$ series term-by-term pulls down a factor of $k$, converting the constant into a linear polynomial:
+\begin{equation}
+ c_1 + c_2 k.
+\end{equation}
+
+\subsection{Evaluation at the Heegner Point \texorpdfstring{$d = 163$}{d = 163}}
+Now we evaluate at the CM point:
+\begin{equation}
+ \tau_0 = \frac{1 + \sqrt{-163}}{2}.
+\end{equation}
+As proven in Section \ref{sec:special_values}, the $j$-invariant at this point is the integer:
+\begin{equation}
+ j\left(\frac{1+\sqrt{-163}}{2}\right) = -640\,320^3.
+\end{equation}
+Thus, the argument $z_0 = \frac{1}{J(\tau_0)}$ is:
+\begin{equation}
+ z_0 = \frac{1728}{j(\tau_0)} = \frac{1728}{-640\,320^3} = -\frac{12^3}{(640\,320)^3} = -\frac{1}{53\,360^3}.
+\end{equation}
+Incorporating the factorial scaling from \eqref{eq:clausen_factorials}, the term in the summation becomes:
+\begin{equation}
+ \frac{1}{1728^k} z_0^k = \frac{1}{1728^k} \left(-\frac{1728}{640\,320^3}\right)^k = \frac{(-1)^k}{\left(640\,320^3\right)^k}.
+\end{equation}
+Evaluating the algebraic coefficients $c_1$ and $c_2$ at $\tau_0 = \frac{1+\sqrt{-163}}{2}$ (with discriminant $D = -163$) yields precisely:
+\begin{align}
+ c_1 &= \frac{13\,591\,409}{426\,880 \sqrt{10005}} = \frac{12 \times 13\,591\,409}{\sqrt{640\,320^3}}, \\
+ c_2 &= \frac{545\,140\,134}{426\,880 \sqrt{10005}} = \frac{12 \times 545\,140\,134}{\sqrt{640\,320^3}}.
+\end{align}
+Factoring out $\frac{12}{\sqrt{640\,320^3}}$ delivers the complete Chudnovsky formula \eqref{eq:chudnovsky_full}. 
+
+The entire formula is thus a direct consequence of the Picard--Fuchs equation of elliptic curves evaluated at the class-number-1 CM point of discriminant $-163$!
+
+\section{Ramanujan's Constant and Analytic Suppression}
+\label{sec:ramanujan_constant}
+
+The choice of $d = 163$ also yields the most famous ``almost integer'' in mathematics:
+\begin{equation}
+ e^{\pi \sqrt{163}} \approx 262\,537\,412\,640\,768\,743.99999999999925007\dots
+\end{equation}
+
+\subsection{The Magnitude of the Suppressed Terms}
+Let $\tau = \frac{1 + \sqrt{-163}}{2}$. The modular nome is:
+\begin{equation}
+ q = e^{2\pi i \tau} = e^{\pi i} e^{-\pi \sqrt{163}} = -e^{-\pi \sqrt{163}}.
+\end{equation}
+Inverting the $q$-expansion \eqref{eq:j_q_series_full}:
+\begin{equation}
+ j(\tau) = -\frac{1}{e^{-\pi \sqrt{163}}} + 744 - 196884 \, e^{-\pi \sqrt{163}} + 21493760 \, e^{-2\pi \sqrt{163}} - \cdots
+\end{equation}
+Since $h(-163) = 1$, $j(\tau) = -640320^3 = -262537412640768000$. Substituting:
+\begin{equation}
+ -640320^3 = -e^{\pi \sqrt{163}} + 744 - 196884 \, e^{-\pi \sqrt{163}} + O(e^{-2\pi \sqrt{163}}).
+\end{equation}
+Multiplying by $-1$ and rearranging:
+\begin{equation}
+ e^{\pi \sqrt{163}} = 640320^3 + 744 - 196884 \, e^{-\pi \sqrt{163}} + O(e^{-2\pi \sqrt{163}}).
+\end{equation}
+The base integer is:
+\begin{equation}
+ 640320^3 + 744 = 262\,537\,412\,640\,768\,000 + 744 = 262\,537\,412\,640\,768\,744.
+\end{equation}
+The deviation is governed by the single term:
+\begin{equation}
+ \epsilon = -196884 \, e^{-\pi \sqrt{163}}.
+\end{equation}
+Because $\pi \sqrt{163} \approx 40.109968$, the exponential suppression is extreme:
+\begin{equation}
+ e^{-\pi \sqrt{163}} \approx 3.7999 \times 10^{-18}.
+\end{equation}
+Therefore:
+\begin{equation}
+ \epsilon \approx -196884 \times (3.7999 \times 10^{-18}) \approx -7.48 \times 10^{-13}.
+\end{equation}
+Subtracting this tiny deviation from the integer 744 gives:
+\begin{equation}
+ 744 - 0.000000000000748\dots = 743.99999999999925\dots
+\end{equation}
+producing \textbf{twelve consecutive nines} immediately following the decimal point!
+
+\subsection{Why Other Heegner Numbers Fall Short}
+If we test the other Heegner numbers:
+\begin{itemize}[leftmargin=2em]
+ \item $d = 43$: $\pi \sqrt{43} \approx 20.60$.
+ \begin{align}
+  e^{\pi \sqrt{43}} &\approx 960^3 + 744 - 196884 \, e^{-\pi \sqrt{43}} \nonumber\\
+  &\approx 884\,736\,743.99977\dots \quad \text{(3 nines)}
+ \end{align}
+ \item $d = 67$: $\pi \sqrt{67} \approx 25.71$.
+ \begin{align}
+  e^{\pi \sqrt{67}} &\approx 5280^3 + 744 - 196884 \, e^{-\pi \sqrt{67}} \nonumber\\
+  &\approx 147\,197\,952\,743.9999987\dots \quad \text{(5 nines)}
+ \end{align}
+ \item $d = 163$: $\pi \sqrt{163} \approx 40.11$.
+ \begin{align}
+  e^{\pi \sqrt{163}} &\approx 640320^3 + 744 - 196884 \, e^{-\pi \sqrt{163}} \nonumber\\
+  &\approx 262\,537\,412\,640\,768\,743.99999999999925\dots \quad \text{(12 nines)}
+ \end{align}
+\end{itemize}
+Because $163$ is the largest of the class-number-1 discriminants, it maximizes the exponent $\pi \sqrt{d}$, creating the closest almost-integer produced by any Heegner field.
+
+\section{Conclusion and Further Outlook}
+The Klein $j$-invariant stands as a pinnacle of 19th and 20th-century mathematics. As a modular function on $\mathbb{H}$, it classifies elliptic curves; as an analytic function, its Fourier coefficients encode the representation theory of the Monster sporadic group; as a number-theoretic object, its special values at complex multiplication points generate Hilbert class fields and determine class numbers; and as a period coordinate, it yields the most rapidly converging series for $\pi$ known to science.
+
+\begin{thebibliography}{99}
+\bibitem{kerimov2026class}
+E.~Kerimov, \emph{An Introduction to Class Numbers: Failure of Unique Factorization, Ideals, Binary Quadratic Forms, and Concrete Computations}, MathLatexDocs repository, \href{class_numbers_main.pdf}{\texttt{class\_numbers\_main.pdf}} (2026).
+
+\bibitem{milla2018}
+L.~Milla, \emph{A detailed proof of the Chudnovsky formula with means of basic complex analysis}, arXiv:1809.00533 [math.NT] (2018); published in \emph{The Ramanujan Journal}, \textbf{54}(3), 571--605 (2021).
+
+\bibitem{chudnovsky1988}
+D.~V.~Chudnovsky and G.~V.~Chudnovsky, \emph{Approximation and complex multiplication according to Ramanujan}, in \emph{Ramanujan Revisited: Proceedings of the Centenary Conference}, Academic Press, 375--472 (1988).
+
+\bibitem{serre1973}
+J.-P.~Serre, \emph{A Course in Arithmetic}, Graduate Texts in Mathematics, Vol.~7, Springer-Verlag (1973).
+
+\bibitem{cox2013}
+D.~A.~Cox, \emph{Primes of the Form $x^2 + n y^2$: Fermat, Class Field Theory, and Complex Multiplication}, 2nd ed., Pure and Applied Mathematics, John Wiley \& Sons (2013).
+
+\bibitem{silverman1994}
+J.~H.~Silverman, \emph{Advanced Topics in the Arithmetic of Elliptic Curves}, Graduate Texts in Mathematics, Vol.~151, Springer-Verlag (1994).
+
+\bibitem{borcherds1992}
+R.~E.~Borcherds, \emph{Monstrous moonshine and monstrous Lie superalgebras}, \emph{Inventiones Mathematicae}, \textbf{109}(1), 405--444 (1992).
+\end{thebibliography}
+
+\end{document}
