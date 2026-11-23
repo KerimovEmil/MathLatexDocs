@@ -18,15 +18,23 @@ This document presents one general method of addressing this problem, and solves
 \section{Definitions and Positive-Definite Properties}
 
 \begin{definition}\label{spd:PD}
-A positive-definite matrix is defined as TODO.
+A real symmetric $n \times n$ matrix $M$ is \textbf{positive-definite} (denoted $M \succ 0$) if for every non-zero vector $x \in \R^n$,
+\begin{equation}
+x^T M x > 0.
+\end{equation}
 \end{definition}
 
 \begin{definition}\label{spd:PSD}
-A semi-positive-definite matrix is defined as TODO.
+A real symmetric $n \times n$ matrix $M$ is \textbf{positive-semidefinite} (or semi-positive-definite, denoted $M \succeq 0$) if for every vector $x \in \R^n$,
+\begin{equation}
+x^T M x \geq 0.
+\end{equation}
 \end{definition}
 
 \begin{definition}\label{spd:principle minor}
-A principle minor is defined as TODO.
+For an $n \times n$ matrix $M$, a \textbf{principal submatrix} of order $k$ (where $1 \leq k \leq n$) is obtained by choosing an index subset $I \subseteq \{1, 2, \dots, n\}$ with $|I| = k$ and keeping the entries $(M_{i,j})_{i,j \in I}$ (deleting the $n-k$ rows and columns not in $I$). The determinant of this submatrix is called a \textbf{principal minor} of order $k$.
+
+When $I = \{1, 2, \dots, k\}$, the resulting determinant is called a \textbf{leading principal minor} of order $k$.
 \end{definition}
 
 \section{Background Matrix Theory}
@@ -37,9 +45,16 @@ A PD matrix must have all positive eigenvalues.
 
 Proof:
 \begin{gather*}
-\shortintertext{From the definition of PD}
-TODO
+\shortintertext{Let $\lambda$ be an eigenvalue of the symmetric matrix $M$ with corresponding non-zero eigenvector $v \in \R^n$:}
+M v = \lambda v
+\\
+\shortintertext{Multiplying on the left by $v^T$:}
+v^T M v = v^T (\lambda v) = \lambda (v^T v)
+\\
+\shortintertext{From the definition of PD, since $v \neq 0$, we have $v^T M v > 0$. Since $v \neq 0$, the Euclidean inner product $v^T v = \|v\|^2 > 0$:}
+\lambda = \frac{v^T M v}{v^T v} > 0
 \end{gather*}
+Hence, all eigenvalues of a positive-definite matrix are strictly positive. (For a PSD matrix, $v^T M v \geq 0$ similarly implies $\lambda \geq 0$.)
 \end{theorem}
 
 \begin{theorem} \label{spd:PD implies positive principle minors} 
@@ -47,9 +62,13 @@ A PD matrix must have all positive principle minors.
 
 Proof:
 \begin{gather*}
-\shortintertext{From the definition of PD}
-TODO
+\shortintertext{Let $M$ be an $n \times n$ PD matrix, and let $M_I$ be a $k \times k$ principal submatrix corresponding to index set $I \subseteq \{1, \dots, n\}$ with $|I| = k$. For any non-zero vector $y \in \R^k$, construct $x \in \R^n$ by placing the entries of $y$ into the positions indexed by $I$ and zeros elsewhere. Since $y \neq 0$, we have $x \neq 0$:}
+y^T M_I y = x^T M x > 0
+\\
+\shortintertext{Because $y^T M_I y > 0$ for every non-zero $y \in \R^k$, the principal submatrix $M_I$ is itself positive-definite. By Theorem~\ref{spd:PD implies positive eigenvalues}, all $k$ eigenvalues $\lambda_1, \dots, \lambda_k$ of $M_I$ are strictly positive. Since the determinant is the product of eigenvalues:}
+\det(M_I) = \prod_{i=1}^{k} \lambda_i > 0
 \end{gather*}
+Thus, all principal minors of a positive-definite matrix are strictly positive. (Similarly, for a PSD matrix, all principal minors are non-negative: $\det(M_I) \geq 0$.)
 \end{theorem}
 
 \section{Principal Minors Method}\label{spd:sec:main-idea}
@@ -76,8 +95,15 @@ C = \begin{pmatrix}
 \end{pmatrix}\label{spd:eq:equation}
 \end{equation}
 
+For $C$ to be positive-semidefinite, its determinant (a principal minor) must be non-negative:
+\begin{gather*}
+\det(C) = \sigma_a^2 \sigma_b^2 - \sigma_{ab}^2 \geq 0 \\
+\sigma_{ab}^2 \leq \sigma_a^2 \sigma_b^2 \\
+|\sigma_{ab}| \leq \sigma_a \cdot \sigma_b
+\end{gather*}
+
 \subsection{Three Assets (\texorpdfstring{$3 \times 3$}{3x3} Case)}
-We can  
+We can write the correlation matrix of three assets as:
 
 \begin{equation}
 C = \begin{pmatrix}
@@ -96,13 +122,33 @@ C = \begin{pmatrix}
 
 Proof:
 \begin{gather*}
-\shortintertext{Det(C) >= 0}
-TODO
+\shortintertext{For the correlation matrix $C$ to be positive-semidefinite, its determinant must be non-negative:}
+\det(C) \geq 0
+\\
+1 \cdot (1 - \rho_{bc}^2) - \rho_{ab} (\rho_{ab} - \mathbf{\rho_{ac}} \rho_{bc}) + \mathbf{\rho_{ac}} (\rho_{ab} \rho_{bc} - \mathbf{\rho_{ac}}) \geq 0
+\\
+1 - \rho_{bc}^2 - \rho_{ab}^2 + 2 \rho_{ab} \rho_{bc} \mathbf{\rho_{ac}} - \mathbf{\rho_{ac}}^2 \geq 0
+\\
+\shortintertext{Rearranging in terms of the unknown $\mathbf{\rho_{ac}}$:}
+-\mathbf{\rho_{ac}}^2 + 2(\rho_{ab} \rho_{bc}) \mathbf{\rho_{ac}} + (1 - \rho_{ab}^2 - \rho_{bc}^2) \geq 0
+\\
+\mathbf{\rho_{ac}}^2 - 2(\rho_{ab} \rho_{bc}) \mathbf{\rho_{ac}} \leq 1 - \rho_{ab}^2 - \rho_{bc}^2
+\\
+\shortintertext{Completing the square:}
+(\mathbf{\rho_{ac}} - \rho_{ab} \rho_{bc})^2 \leq 1 - \rho_{ab}^2 - \rho_{bc}^2 + (\rho_{ab} \rho_{bc})^2
+\\
+\shortintertext{Factoring the right-hand side:}
+1 - \rho_{ab}^2 - \rho_{bc}^2 (1 - \rho_{ab}^2) = (1 - \rho_{ab}^2)(1 - \rho_{bc}^2)
+\\
+(\mathbf{\rho_{ac}} - \rho_{ab} \rho_{bc})^2 \leq (1 - \rho_{ab}^2)(1 - \rho_{bc}^2)
+\\
+\shortintertext{Since $1 - \rho_{ab}^2 \geq 0$ and $1 - \rho_{bc}^2 \geq 0$ from the $2 \times 2$ principal minors, taking the square root gives:}
+|\mathbf{\rho_{ac}} - \rho_{ab} \cdot \rho_{bc}| \leq \sqrt{(1 - \rho_{ab}^2) \cdot (1 - \rho_{bc}^2)}
 \end{gather*}
 \end{theorem}
 
 \subsection{Four Assets (\texorpdfstring{$4 \times 4$}{4x4} Case)}
-We can  
+We can write the correlation matrix of four assets as:  
 
 \begin{equation}
 C = \begin{pmatrix}
