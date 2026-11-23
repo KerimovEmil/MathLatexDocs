@@ -90,10 +90,5 @@ All documents are aggregated into a single book/compendium:
   # Compile a single document
   .\compile_math_docs.ps1 -FileName zeta_function_main.tex
   ```
-* **Label Prefixing Utility**:
-  ```powershell
-  # Automatically prefixes labels and references per topic to ensure collision-free master compilation
-  .\fix_labels.ps1
-  ```
 * **Continuous Integration**:
   * GitHub Actions workflow located at [`.github/workflows/compile.yml`](.github/workflows/compile.yml) runs on push and PR to verify LaTeX compilation across all documents and uploads generated PDFs as build artifacts.
