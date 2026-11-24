@@ -650,6 +650,121 @@ r_{\infty}(x) = \frac{x}{x^2 - x - 1} for \ x>0 \\
 
 
 \section{Zeckendorf's Theorem (Fibonacci Base Representation)}\label{fib:sec:base-fibonacci}
-TODO
+
+Analogous to the binary representation of integers using powers of $2$, every positive integer can be expressed as a sum of Fibonacci numbers. However, because Fibonacci numbers satisfy the recurrence $f_k = f_{k-1} + f_{k-2}$, arbitrary sums of Fibonacci numbers are not unique (for example, $4 = 3 + 1 = 2 + 1 + 1$). 
+
+Edouard Zeckendorf proved that by imposing the condition that no two consecutive Fibonacci numbers may be used, every positive integer has a \textbf{strictly unique} representation. To avoid ambiguity between $f_1 = 1$ and $f_2 = 1$, the representation begins with $f_2 = 1$.
+
+\begin{theorem}[Zeckendorf's Theorem]\label{fib:thm:zeckendorf}
+Every positive integer $n \in \mathbb{Z}^+$ can be uniquely represented as the sum of one or more distinct, non-consecutive Fibonacci numbers:
+\begin{equation}
+n = \sum_{k=2}^{m} c_k f_k = c_m f_m + c_{m-1} f_{m-1} + \dots + c_2 f_2,
+\end{equation}
+where $c_k \in \{0, 1\}$, $c_m = 1$, and $c_k c_{k+1} = 0$ for all $k \geq 2$.
+\end{theorem}
+
+\begin{lemma}[Maximum Sum of Non-Consecutive Fibonacci Numbers]\label{fib:lem:zeckendorf-bound}
+The sum of any set of distinct, non-consecutive Fibonacci numbers whose largest index is at most $m$ is strictly less than $f_{m+1}$:
+\begin{equation}
+\sum_{k=2}^{m} c_k f_k \leq f_{m+1} - 1 < f_{m+1} \quad \text{whenever } c_k c_{k+1} = 0 \text{ for all } k.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We proceed by induction on $m$.
+\begin{itemize}[leftmargin=*]
+\item \textbf{Base cases:} For $m=2$, the only non-zero choice is $c_2 = 1$, giving $c_2 f_2 = 1 = f_3 - 1 < f_3$. For $m=3$, the non-consecutive condition allows either $c_3=1, c_2=0$ ($f_3 = 2 = f_4 - 1$) or $c_3=0, c_2=1$ ($f_2 = 1 < f_4 - 1$).
+\item \textbf{Inductive step:} Assume the statement holds for all integers up to $m-1$. Consider a non-consecutive sequence with maximum index at most $m$:
+\begin{itemize}
+\item If $c_m = 0$, then $\sum_{k=2}^{m} c_k f_k = \sum_{k=2}^{m-1} c_k f_k \leq f_m - 1 < f_{m+1} - 1$ by the induction hypothesis.
+\item If $c_m = 1$, then $c_{m-1} = 0$ because no two consecutive terms are allowed. Therefore:
+\begin{equation*}
+\sum_{k=2}^{m} c_k f_k = f_m + \sum_{k=2}^{m-2} c_k f_k
+\end{equation*}
+Applying the induction hypothesis to the remaining sum with maximum index $m-2$:
+\begin{equation*}
+\sum_{k=2}^{m-2} c_k f_k \leq f_{m-1} - 1
+\end{equation*}
+Summing both contributions:
+\begin{equation*}
+\sum_{k=2}^{m} c_k f_k \leq f_m + (f_{m-1} - 1) = (f_m + f_{m-1}) - 1 = f_{m+1} - 1 < f_{m+1}.
+\end{equation*}
+\end{itemize}
+\end{itemize}
+Thus the bound holds for all $m \geq 2$.
+\end{proof}
+
+\begin{proof}[Proof of Existence (Greedy Algorithm)]
+We prove that every $n \in \mathbb{Z}^+$ has a Zeckendorf representation by strong induction on $n$.
+
+\paragraph{Base case:} For $n = 1$, $1 = f_2$ is already in the required form with $c_2 = 1$.
+
+\paragraph{Inductive step:} Assume that every positive integer $j < n$ has a valid Zeckendorf representation. For $n$, choose the largest Fibonacci number $f_m \leq n$. 
+\begin{itemize}[leftmargin=*]
+\item If $n = f_m$, the representation is simply $f_m$.
+\item If $n > f_m$, consider the remainder $n' = n - f_m > 0$. Because $f_m$ was chosen to be maximal, we have $n < f_{m+1} = f_m + f_{m-1}$. Subtracting $f_m$ from all sides:
+\begin{equation*}
+n' = n - f_m < f_{m-1}.
+\end{equation*}
+Since $n' < n$, the induction hypothesis guarantees that $n'$ has a valid Zeckendorf representation $\sum_{k=2}^{p} c_k f_k$ with $c_p = 1$. Furthermore, since $n' < f_{m-1}$, the largest term in the representation of $n'$ must satisfy $f_p \leq n' < f_{m-1}$, which implies $p \leq m - 2$.
+\end{itemize}
+Since $p \leq m - 2$, the term $f_m$ and the terms of $n'$ are strictly non-consecutive ($m \geq p + 2$). Setting $c_m = 1$ and adding $f_m$ to the representation of $n'$ gives a valid Zeckendorf representation for $n$.
+\end{proof}
+
+\begin{proof}[Proof of Uniqueness]
+Suppose for contradiction that an integer $n \geq 1$ has two distinct Zeckendorf representations:
+\begin{equation*}
+\sum_{k \in S} f_k = \sum_{k \in T} f_k = n,
+\end{equation*}
+where $S, T \subset \{2, 3, 4, \dots\}$ are distinct finite sets of indices containing no two consecutive integers.
+
+Cancel all common terms by removing the intersection $S \cap T$:
+\begin{equation*}
+S' = S \setminus (S \cap T), \qquad T' = T \setminus (S \cap T).
+\end{equation*}
+Since the representations were distinct, $S'$ and $T'$ are non-empty and disjoint, and they satisfy:
+\begin{equation*}
+\sum_{k \in S'} f_k = \sum_{k \in T'} f_k.
+\end{equation*}
+Let $M = \max(S' \cup T')$ be the largest index among both remaining sets. Without loss of generality, assume $M \in S'$. Since $S'$ and $T'$ are disjoint, $M \notin T'$.
+
+Because $M \in S'$:
+\begin{equation*}
+\sum_{k \in S'} f_k = f_M + \sum_{k \in S' \setminus \{M\}} f_k \geq f_M.
+\end{equation*}
+On the other hand, all indices in $T'$ are strictly less than $M$, so the maximum index in $T'$ is at most $M - 1$. By Lemma~\ref{fib:lem:zeckendorf-bound}:
+\begin{equation*}
+\sum_{k \in T'} f_k \leq f_{(M-1)+1} - 1 = f_M - 1 < f_M.
+\end{equation*}
+Combining these two inequalities:
+\begin{equation*}
+\sum_{k \in S'} f_k \geq f_M > \sum_{k \in T'} f_k,
+\end{equation*}
+which contradicts $\sum_{k \in S'} f_k = \sum_{k \in T'} f_k$. Therefore, no two distinct representations can exist, proving uniqueness.
+\end{proof}
+
+\subsection{Examples and the Fibonacci Number System}
+Writing the coefficients as a bit-string $(c_m c_{m-1} \dots c_2)_F$, the non-consecutive condition means that the string never contains two consecutive ones (\texttt{11}). The first few positive integers represented in this system are:
+
+\begin{center}
+\begin{tabular}{rcc}
+\toprule
+$n$ & Fibonacci Decomposition & Zeckendorf Form $(c_m \dots c_2)_F$ \\
+\midrule
+$1$ & $f_2 = 1$ & $1_F$ \\
+$2$ & $f_3 = 2$ & $10_F$ \\
+$3$ & $f_4 = 3$ & $100_F$ \\
+$4$ & $f_4 + f_2 = 3 + 1$ & $101_F$ \\
+$5$ & $f_5 = 5$ & $1000_F$ \\
+$6$ & $f_5 + f_2 = 5 + 1$ & $1001_F$ \\
+$7$ & $f_5 + f_3 = 5 + 2$ & $1010_F$ \\
+$8$ & $f_6 = 8$ & $10000_F$ \\
+$9$ & $f_6 + f_2 = 8 + 1$ & $10001_F$ \\
+$10$ & $f_6 + f_3 = 8 + 2$ & $10010_F$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Zeckendorf's theorem plays a central role in combinatorial game theory, notably in the winning strategy for \textbf{Fibonacci Nim} (where the winning move consists of removing the smallest Fibonacci component in the Zeckendorf decomposition of the current heap size), as well as in the enumeration of binary strings avoiding consecutive ones.
 
 \end{document}

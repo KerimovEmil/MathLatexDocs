@@ -269,7 +269,7 @@ Set $\phi(t) = B_n(x)$ into Darnoux's formula to obtain the Euler-Maclaurin form
 \subsection{Infinite Series}
 Note that as $n$ approaches infinity, the remainder term goes to 0.
 \begin{theorem}
-    If $|g^{(k)}(x)| \leq M \quad \forall x$ and $a, w, M$ finite then
+    If $|f^{(k)}(x)| \leq M \quad \forall x$ and $a, w, M$ finite with $|w| < 2\pi$, then
     \begin{equation}\label{dar:Inifite Euler Mac's Series}
         \boxed{
             \lim_{n \to \infty} R_{n,r} = \lim_{n \to \infty} \frac{(-1)^{n+1} w^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) f^{(n+1)}(a+tw) dt = 0
@@ -278,16 +278,18 @@ Note that as $n$ approaches infinity, the remainder term goes to 0.
 
     Proof
     \begin{gather*}
-        \intertext{Starting from the definition of $R_{n,r}$}
-        \lim_{n \to \infty} R_n = \lim_{n \to \infty} \frac{(-1)^{n+1} w^{n+1}}{n!} \int_{0}^{r} B_n(\{t\}) f^{(n+1)}(a+tw) dt = 0
+        \intertext{Starting from the definition of $R_{n,r}$ and bounding the derivative by $M$:}
+        |R_{n,r}| \leq \frac{|w|^{n+1}}{n!} \int_{0}^{r} |B_n(\{t\})| M \, dt \leq \frac{|w|^{n+1} r M}{n!} \sup_{t \in [0, 1]} |B_n(t)|
         \\
-        \lim_{n \to \infty} R_n \leq \lim_{n \to \infty} |R_n|
+        \intertext{From the Fourier series of the periodic Bernoulli polynomials, for all $n \geq 2$ and $t \in [0, 1]$:}
+        |B_n(\{t\})| \leq 2 n! \sum_{k=1}^{\infty} \frac{1}{(2\pi k)^n} = \frac{2 n!}{(2\pi)^n} \zeta(n)
         \\
-        |R_n| \leq \frac{|w|^{n+1}}{n!} \int_{0}^{r} |B_n(\{t\})| M dt \leq \frac{|w|^{n+1} |B_n(t)| r M }{n!}
-        \intertext{Using $\lim_{n \to \infty} \frac{B_n(x)}{n!} = 0$ from BERNOULLI DOCUMENT TODO}
-        \lim_{n \to \infty} R_n \leq \lim_{n \to \infty} |R_n| = 0
+        \intertext{Dividing by $n!$ yields the uniform bound $\frac{\sup_t |B_n(\{t\})|}{n!} \leq \frac{2\zeta(n)}{(2\pi)^n} \leq \frac{2\zeta(2)}{(2\pi)^n}$. Substituting this into $|R_{n,r}|$ gives:}
+        |R_{n,r}| \leq 2 |w| r M \zeta(n) \left( \frac{|w|}{2\pi} \right)^n
+        \\
+        \intertext{Since $\zeta(n) \to 1$ and $\left(\frac{|w|}{2\pi}\right)^n \to 0$ as $n \to \infty$ for $|w| < 2\pi$:}
+        \lim_{n \to \infty} |R_{n,r}| = 0 \implies \lim_{n \to \infty} R_{n,r} = 0
     \end{gather*}
-
 \end{theorem}
 
 

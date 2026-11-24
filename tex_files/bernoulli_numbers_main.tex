@@ -161,17 +161,22 @@ Note that $B_n(x)$ is a polynomial of degree $n$.
 \end{theorem}
 
 \begin{theorem}
-    $B_n(1)$  % todo format better using piecewise
+    Boundary value $B_n(1)$:
     \begin{equation}
-        \boxed{B_n(1) = B_n \quad n\neq 1
-            \quad B_1(1) = -B_1}\label{bn:eq:equation5}
+        \boxed{
+        B_n(1) = 
+        \begin{cases}
+            -B_1 = \frac{1}{2}, & \text{if } n = 1, \\[1ex]
+            B_n, & \text{if } n \neq 1.
+        \end{cases}
+        }\label{bn:eq:equation5}
     \end{equation}
     Proof
     \begin{gather*}
         B_n(x) = \sum_{k=0}^{n} \binom{n}{k} B_k x^{n-k}
         \\
         B_n(1) = \sum_{k=0}^{n} \binom{n}{k} B_k
-        \intertext{Using equation~\ref{eq:bernoulli-generating}, $\sum_{k}^{n} \binom{n+1}{k} B_k = 0$}
+        \intertext{For $n=1$, direct evaluation gives $B_1(1) = \binom{1}{0} B_0 + \binom{1}{1} B_1 = 1 - \frac{1}{2} = \frac{1}{2} = -B_1$. For $n \geq 2$, using the defining recurrence $\sum_{k=0}^{n-1} \binom{n}{k} B_k = 0$ from equation~\eqref{bn:eq:bernoulli-generating}:}
         \sum_{k}^{n-1} \binom{n}{k} B_k = 0
         \intertext{Adding $B_n$ to both sides}
         \sum_{k}^{n} \binom{n}{k} B_k = B_n
