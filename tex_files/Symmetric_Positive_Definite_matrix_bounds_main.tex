@@ -160,88 +160,159 @@ x & \rho_{bd} & \rho_{cd} & 1
 \end{equation}
 
 \begin{theorem} \label{spd:four} 
-Bounds on $x=\rho_{ad}$
-\\
+Bounds on $x=\rho_{ad}$:
+\begin{equation}
 \boxed{
-\begin{gathered}
-% \boxed{
-|\mathbf{\rho_{ad}} - \frac{(\rho_{a,b} \cdot \rho_{b,d} + \rho_{a,c} \cdot \rho_{c,d}) - \rho_{b,c} \cdot (\rho_{a,b} \cdot \rho_{c,d} + \rho_{a,c} \cdot \rho_{b,d}) }{1 - \rho_{b,c}^2} | \leq (1 - \rho_{b,c}^2) \sqrt{D}
-\\
-D = (1 - \rho_{a,b}^2 - \rho_{a,c}^2 -\rho_{b,c}^2 + 2 \cdot \rho_{a,b} \cdot \rho_{a,c} \cdot \rho_{b,c}) \cdot (1 - \rho_{b,c}^2 - \rho_{b,d}^2- \rho_{c,d}^2+ 2 \cdot \rho_{b,c} \cdot \rho_{b,d} \cdot \rho_{c,d})
-\end{gathered}
+\begin{aligned}
+\left|\mathbf{\rho_{ad}} - \frac{(\rho_{ab}\rho_{bd} + \rho_{ac}\rho_{cd}) - \rho_{bc}(\rho_{ab}\rho_{cd} + \rho_{ac}\rho_{bd})}{1 - \rho_{bc}^2} \right| &\leq \frac{\sqrt{D}}{1 - \rho_{bc}^2} \\[1ex]
+\text{where } D = \det C(a, b, c) \cdot \det C(d, b, c) &
+\end{aligned}
 }
+\end{equation}
+with the subdeterminants:
+\begin{align*}
+\det C(a, b, c) &= 1 - \rho_{ab}^2 - \rho_{ac}^2 - \rho_{bc}^2 + 2\rho_{ab}\rho_{ac}\rho_{bc}, \\
+\det C(d, b, c) &= 1 - \rho_{bc}^2 - \rho_{bd}^2 - \rho_{cd}^2 + 2\rho_{bc}\rho_{bd}\rho_{cd}.
+\end{align*}
    
 Proof:
 \begin{gather*}
-Det(C) \geq 0 
+\det(C) \geq 0 
 \\
-1 - (\rho_{c,d}^2 + \rho_{b,c}^2 + \rho_{b,d}^2 + \rho_{a,b}^2 + \rho_{a,c}^2) 
+1 - (\rho_{cd}^2 + \rho_{bc}^2 + \rho_{bd}^2 + \rho_{ab}^2 + \rho_{ac}^2) 
 \\
-+ 2 \cdot (\rho_{b,c} \rho_{b,d} \rho_{c,d} 
-+ \rho_{a,b} \rho_{b,c} \rho_{a,c}) 
++ 2(\rho_{bc}\rho_{bd}\rho_{cd} + \rho_{ab}\rho_{bc}\rho_{ac}) 
 \\
-- 2 ( \rho_{a,b} \rho_{b,d} \rho_{a,c} \rho_{c,d} )
+- 2(\rho_{ab}\rho_{bd}\rho_{ac}\rho_{cd}) + (\rho_{ab}^2\rho_{cd}^2 + \rho_{ac}^2\rho_{bd}^2)
 \\
-+ (\rho_{a,b}^2 \rho_{c,d}^2 + \rho_{a,c}^2 \rho_{b,d}^2)
++ 2x(\rho_{ab}\rho_{bd} + \rho_{ac}\rho_{cd}) - 2x(\rho_{ab}\rho_{bc}\rho_{cd} + \rho_{ac}\rho_{bd}\rho_{bc}) + x^2(\rho_{bc}^2 - 1) \geq 0
 \\
-+ 2x (\rho_{a,b} \rho_{b,d} + \rho_{a,c} \rho_{c,d})
+\shortintertext{This is a quadratic inequality in $x$ of the form $ax^2 + bx + c \geq 0$, with:}
+a = \rho_{bc}^2 - 1 
 \\
-- 2x ( \rho_{a,b} \rho_{b,c} \rho_{c,d} 
-+ \rho_{a,c} \rho_{b,d} \rho_{b,c} )
+b = 2(\rho_{ab}\rho_{bd} + \rho_{ac}\rho_{cd}) - 2(\rho_{ab}\rho_{bc}\rho_{cd} + \rho_{ac}\rho_{bd}\rho_{bc}) 
 \\
-+ x^2 ( \rho_{b,c}^2 -1) \geq 0
+c = 1 - (\rho_{cd}^2 + \rho_{bc}^2 + \rho_{bd}^2 + \rho_{ab}^2 + \rho_{ac}^2) + 2(\rho_{bc}\rho_{bd}\rho_{cd} + \rho_{ab}\rho_{bc}\rho_{ac}) \\
+- 2(\rho_{ab}\rho_{bd}\rho_{ac}\rho_{cd}) + (\rho_{ab}^2\rho_{cd}^2 + \rho_{ac}^2\rho_{bd}^2)
 \\
-\shortintertext{This is just a quadradic equation}
-\\
-a = \rho_{b,c}^2 -1 
-\\
-b = 2( \rho_{a,b} \rho_{b,d} + \rho_{a,c} \rho_{c,d}) - 2 ( \rho_{a,b} \rho_{b,c} \rho_{c,d} 
-+ \rho_{a,c} \rho_{b,d} \rho_{b,c} ) 
-\\
-c = 1 - (\rho_{c,d}^2 + \rho_{b,c}^2 + \rho_{b,d}^2 + \rho_{a,b}^2 + \rho_{a,c}^2) 
-\\
-+ 2 \cdot (\rho_{b,c} \rho_{b,d} \rho_{c,d} 
-+ \rho_{a,b} \rho_{b,c} \rho_{a,c}) 
-\\
-- 2 ( \rho_{a,b} \rho_{b,d} \rho_{a,c} \rho_{c,d} )
-\\
-+ (\rho_{a,b}^2 \rho_{c,d}^2 + \rho_{a,c}^2 \rho_{b,d}^2)
-\\
-ax^2 + bx + c \geq 0
-\\
+\shortintertext{Since $a = -(1 - \rho_{bc}^2) < 0$, the parabola opens downward, so $ax^2 + bx + c \geq 0$ holds between the roots:}
 |2ax + b| \leq \sqrt{b^2 - 4ac}
 \\
-\shortintertext{Dividing all sides by 2}
-a = \rho_{b,c}^2 -1 
-\\
-b = ( \rho_{a,b} \rho_{b,d} + \rho_{a,c} \rho_{c,d}) - ( \rho_{a,b} \rho_{b,c} \rho_{c,d} 
-+ \rho_{a,c} \rho_{b,d} \rho_{b,c} ) 
-\\
-c = 1 - (\rho_{c,d}^2 + \rho_{b,c}^2 + \rho_{b,d}^2 + \rho_{a,b}^2 + \rho_{a,c}^2) 
-\\
-+ 2 \cdot (\rho_{b,c} \rho_{b,d} \rho_{c,d} 
-+ \rho_{a,b} \rho_{b,c} \rho_{a,c}) 
-\\
-- 2 ( \rho_{a,b} \rho_{b,d} \rho_{a,c} \rho_{c,d} )
-\\
-+ (\rho_{a,b}^2 \rho_{c,d}^2 + \rho_{a,c}^2 \rho_{b,d}^2)
+\shortintertext{Dividing through by $2$ and redefining $b \leftarrow b/2$:}
+b = (\rho_{ab}\rho_{bd} + \rho_{ac}\rho_{cd}) - (\rho_{ab}\rho_{bc}\rho_{cd} + \rho_{ac}\rho_{bd}\rho_{bc})
 \\
 |ax + b| \leq \sqrt{b^2 - ac}
 \\
-\shortintertext{Simplifying the square root}
-b^2 - ac = (a,b)^2 (b,d)^2 + (a,c)^2 (c,d)^2 + (b,c)^2 (c,d)^2 +(b,c)^2 (b,d)^2
+\shortintertext{Expanding and simplifying $b^2 - ac$ yields:}
+b^2 - ac = D = \det C(a, b, c) \cdot \det C(d, b, c)
 \\
- + (b,c)^2 (a,b)^2 + (b,c)^2 (a,c)^2 - (a,b)^2 (c,d)^2 -(a,c)^2 (b,d)^2 
-\\
-+(2*(b,c)^2 + (c,d)^2 + (b,d)^2 + (a,b)^2 + (a,c)^2) -1 
-\\
-+
-4 (a,b)(b,c)^2 (c,d)(a,c)(b,c) - 2((b,c)(b,d)(c,d) + (a,b)(b,c)(a,c)) - (b,c)^4 
-\\
-- 2((a,b)^2 (b,d)(b,c)(c,d) + (a,b)(b,d)^2(b,c) (a,c) + (a,c)(c,d)^2 (a,b) (b,c) 
-\\
-+ (a,c)^2 (c,d) (b,c) (b,d)) - 2 ( (b,c)^3 (b,d) (c,d) + (b,c)^3 (a,b) (a,c))
+\shortintertext{Dividing $|ax + b| \leq \sqrt{D}$ by $|a| = 1 - \rho_{bc}^2$ produces the stated bound:}
+\left| x - \frac{b}{1 - \rho_{bc}^2} \right| \leq \frac{\sqrt{D}}{1 - \rho_{bc}^2}
 \end{gather*}
 \end{theorem}
+
+\section{Geometric Interpretation: Hilbert Spaces and Spherical Trigonometry}\label{spd:sec:geometric}
+
+The analytical bounds derived above via determinants and principal minors possess a deep geometric meaning when viewed through Hilbert spaces and spherical trigonometry.
+
+\subsection{Correlations as Angles in Hilbert Space}
+Let $X_1, \dots, X_n$ be real zero-mean, unit-variance random variables in the Hilbert space $L^2(\Omega, \mathcal{F}, \mathbb{P})$ equipped with the inner product $\langle X, Y \rangle = \mathbb{E}[XY]$. Under this inner product, each standardized random variable $X_i$ is a \textbf{unit vector} ($\|X_i\| = \sqrt{\mathbb{E}[X_i^2]} = 1$), and the correlation coefficient is simply the cosine of the angle $\theta_{ij}$ between them:
+\begin{equation}
+\rho_{ij} = \mathbb{E}[X_i X_j] = \langle X_i, X_j \rangle = \cos \theta_{ij}, \quad \theta_{ij} \in [0, \pi].
+\end{equation}
+
+The correlation matrix $C$ is therefore the \textbf{Gram matrix} of the unit vectors $u_1, \dots, u_n \in S^{n-1}$. By linear algebra, the determinant of a Gram matrix equals the squared volume of the parallelotope spanned by the vectors:
+\begin{equation}
+\det(C) = \operatorname{Vol}_n(u_1, u_2, \dots, u_n)^2 \geq 0.
+\end{equation}
+The requirement that all principal submatrices must be positive-semidefinite ($C \succeq 0$) is geometrically equivalent to requiring that these $n$ unit vectors can physically exist in Euclidean space with the prescribed pairwise angular separations.
+
+\subsection{The \texorpdfstring{$3 \times 3$}{3x3} Case: Spherical Triangle and the Law of Cosines}
+For three assets $a, b, c$, the unit vectors $u_a, u_b, u_c$ define three points on the unit sphere $S^2$, forming a \textbf{spherical triangle}. The great-circle arc lengths between these vertices are the angles $\theta_{ab}, \theta_{bc}, \theta_{ac}$.
+
+The spherical law of cosines relates the three sides of a spherical triangle to the interior dihedral angle $\gamma$ at vertex $b$:
+\begin{equation}
+\cos \theta_{ac} = \cos \theta_{ab} \cos \theta_{bc} + \sin \theta_{ab} \sin \theta_{bc} \cos \gamma,
+\end{equation}
+where $\gamma \in [0, \pi]$ represents the angle between the arc connecting $b$ to $a$ and the arc connecting $b$ to $c$. Because $\cos \gamma \in [-1, 1]$ and $\sin \theta = \sqrt{1 - \cos^2 \theta} = \sqrt{1 - \rho^2}$, we immediately have:
+\begin{equation}
+\left| \cos \theta_{ac} - \cos \theta_{ab} \cos \theta_{bc} \right| \leq \sin \theta_{ab} \sin \theta_{bc},
+\end{equation}
+which is identically:
+\begin{equation}
+\left| \rho_{ac} - \rho_{ab} \cdot \rho_{bc} \right| \leq \sqrt{(1 - \rho_{ab}^2)(1 - \rho_{bc}^2)}.
+\end{equation}
+Thus, the bound in Theorem~\ref{spd:three} is nothing other than the \textbf{spherical triangle inequality}: the allowable interval of $\rho_{ac}$ corresponds to varying the angle $\gamma$ from $0$ (where $u_a, u_b, u_c$ lie along the same great circle in a folded configuration, giving the upper bound $\cos(\theta_{ab} - \theta_{bc})$) to $\pi$ (unfolded configuration, giving the lower bound $\cos(\theta_{ab} + \theta_{bc})$).
+
+Moreover, $\cos \gamma$ is precisely the \textbf{partial correlation} $\rho_{ac \cdot b}$:
+\begin{equation}
+\rho_{ac \cdot b} = \frac{\rho_{ac} - \rho_{ab}\rho_{bc}}{\sqrt{(1 - \rho_{ab}^2)(1 - \rho_{bc}^2)}} = \cos \gamma \in [-1, 1].
+\end{equation}
+
+\subsection{The \texorpdfstring{$4 \times 4$}{4x4} Case: Spherical Tetrahedron and the Dihedral Hinge}
+In the four-asset case ($a, b, c, d$), four unit vectors form a \textbf{spherical tetrahedron} on the 3-sphere $S^3 \subset \R^4$. 
+
+When all correlations are fixed except $x = \rho_{ad}$, the geometry can be visualized as a **hinged book**:
+\begin{enumerate}[leftmargin=*]
+\item The shared assets $b$ and $c$ define a 2D plane through the origin (the spine of the hinge).
+\item Since $\rho_{ab}, \rho_{ac}, \rho_{bc}$ are known, the triangular face $\triangle(a, b, c)$ is rigid (Page 1).
+\item Since $\rho_{bd}, \rho_{cd}, \rho_{bc}$ are known, the triangular face $\triangle(d, b, c)$ is rigid (Page 2).
+\item Both faces share the common edge (spine) formed by $u_b$ and $u_c$.
+\end{enumerate}
+
+The only remaining degree of freedom in the entire four-vector configuration is the \textbf{dihedral angle $\phi \in [0, \pi]$} between Page 1 and Page 2 across the hinge $u_b, u_c$. 
+
+Decomposing $u_a$ and $u_d$ into components parallel and orthogonal to the plane $\operatorname{span}(u_b, u_c)$:
+\begin{equation}
+u_a = u_a^{\parallel} + u_a^{\perp}, \quad u_d = u_d^{\parallel} + u_d^{\perp},
+\end{equation}
+their inner product is given by:
+\begin{equation}
+\rho_{ad} = \langle u_a, u_d \rangle = \langle u_a^{\parallel}, u_d^{\parallel} \rangle + \|u_a^{\perp}\| \|u_d^{\perp}\| \cos \phi.
+\end{equation}
+Because $\cos \phi \in [-1, 1]$, the correlation $\rho_{ad}$ must satisfy:
+\begin{equation}
+\left| \rho_{ad} - \langle u_a^{\parallel}, u_d^{\parallel} \rangle \right| \leq \|u_a^{\perp}\| \|u_d^{\perp}\|.
+\end{equation}
+
+The algebraic quantities in Theorem~\ref{spd:four} now acquire immediate geometric meaning:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Center of the interval}: The dot product of the orthogonal projections onto the plane $\operatorname{span}(u_b, u_c)$ is:
+\begin{equation}
+\langle u_a^{\parallel}, u_d^{\parallel} \rangle = \frac{(\rho_{ab}\rho_{bd} + \rho_{ac}\rho_{cd}) - \rho_{bc}(\rho_{ab}\rho_{cd} + \rho_{ac}\rho_{bd})}{1 - \rho_{bc}^2}.
+\end{equation}
+\item \textbf{Radius of the interval}: The squared distances (altitudes) of $u_a$ and $u_d$ from the spine are given by the ratio of Gram determinants:
+\begin{equation}
+\|u_a^{\perp}\|^2 = \frac{\det C(a, b, c)}{\det C(b, c)} = \frac{1 - \rho_{ab}^2 - \rho_{ac}^2 - \rho_{bc}^2 + 2\rho_{ab}\rho_{ac}\rho_{bc}}{1 - \rho_{bc}^2},
+\end{equation}
+\begin{equation}
+\|u_d^{\perp}\|^2 = \frac{\det C(d, b, c)}{\det C(b, c)} = \frac{1 - \rho_{bc}^2 - \rho_{bd}^2 - \rho_{cd}^2 + 2\rho_{bc}\rho_{bd}\rho_{cd}}{1 - \rho_{bc}^2}.
+\end{equation}
+\end{itemize}
+Their product is therefore:
+\begin{equation}
+\|u_a^{\perp}\| \|u_d^{\perp}\| = \frac{\sqrt{\det C(a, b, c) \cdot \det C(d, b, c)}}{1 - \rho_{bc}^2} = \frac{\sqrt{D}}{1 - \rho_{bc}^2},
+\end{equation}
+where $D = \det C(a, b, c) \cdot \det C(d, b, c)$. The algebraic quantity $D$ is simply the product of the squared areas of the two hinged spherical faces!
+
+\subsection{Generalization to \texorpdfstring{$5 \times 5$}{5x5} and \texorpdfstring{$n \times n$}{nxn} Cases}
+This geometric interpretation generalizes naturally to arbitrary dimension $n$:
+\begin{itemize}[leftmargin=*]
+\item In an $n \times n$ correlation matrix where all entries are known except for a single entry $\rho_{1n} = \langle u_1, u_n \rangle$, the $n-2$ intermediate vectors $K = \{u_2, \dots, u_{n-1}\}$ span an $(n-2)$-dimensional subspace in $\R^n$.
+\item Vectors $u_1$ and $u_n$ are hinged along this $(n-2)$-dimensional subspace. The only free parameter is the dihedral angle $\phi \in [0, \pi]$ between their orthogonal components.
+\item The bound on $\rho_{1n}$ takes the universal geometric form:
+\begin{equation}
+\boxed{
+\left| \rho_{1n} - \langle u_1^{\parallel}, u_n^{\parallel} \rangle \right| \leq \frac{\sqrt{\det C(1, K) \cdot \det C(K, n)}}{\det C(K)}
+}
+\end{equation}
+where $u_1^{\parallel}, u_n^{\parallel}$ denote the orthogonal projections onto $\operatorname{span}(K)$, and $C(K)$ is the principal submatrix of the conditioning assets $K = \{2, \dots, n-1\}$.
+\end{itemize}
+In statistical terms, this normalized difference is precisely the \textbf{full partial correlation} with respect to all intermediate variables:
+\begin{equation}
+\rho_{1n \cdot K} = \frac{\rho_{1n} - \langle u_1^{\parallel}, u_n^{\parallel} \rangle}{\|u_1^{\perp}\| \|u_n^{\perp}\|} = \cos \phi \in [-1, 1].
+\end{equation}
+
+For $5 \times 5$ ($n=5$), the three conditioning assets span a 3-dimensional volume in $\R^5$, and the two remaining unit vectors define a 4-dimensional spherical simplex rotating around that 3D volume. The maximum and minimum correlations correspond to the simplex being folded flat ($\phi = 0$) or unfolded flat ($\phi = \pi$) in $\R^4$.
 
 \end{document}
