@@ -45,8 +45,49 @@ Taking the ratios of consecutive Tribonacci numbers we find this pattern:
  $\lim_{n \to \infty} \frac{t_{n+1}}{t_{n}} = \frac{1}{3} \cdot \left( 1 + \sqrt[3]{19 + 3 \sqrt{33}} +
  \sqrt[3]{19 - 3 \sqrt{33}} \right) $
 
-Proof
-TODO
+\begin{proof}
+Dividing the Tribonacci recurrence relation $t_{n+1} = t_n + t_{n-1} + t_{n-2}$ by $t_n$ gives:
+\begin{equation*}
+\frac{t_{n+1}}{t_n} = 1 + \frac{t_{n-1}}{t_n} + \frac{t_{n-2}}{t_n} = 1 + \frac{1}{\frac{t_n}{t_{n-1}}} + \frac{1}{\frac{t_n}{t_{n-1}} \cdot \frac{t_{n-1}}{t_{n-2}}}
+\end{equation*}
+Assuming the limit $L = \lim_{n \to \infty} \frac{t_{n+1}}{t_n}$ exists and is positive, taking limits on both sides yields:
+\begin{equation*}
+L = 1 + \frac{1}{L} + \frac{1}{L^2}
+\end{equation*}
+Multiplying through by $L^2$ gives the characteristic polynomial:
+\begin{equation*}
+L^3 - L^2 - L - 1 = 0
+\end{equation*}
+To solve $x^3 - x^2 - x - 1 = 0$ using Cardano's method, we first depress the cubic by substituting $x = y + \frac{1}{3}$:
+\begin{align*}
+\left(y + \frac{1}{3}\right)^3 - \left(y + \frac{1}{3}\right)^2 - \left(y + \frac{1}{3}\right) - 1 &= 0 \\
+\left(y^3 + y^2 + \frac{1}{3}y + \frac{1}{27}\right) - \left(y^2 + \frac{2}{3}y + \frac{1}{9}\right) - \left(y + \frac{1}{3}\right) - 1 &= 0 \\
+y^3 - \frac{4}{3}y - \frac{38}{27} &= 0
+\end{align*}
+This is in the standard depressed cubic form $y^3 + py + q = 0$ with $p = -\frac{4}{3}$ and $q = -\frac{38}{27}$. The Cardano discriminant is:
+\begin{equation*}
+\Delta = \left(\frac{q}{2}\right)^2 + \left(\frac{p}{3}\right)^3 = \left(-\frac{19}{27}\right)^2 + \left(-\frac{4}{9}\right)^3 = \frac{361}{729} - \frac{64}{729} = \frac{297}{729} = \frac{33}{81} > 0
+\end{equation*}
+Since $\Delta > 0$, the equation has one real root and two complex conjugate roots. Applying Cardano's formula:
+\begin{align*}
+y &= \sqrt[3]{-\frac{q}{2} + \sqrt{\Delta}} + \sqrt[3]{-\frac{q}{2} - \sqrt{\Delta}} \\
+  &= \sqrt[3]{\frac{19}{27} + \frac{3\sqrt{33}}{27}} + \sqrt[3]{\frac{19}{27} - \frac{3\sqrt{33}}{27}} \\
+  &= \frac{1}{3}\left(\sqrt[3]{19 + 3\sqrt{33}} + \sqrt[3]{19 - 3\sqrt{33}}\right)
+\end{align*}
+Substituting back $x = y + \frac{1}{3}$, the unique real root $\alpha$ is:
+\begin{equation*}
+\alpha = \frac{1}{3}\left(1 + \sqrt[3]{19 + 3\sqrt{33}} + \sqrt[3]{19 - 3\sqrt{33}}\right) \approx 1.839286755
+\end{equation*}
+Let $\beta, \gamma$ be the remaining two complex conjugate roots. By Vieta's formulas, $\alpha \beta \gamma = 1$, so:
+\begin{equation*}
+|\beta|^2 = |\beta||\gamma| = \beta \gamma = \frac{1}{\alpha} < 1 \implies |\beta| = |\gamma| = \frac{1}{\sqrt{\alpha}} \approx 0.737 < 1
+\end{equation*}
+Since $\alpha > 1 > |\beta| = |\gamma|$, $\alpha$ is strictly the dominant root. Using the general closed-form solution $t_n = c_1 \alpha^n + c_2 \beta^n + c_3 \gamma^n$ with $c_1 \neq 0$:
+\begin{equation*}
+\lim_{n \to \infty} \frac{t_{n+1}}{t_n} = \lim_{n \to \infty} \frac{c_1 \alpha^{n+1} + c_2 \beta^{n+1} + c_3 \gamma^{n+1}}{c_1 \alpha^n + c_2 \beta^n + c_3 \gamma^n} = \alpha
+\end{equation*}
+which completes the proof.
+\end{proof}
 \end{theorem}
 
 
